@@ -1,0 +1,12 @@
+[25-Jul-2022 06:31:21 UTC] PHP Deprecated:  Required parameter $mNab follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 162
+[25-Jul-2022 06:31:21 UTC] PHP Deprecated:  Required parameter $mTow follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 162
+[25-Jul-2022 06:31:21 UTC] PHP Deprecated:  Required parameter $mNab follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 261
+[25-Jul-2022 06:31:21 UTC] PHP Deprecated:  Required parameter $mTow follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 261
+[25-Jul-2022 06:35:00 UTC] PHP Deprecated:  Required parameter $mNab follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 162
+[25-Jul-2022 06:35:00 UTC] PHP Deprecated:  Required parameter $mTow follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 162
+[25-Jul-2022 06:35:00 UTC] PHP Deprecated:  Required parameter $mNab follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 261
+[25-Jul-2022 06:35:00 UTC] PHP Deprecated:  Required parameter $mTow follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 261
+[14-Sep-2022 10:46:04 UTC] PHP Deprecated:  Required parameter $mNab follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 802
+[14-Sep-2022 10:46:04 UTC] PHP Deprecated:  Required parameter $mTow follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 802
+[14-Sep-2022 10:46:04 UTC] PHP Deprecated:  Required parameter $mNab follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 898
+[14-Sep-2022 10:46:04 UTC] PHP Deprecated:  Required parameter $mTow follows optional parameter $mSessionZone in /home4/spreoasz/managequote.in/V4/application/models/Vendor_model.php on line 898
