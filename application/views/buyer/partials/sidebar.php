@@ -103,8 +103,10 @@
                         if ($home == "feedback") {
                             echo "active";
                         }
-                        ?>"><a href="<?php echo base_url('buyer/vendor/feedback'); ?>">Feedback</a></li>
-                        <?php } ?>
+                        ?>">
+                            <a href="<?php echo base_url('buyer/vendor/feedback'); ?>">Feedback</a>
+                        </li>
+                    <?php } ?>
 
                 </ul>
             </li>  

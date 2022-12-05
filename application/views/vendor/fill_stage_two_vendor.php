@@ -1451,25 +1451,25 @@
                                                                 </tr>-->
                                                                 <tr>
                                                                     <td>Turnover (In Crores)*</td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[0]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[1]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[2]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_turnover[]" value="<?php echo $mTurn[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Profits before Taxes (In Crores)*</td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[0]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[1]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[2]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits[]" value="<?php echo $mProfits[3]; ?>"></td>
 
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Profits after Taxes (In Crores)*</td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[0]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[1]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[2]; ?>"></td>
-                                                                    <td><input required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" required="" <?php echo $disable; ?> type="number" name="stv_profits_tax[]" value="<?php echo $mProfitsTax[3]; ?>"></td>
                                                                 </tr> 
 
                                                                 <tr>

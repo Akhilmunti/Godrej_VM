@@ -59,7 +59,16 @@
                                         ?>
                                         <div class="col-md-4">
                                             <?php if ($protype == "1") { ?>
-                                                <a href="<?php echo base_url('buyer/vendor/shortlistingProcurement/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $record['package_selected_id'] . "/" . "1"); ?>">
+                <!--                                                <a href="<?php echo base_url('buyer/vendor/shortlistingProcurement/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $record['package_selected_id'] . "/" . "1"); ?>">
+                                                                <div class="box primary-gradient">
+                                                                    <div class="box-body p-30 text-center text-white">                                        
+                                                                        <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                <?php echo $record['name']; ?>
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                            </a>-->
+                                                <a href="#" data-toggle="modal" data-target="#modal-right-<?php echo $record['package_selected_id']; ?>">
                                                     <div class="box primary-gradient">
                                                         <div class="box-body p-30 text-center text-white">                                        
                                                             <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
@@ -68,6 +77,49 @@
                                                         </div>
                                                     </div>
                                                 </a>
+                                                <!-- Modal -->
+                                                <div class="modal modal-right fade" id="modal-right-<?php echo $record['package_selected_id']; ?>" tabindex="-1">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title"><?php echo $record['name']; ?></h5>
+                                                                <button type="button" class="close" data-dismiss="modal">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <a href="<?php echo base_url('buyer/vendor/shortlistingProcurement/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $record['package_selected_id'] . "/" . "1"); ?>">
+                                                                            <div class="box primary-gradient">
+                                                                                <div class="box-body p-10 text-center text-white">                                        
+                                                                                    <h5>
+                                                                                        Shortlisting
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-12">
+                                                                        <a href="#">
+                                                                            <div class="box primary-gradient">
+                                                                                <div class="box-body p-10 text-center text-white">                                        
+                                                                                    <h5>
+                                                                                        Award Recommendation
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer modal-footer-uniform">
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal -->
                                             <?php } else { ?>
                                                 <a href="#" data-toggle="modal" data-target="#modal-right-2">
                                                     <div class="box primary-gradient">
@@ -163,9 +215,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h4>
-                            Comes under RFQ Process
-                        </h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a href="#">
+                                    <div class="box primary-gradient">
+                                        <div class="box-body p-10 text-center text-white">                                        
+                                            <h5>
+                                                Award Recommendation
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer modal-footer-uniform">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

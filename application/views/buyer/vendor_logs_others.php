@@ -25,12 +25,12 @@
                     <!-- Main content -->
                     <section class="content">
 
-                        <!-- Content Header (Page header) -->	  
+                        <!-- Content Header (Page header) -->
                         <div class="content-header">
                             <div class="row">
                                 <div class="col-md-12">
                                     <h3 class="page-title br-0">
-                                        Vendor Logs 
+                                        Vendor Logs
                                     </h3>
                                     <!--                                    <br>
                                                                         <span class="mr-3"><?php echo $zone; ?></span>-->

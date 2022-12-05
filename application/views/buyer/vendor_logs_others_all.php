@@ -43,9 +43,15 @@
                                     <div class="box-body pb-0">
                                         <form method="POST" action="<?php echo base_url('buyer/vendor/viewAllVendorLogsFilter'); ?>">
                                             <div class="row mb-2">
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
+                                                    <label for="zone">Zone*</label>
                                                     <select required="" id="zone" name="zone" class="form-control">
                                                         <option selected="" disabled="" value="">Select Zone</option>
+                                                        <option <?php
+                                                        if ($zone == "All") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="All">All</option>
                                                         <option <?php
                                                         if ($zone == "NCR") {
                                                             echo 'selected';
@@ -78,26 +84,65 @@
                                                         ?> value="South">South</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
+                                                    <label for="project">Project</label>
                                                     <select id="project" name="project" class="form-control">
-                                                        <option>Select Project</option>
+                                                        <option selected="" disabled="" value="">Select Project</option>
+                                                        <option <?php
+                                                        if ($project == "All") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="All">All</option>
+                                                        <?php foreach ($projects as $key => $value) { ?>
+                                                            <option <?php
+                                                            if ($project == $value['project_id']) {
+                                                                echo 'selected';
+                                                            }
+                                                            ?> value="<?php echo $value['project_id']; ?>"><?php echo $value['project_name']; ?></option>
+                                                            <?php } ?>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
+                                                    <label for="status">Current Status</label>
                                                     <select id="status" name="status" class="form-control">
                                                         <option disabled="" value="" selected="">Current Status</option>
-                                                        <option value="1">Open</option>
-                                                        <option value="0">Closed</option>
+                                                        <option <?php
+                                                        if ($status == "All") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="All">All</option>
+                                                        <option <?php
+                                                        if ($status == "1") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="1">Open</option>
+                                                        <option <?php
+                                                        if ($status == "0") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="0">Closed</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                                <div class="col-md-2">
+                                                    <label for="from">From</label>
+                                                    <input value="<?php echo $from; ?>" class="form-control" type="date" name="from" id="from" />
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label for="to">To</label>
+                                                    <input value="<?php echo $to; ?>" class="form-control" type="date" name="to" id="to" />
+                                                </div>
+                                                <div class="col-md-2 text-right">
+                                                    <button class="btn btn-primary mt-4" type="submit">
+                                                        Submit
+                                                    </button>
                                                 </div>
                                             </div>
                                         </form>
+                                        
+                                        <hr>
 
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                            <table id="example-btns" class="table table-striped table-bordered" style="width:100%">
                                                 <thead class="bg-primary">
                                                     <tr>
                                                         <th>SL No</th>
@@ -214,7 +259,7 @@
 
         <script>
             $('#zone').change(function () {
-                $.post("<?php echo base_url('home/getProjectsByZone'); ?>",
+                $.post("<?php echo base_url('home/getProjectsByZoneForVendorLogs'); ?>",
                         {
                             id: this.value,
                         },

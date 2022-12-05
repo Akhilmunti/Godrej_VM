@@ -39,7 +39,7 @@ class Vendorlog_model extends CI_Model {
             return false;
         }
     }
-    
+
     public function getParentByProjectAndZone($param1, $param2) {
         $mSessionKey = $this->session->userdata('session_id');
         $this->db->select('*');
@@ -77,25 +77,36 @@ class Vendorlog_model extends CI_Model {
             return false;
         }
     }
-    
-    public function getAllParentByFilter($mZone = null, $mProject = null, $mStatus = null) {
+
+    public function getAllParentByFilter($mZone = null, $mProject = null, $mStatus = null, $mFrom = null, $mTo = null) {
         $this->db->select('*');
         $this->db->from($this->table_parent);
-        if($mZone){
+        if ($mZone != "All") {
             $this->db->where('vl_zone', $mZone);
         }
-        if($mProject){
+        if ($mProject != "All") {
             $this->db->where('vl_project', $mProject);
         }
-        if($mStatus){
-            $this->db->where('vl_status_toggle', $mStatus);
+        if ($mStatus == 0 && $mStatus != "All") {
+            $this->db->where('vl_status_toggle', 0);
+        } elseif ($mStatus == 1 && $mStatus != "All") {
+            $this->db->where('vl_status_toggle', 1);
+        }
+        if ($mFrom) {
+            $this->db->where('DATE(vl_date_added) >=', date('Y-m-d', strtotime($mFrom)));
+        }
+        if ($mTo) {
+            $this->db->where('DATE(vl_date_added) <=', date('Y-m-d', strtotime($mTo)));
         }
         $this->db->join('projects', 'projects.project_id = vendor_logs.vl_project');
         $this->db->join('typeofwork', 'typeofwork.id = vendor_logs.vl_package');
-        //$this->db->join('registration', 'registration.id = vendor_logs.vl_vendor');
         $this->db->order_by('vl_id', 'DESC');
         $data = array();
         $mQuery_Res = $this->db->get();
+        
+        //echo $this->db->last_query();
+        //exit;
+        
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;

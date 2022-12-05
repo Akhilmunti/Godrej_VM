@@ -179,6 +179,21 @@ class Home extends CI_Controller {
         }
     }
 
+    public function getProjectsByZoneForVendorLogs() {
+        $id = $this->input->post('id');
+        if ($id) {
+            $getTypeOfWork = $this->project->getAllParentByZone($id);
+            $result = '<option disabled="" selected="" value="" disabled="">Select Project</option>';
+            $result = '<option value="All">All</option>';
+            foreach ($getTypeOfWork as $key => $getType) {
+                $result = $result . "<option value='" . $getType['project_id'] . "'>" . $getType['project_name'] . "</option>" . PHP_EOL;
+            }
+            echo $result;
+        } else {
+            echo "<option>No data</option>";
+        }
+    }
+
     public function getLocationId() {
         $id = $this->input->post('id');
         $getInterestedZones = $this->Register->getInterestedZone($id);

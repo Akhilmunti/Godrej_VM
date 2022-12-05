@@ -1803,7 +1803,15 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
             $mZone = $this->input->post('zone');
             $mProject = $this->input->post('project');
             $mStatus = $this->input->post('status');
-            $data['records'] = $this->vendorlog->getAllParentByFilter($mZone, $mProject, $mStatus);
+            $mFrom = $this->input->post('from');
+            $mTo = $this->input->post('to');
+            $data['records'] = $this->vendorlog->getAllParentByFilter($mZone, $mProject, $mStatus, $mFrom, $mTo);
+            $data['zone'] = $mZone;
+            $data['project'] = $mProject;
+            $data['status'] = $mStatus;
+            $data['from'] = $mFrom;
+            $data['to'] = $mTo;
+            $data['projects'] = $this->projects->getAllParentByZone($mZone);
             $this->load->view('buyer/vendor_logs_others_all', $data);
         } else {
             $this->load->view('index', $data);

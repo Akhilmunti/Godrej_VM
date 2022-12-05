@@ -281,16 +281,20 @@
                                                                         <?php echo $mRecord['financial_categorizarion']; ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php if ($scoretype == "PQ" || $scoretype == "All") { ?>
-                                                                            <a target="_blank" href="<?php echo base_url('buyer/vendor/editPqcScore/' . $mRecord['pq_id'] . "/" . $mRecord['vendor_id']); ?>" class="btn btn-<?php
-                                                                            if ($mRecord['pq_score'] >= 50) {
-                                                                                echo 'primary';
-                                                                            } else {
-                                                                                echo 'danger';
-                                                                            }
-                                                                            ?> btn-block btn-xs mb-2">
-                                                                                View : <?php echo $mRecord['tow_name']; ?> </br> Score : <?php echo $mRecord['pq_score']; ?>
-                                                                            </a>
+                                                                        <?php if ($mRecord['fb_score'] == "-" || $mRecord['fb_score'] == "") { ?>
+                                                                            <?php if ($scoretype == "PQ" || $scoretype == "All") { ?>
+                                                                                <a target="_blank" href="<?php echo base_url('buyer/vendor/editPqcScore/' . $mRecord['pq_id'] . "/" . $mRecord['vendor_id']); ?>" class="btn btn-<?php
+                                                                                if ($mRecord['pq_score'] >= 50) {
+                                                                                    echo 'primary';
+                                                                                } else {
+                                                                                    echo 'danger';
+                                                                                }
+                                                                                ?> btn-block btn-xs mb-2">
+                                                                                    View : <?php echo $mRecord['tow_name']; ?> </br> Score : <?php echo $mRecord['pq_score']; ?>
+                                                                                </a>
+                                                                            <?php } ?>
+                                                                        <?php } else { ?>
+                                                                            -
                                                                         <?php } ?>
                                                                     </td>
                                                                     <td>

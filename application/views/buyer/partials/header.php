@@ -20,7 +20,7 @@
     <!-- weather weather -->
     <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor_components/weather-icons/weather-icons.css">	
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap4.min.css">
+
 
     <!-- daterange picker -->	
     <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor_components/bootstrap-daterangepicker/daterangepicker.css">
@@ -48,6 +48,9 @@
 
     <!-- Select2 -->
     <link rel="stylesheet" href="<?php echo base_url('assets/'); ?>vendor_components/select2/dist/css/select2.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.bootstrap4.min.css">
 
 
 </head>

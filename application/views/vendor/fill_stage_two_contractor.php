@@ -1589,53 +1589,53 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Total Assets (In Crores)*</td>
-                                                                    <td><input class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[0]; ?>" <?php echo $disable; ?>></td>
-                                                                    <td><input class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[1]; ?>" <?php echo $disable; ?>></td>
-                                                                    <td><input class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[2]; ?>" <?php echo $disable; ?>></td> 
-                                                                    <td><input class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[3]; ?>" <?php echo $disable; ?>></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[0]; ?>" <?php echo $disable; ?>></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[1]; ?>" <?php echo $disable; ?>></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[2]; ?>" <?php echo $disable; ?>></td> 
+                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[3]; ?>" <?php echo $disable; ?>></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Current Assets (In Crores)*</td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[0]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[1]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[2]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Total Liabilities (In Crores)*</td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[0]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[1]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[2]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Current Liabilities (In Crores)*</td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[0]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[1]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[2]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Turnover (In Crores)*</td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[0]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[1]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[2]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Profits before Taxes (In Crores)*</td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[0]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[1]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[2]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[3]; ?>"></td>
 
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Profits after Taxes (In Crores)*</td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[0]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[1]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[2]; ?>"></td>
-                                                                    <td><input class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[3]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[0]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[1]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[2]; ?>"></td>
+                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[3]; ?>"></td>
                                                                 </tr> 
 
                                                                 <tr>

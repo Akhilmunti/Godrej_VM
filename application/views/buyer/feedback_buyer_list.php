@@ -133,7 +133,7 @@
                                                         $mFormRecord = $this->feedbackforms->getParentByTypeAndFeedbackId($record['feedback_id']);
 
                                                         $mAllFormRecord = $this->feedbackforms->getAllParentByTypeAndFeedbackId($record['feedback_id']);
-                                                        
+
                                                         if (!empty($mFormRecord)) {
                                                             $mFormRecordDate = strtotime($mFormRecord['ff_date_added']);
                                                             $mFormRecordDate = date("d-m-Y H:i:s", $mFormRecordDate);
@@ -186,6 +186,8 @@
                                                         } else {
                                                             $mFeedbackScore = "-";
                                                         }
+
+                                                        $mProjectName = $this->projects->getParentByPurchaseOrg($record['feedback_purchase']);
                                                         ?>
                                                         <tr>
                                                             <td>
@@ -209,7 +211,13 @@
                                                             <?php echo $record['feedback_zone']; ?>
                                                             </td>-->
                                                             <td>
-                                                                <?php echo $mPurchaseOrg['porg_company_name']; ?>
+                                                                <?php
+                                                                if ($mProjectName['project_name']) {
+                                                                    echo $mProjectName['project_name'];
+                                                                } else {
+                                                                    echo $mPurchaseOrg['porg_company_name'];
+                                                                }
+                                                                ?>
                                                             </td>
                                                             <td>
                                                                 <?php if ($mFeedbackScore == "-") { ?>
@@ -250,15 +258,15 @@
                                                                     foreach ($mFormRecord as $key => $mFfRecord) {
                                                                         $mTotalScore += $mFfRecord['ff_final_score'];
                                                                         ?>
-                                                                                                                                                <tr>
-                                                                                                                                                    <td>
+                                                                                                                                                    <tr>
+                                                                                                                                                        <td>
                                                                         <?php echo $mFfRecord['ff_project']; ?>
-                                                                                                                                                    </td>
+                                                                                                                                                        </td>
 
-                                                                                                                                                    <td>
+                                                                                                                                                        <td>
                                                                         <?php echo $mFfRecord['ff_final_score']; ?>
-                                                                                                                                                    </td>
-                                                                                                                                                </tr>
+                                                                                                                                                        </td>
+                                                                                                                                                    </tr>
                                                                     <?php } ?>
                                                                                                     </tbody>
                                                                                                     <tfoot>

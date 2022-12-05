@@ -124,6 +124,23 @@ class Projects_model extends CI_Model {
             return false;
         }
     }
+    
+    public function getParentByPurchaseOrg($param) {
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        $this->db->where('project_purchase', $param);
+        //$this->db->join('categories', 'categories.category_key = article.category_key');
+        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
+        //$this->db->order_by("article.article_id");
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->row_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
 
     public function getParentByProjectNameAndOrg($project, $org) {
         $this->db->select('*');

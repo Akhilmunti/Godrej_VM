@@ -113,6 +113,11 @@
                                                         } else {
                                                             $mFeedbackScore = "-";
                                                         }
+                                                        
+                                                        $mProjectName = $this->projects->getParentByPurchaseOrg($record['feedback_purchase']);
+                                                        
+                                                        //print_r($mProjectName);
+                                                        
                                                         ?>
                                                         <tr>
                                                             <td>
@@ -200,7 +205,13 @@
                                                             <?php echo $record['feedback_zone']; ?>
                                                             </td>-->
                                                             <td>
-                                                                <?php echo $mPurchaseOrg['porg_company_name']; ?>
+                                                                <?php 
+                                                                if ($mProjectName['project_name']) {
+                                                                    echo $mProjectName['project_name'];
+                                                                } else {
+                                                                    echo $mPurchaseOrg['porg_company_name'];
+                                                                }
+                                                                ?>
                                                             </td>
                                                             <td>
                                                                 <?php if ($mFeedbackScore == "-") { ?>
