@@ -9,7 +9,6 @@
         font-size: 13px;
     }
 </style>
-
 <body class="hold-transition light-skin sidebar-mini theme-blueindigo onlyheader">
 
     <div class="wrapper">
@@ -48,7 +47,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3>Draft IOM</h3>
+                                <h3>Procurement IOM</h3>
                             </div>
                             <!-- <div class="col-lg-6 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -77,30 +76,8 @@
 
                                     ?>
 
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <a href="#">
-                                                <button type="button" style="width:100%;" class="btn btn-primary rounded">Create IOM</button>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <a href="#">
-                                                <button type="button" style="width:100%;" class="btn btn-primary rounded">IOM Reports</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <?php $this->load->view('nfa/award_recomm_listing'); ?>
-                        
-                                   <!-- <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class='form-group'>
-                                                <label>NFA Type</label>
-
-                                                <?php echo $nfa_select; ?>
-
-                                            </div>
-                                        </div>
-                                    </div> -->
+                                    <?php $this->load->view('nfa/award_recomm_listing'); ?>                        
+                                  
 
                                     <div class="table-responsive">
                                         <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">

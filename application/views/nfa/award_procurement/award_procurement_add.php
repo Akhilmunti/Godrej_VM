@@ -554,6 +554,7 @@
                                 <div class="row text-right mt-20">
                                     <input type="hidden" name="project_id" id="project_id" value="<?php echo $project_id ?>">
                                     <input type="hidden" name="type_work_id" id="type_work_id" value="<?php echo $type_work_id ?>">
+                                    <input type="hidden" name="zone" id="zone" value="<?php echo $zone ?>">
                                     <input type="hidden" name="subject_hd" id="subject_hd">
                                     <input type="hidden" id="base" value="<?php echo base_url(); ?>">
                                     <div class="col-lg-12">

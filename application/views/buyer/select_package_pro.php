@@ -217,7 +217,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="#">
+                            <a href='<?php  echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/$type") ?>'>
                                     <div class="box primary-gradient">
                                         <div class="box-body p-10 text-center text-white">                                        
                                             <h5>

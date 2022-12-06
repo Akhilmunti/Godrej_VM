@@ -14,8 +14,7 @@ class Award_procurement_model extends CI_Model {
         $CI->load->library('session');
 		$this->load->model('common_model', 'common');
         $this->table_parent = 'award_recomm_procurement_salient';
-	    //$mSessionKey = $this->session->userdata('session_id');
-		//echo "session".$mSessionKey;
+	   
     }
 
     function addParent($data) {
@@ -167,7 +166,73 @@ class Award_procurement_model extends CI_Model {
 		return $data;
 	
     }
-	public function getProcurementData($awdType=null,$project_id=null,$nfaStatus=null,$zone=null) {
+	public function getProcurementData($awdType=null,$project_id=null,$nfaStatus=null,$zone=null)
+	{
+
+		$mSessionKey = $this->session->userdata('session_id');
+		$tbl = "award_recomm_procurement_salient AWDContractSalient ";
+		
+		
+		$data = "AWDContractSalient.*,AWDTypeofwork.name as package_name,AWDProjects.project_name as project_name,AWDSynopsLbl.synopsis_label as synopsis_label";
+		
+		$joins[]=array("table"=>"award_recomm_procurement_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
+		$joins[]=array("table"=>"typeofwork AWDTypeofwork ","condition"=>"AWDTypeofwork.id = AWDContractSalient.type_work_id","type"=>'inner');
+		$joins[]=array("table"=>"projects AWDProjects ","condition"=>"AWDProjects.project_id = AWDContractSalient.project_id","type"=>'inner');
+
+		if($nfaStatus!="Cancelled" && $nfaStatus!="Returned")
+		{
+			$joins[]=array("table"=>"award_recomm_procurement_status AWDContractStatus ","condition"=>"AWDSynopsLbl.salient_id = AWDContractStatus.salient_id","type"=>'inner');
+		}
+		//$where = array('initiated_by'=>$mSessionKey,'status'=>'0','nfa_status!='=>'C');
+		if($project_id)
+		{
+			$where['AWDContractSalient.project_id']= $project_id;
+		}
+		if($nfaStatus)
+		{
+			if($nfaStatus=="Approved")
+				$where['nfa_status']= 'A';
+			else if($nfaStatus=="Pending")
+				$where['status']= '0';
+			else if($nfaStatus=="Initiated")
+			{	
+				$where['status']= 1;
+				$where['approved_status']= 0;
+				$where['nfa_status !=']= 'R';
+				$where['nfa_status !=']= 'RT';
+			}
+			else if($nfaStatus=="Draft")
+			{
+				$where['status']= 0;
+				$where['nfa_status !=']= 'C';
+				$or_where['nfa_status=']= 'RT';
+			}
+			else if($nfaStatus=="Returned")
+			{
+				$where['status']= 1;
+				$where['nfa_status']= 'R';
+			}
+			else if($nfaStatus=="Cancelled")
+			{
+				
+				$where['status']= 0;
+				$where['nfa_status']= 'C';
+				
+
+			}
+		}
+		if($zone)
+		{
+			$where['zone']= $zone;
+		}
+		$group_by = "AWDContractSalient.id";
+		$order_by='id DESC';
+		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);
+		//print_r($this->db->last_query());  
+		return $data;
+	
+    }
+	/*public function getProcurementData($awdType=null,$project_id=null,$nfaStatus=null,$zone=null) {
 		$mSessionKey = $this->session->userdata('session_id');
 		$tbl = "award_recomm_procurement_salient AWDContractSalient ";
 		
@@ -228,7 +293,7 @@ class Award_procurement_model extends CI_Model {
 		//print_r($this->db->last_query());  
 		return $data;
 	
-    }
+    } */
 	//Get All nfa by initiator
 	 public function getAllNfa() {
 		$mSessionKey = $this->session->userdata('session_id');
