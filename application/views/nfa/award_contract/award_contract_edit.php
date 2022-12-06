@@ -1204,9 +1204,12 @@ $this->load->view('buyer/partials/header'); ?>
 	function validate_receipt_date(){
 		let receipt_date = $("#receipt_date").val();
 		let activity_cbe_date = $("#activity_cbe_date").val();
-	
-		if(receipt_date!='' && activity_cbe_date!='')
-			return validate_greater_date(receipt_date, activity_cbe_date);
+		var total_finalized_val = parseFloat(document.getElementById("total_finalized_award_value").value);
+		//console.log("greater"+total_finalized_val)
+		if (total_finalized_val > 3) {
+			if(receipt_date!='' && activity_cbe_date!='')
+				return validate_greater_date(receipt_date, activity_cbe_date);
+		}
 	}
 
 		// adding award synopsis dynamic column

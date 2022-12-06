@@ -190,9 +190,17 @@ class Award_recomm_contract_model extends CI_Model {
 			{	
 				$where['status']= 1;
 				$where['approved_status']= 0;
-				$where['nfa_status !=']= 'R';
+				/*$where['nfa_status !=']= 'R';
 				$where['nfa_status !=']= 'RT';
-				$where['nfa_status !=']= 'A';
+				$where['nfa_status !=']= 'A';*/
+				$status_arr = array('R','RT');
+				//$status_str = implode(", ",$status_arr);
+				$status_str = " ( '" . implode( "', '" , $status_arr ) . "' )";
+				//echo "str".$status_str;
+				//exit;
+				//$where = array('nfa_status not in'=>(),'status'=>'0','nfa_status!='=>'C');
+				//$where['nfa_status not in ']=  $status_str;
+				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status  !='=>'A');
 			}
 			/*else if($nfaStatus=="Initiated")
 			{	
@@ -217,9 +225,20 @@ class Award_recomm_contract_model extends CI_Model {
 				
 				$where['status']= 0;
 				$where['nfa_status']= 'C';
-				
-
+			
 			}
+			else if($nfaStatus=="Amended")
+			{
+				
+				$where['status']= 1;
+				$where['nfa_status']= 'AMD';
+			
+			}
+		}
+		else
+		{
+			if($mSessionRole!="PCM")
+				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status'=>'A' );
 		}
 		if($zone)
 		{

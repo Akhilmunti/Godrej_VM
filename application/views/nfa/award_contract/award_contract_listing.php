@@ -196,6 +196,19 @@
                                                                 <?php 
                                                                 }
                                                                 ?>
+                                                                 <?php if ($mSessionRole == "PCM") { ?>
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/amend_nfa/'. $record['id']); ?>">
+                                                                        <button type="button" class="btn btn-danger rounded ml-2 buttonPadding">Ammend</button>
+                                                                    </a>
+                                                                <?php }
+                                                                
+                                                                if ($mSessionRole != "PCM") { 
+                                                                ?>
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
+                                                                        <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Esign</button>
+                                                                    </a>
+                                                                <?php 
+                                                                }?>
                                                                 <a href="<?php echo base_url('nfa/Award_contract/view_logs/'. $record['id']); ?>">
                                                                     <button type="button" class="btn btn-primary rounded buttonPadding ml-2">IOM Logs</button>
                                                                 </a>
