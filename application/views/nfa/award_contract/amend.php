@@ -43,18 +43,11 @@
 
                 <section class="content">
 
-                    <!-- <div class="content-header">
-                        <div class="d-flex align-items-center">
-                            <div class="d-block">
-                                <h3 class="page-title br-0">Ammend NFA - LD Waiver</h3>
-                            </div>
-                        </div>
-                    </div> -->
-
+                   
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h3 class="page-title br-0">Ammend NFA - Award Recommendation for Contracts</h3>
+                                <h3 class="page-title br-0">Ammend IOM - Award Recommendation for Contracts</h3>
                             </div>
                             <div class="col-lg-3 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -69,7 +62,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ENFA NO</th>
-                                        <th scope="col">NFA Status</th>
+                                        <th scope="col">IOM Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,7 +75,7 @@
                                 </tbody>
                             </table>
                             <div class="d-block mt-4 mb-4">
-                                <h5 class="page-title br-0 font-weight-bold">Ammend NFA with Remarks(Optional)</h5>
+                                <h5 class="page-title br-0 font-weight-bold">Ammend IOM with Remarks(Optional)</h5>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -94,7 +87,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-12 text-right">
-                                        <button type="submit" class="btn btn-primary border-secondary font-weight-bold" name="amend">Ammend NFA</button>
+                                        <button type="submit" class="btn btn-primary border-secondary font-weight-bold" name="amend">Ammend IOM</button>
                                 </div>
                             </div>
 								</form>

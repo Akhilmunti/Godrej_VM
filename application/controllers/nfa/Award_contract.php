@@ -1505,19 +1505,7 @@ class Award_contract extends ListNfa
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
-				/* $amendData = array(
-						
-						'amended_by' => $mSessionKey,
-						'amended_remarks' => $this->input->post('amended_remarks'),
-						'amended_date' => date('Y-m-d H:i:s')
-						
-					);
-				$param = array('salient_id' => $mId,
-						'approver_id' => $mSessionKey
-						);	
-				$mUpdate = $this->nfaAction->updateData($param, $amendData,"award_contract"); */
-				//if ($mUpdate) {
-				//echo "updated";
+				
 				$nfadata = array(
 				
 				'nfa_status' => 'AMD',
@@ -1527,11 +1515,14 @@ class Award_contract extends ListNfa
 									
 			);
 				$mUpdateSalient = $this->awardRecommContract->updateParentByKey($mId, $nfadata);
-				//exit;
+				$mRecord = $this->awardRecommContract->getParentByKey($mId);
+				$project_id = $mRecord['project_id'];
+				$type_work_id = $mRecord['type_work_id'];
+				$zone = $mRecord['zone'];
 				if($mUpdateSalient)
 				{
 					$this->session->set_flashdata('success', 'IOM amended successfully.');
-					redirect('nfa/Award_contract/approved_nfa');
+					redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
 				} else {
 					$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 					redirect('nfa/Award_contract/amended_nfa/' . $mId);

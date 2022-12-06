@@ -168,7 +168,10 @@
                                                                                
                                                                                 $approver_name = $getUser[0]->buyer_name;
                                                                             }
-                                                                            echo $approver_name; ?> -<?php echo ($valLevel['approved_status']==0) ? "Pending" : "Approved"; 
+                                                                           
+                                                                            echo $approver_name; ?> - <?php 
+                                                                            if($approver_id!=0)
+                                                                                echo ($valLevel['approved_status']==0 ) ? "Pending" : "Approved"; 
                                                                             echo "(Level - ".$level.")<br>";
                                                                         }
 
@@ -196,7 +199,7 @@
                                                                 <?php 
                                                                 }
                                                                 ?>
-                                                                 <?php if ($mSessionRole == "PCM") { ?>
+                                                                 <?php if ($mSessionRole == "PCM" && $record['nfa_status']=='A') { ?>
                                                                     <a href="<?php echo base_url('nfa/Award_contract/amend_nfa/'. $record['id']); ?>">
                                                                         <button type="button" class="btn btn-danger rounded ml-2 buttonPadding">Ammend</button>
                                                                     </a>
