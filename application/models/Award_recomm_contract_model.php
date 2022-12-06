@@ -228,7 +228,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$group_by = "AWDContractSalient.id";
 		$order_by='id DESC';
 		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);
-		print_r($this->db->last_query());  
+		//print_r($this->db->last_query());  
 		return $data;
 	
     }
