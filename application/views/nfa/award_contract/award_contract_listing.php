@@ -116,15 +116,11 @@
                                             <tbody class='text-center'>
                                                 <?php if (!empty($records)) {
 
-                                                   
+                                                   //print_r($records);
                                                     $CI=&get_instance();
                                                     foreach ($records as $key => $record) {
                                                         $mCount++;
-                                                          // if ($record['nfa_status'] == "RT")
-                                                        //     $nfa_status =  "Returned for text correction";
-                                                        // else
-                                                        //     $nfa_status = "Pending";
-
+                                                        
                                                         $salient_id=$record['id'];
                                                         $mRecordLevelsObj = $CI->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract","view");
 				                                        $mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
@@ -153,7 +149,7 @@
 
                                                             <td>
                                                                 <p class="badge badge-primary">
-                                                                    <?php //echo ($record['nfa_status'] == 'A') ? "Approved" : "Pending"; ?>
+                                                                  
                                                                     <?php 
                                                                       
                                                                         foreach ($mRecordLevels as $keyLevel => $valLevel) {
@@ -188,7 +184,7 @@
                                                                 <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
                                                                     <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
                                                                 </a>
-                                                                <?php if($mSessionRole=="PCM")
+                                                                <?php if($mSessionRole=="PCM" && $record['status']==0)
                                                                  { ?>
                                                                     <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
                                                                         <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>

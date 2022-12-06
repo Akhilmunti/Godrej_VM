@@ -192,6 +192,7 @@ class Award_recomm_contract_model extends CI_Model {
 				$where['approved_status']= 0;
 				$where['nfa_status !=']= 'R';
 				$where['nfa_status !=']= 'RT';
+				$where['nfa_status !=']= 'A';
 			}
 			/*else if($nfaStatus=="Initiated")
 			{	

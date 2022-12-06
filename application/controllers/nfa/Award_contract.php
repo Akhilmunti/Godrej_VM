@@ -1455,10 +1455,14 @@ class Award_contract extends ListNfa
 											
 					);
 						$mUpdateSalient = $this->awardRecommContract->updateParentByKey($mId, $nfadata);
-						//exit;
+						$mRecord = $this->awardRecommContract->getParentByKey($mId);
+						$project_id = $mRecord['project_id'];
+						$type_work_id = $mRecord['type_work_id'];
+						$zone = $mRecord['zone'];
 						if ($mUpdateSalient) {
 							$this->session->set_flashdata('success', 'IOM Cancelled  successfully.');
-							redirect('nfa/Award_contract/award_recomm_contract_list');
+							//redirect('nfa/Award_contract/award_recomm_contract_list');
+							redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
 						}
 						else {
 							$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
