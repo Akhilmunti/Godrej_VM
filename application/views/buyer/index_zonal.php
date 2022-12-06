@@ -311,7 +311,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-lg-6 text-center mb-2">
-                                                    <a href="#" class="btn btn-block btn-primary">
+                                                    <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/');?>" class="btn btn-block btn-primary">
                                                         <span>
                                                             Award IOM
                                                         </span>

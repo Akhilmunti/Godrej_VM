@@ -28512,3 +28512,21 @@ button.btn.dropdown-toggle:after {
     min-width: 200px;
     max-width: 200px
 }
+
+.background-green{
+    background-color: #28a745 !important;
+    color: #fff;
+}
+
+.background-red{
+    background-color: #dc3545 !important;
+    color:#fff;
+}
+
+.background-pq{
+    background-color: #FFECEF !important ;
+}
+
+.background-feedback{
+    background-color: #DFF6FF !important;
+}

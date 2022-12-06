@@ -138,7 +138,7 @@
                                                                     </a>
                                                                 </div>
                                                                 <div class="col-md-12">
-                                                                    <a href="#">
+                                                                    <a href='<?php  echo base_url("nfa/Award_contract/award_recomm_contract_list/{$project['project_id']}/$zone/$type") ?>'>
                                                                         <div class="box primary-gradient">
                                                                             <div class="box-body p-2 text-center text-white">                                        
                                                                                 <h5>
