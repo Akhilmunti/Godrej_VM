@@ -200,7 +200,7 @@ class Award_recomm_contract_model extends CI_Model {
 				//exit;
 				//$where = array('nfa_status not in'=>(),'status'=>'0','nfa_status!='=>'C');
 				//$where['nfa_status not in ']=  $status_str;
-				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status  !='=>'A');
+				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status  !='=>'A','nfa_status   !='=>'AMD');
 			}
 			/*else if($nfaStatus=="Initiated")
 			{	
@@ -238,13 +238,16 @@ class Award_recomm_contract_model extends CI_Model {
 		else
 		{
 			if($mSessionRole!="PCM")
-				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status'=>'A' );
+			{
+				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status     !='=>'AMD' );
+				$or_where['nfa_status=']= 'A';
+			}
 		}
 		if($zone)
 		{
 			$where['zone']= $zone;
 		}
-
+		$where['status !=']= 2;
 		$group_by = "AWDContractSalient.id";
 		$order_by='id DESC';
 		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);

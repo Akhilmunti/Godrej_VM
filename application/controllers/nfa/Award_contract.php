@@ -978,8 +978,10 @@ class Award_contract extends ListNfa
 							}
 							else
 							{
-								
-								$this->session->set_flashdata('success', 'IOM added successfully.');
+								if($mSavingStatus==0)
+									$this->session->set_flashdata('success', 'IOM added successfully.');
+								else if($mSavingStatus==1)
+									$this->session->set_flashdata('success', 'IOM submitted for approval.');
 								redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
 							}
                         } else {

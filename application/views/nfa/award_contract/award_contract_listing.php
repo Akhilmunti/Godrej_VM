@@ -180,32 +180,53 @@
                                                             </td>
                                                           
 
-                                                           <?php /* <td>
-                                                                <p ><?php echo $nfa_status; ?></p>
-                                                            </td> <?php */?>
+                                                          
                                                             <td>
                                                                 <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
                                                                     <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
                                                                 </a>
                                                                 <?php if($mSessionRole=="PCM" && $record['status']==0)
-                                                                 { ?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
-                                                                        <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                 { 
+                                                                    if($record['nfa_status']=='AMD')
+                                                                    { ?>
+                                                                       <a href="<?php echo base_url('nfa/Award_contract/actionEdit/'. $record['id']."/AMD"); ?>">
+                                                                       <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Edit</button>
+                                                                       </a>
+                                                                    <?php 
+                                                                     }
+                                                                   
+                                                                    else
+                                                                    {
+                                                                    ?>
+                                                                        <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
+                                                                            <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                        </a>
+                                                                    <?php 
+                                                                    }
+                                                                ?>
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/cancel/' . $record['id']); ?>">
+                                                                        <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Cancel</button>
                                                                     </a>
                                                                
-                                                                <a href="<?php echo base_url('nfa/Award_contract/cancel/' . $record['id']); ?>">
-                                                                    <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Cancel</button>
-                                                                </a>
+                                                                
                                                                 <?php 
                                                                 }
+                                                               
+                                                                if($mSessionRole == "PCM" && $record['status']!=0 && $record['nfa_status']=='R')
+                                                                { 
                                                                 ?>
-                                                                 <?php if ($mSessionRole == "PCM" && $record['nfa_status']=='A') { ?>
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']."/RF"); ?>">
+                                                                    <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Refloat</button>
+                                                                    </a>
+                                                                <?php 
+                                                                }
+                                                                if ($mSessionRole == "PCM" && $record['nfa_status']=='A') { ?>
                                                                     <a href="<?php echo base_url('nfa/Award_contract/amend_nfa/'. $record['id']); ?>">
                                                                         <button type="button" class="btn btn-danger rounded ml-2 buttonPadding">Ammend</button>
                                                                     </a>
                                                                 <?php }
                                                                 
-                                                                if ($mSessionRole != "PCM") { 
+                                                                if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
                                                                 ?>
                                                                     <a href="<?php echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
                                                                         <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Esign</button>
