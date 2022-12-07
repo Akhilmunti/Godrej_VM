@@ -1,4 +1,8 @@
 <?php
+define("NFA_FROM_EMAIL", "abhinandmp@datatemplate.com");
+define("NFA_REPLYTO_EMAIL", "poojasm@datatemplate.com");
+define("NFA_RETURN_PATH", "abhinandmp@datatemplate.com");
+
 function single_File_Upload($mId, $mFile) {
 		$ci =& get_instance();
         $config['upload_path'] = './uploads/';
@@ -49,20 +53,19 @@ function  removeEmptyValues(array &$array){
 }
 
 //Send mail while submit NFA
-function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id=null,$approver=null,$sender=null,$mail_url=null) {
+function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id=null,$approver=null,$approver_mail=null,$sender=null,$mail_url=null) {
 		
-		$msg = "First line of text\nSecond line of text";
+		
 		$mSubject=strip_tags($mSubject);
 
-		// use wordwrap() if lines are longer than 70 characters
-		$msg = wordwrap($msg,70);
-
+		
 		// send email
 		
-		 $to = "sreenavc@datatemplate.com";
-		 echo $to;
+		 //$to = "sreenavc@datatemplate.com";
+		 $to = $approver_mail;
+		 //echo $to;
 				
-		 $subject = "NFA for Approval: $mSubject: $package_value_mail ";
+		 $subject = "IOM for Approval: $mSubject: $package_value_mail ";
 		 
 		 $message = "";
 		 $message .= '<!doctype html>
@@ -70,7 +73,7 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>NFA MAIL</title>
+    <title>IOM MAIL</title>
     <meta name="description" content="Email Template.">
     <style type="text/css">
         a:hover {text-decoration: underline !important;}
@@ -117,7 +120,7 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
                                         </p>
 
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-                                            A new Note for Approval (NFA) has been initiated for '."$mSubject vide $version_id".' .
+                                            A new Note for Approval (IOM) has been initiated for '."$mSubject vide $version_id".' .
                                         </p>
 
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
@@ -158,10 +161,15 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 
 </html>';
 		 
-		 $header = "From:abhinandmp@datatemplate.com \r\n";
+		 /*$header = "From:abhinandmp@datatemplate.com \r\n";
 		 $headers .= "Reply-To: poojasm@datatemplate.com\r\n";
-		 $headers .= "Return-Path: abhinandmp@datatemplate.com\r\n";
-		 $header .= "Cc:abhinandmp@datatemplate.com \r\n";
+		 $headers .= "Return-Path: abhinandmp@datatemplate.com\r\n";*/
+		 $header = "From:".NFA_FROM_EMAIL." \r\n";
+		 $headers .= "Reply-To: ".NFA_REPLYTO_EMAIL."\r\n";
+		 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
+
+
+		
 		 $header .= "MIME-Version: 1.0\r\n";
 		 $header .= "Content-type: text/html\r\n";
 		 
@@ -186,7 +194,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 		 {
 			 $to = $val;
 			 
-			 if($key==0)
+			 /*if($key==0)
 				 $to = "sreenavc@datatemplate.com";
 			 else if($key==1)
 				 $to = "abhinandmp@datatemplate.com";
@@ -195,14 +203,14 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 else if($key>=3)
 				 $to = "pramodvb@datatemplate.com";
 			 else
-				 $to = "sreenavc@datatemplate.com";
+				 $to = "sreenavc@datatemplate.com";*/
 			 
 			
 			 $receiver = $key;
 			
 			 if($mail_type=="LowLevels")
 			 {
-				$subject = "NFA Approved: $mSubject: $package_value_mail ";
+				$subject = "IOM Approved: $mSubject: $package_value_mail ";
 				$content = '   <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA Approved: '.$mSubject.':' .$package_value_mail.'</h1>
 				<span
 					style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
@@ -212,16 +220,16 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 				</p>
 
 				<p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-					Note for Approval (NFA) submitted for '."$mSubject vide $version_id".' has been approved by '.$sender.
+					Note for Approval (IOM) submitted for '."$mSubject vide $version_id".' has been approved by '.$sender.
 				'</p>
 
 				<p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-					Please click the below link to View the NFA.
+					Please click the below link to View the IOM.
 				</p>';
 			 }
 			 else if($mail_type=="returnLowLevels")
 			 {
-				$subject = "NFA Returned: $mSubject: $package_value_mail ";
+				$subject = "IOM Returned: $mSubject: $package_value_mail ";
 				$content = '    <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA Returned: '.$mSubject.':' .$package_value_mail.'</h1>
 				<span
 					style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
@@ -241,7 +249,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 }
 			 else if($mail_type=="approver_123")
 			 {
-				$subject = "NFA for Approval: $mSubject: $package_value_mail ";
+				$subject = "IOM for Approval: $mSubject: $package_value_mail ";
 				$content = '   <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA for Approval: '.$mSubject.':' .$package_value_mail.' </h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
@@ -251,11 +259,11 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
                                         </p>
 
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-                                            A new Note for Approval (NFA) has been initiated for '."$mSubject vide $version_id".' .
+                                            A new Note for Approval (IOM) has been initiated for '."$mSubject vide $version_id".' .
                                         </p>
 
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-                                            Please click the below link to View & perform actions (viz. Approve / Return) on the NFA.
+                                            Please click the below link to View & perform actions (viz. Approve / Return) on the IOM.
                                         </p>';
 			 }
 			$message = "";
@@ -264,7 +272,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 
 			<head>
 				<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-				<title>NFA MAIL</title>
+				<title>IOM MAIL</title>
 				<meta name="description" content="Email Template.">
 				<style type="text/css">
 					a:hover {text-decoration: underline !important;}
@@ -338,10 +346,14 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 
 			</html>';
 				 
-			 $header = "From:abhinandmp@datatemplate.com \r\n";
+			 /*$header = "From:abhinandmp@datatemplate.com \r\n";
 			 $headers .= "Reply-To: poojasm@datatemplate.com\r\n";
-			 $headers .= "Return-Path: abhinandmp@datatemplate.com\r\n";
-			 $header .= "Cc:abhinandmp@datatemplate.com \r\n";
+			 $headers .= "Return-Path: abhinandmp@datatemplate.com\r\n";*/
+
+			 //$header .= "Cc:abhinandmp@datatemplate.com \r\n";
+			 $header = "From:".NFA_FROM_EMAIL." \r\n";
+			 $headers .= "Reply-To: ".NFA_REPLYTO_EMAIL."\r\n";
+			 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
 			 $header .= "MIME-Version: 1.0\r\n";
 			 $header .= "Content-type: text/html\r\n";
 			 

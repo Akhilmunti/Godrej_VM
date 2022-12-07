@@ -259,7 +259,7 @@ class Award_contract extends ListNfa
 			//Getting Package Value
 			
 			$package_value_mail = $total_post_basic_rate;
-			$mail_url  = $this->config->item('base_url').'nfa/Award_contract/initiated_nfa';
+			$mail_url  = $this->config->item('base_url').'nfa/ListNfa/award_recomm_list';
 			if($save_status=="")
 				$save_status = $this->input->post('submit');
 			
@@ -639,10 +639,11 @@ class Award_contract extends ListNfa
 								$buyer = $this->buyer->getParentByKey($approver_id);
 								
 								$approver =   $buyer['buyer_name'];
+								$approver_mail =   $buyer['buyer_email'];
 								$sender =   $this->session->userdata('session_name');
 								
 								
-								$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$sender,$mail_url);
+								$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
 								
 							}
 						}
@@ -916,20 +917,7 @@ class Award_contract extends ListNfa
 							$term_index++;
 												
 						}
-						/*foreach($term as $keyTerm=>$valTerm)
-						{
-							$nfaMajorTermData = array(
-							'salient_id' => $mInsert,
-							'term' => $valTerm,
-							'term_label_value' => $term_label_value[$keyTerm],
-							'created_date' => date('Y-m-d H:i:s')
-							);
-							//print_r($uploadData);
-							//Insert Major Term data
-							$mInsertMajorTerm = $this->awardRecommContract->addMajorTerm($nfaMajorTermData);
-						}*/
-						//exit;
-								
+						
 								//Insert Approvers
 							
 								$isExistApprover=$this->awardRecommContract->checkApproverDelete($mInsert);
@@ -944,7 +932,7 @@ class Award_contract extends ListNfa
 									'salient_id' => $mInsert,
 									'approver_id' => $approver_id,
 									'approver_level' => $approver_level,
-									//'approved_date' => date('Y-m-d H:i:s'),
+									
 									'created_date' => date('Y-m-d H:i:s')
 																									
 									);
@@ -959,10 +947,11 @@ class Award_contract extends ListNfa
 										
 										//print_r($this->session->userdata);
 										$approver =   $buyer['buyer_name'];
+										$approver_mail =   $buyer['buyer_email'];
 										$sender =   $this->session->userdata('session_name');
 										
 										
-										$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$sender,$mail_url);
+										$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
 										
 									}
 								}
@@ -1604,47 +1593,30 @@ class Award_contract extends ListNfa
 				$initiator =   $buyer['buyer_name'];
 				$sender =   $this->session->userdata('session_name');
 				$subject = $mRecord['subject'];
-				//$package_value_mail = $mRecordAwdContract['post_basic_rate_package1'];
+				
 				$package_value_mail = $mRecord['total_post_basic_rate'];
 				$version_id = $mRecord['version_id'];
 				$approver_level = $mRecord['approver_level'];
 				$mail_user[$initiator] = $buyer['buyer_email'];
 				if($approver_level>1)
 				{
-					//echo "level";
+					
 					$mRecordUsers = $this->nfaAction->get_low_level_users($mId,$approver_level,"award_contract");
 					foreach ($mRecordUsers as $key => $val) {
 						$buyer_name = $val['buyer_name'];
 						$mail_user[$buyer_name] = $val['buyer_email'];
 					}
-					//print_r($mRecordUsers);
+					
 					
 				}
 				
-				//echo $str_mail_user = implode(",",$mail_user);
-				//exit;
+				
 				$mail_url  = $this->config->item('base_url').'nfa/Award_contract/view_nfa/'.$mId;
 				//send mail to level below
 				//$mail_type = "LowLevels";
-				//$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,'',$mail_type);
+				
 				$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,$returned_remarks,$mail_type);
-				/* $mRecord = $this->awardRecommContract->getParentByKey($mId);
-				$initiated_by = $mRecord['initiated_by'];
-				$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($mId);
-				$buyer = $this->buyer->getParentByKey($initiated_by);
-							
-				//print_r($this->session->userdata);
-				$initiator =   $buyer['buyer_name'];
-				$sender =   $this->session->userdata('session_name');
-				$subject = $mRecord['subject'];
-				$package_value_mail = $mRecordAwdContract['post_basic_rate_package1'];
-				$version_id = $mRecord['version_id'];
-				$mail_url  = $this->config->item('base_url').'nfa/Award_contract//view_nfa/'.$mId;
-				//send mail to level below
-				//$mail_type = "LowLevels";
-				$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$initiator,$sender,$mail_url,$returned_remarks,$mail_type); */
-				//echo "mail".$mail;
-				//exit;
+				
 		}
 	}
 	public function nfa_logs()

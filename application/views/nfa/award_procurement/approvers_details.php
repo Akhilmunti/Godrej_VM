@@ -82,7 +82,7 @@ foreach ($mRecordLevels as $key => $val) {
 																	<span class="font-weight-bold"><?php 
 																	
 																	
-																		echo "Returned NFA" ; ?></span>
+																		echo "Returned IOM" ; ?></span>
 																</div>
 
 																<div>
@@ -104,7 +104,7 @@ foreach ($mRecordLevels as $key => $val) {
 																	<span class="font-weight-bold"><?php 
 																	
 																	
-																		echo "Amended NFA" ; ?></span>
+																		echo "Amended IOM" ; ?></span>
 																</div>
 
 																<div>
@@ -147,7 +147,7 @@ foreach ($mRecordLevels as $key => $val) {
 				}
 				if ($val['returned_by'] != 0) {
 
-					echo "Returned NFA" . "<br>";
+					echo "Returned IOM" . "<br>";
 					echo "Remarks: " . $val['returned_remarks'] . "<br>";
 					echo "Returned Date: " . date("d-m-Y h:i:sa", strtotime($val['returned_date'])) . "<br>";
 					//$date=date_create($val['returned_date']);
@@ -155,7 +155,7 @@ foreach ($mRecordLevels as $key => $val) {
 				}
 				if ($val['amended_by'] != 0) {
 
-					echo "Amended NFA" . "<br>";
+					echo "Amended IOM" . "<br>";
 					echo "Remarks: " . $val['amended_remarks'] . "<br>";
 					echo "Amended Date: " . date("d-m-Y h:i:sa", strtotime($val['amended_date'])) . "<br>";
 				}

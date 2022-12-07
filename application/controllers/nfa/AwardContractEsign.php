@@ -101,7 +101,7 @@ $info = array(
 	);
 
 // set document signature
-$pdf->setSignature($certificate, $certificate, 'nfaAwardRecommendationForContracts', '', 2, $info);
+$pdf->setSignature($certificate, $certificate, 'iomAwardRecommendationForContracts', '', 2, $info);
 
 // set font
 $pdf->setFont('helvetica', '', 12);

@@ -188,19 +188,31 @@ class Award_procurement_model extends CI_Model {
 		{
 			$where['AWDContractSalient.project_id']= $project_id;
 		}
+		
 		if($nfaStatus)
 		{
 			if($nfaStatus=="Approved")
 				$where['nfa_status']= 'A';
+			/*else if($nfaStatus=="Pending")
+				$where['status']= '0';*/
 			else if($nfaStatus=="Pending")
-				$where['status']= '0';
-			else if($nfaStatus=="Initiated")
+			{	
+				$where['status']= 1;
+				$where['approved_status']= 0;
+				
+				$status_arr = array('R','RT');
+				//$status_str = implode(", ",$status_arr);
+				$status_str = " ( '" . implode( "', '" , $status_arr ) . "' )";
+				
+				$where = array('status'=>1,'approved_status'=>0,'nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status  !='=>'A','nfa_status   !='=>'AMD');
+			}
+			/*else if($nfaStatus=="Initiated")
 			{	
 				$where['status']= 1;
 				$where['approved_status']= 0;
 				$where['nfa_status !=']= 'R';
 				$where['nfa_status !=']= 'RT';
-			}
+			}*/
 			else if($nfaStatus=="Draft")
 			{
 				$where['status']= 0;
@@ -217,14 +229,30 @@ class Award_procurement_model extends CI_Model {
 				
 				$where['status']= 0;
 				$where['nfa_status']= 'C';
+			
+			}
+			else if($nfaStatus=="Amended")
+			{
 				
-
+				$where['status']= 1;
+				$where['nfa_status']= 'AMD';
+			
+			}
+		}
+		else
+		{
+			if($mSessionRole!="PCM")
+			{
+				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status     !='=>'AMD' );
+				$or_where['nfa_status=']= 'A';
 			}
 		}
 		if($zone)
 		{
 			$where['zone']= $zone;
 		}
+
+		
 		$group_by = "AWDContractSalient.id";
 		$order_by='id DESC';
 		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);
@@ -253,7 +281,7 @@ class Award_procurement_model extends CI_Model {
 			if($nfaStatus=="Approved")
 				$where['nfa_status']= 'A';
 			else if($nfaStatus=="Pending")
-				$where['status']= '0';
+				$where['status']= '1';
 			else if($nfaStatus=="Initiated")
 			{	
 				$where['status']= 1;

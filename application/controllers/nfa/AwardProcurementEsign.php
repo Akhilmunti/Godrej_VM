@@ -16,16 +16,18 @@ class AwardProcurementEsign extends Award_procurement {
         $this->load->helper(array('form', 'url','common_helper'));
         $this->load->library('form_validation');
 		$this->load->library('form_validation');
+		
         $this->load->library('pdf');
+		
         date_default_timezone_set("Asia/Kolkata");
         $this->load->model('buyer_model', 'buyer');
 		$this->load->model('common_model', 'common');
 		$this->load->model('nfa_action_model', 'nfaAction');
         $this->load->model('Award_procurement_model', 'awardRecommProcurement');
         $this->load->helper('date');
-        error_reporting(0);
-        //error_reporting(E_ALL);
-        //ini_set('display_errors', 1);
+		
+      
+		
     }
 
     public function esignedPdf($mId,$pgType='') {

@@ -57,7 +57,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h3>View NFA Logs - Award Recommendation for Procurement</h3>
+                                <h3>View IOM Logs - Award Recommendation for Procurement</h3>
                             </div>
                             <div class="col-lg-3 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -134,7 +134,7 @@
 											if($val['returned_by']!=0) 	
 											{	
 												
-												echo "Returned NFA"."<br>";
+												echo "Returned IOM"."<br>";
 												echo "Remarks: ".$val['returned_remarks']."<br>";
 												echo "Returned Date: ".date("d-m-Y h:i:sa",strtotime($val['returned_date']))."<br>";
 												//$date=date_create($val['returned_date']);
@@ -143,7 +143,7 @@
 											if($val['amended_by']!=0) 	
 											{	
 												
-												echo "Amended NFA"."<br>";
+												echo "Amended IOM"."<br>";
 												echo "Remarks: ".$val['amended_remarks']."<br>";
 												echo "Amended Date: ".date("d-m-Y h:i:sa",strtotime($val['amended_date']))."<br>";
 											}
@@ -163,7 +163,7 @@
                                         <div class="row mt-4">
                                             <div class="col-lg-12 text-center">
                                                 <a href="<?php echo base_url('nfa/AwardProcurementEsign/esignedPdf/' . $mId . "/E"); ?>" target="_blank">
-                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print NFA</button>
+                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print IOM</button>
                                                 </a>
                                             </div>
                                         </div>

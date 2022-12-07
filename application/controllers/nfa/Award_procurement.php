@@ -620,11 +620,11 @@ class Award_procurement extends ListNfa
 						
 						
 						if($mSavingStatus==0)
-							$this->session->set_flashdata('success', 'NFA updated successfully.');
+							$this->session->set_flashdata('success', 'IOM updated successfully.');
 						else
-							$this->session->set_flashdata('success', 'NFA submitted for approval.');
+							$this->session->set_flashdata('success', 'IOM submitted for approval.');
 						
-						redirect('nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id');
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 						
                     } else {
 						
@@ -876,17 +876,17 @@ class Award_procurement extends ListNfa
 								
 							if($updType=="RF")
 							{
-								echo $project_id;die(0);
+								
 								$nfadata = array(
 									'status' => 2);
 								$mUpdate = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-								$this->session->set_flashdata('success', 'NFA refloated successfully.');
+								$this->session->set_flashdata('success', 'IOM refloated successfully.');
 								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 							}
 							else
 							{
 								
-								$this->session->set_flashdata('success', 'NFA added successfully.');
+								$this->session->set_flashdata('success', 'IOM added successfully.');
 								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 							}
                         } else {
@@ -1150,9 +1150,15 @@ class Award_procurement extends ListNfa
 							$this->mail_details($mId, $returned_remarks,$mail_type);
 							
 						}
+						$mRecord = $this->awardRecommContract->getParentByKey($mId);
+						$project_id = $mRecord['project_id'];
+						$type_work_id = $mRecord['type_work_id'];
+						$zone = $mRecord['zone'];
+
 						
-						$this->session->set_flashdata('success', 'NFA Returned successfully.');
-						redirect('nfa/Award_procurement/initiated_nfa');
+						$this->session->set_flashdata('success', 'IOM Returned successfully.');
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_procurement/return_nfa/' . $mId);
@@ -1272,7 +1278,9 @@ class Award_procurement extends ListNfa
 							$initiator =   $buyer['buyer_name'];
 							$sender =   $this->session->userdata('session_name');
 							$subject = $mRecord['subject'];
-						
+							$project_id = $mRecord['project_id'];
+							$type_work_id = $mRecord['type_work_id'];
+							$zone = $mRecord['zone'];
 							$package_value_mail = $mRecord['total_post_basic_rate'];
 							$version_id = $mRecord['version_id'];
 							$approver_level = $mRecord['approver_level'];
@@ -1295,8 +1303,8 @@ class Award_procurement extends ListNfa
 							$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,'',$mail_type);
 							
 						}
-						$this->session->set_flashdata('success', 'NFA Approved successfully.');
-						redirect('nfa/Award_procurement/initiated_nfa');
+						$this->session->set_flashdata('success', 'IOM Approved successfully.');
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_procurement/approve/' . $mId);
@@ -1352,9 +1360,12 @@ class Award_procurement extends ListNfa
 											
 					);
 						$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-						
-						$this->session->set_flashdata('success', 'NFA Returned for text correction successfully.');
-						redirect('nfa/Award_procurement/initiated_nfa');
+						$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
+						$project_id = $mRecord['project_id'];
+						$type_work_id = $mRecord['type_work_id'];
+						$zone = $mRecord['zone'];
+						$this->session->set_flashdata('success', 'IOM Returned for text correction successfully.');
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_procurement/return_text/' . $mId);
@@ -1398,10 +1409,13 @@ class Award_procurement extends ListNfa
 											
 					);
 						$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-						//exit;
+						$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
+						$project_id = $mRecord['project_id'];
+						$type_work_id = $mRecord['type_work_id'];
+						$zone = $mRecord['zone'];
 						if ($mUpdateSalient) {
-							$this->session->set_flashdata('success', 'NFA Cancelled  successfully.');
-							redirect('nfa/Award_procurement/award_recomm_procurement_list');
+							$this->session->set_flashdata('success', 'IOM Cancelled  successfully.');
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 						}
 						else {
 							$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
@@ -1447,11 +1461,14 @@ class Award_procurement extends ListNfa
 									
 			);
 				$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-				//exit;
+				$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
+				$project_id = $mRecord['project_id'];
+				$type_work_id = $mRecord['type_work_id'];
+				$zone = $mRecord['zone'];
 				if($mUpdateSalient)
 				{
-					$this->session->set_flashdata('success', 'NFA amended successfully.');
-					redirect('nfa/Award_procurement/approved_nfa');
+					$this->session->set_flashdata('success', 'IOM amended successfully.');
+				redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 				} else {
 					$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 					redirect('nfa/Award_procurement/amended_nfa/' . $mId);
@@ -1654,7 +1671,7 @@ class Award_procurement extends ListNfa
 		/* file creation */
 		//$file = fopen('php:/* output*/','w'); 
 		$file = fopen("php://output", 'w');
-		$header = array("Sl. No","ENFA No.","Subject","Award Synopsis","NFA Status"); 
+		$header = array("Sl. No","ENFA No.","Subject","Award Synopsis","IOM Status"); 
 		//$records = array("Username1","Name1","Gender1","Email1"); 
 		$data1 = $this->input->post('data1');	
 		$records = json_decode($data1,true);

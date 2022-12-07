@@ -46,7 +46,7 @@
                     <!-- <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="d-block">
-                                <h3 class="page-title br-0">Approve NFA - LD Waiver</h3>
+                                <h3 class="page-title br-0">Approve IOM - LD Waiver</h3>
                             </div>
                         </div>
                     </div> -->
@@ -54,7 +54,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-10">
-                                <h3 class="page-title br-0">Approve NFA - Award Recommendation for Procurement</h3>
+                                <h3 class="page-title br-0">Approve IOM - Award Recommendation for Procurement</h3>
                             </div>
                             <div class="col-lg-2 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -69,7 +69,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ENFA NO</th>
-                                        <th scope="col">NFA Status</th>
+                                        <th scope="col">IOM Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -94,7 +94,7 @@
                                 </tbody>
                             </table>
                             <div class="d-block mt-4 mb-4">
-                                <h5 class="page-title br-0 font-weight-bold">Approve NFA with Remarks(Optional)</h5>
+                                <h5 class="page-title br-0 font-weight-bold">Approve IOM with Remarks(Optional)</h5>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -106,7 +106,7 @@
                             </div>
                             <div class="row mt-4">
                                 <div class="col-lg-12 text-right">
-                                    <button type="submit" name="approve" class="btn btn-primary border-secondary font-weight-bold">Approve NFA</button>
+                                    <button type="submit" name="approve" class="btn btn-primary border-secondary font-weight-bold">Approve IOM</button>
                                 </div>
                             </div>
 						</form>

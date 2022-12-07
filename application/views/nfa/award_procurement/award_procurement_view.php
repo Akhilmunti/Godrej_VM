@@ -128,7 +128,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h3>View NFA - Award Recommendation for Procurement</h3>
+                                <h3>View IOM - Award Recommendation for Procurement</h3>
                             </div>
                             <div class="col-lg-3 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -140,12 +140,12 @@
 
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a href="#">NFA Management</a>
+                                <a href="#">IOM Management</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">NFA - Award Recommendation</a>
+                                <a href="#">IOM - Award Recommendation</a>
                             </li>
-                            <li class="breadcrumb-item active">View NFA - Award Recommendation for Contracts</li>
+                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Contracts</li>
                         </ol>
 
                     </div>
@@ -163,7 +163,7 @@
                                 if ($mSessionRole != "PCM" && $pgType != 'A' && $pgType != 'C' && $pgType != 'E' && $preChkRecords == 1) { ?>
                                     <div class="col-lg-12 text-right">
                                         <a href="#" data-toggle="modal" data-target="#modal-right">
-                                            <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold">NFA Actions</button>
+                                            <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold">IOM Actions</button>
                                         </a>
                                     </div>
                                 <?php } ?>
@@ -806,7 +806,7 @@
                                         <div class="row mt-4">
                                             <div class="col-lg-12 text-center">
                                                 <a href="<?php echo base_url('nfa/AwardProcurementEsign/esignedPdf/' . $mId . "/E"); ?>" target="_blank">
-                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print NFA</button>
+                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print IOM</button>
                                                 </a>
                                             </div>
                                         </div>
