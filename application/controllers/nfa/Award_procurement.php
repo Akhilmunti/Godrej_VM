@@ -607,10 +607,11 @@ class Award_procurement extends ListNfa
 								$buyer = $this->buyer->getParentByKey($approver_id);
 								
 								$approver =   $buyer['buyer_name'];
+								$approver_mail =   $buyer['buyer_email'];
 								$sender =   $this->session->userdata('session_name');
 								
 								
-								$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$sender,$mail_url);
+								$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
 								
 							}
 						}
@@ -866,10 +867,11 @@ class Award_procurement extends ListNfa
 										
 										
 										$approver =   $buyer['buyer_name'];
+										$approver_mail =   $buyer['buyer_email'];
 										$sender =   $this->session->userdata('session_name');
 										
 										
-										$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$sender,$mail_url);
+										$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
 										
 									}
 								}
