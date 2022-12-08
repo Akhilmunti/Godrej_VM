@@ -470,7 +470,9 @@ function score_color(){
 		if(!isNaN(sum_bidder)) {
 			showPackage_L1();
 			showBidposition_bidders();
+			//calculateSum1();
 		}
+		
 	}
 	
 	//Function for showing the L1 Package in Green color
@@ -533,7 +535,7 @@ function score_color(){
 			
 		}//end of package
 		
-		
+		calculateSum1();
 	}
 	function get_minimumN(arr, n)
 	{
@@ -613,12 +615,11 @@ function score_color(){
 				$("#basis_award_package"+pck_ndex_basis).val("L"+basis_award_index);
 			}
 
-			
-			
+				
 			
 		
 		});
-	
+		calculateSum1();
 	}
 	
 		//remove duplicates
@@ -804,7 +805,7 @@ function showBidders_finalized(){
 	}
 	getBidders_total();
 	
-
+	
 }
 
 

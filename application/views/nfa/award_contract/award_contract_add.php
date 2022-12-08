@@ -266,7 +266,7 @@
                                             <tr class='text-center'>
                                                 <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
                                                 <td>
-                                                    <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1(this.id);" required>
+                                                    <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();" required>
                                                 </td>
 
                                                 <td><input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="" readonly></td>
@@ -377,8 +377,8 @@
                                             <tr id="package_row3" class='text-center'></tr>
                                             <tr class='text-center' id="totAmt_row">
                                                 <td class="page-title font-weight-bold">Total Amount</td>
-                                                <td><input type='text' onblur="getBidders_total();" class="form-control" name="total_amt_gpl" id="total_amt_gpl" readonly></td>
-                                                <td><input type='text' onblur="getBidders_total();" class="form-control" name="total_amt_bidder[]" id="total_amt_bidder1" readonly></td>
+                                                <td><input type='text' onblur="getBidders_total();calculateSum1();" class="form-control" name="total_amt_gpl" id="total_amt_gpl" readonly></td>
+                                                <td><input type='text' onblur="getBidders_total();calculateSum1();" class="form-control" name="total_amt_bidder[]" id="total_amt_bidder1" readonly></td>
                                             </tr>
                                             <tr class='text-center' id="bidPos_row">
                                                 <td colspan="2">Bid position</td>
@@ -836,7 +836,7 @@
 
             let _amnt_basic_rate = `<td><input type='text' class="form-control _amnt_basic_rate_td decimalStrictThreeClass onMouseOutClass" name="total_basic_rate_package[]" id="basic_rate" oninput="allowNumOnly(this);decimalStrictThree()" onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');"  value="" style="display:none ;" ></td>`;
 
-            let _anti_basic_rate = `<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1(this.id);"  class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required style="display:none ;" ></td>`;
+            let _anti_basic_rate = `<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required style="display:none ;" ></td>`;
 
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
@@ -922,7 +922,7 @@
                     let elementlength = $("#dyntable").find("thead").find("tr").find(`th`).length
 
                     $($("#dyntable").find("thead").find("tr").find("th")[elementlength - 1]).before(th)
-                    console.log("asdsadsa");
+                   
                     $($($("#dyntable").find("tbody").find("tr")[0]).find("td")[elementlength - 1]).before(budget_incl)
                     $($($("#dyntable").find("tbody").find("tr")[1]).find("td")[elementlength - 1]).before(negotiated_val)
                     
@@ -1054,7 +1054,7 @@
 
             let _pqfb = `<td><select id="score_type" style="width: 120px !important;" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onchange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
 
-            let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);getBidders_total();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1" required></td>`;
+            let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);getBidders_total();calculateSum1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1" required></td>`;
 
             
 
