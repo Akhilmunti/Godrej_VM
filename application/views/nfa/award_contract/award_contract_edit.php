@@ -550,7 +550,7 @@ $this->load->view('buyer/partials/header'); ?>
 													
 													$bidder_class = '';
 																									
-													$script_text = ' onblur="getBidders_total();changeToCr(this)"';
+													$script_text = ' onblur="getBidders_total();changeToCr(this);calculateSum1();"';
 													/*if(($id_index==1 && $bid_index==1) || ($id_index==2 && $bid_index==2) || ($id_index==3 && $bid_index==3))
 													 	$read_attr = "readonly";
 													else
@@ -1489,7 +1489,7 @@ $this->load->view('buyer/partials/header'); ?>
 
         let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
 		
-		let _package_bidder=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1"></td>`;
+		let _package_bidder=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();calculateSum1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1"></td>`;
 
      
         let _total_amt_label=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control total_amt_label_custom_td decimalStrictClass onMouseOutClass" name="total_amt_bidder[]" id="total_amt_bidder" readonly></td>`;

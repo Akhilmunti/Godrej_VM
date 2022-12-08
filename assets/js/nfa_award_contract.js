@@ -13,6 +13,8 @@ function checkL1_vendor(){
 	basis_award_package1 = $("#basis_award_package1").val();
 	if(basis_award_package1=="L1")
 		l1_vendor1 = "Y";
+	else
+		l1_vendor1 = "N";
 	if ( $( "#basis_award_package2" ).length ) {
 		basis_award_package2 = $("#basis_award_package2").val(); 
 		if(basis_award_package1=="L1" && basis_award_package2=="L1")
@@ -148,7 +150,7 @@ function packageSynopsis_total(inpField,outputField){
 //Calculate Sum for the  package
 
 function calculateSum1(){
-	
+	console.log("testing calcu");
 	var total_sum=0;
 	var total_expected_savings=0;
 	var sum=0;
@@ -181,7 +183,7 @@ function calculateSum1(){
 		sum_proposed+= parseFloat(finalized_award_value_package)+parseFloat(anticipated_rate);
 		
 		if(!isNaN(sum_proposed)) {
-			console.log("sum calculateb"+sum_proposed);
+			console.log("sum calculatetesting"+sum_proposed);
 			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
 		}
 		else
@@ -213,7 +215,7 @@ function calculateSum1(){
 	package_value= total_sum;
 	l1_vendor1 = checkL1_vendor();			
 	
-	
+	console.log("Livendor test"+l1_vendor1);
 	// Get max level of Approvers
 		
 	var url = base_url+'nfa/Award_contract/getMaxLevelApprovers';
