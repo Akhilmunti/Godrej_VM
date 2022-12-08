@@ -1,4 +1,6 @@
 <?php 
+header("Cache-Control: no cache");
+session_cache_limiter("private_no_expire");
 $mSessionRole = $this->session->userdata('session_role');
 
 ?>
@@ -40,25 +42,7 @@ $mSessionRole = $this->session->userdata('session_role');
     <?php } ?>
     
 </div>
-<?php /*
-<div class="row">
-    <?php if($mSessionRole=="PCM")
-    { ?>
-        <div class="col-lg-4">
-            <a href="<?php echo base_url('nfa/Award_contract/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id" ); ?>">
-                <button type="button" style="width:100%;" class="btn btn-primary rounded">Create IOM</button>
-            </a>
-        </div>
-    <?php 
-    }
-    ?>
-    <div class="col-lg-4">
-        <a href="<?php echo base_url('nfa/Award_contract/reports')?>">
-            <button type="button" style="width:100%;" class="btn btn-primary rounded">IOM Reports</button>
-        </a>
-    </div>
-</div>
-<?php */?>
+
 <form id="nfaForm" method="POST" action="<?php echo base_url('nfa/ListNfa/award_recomm_list'); ?>" >
 <div class="row mt-4">
 <?php 

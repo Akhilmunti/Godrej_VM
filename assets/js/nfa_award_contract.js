@@ -537,7 +537,7 @@ function score_color(){
 			
 		}//end of package
 		
-		calculateSum1();
+		//calculateSum1();
 	}
 	function get_minimumN(arr, n)
 	{
@@ -621,7 +621,7 @@ function score_color(){
 			
 		
 		});
-		calculateSum1();
+		//calculateSum1();
 	}
 	
 		//remove duplicates

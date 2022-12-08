@@ -870,16 +870,8 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<?php 
-										 	//print_r($mRecordPackage);
-										 	//foreach($mRecordPackage as $key=>$val)
-											//{	
-												
-											?><div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<?php
-											//if($mRecord['package_count']>=2)
-											//{
-											?><div style="width: 100%;" class="sec2 mr-2"><label>Package 2</label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
+											<div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label>Package 2</label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
 											<div style="width: 100%;" class="sec3 mr-2"><label>Package 3</label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
@@ -1019,7 +1011,7 @@ $this->load->view('buyer/partials/header'); ?>
 							 $level_max = sizeof($mRecordApprovers);
 							
 							 $getLevels = $CI->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract");
-							
+							 //print_r($getLevels);
 							 $result_maxLevel = '';
 							 $mSessionZone = $this->session->userdata('session_zone');
 							
