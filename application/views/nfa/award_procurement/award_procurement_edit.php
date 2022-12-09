@@ -142,7 +142,7 @@ $this->load->view('buyer/partials/header'); ?>
 					<div class="content-header">
                         <div class="row">
                             <div class="col-lg-9">
-								<h3 class="page-title br-0">Award Recommendation for Procurement | <?php echo ($updType=="RF") ? "Refloat" : "Edit" ?> NFA</h3>
+								<h3 class="page-title br-0">Award Recommendation for Procurement | <?php echo ($updType=="RF") ? "Refloat" : "Edit" ?> IOM</h3>
                             </div>
                             <div class="col-lg-3 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -180,6 +180,22 @@ $this->load->view('buyer/partials/header'); ?>
 									</div>
 								</div>
 							</div>
+							<div class="row">
+
+								<div class="col-lg-12">
+									<div class='form-group'>
+										<label class="font-weight-bold">Type of Procurement</label>
+										<select id="procurement_type" name="procurement_type" required=""  style="width:25%;" class="form-control">
+														<option value="">Select</option>
+														<option value="Cement" <?php echo ($mRecord['procurement_type']=="Cement") ? "selected" : "" ?>>Cement</option>
+														<option value="Aluminium" <?php echo ($mRecord['procurement_type']=="Aluminium") ? "selected" : "" ?>>Aluminium</option>
+														<option value="Steel" <?php echo ($mRecord['procurement_type']=="Steel") ? "selected" : "" ?>>Steel</option>
+														<option value="Others" <?php echo ($mRecord['procurement_type']=="Others") ? "selected" : "" ?>>Others</option>
+										</select>
+									</div>
+								</div>
+
+								</div>
 
                             <div class="table-responsive mt-4">
                                 <table id="tables" class="table table-bordered mb-0">
@@ -1166,6 +1182,9 @@ $this->load->view('buyer/partials/header'); ?>
 							
  
                             <div class="row text-right mt-20">
+							<input type="hidden" name="project_id" id="project_id" value="<?php echo $mRecord['project_id'] ?>">
+                            				<input type="hidden" name="type_work_id" id="type_work_id" value="<?php echo $mRecord['type_work_id']; ?>">
+							<input type="hidden" name="zone" id="zone" value="<?php echo $mRecord['zone']; ?>">
 							<input type="hidden" name="subject_hd" id="subject_hd">
 							<input type="hidden" class="form-control" placeholder="" name="nfa_status"  value="<?php echo $mRecord['nfa_status'] ?>">
 							<input type="hidden" class="form-control" placeholder="" name="updType"  value="<?php echo $updType; ?>">

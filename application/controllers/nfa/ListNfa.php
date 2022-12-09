@@ -256,6 +256,8 @@ class ListNfa extends CI_Controller {
             if($zone=='')
                 $zone= $hd_zone;
 
+
+
 			$data['awdType'] = $awdType;
 			$data['project_id'] = $project_id;
 			$data['nfaStatus'] = $nfaStatus;
@@ -268,7 +270,7 @@ class ListNfa extends CI_Controller {
            
 			if($awdType=="Procurement" || $hd_awdType=="Procurement")
 			{
-				$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$nfaStatus,$zone);
+				$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
 				$nfa_select = nfa_dropdown_draft("award_procurement");
 				$data['nfa_select'] = $nfa_select;
 
@@ -277,9 +279,8 @@ class ListNfa extends CI_Controller {
 			else if($awdType=="Contract" || $hd_awdType=="Contract")
 			{
                
-				$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$nfaStatus,$zone);
-				//$nfa_select = nfa_dropdown_draft("award_contract");
-				//$data['nfa_select'] = $nfa_select;
+				$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+				
 				$this->load->view('nfa/award_contract/award_contract_listing', $data);
 			}
             /*else

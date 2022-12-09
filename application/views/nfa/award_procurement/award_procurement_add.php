@@ -139,7 +139,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-9">
-                                <h3 class="page-title br-0">Award Recommendation for Procurement | Create NFA</h3>
+                                <h3 class="page-title br-0">Award Recommendation for Procurement | Create IOM</h3>
                             </div>
                             <div class="col-lg-3 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -172,9 +172,24 @@
 
                                 </div>
                                 
+                                <div class="row">
 
+                                <div class="col-lg-12">
+                                    <div class='form-group'>
+                                        <label class="font-weight-bold">Type of Procurement</label>
+                                        <select id="procurement_type" name="procurement_type" required=""  style="width:25%;" class="form-control">
+                                                        <option value="">Select</option>
+                                                        <option value="Cement">Cement</option>
+                                                        <option value="Aluminium">Aluminium</option>
+                                                        <option value="Steel">Steel</option>
+                                                        <option value="Others">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
 
-                                <div class="table-responsive mt-4">
+                                </div>
+
+                                <div class="table-responsive mt-2">
                                     <table id="tables" class="table table-bordered mb-0">
                                         <thead class="bg-primary">
                                             <tr class='text-center'>
@@ -241,40 +256,7 @@
 
                                                 <td><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>
                                             </tr>
-											<?php /*
-                                            <tr class='text-center'>
-                                                <td>Is there any basic rate item in tender</td>
-                                                <td>
-                                                    <input class="form-check-input" type="radio" name="group_1" id="packageRadiosYes1" value="yes">
-                                                    <label class="form-check-label font-weight-bold" for="packageRadiosYes1">
-                                                        Yes
-                                                    </label>
-                                                    <input class="form-check-input" type="radio" name="group_1" id="packageRadiosNo1" value="no" checked>
-                                                    <label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="packageRadiosNo1">
-                                                        No
-                                                    </label>
-
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
-                                            <tr class='text-center'>
-                                                <td>Total Amount of Basic Rate Items in Tender</td>
-                                                <td>
-                                                    <input id="basic_rate1" name="total_basic_rate_package[]" style="display:none ;" type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');" class="form-control">
-                                                </td>
-
-                                                <td><input type='text' class="form-control" name="total_basic_rate" id="total_basic_rate" value="" readonly></td>
-                                            </tr>
-                                            <tr class='text-center'>
-                                                <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
-                                                <td>
-                                                    <input id="anticipated_rate1" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' oninput="allowNumOnly(this)" class="form-control" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1_v1(this.id);" required>
-                                                </td>
-
-                                                <td><input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="" readonly></td>
-                                            </tr>
-											*/?>
+									
 											
                                             <tr class='text-center'>
                                                 <td>Proposed Award Value (Excl Tax)- Adjusted Awarded Value(Post Basic Rate Adjustment): <span class="font-weight-bold">SAP WO VALUE TO BE CREATED</span></td>
@@ -288,7 +270,7 @@
                                             <tr class='text-center'>
                                                 <td>Expected Savings w.r.t Budget incl.escalation:</td>
                                                 <td>
-                                                    <!-- <input type='text' oninput="allowNumOnly(this)" onblur="packageSynopsis_total('expected_savings_package','total_expected_savings');" class="form-control" name="expected_savings_package[]" id="expected_savings_package_v1" readonly> -->
+                                                   
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package_v1" readonly>
                                                 </td>
 

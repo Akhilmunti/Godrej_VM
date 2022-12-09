@@ -167,7 +167,8 @@ $pdf->writeHTML($text, true, 0, true, 0);
                             <td>ENFA NO : ' . $mRecord['version_id'] . '
 							<br>Initiator : '.$mRecord['buyer_name'].'
 							<br>Subject : ' . strip_tags($mRecord['subject']) . '
-							<br>Scope of Work : ' . strip_tags($mRecord['scope_of_work']) . '			
+							<br>Scope of Work : ' . strip_tags($mRecord['scope_of_work']) . '	
+							<br>Type of Procurement : '.$mRecord['procurement_type'].'		
 							</td>                           
                         </tr> 
                     </tbody>

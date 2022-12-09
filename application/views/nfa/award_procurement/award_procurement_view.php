@@ -145,7 +145,7 @@
                             <li class="breadcrumb-item">
                                 <a href="#">IOM - Award Recommendation</a>
                             </li>
-                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Contracts</li>
+                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Procurement</li>
                         </ol>
 
                     </div>
@@ -193,6 +193,10 @@
                                 
                                 <h5 style="margin-bottom: -2px;">
                                     <span class="font-weight-bold">Scope of Work</span> : <span class="font-size-14"><?php echo strip_tags($mRecord['scope_of_work']); ?></span>
+                                </h5>
+                                <hr class='hr-bold-line' />
+                                <h5 style="margin-bottom: -2px;">
+                                    <span class="font-weight-bold">Type of Procurement</span> : <span class="font-size-14"><?php echo ($mRecord['procurement_type']); ?></span>
                                 </h5>
 
                             </div>

@@ -101,46 +101,7 @@ class Award_procurement extends ListNfa
         }
     }
 	
-	/* public function actionEdit_old($mId,$updType='') {
-		
-        $mSessionKey = $this->session->userdata('session_id');
-        if ($mSessionKey) {
-            $data['home'] = "users";
-            if ($mId) {
-                $mRecord = $this->awardRecommProcurement->getParentByKey($mId);
-				//print_r($mRecord);
-				$salient_id = $mRecord['id'];
-				$mRecordPackage = $this->awardRecommProcurement->get_award_procurement_package_data($salient_id);
-				//print_r($mRecordPackage);
-				//Get Final Bid Data
-				$mRecordFinalBidders = $this->awardRecommProcurement->getFinalBidders($salient_id);
-				
-				$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($salient_id);
-				//print_r($mRecordAwdContract);
-				// $mRecordAppointment = $this->awardRecommProcurement->getAppointment_dates($mId);
-				$mRecordMajorTerms = $this->awardRecommProcurement->getMajorTerms($mId);
-				//print_r($mRecordUploads);
-			
-				$mRecordApprovers = $this->awardRecommProcurement->get_level_approvers($mId); 
-				
-                $data['mRecord'] = $mRecord;
-				$data['mRecordPackage'] = $mRecordPackage;
-				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
-				$data['mRecordAwdContract'] = $mRecordAwdContract;
-				// $data['mRecordAppointment'] = $mRecordAppointment;
-				$data['mRecordMajorTerms'] = $mRecordMajorTerms;
-				$data['mRecordApprovers'] = $mRecordApprovers; 
-				$data['updType'] = $updType;
-				
-                $this->load->view('nfa/award_procurement/award_procurement_edit', $data);
-            } else {
-                redirect('nfa/awardRecommProcurement');
-            }
-        } else {
-            $this->load->view('index', $data);
-        }
-    }
-	*/
+	
 	public function actionSave($mId = null) {
 		
         $mSessionKey = $this->session->userdata('session_id');
@@ -172,6 +133,7 @@ class Award_procurement extends ListNfa
 			$type_work_id = $this->input->post('type_work_id');
 			$subject = $this->input->post('subject_hd');
 			$scope_of_work = $this->input->post('scope_of_work');
+			$procurement_type = $this->input->post('procurement_type');
 			$zone = $this->input->post('zone');
 			
 			$ho_approval = $this->input->post('ho_approval');
@@ -366,6 +328,7 @@ class Award_procurement extends ListNfa
 							'type_work_id' => $type_work_id,
                             'subject' => $subject,
 							'scope_of_work'=>$scope_of_work,
+							'procurement_type'=>$procurement_type,							
 							'zone'=>$zone,
 							'package_count' => $package_count,
 							'bidder_count' => $bidder_count,
@@ -640,6 +603,7 @@ class Award_procurement extends ListNfa
 							'type_work_id' => $type_work_id,
                             'subject' => $subject,
 							'scope_of_work'=>$scope_of_work,
+							'procurement_type'=>$procurement_type,	
 							'zone'=>$zone,
 							'package_count' => $package_count,
                             'bidder_count' => $bidder_count,
@@ -961,7 +925,7 @@ class Award_procurement extends ListNfa
 			$data['hd_type_work_id'] = $type_work_id;
 			$data['projects'] = $this->projects->getAllParent();
 			$awdType = "Procurement";
-			$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,'',$zone);
+			$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$type_work_id,'',$zone);
 			
 			// print_r($data);
             $this->load->view('nfa/award_procurement/award_recomm_procurement_list', $data);

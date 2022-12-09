@@ -21,6 +21,7 @@ class Award_contract extends ListNfa
 		$this->load->model('nfa_action_model', 'nfaAction');
         $this->load->model('Award_recomm_contract_model', 'awardRecommContract');
         $this->load->helper('date');
+
         error_reporting(0);
         
     }
@@ -39,6 +40,8 @@ class Award_contract extends ListNfa
 
     public function actionAdd($project_id='',$zone='',$type_work_id='')
     {
+
+
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
 			$data['project_id'] = $project_id;
@@ -1018,7 +1021,7 @@ class Award_contract extends ListNfa
         $mSessionKey = $this->session->userdata('session_id');
 		
         if ($mSessionKey) {
-			
+			//echo "zone".$zone;
 			$data['hd_awdType'] = "Contract";
 			$data['hd_project_id'] = $project_id;
 			$data['hd_zone'] = $zone;
@@ -1026,7 +1029,7 @@ class Award_contract extends ListNfa
 			$data['projects'] = $this->projects->getAllParent();
             //$data['records'] = $this->awardRecommContract->getAllParent();
 			$awdType = "Contract";
-			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,'',$zone);
+			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,'',$zone);
 			//$nfa_select = nfa_dropdown_draft("award_contract");
 			//$data['nfa_select'] = $nfa_select;
             $this->load->view('nfa/award_contract/award_contract_listing', $data);

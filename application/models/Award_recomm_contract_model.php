@@ -154,7 +154,8 @@ class Award_recomm_contract_model extends CI_Model {
 		return $data;
 	
     }
-	public function getContractData($awdType=null,$project_id=null,$nfaStatus=null,$zone=null){
+	public function getContractData($awdType=null,$project_id=null,$type_work_id=null,$nfaStatus=null,$zone=null){
+		
 		$mSessionKey = $this->session->userdata('session_id');
 		$mSessionRole = $this->session->userdata('session_role');
 
@@ -173,6 +174,11 @@ class Award_recomm_contract_model extends CI_Model {
 		if($project_id)
 		{
 			$this->db->where(array('AWDContractSalient.project_id'=> $project_id));
+		
+		}
+		if($type_work_id)
+		{
+			$this->db->where(array('AWDContractSalient.type_work_id'=> $type_work_id));
 		
 		}
 		if($mSessionRole!="PCM")
@@ -195,11 +201,22 @@ class Award_recomm_contract_model extends CI_Model {
 			else if($nfaStatus=="Draft")
 			{
 				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
+
+				//$this->db->or_where(array('status'=>1,'nfa_status'=> 'RT'));
+
+				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'))
+				//->or_where(array('status'=>1,'nfa_status'=> 'RT'));
+
+				//->or_where("nfa_status = 'A')", NULL, FALSE);
+
 				//$this->db->or_where('nfa_status =', 'RT'); 
 				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'),FALSE)
-				$this->db->where(array('status'=> 0));
-				$this->db->where('(nfa_status !=', 'C', TRUE)
-				->or_where("nfa_status = 'A')", NULL, FALSE);
+
+				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
+				//$this->db->or_where(array('status'=>1,'nfa_status'=> 'RT'));
+				$this->db->where('(status =', 0, TRUE)
+				->where('nfa_status !=', 'C)', TRUE)
+				->or_where("nfa_status = 'RT')", NULL, FALSE);
 				
 			}
 			else if($nfaStatus=="Returned")
