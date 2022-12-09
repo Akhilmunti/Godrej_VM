@@ -1,7 +1,7 @@
 <?php
-define("NFA_FROM_EMAIL", "abhinandmp@datatemplate.com");
-define("NFA_REPLYTO_EMAIL", "poojasm@datatemplate.com");
-define("NFA_RETURN_PATH", "abhinandmp@datatemplate.com");
+define("NFA_FROM_EMAIL", "info@vendorglobe.com");
+define("NFA_REPLYTO_EMAIL", "info@vendorglobe.com");
+define("NFA_RETURN_PATH", "info@vendorglobe.com");
 
 function single_File_Upload($mId, $mFile) {
 		$ci =& get_instance();
@@ -161,9 +161,6 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 
 </html>';
 		 
-		 /*$header = "From:abhinandmp@datatemplate.com \r\n";
-		 $headers .= "Reply-To: poojasm@datatemplate.com\r\n";
-		 $headers .= "Return-Path: abhinandmp@datatemplate.com\r\n";*/
 		 $header = "From:".NFA_FROM_EMAIL." \r\n";
 		 $headers .= "Reply-To: ".NFA_REPLYTO_EMAIL."\r\n";
 		 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
@@ -175,7 +172,7 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 		 
 		 
 		 $retval = mail ($to,$subject,$message,$header);
-		 //echo "retval".$retval;
+		 
 		 if( $retval == true ) {
 			echo "Message sent successfully...";
 		 }else {
