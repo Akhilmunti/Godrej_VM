@@ -181,6 +181,12 @@ class Award_recomm_contract_model extends CI_Model {
 			$this->db->where(array('AWDContractSalient.type_work_id'=> $type_work_id));
 		
 		}
+		if($zone)
+		{
+			$this->db->where(array('zone'=> $zone));
+			
+		}
+		$this->db->where(array('status !='=> 2));
 		if($mSessionRole!="PCM")
         {
 			$this->db->where(array('approver_id'=> $mSessionKey));
@@ -215,8 +221,9 @@ class Award_recomm_contract_model extends CI_Model {
 				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
 				//$this->db->or_where(array('status'=>1,'nfa_status'=> 'RT'));
 				$this->db->where('(status =', 0, TRUE)
-				->where('nfa_status !=', 'C)', TRUE)
-				->or_where("nfa_status = 'RT')", NULL, FALSE);
+				//->where('nfa_status !=', 'C'), TRUE)
+				->where("nfa_status != 'C')", NULL, TRUE)
+				->or_where("(nfa_status = 'RT' and status=1)", NULL, TRUE);
 				
 			}
 			else if($nfaStatus=="Returned")
@@ -253,12 +260,7 @@ class Award_recomm_contract_model extends CI_Model {
 				
 			}
 		}
-		if($zone)
-		{
-			$this->db->where(array('zone'=> $zone));
-			
-		}
-		$this->db->where(array('status !='=> 2));
+	
 		
 						
 		$this->db->order_by('AWDContractSalient.id', 'DESC');
