@@ -78,18 +78,6 @@
 
                                     ?>
 
-                                    <?php /*<div class="row">
-                                        <div class="col-lg-4">
-                                            <a href="<?php echo base_url('nfa/Award_contract/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id" ); ?>">
-                                                <button type="button" style="width:100%;" class="btn btn-primary rounded">Create IOM</button>
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <a href="<?php echo base_url('nfa/Award_contract/reports')?>">
-                                                <button type="button" style="width:100%;" class="btn btn-primary rounded">IOM Reports</button>
-                                            </a>
-                                        </div>
-                                    </div> <?php */?>
                                     <?php $this->load->view('nfa/award_recomm_listing'); ?>
                                   
                                     <div class="row mt-4">
@@ -220,11 +208,20 @@
                                                                     </a>
                                                                 <?php 
                                                                 }
+                                                                if($mSessionRole == "PCM" && $record['status']==1 && $record['nfa_status']=='RT')
+                                                                { 
+                                                                ?>
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
+                                                                    <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                    </a>
+                                                                <?php 
+                                                                }
                                                                 if ($mSessionRole == "PCM" && $record['nfa_status']=='A') { ?>
                                                                     <a href="<?php echo base_url('nfa/Award_contract/amend_nfa/'. $record['id']); ?>">
                                                                         <button type="button" class="btn btn-danger rounded ml-2 buttonPadding">Ammend</button>
                                                                     </a>
-                                                                <?php }
+                                                                <?php 
+                                                                }
                                                                 
                                                                 if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
                                                                 ?>

@@ -220,10 +220,10 @@ class Award_recomm_contract_model extends CI_Model {
 
 				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
 				//$this->db->or_where(array('status'=>1,'nfa_status'=> 'RT'));
-				$this->db->where('(status =', 0, TRUE)
+				$this->db->where('((status =', 0, TRUE)
 				//->where('nfa_status !=', 'C'), TRUE)
 				->where("nfa_status != 'C')", NULL, TRUE)
-				->or_where("(nfa_status = 'RT' and status=1)", NULL, TRUE);
+				->or_where("(nfa_status = 'RT' and status=1))", NULL, TRUE);
 				
 			}
 			else if($nfaStatus=="Returned")

@@ -276,7 +276,10 @@ class Award_contract extends ListNfa
 					$mNfaStatus = "SA";
 				}
 				else
+				{
 					$mNfaStatus = "RT";
+					$mSavingStatus = 0;
+				}
 			}
 			else if($nfa_status=="R") // for return
 			{
@@ -323,32 +326,32 @@ class Award_contract extends ListNfa
                 if ($mId && $updType=='') {
 					
                     $nfadata = array(
-							'project_id' => $project_id,
-							'type_work_id' => $type_work_id,
-                            'subject' => $subject,
-							'scope_of_work'=>$scope_of_work,
-							'zone'=>$zone,
-							'package_count' => $package_count,
-							'bidder_count' => $bidder_count,
-							'total_budget_esc' => $total_budget_esc,
-							'total_negot_value' => $total_negot_value,
-							'total_finalized_award_value' => $total_finalized_award_value,
-                            'total_awarded_benchmark' => $total_awarded_benchmark,
-							'total_basic_rate' => $total_basic_rate,
-                            'total_anticipated_rate' => $total_anticipated_rate,
-							'total_post_basic_rate' => $total_post_basic_rate,
-							'total_expected_savings' => $total_expected_savings,
-							'l1_vendor' => $l1_vendor,
-                            'front_idling' => $front_idling,
-                            'front_idling_desc' => $front_idling_desc,
-							'reasons_delay' => $reasons_delay,
-                            'current_status_work' => $current_status_work,
-							
-                            'detailed_note' => $detailed_note,
-							'initiated_by' => $mSessionKey,
-							'status' => $mSavingStatus,
-							'nfa_status' => $mNfaStatus
-							
+						'project_id' => $project_id,
+						'type_work_id' => $type_work_id,
+						'subject' => $subject,
+						'scope_of_work'=>$scope_of_work,
+						'zone'=>$zone,
+						'package_count' => $package_count,
+						'bidder_count' => $bidder_count,
+						'total_budget_esc' => $total_budget_esc,
+						'total_negot_value' => $total_negot_value,
+						'total_finalized_award_value' => $total_finalized_award_value,
+						'total_awarded_benchmark' => $total_awarded_benchmark,
+						'total_basic_rate' => $total_basic_rate,
+						'total_anticipated_rate' => $total_anticipated_rate,
+						'total_post_basic_rate' => $total_post_basic_rate,
+						'total_expected_savings' => $total_expected_savings,
+						'l1_vendor' => $l1_vendor,
+						'front_idling' => $front_idling,
+						'front_idling_desc' => $front_idling_desc,
+						'reasons_delay' => $reasons_delay,
+						'current_status_work' => $current_status_work,
+						
+						'detailed_note' => $detailed_note,
+						'initiated_by' => $mSessionKey,
+						'status' => $mSavingStatus,
+						'nfa_status' => $mNfaStatus
+						
 							
                     );
 					
@@ -1390,7 +1393,7 @@ class Award_contract extends ListNfa
 						);	
 				$mUpdate = $this->nfaAction->updateData($param, $returnData,"award_contract");
 				if ($mUpdate) {
-						//echo "updated";
+						
 						$nfadata = array(
 						'nfa_status' => 'RT'
 											
@@ -1401,7 +1404,8 @@ class Award_contract extends ListNfa
 						$type_work_id = $mRecord['type_work_id'];
 						$zone = $mRecord['zone'];
 						$this->session->set_flashdata('success', 'IOM Returned for text correction successfully.');
-						redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						//redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						redirect("nfa/Award_contract/award_recomm_contract_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_contract/return_text/' . $mId);
