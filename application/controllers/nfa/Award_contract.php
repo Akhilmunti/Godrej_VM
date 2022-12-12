@@ -1022,6 +1022,7 @@ class Award_contract extends ListNfa
     public function award_recomm_contract_list($project_id='',$zone='',$type_work_id='')
     {
         $mSessionKey = $this->session->userdata('session_id');
+		$pr_id = $this->uri->segment(4);
 		
         if ($mSessionKey) {
 			//echo "zone".$zone;
@@ -1029,6 +1030,9 @@ class Award_contract extends ListNfa
 			$data['hd_project_id'] = $project_id;
 			$data['hd_zone'] = $zone;
 			$data['hd_type_work_id'] = $type_work_id;
+			$data['hd_type_work_id'] = $type_work_id;
+			//$data['pr_id'] = $pr_id;
+			$this->session->set_userdata('sess_project_id',$pr_id);
 			$data['projects'] = $this->projects->getAllParent();
             //$data['records'] = $this->awardRecommContract->getAllParent();
 			$awdType = "Contract";
@@ -1047,48 +1051,44 @@ class Award_contract extends ListNfa
 		$mSessionRole = $this->session->userdata('session_role');
 		if ($mSessionKey) {
 		
-		if ($mId) {
-			
-			$mRecord = $this->nfaAction->get_salient_initiator($mId,"award_contract");
-			
-			$salient_id = $mRecord['id'];
-			$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($salient_id);
-			$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($salient_id);
-			$mRecordFinalBidders = $this->awardRecommContract->getFinalBidders($salient_id);
-			
-			$mRecordAppointment = $this->awardRecommContract->getAppointment_dates($mId);
-			$mRecordMajorTerms = $this->awardRecommContract->getMajorTerms($mId);
-			
-			if($mSessionRole!='PCM')
-			{
-				$param = array("role"=>$mSessionRole);
-				$getLevels = $this->nfaAction->getAllLevelRole($param);
+			if ($mId) {
 				
-				$approver_level = $getLevels[0]->level;
-			}
-			
-			//echo $salient_id;
-			$mRecordLevelsObj = $this->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract","view",$approver_level);
-			
-			$mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
-			//echo "approver_level".$approver_level;
-			if($approver_level>=1)
-				$data['preChkRecords'] = $this->nfaAction->chkPreApproved($salient_id,$approver_level,"award_contract");
-			else
-				$data['preChkRecords']=1;
-			
-			$data['mRecord'] = $mRecord;
-			$data['mRecordPackage'] = $mRecordPackage;
-			$data['mRecordAwdContract'] = $mRecordAwdContract;
-			$data['mRecordFinalBidders'] = $mRecordFinalBidders;
-			$data['mRecordAppointment'] = $mRecordAppointment;
-			$data['mRecordMajorTerms'] = $mRecordMajorTerms;
-			$data['mRecordLevels'] = $mRecordLevels;
-			
-			/* $data['mRecordApprovers'] = $mRecordApprovers; 
-			$data['mRecordApproverDetails'] = $mRecordApproverDetails;  */
-		
-		
+				$mRecord = $this->nfaAction->get_salient_initiator($mId,"award_contract");
+				
+				$salient_id = $mRecord['id'];
+				$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($salient_id);
+				$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($salient_id);
+				$mRecordFinalBidders = $this->awardRecommContract->getFinalBidders($salient_id);
+				
+				$mRecordAppointment = $this->awardRecommContract->getAppointment_dates($mId);
+				$mRecordMajorTerms = $this->awardRecommContract->getMajorTerms($mId);
+				
+				if($mSessionRole!='PCM')
+				{
+					$param = array("role"=>$mSessionRole);
+					$getLevels = $this->nfaAction->getAllLevelRole($param);
+					
+					$approver_level = $getLevels[0]->level;
+				}
+				
+				
+				$mRecordLevelsObj = $this->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract","view",$approver_level);
+				
+				$mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
+				
+				if($approver_level>=1)
+					$data['preChkRecords'] = $this->nfaAction->chkPreApproved($salient_id,$approver_level,"award_contract");
+				else
+					$data['preChkRecords']=1;
+				
+				$data['mRecord'] = $mRecord;
+				$data['mRecordPackage'] = $mRecordPackage;
+				$data['mRecordAwdContract'] = $mRecordAwdContract;
+				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
+				$data['mRecordAppointment'] = $mRecordAppointment;
+				$data['mRecordMajorTerms'] = $mRecordMajorTerms;
+				$data['mRecordLevels'] = $mRecordLevels;
+						
 				if($pgType=='A' || $pgType=='E' )
 				{
 					$data['pgType'] = $pgType; 
@@ -1098,7 +1098,7 @@ class Award_contract extends ListNfa
 			}
         } else {
             $this->load->view('index', $data);
-        } 
+       	    } 
      
     }
 	//Initiated NFA
@@ -1109,7 +1109,7 @@ class Award_contract extends ListNfa
         if ($mSessionKey && $mSessionRole != "PCM") {
             $data['home'] = "initiated";
             $data['records'] = $this->nfaAction->getAllInitiated($mSessionKey,"award_contract");
-			//print_r($data['records'][0]);
+			
 			$approver_level = $data['records'][0]['approver_level'];
 			$salient_id = $data['records'][0]['id'];
 			if($approver_level>1)
@@ -1153,7 +1153,7 @@ class Award_contract extends ListNfa
 	public function actionReturnNfa($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			$returned_remarks = $this->input->post('returned_remarks');
@@ -1188,7 +1188,11 @@ class Award_contract extends ListNfa
 						$type_work_id = $mRecord['type_work_id'];
 						$zone = $mRecord['zone'];
 						$this->session->set_flashdata('success', 'IOM Returned successfully.');
-						redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						
+						if($sess_project_id)
+						 	redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_contract/award_recomm_contract_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_contract/return_nfa/' . $mId);
@@ -1266,7 +1270,7 @@ class Award_contract extends ListNfa
     }
 	public function actionApprove($mId) {
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1292,8 +1296,7 @@ class Award_contract extends ListNfa
 							$mail_user = array();
 							
 							$mRecord = $this->nfaAction->getNfaDetails_userLevel($mId,$mSessionKey,"award_contract");
-							//print_r($mRecord);
-							//exit;
+							
 							$initiated_by = $mRecord['initiated_by'];
 							$approver_level = $mRecord['approver_level'];
 							$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($mId);
@@ -1306,17 +1309,14 @@ class Award_contract extends ListNfa
 								$mUpdateSalient = $this->awardRecommContract->updateParentByKey($mId, $nfadata);
 							}
 							$buyer = $this->buyer->getParentByKey($initiated_by);
-							//print_r($buyer);
-							//echo "<br>....<br>";
-										
-							//print_r($this->session->userdata);
+							
 							$initiator =   $buyer['buyer_name'];
 							$sender =   $this->session->userdata('session_name');
 							$subject = $mRecord['subject'];
 							$project_id = $mRecord['project_id'];
 							$type_work_id = $mRecord['type_work_id'];
 							$zone = $mRecord['zone'];
-							//$package_value_mail = $mRecordAwdContract['post_basic_rate_package1'];
+							
 							$package_value_mail = $mRecord['total_post_basic_rate'];
 							$version_id = $mRecord['version_id'];
 							$approver_level = $mRecord['approver_level'];
@@ -1341,8 +1341,11 @@ class Award_contract extends ListNfa
 							
 						}
 						$this->session->set_flashdata('success', 'IOM Approved successfully.');
-						//redirect('nfa/ListNfa/award_recomm_list');
-						redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						
+						if($sess_project_id)
+						 	redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_contract/award_recomm_contract_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_contract/approve/' . $mId);
@@ -1356,7 +1359,6 @@ class Award_contract extends ListNfa
     {
        $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
-            // $data['home'] = "approved";
            
 			if ($mId) {
 				$mRecord = $this->nfaAction->getNfaInitiated($mId,$mSessionKey,"award_contract");
@@ -1377,6 +1379,7 @@ class Award_contract extends ListNfa
 	public function actionReturnText($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
+		$sess_project_id = $this->session->userdata('sess_project_id');
 	
 		if ($mSessionKey) {
 			$data['home'] = "users";
@@ -1404,8 +1407,10 @@ class Award_contract extends ListNfa
 						$type_work_id = $mRecord['type_work_id'];
 						$zone = $mRecord['zone'];
 						$this->session->set_flashdata('success', 'IOM Returned for text correction successfully.');
-						//redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
-						redirect("nfa/Award_contract/award_recomm_contract_list");
+						if($sess_project_id)
+						 	redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_contract/award_recomm_contract_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_contract/return_text/' . $mId);
@@ -1421,19 +1426,19 @@ class Award_contract extends ListNfa
         if ($mSessionKey) {
 			
             $mRecord = $this->nfaAction->getNfaDraft($mId,$mSessionKey,"award_contract");
-			//print_r($mRecord);
+			
 			if($mRecord)
 			{
 				$approver_level = $mRecord[0]['approver_level'];
 				$mRecordApprovers = $this->nfaAction->getNfaStatus($mId,$mSessionKey,$approver_level,"draft","award_contract");
-				//print_r($mRecordApprovers);
+				
 				$data['mRecord'] = $mRecord[0];
 				$data['mRecordApprovers'] = $mRecordApprovers;
 			}
 			else
 			{
 				$mRecord = $this->awardRecommContract->getParentByKey($mId);
-				//print_r($mRecord);	
+				
 				$data['mRecord'] = $mRecord;
 			}
 
@@ -1445,7 +1450,7 @@ class Award_contract extends ListNfa
 	public function actionCancelNfa($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1465,8 +1470,11 @@ class Award_contract extends ListNfa
 						$zone = $mRecord['zone'];
 						if ($mUpdateSalient) {
 							$this->session->set_flashdata('success', 'IOM Cancelled  successfully.');
-							//redirect('nfa/Award_contract/award_recomm_contract_list');
-							redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+							
+							if($sess_project_id)
+						 		redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+							else
+								redirect("nfa/Award_contract/award_recomm_contract_list");
 						}
 						else {
 							$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
@@ -1488,7 +1496,7 @@ class Award_contract extends ListNfa
             $mRecord = $this->awardRecommContract->getParentByKey($mId);
 			
 			$data['mRecord'] = $mRecord;
-			//$data['mRecordApprovers'] = $mRecordApprovers;
+			
             $this->load->view('nfa/award_contract/amend', $data);
         } else {
             $this->load->view('index', $data);
@@ -1496,10 +1504,10 @@ class Award_contract extends ListNfa
     }
 	//Amend Action
 	public function actionAmendNfa($mId) {
-		//echo "test";
-		//exit;
+		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id');
+
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1520,7 +1528,11 @@ class Award_contract extends ListNfa
 				if($mUpdateSalient)
 				{
 					$this->session->set_flashdata('success', 'IOM amended successfully.');
-					redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+					
+					if($sess_project_id)
+						redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+					else
+						redirect("nfa/Award_contract/award_recomm_contract_list");
 				} else {
 					$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 					redirect('nfa/Award_contract/amended_nfa/' . $mId);
@@ -1538,7 +1550,7 @@ class Award_contract extends ListNfa
         if ($mSessionKey) {
             $data['home'] = "amended";
 			$param = array('status'=> 1,'nfa_status '=> 'AMD');
-            //$data['records'] = $this->ldWaiver->getNfaAmended($mSessionKey);
+           
 			$data['records'] = $this->nfaAction->getNfaData($param,"award_contract");
 			$selUrl =   base_url('nfa/Award_contract/amended_nfa');
 									
@@ -1548,7 +1560,6 @@ class Award_contract extends ListNfa
 			else
 				$selOption="";
 			
-			//echo $selOption."sel";
 			$nfa_select = nfa_dropdown_amended("award_contract");
 			$data['nfa_select'] = $nfa_select;
             $this->load->view('nfa/award_contract/amended', $data);
@@ -1565,16 +1576,14 @@ class Award_contract extends ListNfa
 			$param = array('status'=> 0,'nfa_status '=> 'C');
             $data['records'] = $this->nfaAction->getNfaData($param,"award_contract");
 			$selUrl =   base_url('nfa/Award_contract/cancelled_nfa');
-									
-			//echo $current_page = $config['base_url'].$_SERVER['REDIRECT_QUERY_STRING'];
+			
 			$current_page = base_url($_SERVER['REDIRECT_QUERY_STRING']);
 			if($current_page==$selUrl)
 				$selOption="selected";
 			else
 				$selOption="";
 			
-			//echo $selOption."sel";
-			//$nfa_select = nfa_dropdown_cancelled($selOption);
+			
 			$nfa_select = nfa_dropdown_cancelled("award_contract");
 			$data['nfa_select'] = $nfa_select;
             $this->load->view('nfa/award_contract/cancelled', $data);
@@ -1588,15 +1597,11 @@ class Award_contract extends ListNfa
 				$mail_user = array();
 				$mSessionKey = $this->session->userdata('session_id');
 				$mRecord = $this->nfaAction->getNfaDetails_userLevel($mId,$mSessionKey,"award_contract");
-				//print_r($mRecord);
-				//exit;
+				
 				$initiated_by = $mRecord['initiated_by'];
 				$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($mId);
 				$buyer = $this->buyer->getParentByKey($initiated_by);
-				//print_r($buyer);
-				//echo "<br>....<br>";
-							
-				//print_r($this->session->userdata);
+				
 				$initiator =   $buyer['buyer_name'];
 				$sender =   $this->session->userdata('session_name');
 				$subject = $mRecord['subject'];
@@ -1620,7 +1625,6 @@ class Award_contract extends ListNfa
 				
 				$mail_url  = $this->config->item('base_url').'nfa/Award_contract/view_nfa/'.$mId;
 				//send mail to level below
-				//$mail_type = "LowLevels";
 				
 				$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,$returned_remarks,$mail_type);
 				
@@ -1634,10 +1638,7 @@ class Award_contract extends ListNfa
             $data['home'] = "nfa_logs";
 			
             $data['records'] = $this->nfaAction->getNfaData('',"award_contract");
-			//$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($salient_id);
-			//$selUrl =   base_url('nfa/Award_contract/nfa_logs');									
 			
-			//$current_page = base_url($_SERVER['REDIRECT_QUERY_STRING']);
 			$selUrl =   $_SERVER['REQUEST_URI'];
 			
 			$current_page = base_url('nfa/Award_contract/nfa_logs');
