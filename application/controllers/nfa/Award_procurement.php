@@ -951,33 +951,28 @@ class Award_procurement extends ListNfa
 				$mRecordPackage = $this->awardRecommProcurement->get_award_procurement_package_data($salient_id);
 				$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($salient_id);
 				$mRecordFinalBidders = $this->awardRecommProcurement->getFinalBidders($salient_id);
-				// $mRecordAppointment = $this->awardRecommProcurement->getAppointment_dates($mId);
+				
 				$mRecordMajorTerms = $this->awardRecommProcurement->getMajorTerms($mId);
 				if($mSessionRole!='PCM')
 				{
 					$param = array("role"=>$mSessionRole);
 					$getLevels = $this->nfaAction->getAllLevelRole($param);
-					//print_r($getLevels);
+					
 					$approver_level = $getLevels[0]->level;
 				}
-				//echo $salient_id;
+				
 				$mRecordLevelsObj = $this->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_procurement","view",$approver_level);
 				$mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
-				if($approver_level>1)
+				if($approver_level>=1)
 					$data['preChkRecords'] = $this->nfaAction->chkPreApproved($salient_id,$approver_level,"award_procurement");
 				else
 					$data['preChkRecords']=1;
-				//$mRecordLevels = (array) $mRecordLevelsObj;
-				//print_r($mRecordLevels);
-				/* $mRecordApprovers = $this->awardRecommProcurement->get_level_approvers($mId); 
-				
-				$mRecordApproverDetails = approverDetails($mRecordApprovers); */
 				
 				$data['mRecord'] = $mRecord;
 				$data['mRecordPackage'] = $mRecordPackage;
 				$data['mRecordAwdContract'] = $mRecordAwdContract;
 				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
-				// $data['mRecordAppointment'] = $mRecordAppointment;
+				
 				$data['mRecordMajorTerms'] = $mRecordMajorTerms;
 				$data['mRecordLevels'] = $mRecordLevels;
 				

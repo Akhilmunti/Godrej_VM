@@ -166,7 +166,7 @@ class Award_procurement_model extends CI_Model {
 		return $data;
 	
     }
-	public function getProcurementData($awdType=null,$project_id=null,$nfaStatus=null,$zone=null)
+	public function getProcurementData($awdType=null,$project_id=null, $type_work_id =null,$nfaStatus=null,$zone=null)
 	{
 
 		
@@ -180,19 +180,31 @@ class Award_procurement_model extends CI_Model {
 	$this->db->join('award_recomm_procurement_synopsis_label AWDSynopsLbl', 'AWDSynopsLbl.salient_id = AWDContractSalient.id','inner');
 	$this->db->join('typeofwork AWDTypeofwork', 'AWDTypeofwork.id = AWDContractSalient.type_work_id','inner');
 	$this->db->join('projects AWDProjects', 'AWDProjects.project_id = AWDContractSalient.project_id','inner');
-	if($nfaStatus!="Cancelled" && $nfaStatus!="Returned")
-	{
+		if($nfaStatus!="Cancelled" && $nfaStatus!="Returned")
+		{
 		$this->db->join('award_recomm_procurement_status AWDContractStatus', 'AWDSynopsLbl.salient_id = AWDContractStatus.salient_id','inner');
 		
-	}
-	if($project_id)
-	{
-		$this->db->where(array('AWDContractSalient.project_id'=> $project_id));
+		}
+		if($project_id)
+		{
+			$this->db->where(array('AWDContractSalient.project_id'=> $project_id));
 	
-	}
+		}
+		if($type_work_id)
+		{
+			$this->db->where(array('AWDContractSalient.type_work_id'=> $type_work_id));
+		
+		}
+		if($zone)
+		{
+			$this->db->where(array('zone'=> $zone));
+			
+		}
+		$this->db->where(array('status !='=> 2));
+
 		if($mSessionRole!="PCM")
-        {
-			//$this->db->where(array('approver_id'=> $mSessionKey));
+        	{
+			$this->db->where(array('approver_id'=> $mSessionKey));
 			
 		}
 		if($nfaStatus)
@@ -212,9 +224,12 @@ class Award_procurement_model extends CI_Model {
 				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
 				//$this->db->or_where('nfa_status =', 'RT'); 
 				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'),FALSE)
-				$this->db->where(array('status'=> 0));
+				/*$this->db->where(array('status'=> 0));
 				$this->db->where('(nfa_status !=', 'C', TRUE)
-				->or_where("nfa_status = 'A')", NULL, FALSE);
+				->or_where("nfa_status = 'A')", NULL, FALSE);*/
+				$this->db->where('((status =', 0, TRUE)
+				->where("nfa_status != 'C')", NULL, TRUE)
+				->or_where("(nfa_status = 'RT' and status=1))", NULL, TRUE);
 				
 			}
 			else if($nfaStatus=="Returned")
@@ -251,12 +266,7 @@ class Award_procurement_model extends CI_Model {
 				
 			}
 		}
-		if($zone)
-		{
-			$this->db->where(array('zone'=> $zone));
-			
-		}
-		$this->db->where(array('status !='=> 2));
+		
 		
 						
 		$this->db->order_by('AWDContractSalient.id', 'DESC');

@@ -110,7 +110,7 @@ $pdf->setFont('helvetica', '', 12);
 $pdf->AddPage();
 
 // print a line of text
-$text = 'NFA Information';
+$text = 'IOM Information';
 $pdf->writeHTML($text, true, 0, true, 0);
 
 	$mSessionKey = $this->session->userdata('session_id');
