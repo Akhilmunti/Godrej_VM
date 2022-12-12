@@ -38,7 +38,7 @@
                     <div class="content-header">
                         <div class="d-flex align-items-center">
                             <div class="d-block">
-                                <h3 class="page-title br-0">NFA Reports</h3>
+                                <h3 class="page-title br-0">IOM Reports</h3>
                             </div>
                         </div>
                     </div>
