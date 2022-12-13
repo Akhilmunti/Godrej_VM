@@ -851,8 +851,12 @@ class Award_procurement extends ListNfa
 							}
 							else
 							{
+								if($mSavingStatus==0)
+									$this->session->set_flashdata('success', 'IOM added successfully.');
+								else if($mSavingStatus==1)
+									$this->session->set_flashdata('success', 'IOM submitted for approval.');
 								
-								$this->session->set_flashdata('success', 'IOM added successfully.');
+								//$this->session->set_flashdata('success', 'IOM added successfully.');
 								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 							}
                         } else {
@@ -914,20 +918,21 @@ class Award_procurement extends ListNfa
 	
 	public function award_recomm_procurement_list($project_id='',$zone='',$type_work_id='')
     {
-
 		
         $mSessionKey = $this->session->userdata('session_id');
+		$pr_id = $this->uri->segment(4);
         if ($mSessionKey) {
 			
 			$data['hd_awdType'] = "Procurement";
 			$data['hd_project_id'] = $project_id;
 			$data['hd_zone'] = $zone;
 			$data['hd_type_work_id'] = $type_work_id;
+			$this->session->set_userdata('sess_project_id_proc',$pr_id);
 			$data['projects'] = $this->projects->getAllParent();
 			$awdType = "Procurement";
 			$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$type_work_id,'',$zone);
 			
-			// print_r($data);
+			
             $this->load->view('nfa/award_procurement/award_recomm_procurement_list', $data);
         } else {
             $this->load->view('index', $data);
@@ -989,7 +994,7 @@ class Award_procurement extends ListNfa
         } 
      
     }
-    public function view_nfa_1($mId,$pgType='')
+    /*public function view_nfa_1($mId,$pgType='')
     {
 		$mSessionKey = $this->session->userdata('session_id');
 		if ($mSessionKey) {
@@ -1028,7 +1033,7 @@ class Award_procurement extends ListNfa
             $this->load->view('index', $data);
         } 
      
-    }
+    }*/
 	//Initiated NFA
 	public function initiated_nfa()
     {
@@ -1081,7 +1086,7 @@ class Award_procurement extends ListNfa
 	public function actionReturnNfa($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id_proc');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			$returned_remarks = $this->input->post('returned_remarks');
@@ -1118,7 +1123,10 @@ class Award_procurement extends ListNfa
 
 						
 						$this->session->set_flashdata('success', 'IOM Returned successfully.');
-						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						if($sess_project_id)
+							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_procurement/award_recomm_procurement_list");
 
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
@@ -1196,7 +1204,7 @@ class Award_procurement extends ListNfa
     }
 	public function actionApprove($mId) {
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id_proc');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1265,7 +1273,10 @@ class Award_procurement extends ListNfa
 							
 						}
 						$this->session->set_flashdata('success', 'IOM Approved successfully.');
-						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						if($sess_project_id)
+							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_procurement/award_recomm_procurement_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_procurement/approve/' . $mId);
@@ -1299,7 +1310,7 @@ class Award_procurement extends ListNfa
 	public function actionReturnText($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id_proc');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1326,7 +1337,10 @@ class Award_procurement extends ListNfa
 						$type_work_id = $mRecord['type_work_id'];
 						$zone = $mRecord['zone'];
 						$this->session->set_flashdata('success', 'IOM Returned for text correction successfully.');
-						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						if($sess_project_id)
+							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_procurement/award_recomm_procurement_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_procurement/return_text/' . $mId);
@@ -1336,7 +1350,7 @@ class Award_procurement extends ListNfa
 			$this->load->view('index', $data);
 		}
     }
-   public function cancel($mId)
+    public function cancel($mId)
     {
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
@@ -1356,7 +1370,7 @@ class Award_procurement extends ListNfa
 	public function actionCancelNfa($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id_proc');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1376,7 +1390,11 @@ class Award_procurement extends ListNfa
 						$zone = $mRecord['zone'];
 						if ($mUpdateSalient) {
 							$this->session->set_flashdata('success', 'IOM Cancelled  successfully.');
-						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						if($sess_project_id)
+							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_procurement/award_recomm_procurement_list");
+						//redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 						}
 						else {
 							$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
@@ -1408,7 +1426,7 @@ class Award_procurement extends ListNfa
 	public function actionAmendNfa($mId) {
 		
 		$mSessionKey = $this->session->userdata('session_id');
-	
+		$sess_project_id = $this->session->userdata('sess_project_id_proc');
 		if ($mSessionKey) {
 			$data['home'] = "users";
 			if ($mId) {
@@ -1429,7 +1447,10 @@ class Award_procurement extends ListNfa
 				if($mUpdateSalient)
 				{
 					$this->session->set_flashdata('success', 'IOM amended successfully.');
-				redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+					if($sess_project_id)
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+					else
+						redirect("nfa/Award_procurement/award_recomm_procurement_list");
 				} else {
 					$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 					redirect('nfa/Award_procurement/amended_nfa/' . $mId);

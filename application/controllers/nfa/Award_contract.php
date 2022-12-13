@@ -1025,20 +1025,19 @@ class Award_contract extends ListNfa
 		$pr_id = $this->uri->segment(4);
 		
         if ($mSessionKey) {
-			//echo "zone".$zone;
+			
 			$data['hd_awdType'] = "Contract";
 			$data['hd_project_id'] = $project_id;
 			$data['hd_zone'] = $zone;
 			$data['hd_type_work_id'] = $type_work_id;
 			$data['hd_type_work_id'] = $type_work_id;
-			//$data['pr_id'] = $pr_id;
+		
 			$this->session->set_userdata('sess_project_id',$pr_id);
 			$data['projects'] = $this->projects->getAllParent();
-            //$data['records'] = $this->awardRecommContract->getAllParent();
+           
 			$awdType = "Contract";
 			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,'',$zone);
-			//$nfa_select = nfa_dropdown_draft("award_contract");
-			//$data['nfa_select'] = $nfa_select;
+			
             $this->load->view('nfa/award_contract/award_contract_listing', $data);
         } else {
             $this->load->view('index', $data);
