@@ -156,20 +156,11 @@
 
                          
 
-                            <!-- <div class="row mt-4">
+                           
                                 <?php
-                                $mSessionRole = $this->session->userdata('session_role');
-								$upload_path = $this->config->item('upload_path'); 
-                                if ($mSessionRole != "PCM" && $pgType != 'A' && $pgType != 'C' && $pgType != 'E' && $preChkRecords == 1) { ?>
-                                    <div class="col-lg-12 text-right">
-                                        <a href="#" data-toggle="modal" data-target="#modal-right">
-                                            <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold">IOM Actions</button>
-                                        </a>
-                                    </div>
-                                <?php } ?>
-
-                             
-                            </div> -->
+                                    $mSessionRole = $this->session->userdata('session_role');
+                                    $upload_path = $this->config->item('upload_path'); 
+                                ?>                                                 
 
                            
                             <div class="paddingLine">
@@ -279,47 +270,7 @@
 											}?> 
                                             <td><?php echo $mRecord['total_awarded_benchmark'] ?> Cr</td>
                                         </tr>
-										<?php /*
-                                        <tr class='text-center'>
-                                            <td>Is there any basic rate item in tender</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												
-											?>
-                                            <td>
-                                                <?php echo ($val['is_basic_rate_package']=="yes")? "Yes" : "No" ?>
-                                            </td>
-                                            <?php 
-											}?> 
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Total Amount of Basic Rate Items in Tender</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												
-											?>
-                                            <td>
-                                              <?php echo $val['total_basic_rate_package'] ?>
-                                            </td>
-                                           <?php 
-											}?> 
-                                            <td><?php echo $mRecord['total_basic_rate'] ?></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												
-											?>
-                                            <td>
-                                             <?php echo $val['anticipate_basic_rate_package'] ?>
-                                            </td>
-                                           <?php 
-											}?> 
-                                            <td><?php echo $mRecord['total_anticipated_rate'] ?></td>
-                                        </tr>
-										*/ ?>
+								
                                         <tr class='text-center'>
                                             <td>Proposed Award Value (Excl Tax) - Adjusted Awarded Value(Post Basic Rate Adjustment): <span class=" font-weight-bold">SAP WO VALUE TO BE CREATED</span></td>
 											<?php foreach($mRecordPackage as $key=>$val)
@@ -359,53 +310,16 @@
 											}?> 
                                             <td></td>
                                         </tr>
-										<?php /*
-                                        <tr class='text-center'>
-                                            <td>Basis of award</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												
-											?>
-                                            <td>
-                                                <?php echo $val['basis_award_package'] ?>
-                                            </td>
-                                            <?php 
-											}?> 
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Deviation from Approved Contracting Strategy</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												
-											?>
-                                            <td>
-                                              <?php echo $val['deviation_approved_package'] ?>
-                                            </td>
-                                             <?php 
-											}?> 
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Base Rate Consideration Month in Award</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												
-											?>
-                                            <td>
-                                               <?php echo $val['basic_rate_month_package'] ?>
-                                            </td>
-                                           <?php 
-											}?> 
-                                            <td></td>
-                                        </tr>
-										*/ ?>
+									
                                     </tbody>
                                 </table>
                             </div>
+
+                            <div class="d-block table-view mt-4">
+                                <h5 class="br-0 font-size-14"><?php echo $mRecord['uom_label'] ?>: <?php echo $mRecord['uom_value'] ?></h5> 
+                            </div>
 						
-						
-							<div class="d-block table-view">
+							<div class="d-block table-view mt-4">
                                 <h5 class="br-0 font-size-14">Is HO approval required ? : <?php echo ($mRecord['ho_approval'] == "Y") ? "Yes" : "No"; ?></h5> 
                             </div>
 							

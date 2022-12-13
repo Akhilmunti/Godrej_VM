@@ -310,66 +310,7 @@ $this->load->view('buyer/partials/header'); ?>
 											</td>
                                         </tr>
 										
-										<?php /*
-                                        <tr class='text-center'>
-                                            <td>Is there any basic rate item in tender</td>
-											 <?php 
-											 //print_r($mRecordPackage);
-											 foreach($mRecordPackage as $key=>$val)
-											{	
-												$id_index = $key+1;
-												
-											?>
-												<td>
-													<input class="form-check-input _is_basic_rate_td" type="radio" name="group_<?php echo $id_index;?>" id="packageYesRadios<?php echo $id_index;?>" value="yes" <?php echo ($val['is_basic_rate_package']=="yes")? "checked" : "" ?> >
-													<label class="form-check-label font-weight-bold" for="packageYesRadios<?php echo $id_index;?>">
-														Yes
-													</label>
-													<input class="form-check-input _is_basic_rate_td" type="radio" name="group_<?php echo $id_index;?>" id="packageNoRadios<?php echo $id_index;?>" value="no" <?php echo ($val['is_basic_rate_package']=="no")? "checked" : "" ?>>
-													<label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="packageNoRadios<?php echo $id_index;?>">
-														No
-													</label>
-												
-												</td>
-											<?php 
-											}?> 
-										
-                                          
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Total Amount of Basic Rate Items in Tender</td>
-										 <?php foreach($mRecordPackage as $key=>$val)
-											{	
-												$id_index = $key+1;
-											?>
-												<td>
-													<input id="basic_rate<?php echo $id_index;?>"   oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');" name="total_basic_rate_package[]" <?php echo ($val['is_basic_rate_package']=="no")? "style='display:none ;'" : "" ?> type='text' class="form-control _amnt_basic_rate_td" value="<?php echo $val['total_basic_rate_package'] ?> Cr" >
-												</td>
-											<?php 
-											}?> 
-                                         
-                                            <td>
-												<input type='text' class="form-control" name="total_basic_rate" id="total_basic_rate" value="<?php echo $mRecord['total_basic_rate'] ?> Cr" readonly>
-											</td> 
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
-										 <?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-												<td>
-											  <input  oninput="allowNumOnly(this)" onblur="changeToCr(this);calculateSum1_v1('<?php echo $id_index;?>');packageSynopsis_total('anticipated_rate','total_anticipated_rate');" id="anticipated_rate<?php echo $id_index;?>" name="anticipate_basic_rate_package[]" <?php echo ($mRecordAwdContract['is_basic_rate_package1']=="no")? "style='display:none ;'" : "" ?> type='text' class="form-control _anti_basic_rate_td" required value="<?php echo $val['anticipate_basic_rate_package'] ?> Cr">
-												</td>
-											<?php 
-											}?> 
-                                        	
-                                            <td>
-												<input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="<?php echo $mRecord['total_anticipated_rate'] ?> Cr" readonly>
-											</td> 
-                                        </tr>
-										*/ ?>
+		
                                         <tr class='text-center'>
                                             <td>Proposed Award Value (Excl Tax)- Adjusted Awarded Value(Post Basic Rate Adjustment): <span class=" font-weight-bold">SAP WO VALUE TO BE CREATED</span></td>
 										 <?php foreach($mRecordPackage as $key=>$val)
@@ -418,51 +359,21 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td></td>
                                         </tr>
 										
-										<?php /*
-                                        <tr class='text-center'>
-                                            <td>Basis of award</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package<?php echo $id_index;?>" value="<?php echo $val['basis_award_package'] ?>" readonly>
-                                            </td>
-                                            <?php 
-											}?>
-											<td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Deviation from Approved Contracting Strategy</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-											   <td>
-													<input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
-												</td>
-											<?php 
-											}?> 
-                                           
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Base Rate Consideration Month in Award</td> 
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>">
-                                            </td>
-											<?php 
-											}?> 
-                                          
-                                            <td></td>
-                                        </tr>
-										*/ ?>
+							
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="row mt-4">
+
+                                <div class="col-lg-4">
+                                    <div class='form-group'>
+                                        <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
+										<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
+										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+                                    </div>
+                                </div>
+
                             </div>
 								
 							
@@ -579,8 +490,7 @@ $this->load->view('buyer/partials/header'); ?>
 												<?php 
 												//Bidders Record
 												$bidders_count = sizeof($mRecordFinalBidders);
-												//print_r($mRecordFinalBidders);
-												//$bidVal_arr = array();
+												
 												foreach($mRecordFinalBidders as $keyBid=>$valBid)
 												{
 													
@@ -591,18 +501,12 @@ $this->load->view('buyer/partials/header'); ?>
 													$finalBiddersData = $CI->getFinalBidData($salient_id,$package_id,$bidder_id);
 													
 													$package_bidder_value =  $finalBiddersData->package_bidder;
-													/* $bidVal_arr[]=$package_bidder_value;
-													$min = min($bidVal_arr);
-													if($package_bidder_value==$min)
-														$bidder_class = 'background-green';
-													else */
+													
 														$bidder_class = '';
 													
-													//if($bid_index==$bidders_count && $id_index==2)
+													
 														$script_text = ' onblur="getBidders_total();changeToCr(this)"';
-													/* else
-														$script_text = 'onblur="changeToCr(this)"'; */
-													//
+													
 												?>
 													<td><input type='text' oninput="allowNumOnly(this)"  class="form-control package_common_tower_label_custom_td" name="package_bidder[<?php echo $id_index;?>][<?php echo $bid_index;?>]" id="package_bidder_<?php echo $id_index;?>_<?php echo $bid_index;?>" value="<?php echo $package_bidder_value; ?> Cr" <?php echo $script_text; ?>></td>
 												<?php 
@@ -625,9 +529,7 @@ $this->load->view('buyer/partials/header'); ?>
 										  }
 									$total_amt_gpl = $mRecordFinalBidders[0]->total_amt_gpl;
 									?>
-										<!--<tr id="package_row" class='text-center'>
-                                       
-										</tr>-->
+										
                                         <tr class='text-center' id="totAmt_row">
                                             <td class="page-title font-weight-bold">Total Amount</td>
 											 <td><input type='text' class="form-control" name="total_amt_gpl" id="total_amt_gpl" value="<?php echo $total_amt_gpl; ?>" readonly></td>
@@ -652,9 +554,7 @@ $this->load->view('buyer/partials/header'); ?>
 												{
 													$id_index = $keyBid+1;
 													$bid_position = $valBid->bid_position;
-													//$score = $val->score;
-													
-													
+																									
 												?>
 													
 													<td><input type='text' class="form-control bid_position_label_custom_td" name="bid_position[]" id="bid_position<?php echo $id_index;?>" value="<?php echo $bid_position; ?>" readonly  ></td>
@@ -706,7 +606,7 @@ $this->load->view('buyer/partials/header'); ?>
 												
 												}
 											?> 
-											<?php /* <td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control <?php echo $budget_class?> diff_age_gp_custom_td" name="diff_budget_percentage[]" id="diff_budget_percentage<?php echo $id_index;?>" value="<?php echo $diff_budget_percentage ?> %"></td> */ ?>
+											
 												<td><input type='text' oninput="allowNumOnly(this)" class="form-control <?php echo $budget_class?> diff_age_gp_custom_td" name="diff_budget_percentage[]" id="diff_budget_percentage<?php echo $id_index;?>" value="<?php echo $diff_budget_percentage ?> %"></td>
                                            <?php 
 											}?>
@@ -717,167 +617,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 </table>
 
                             </div>
-                            
-                         <?php /*   <div class="row mt-4">
 
-                                <div class="col-lg-12">
-                                    <label class="page-title br-0 font-weight-bold mr-4">Front Idling
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling1" value="yes" onclick="idlingCheck()" <?php echo ($mRecord['front_idling']=="yes")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" for="front_idling1">
-                                        Yes
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling2" value="no" onclick="idlingUnCheck()" <?php echo ($mRecord['front_idling']=="no")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="front_idling2">
-                                        No
-                                    </label>
-                                </div>
-                               
-                            </div>
-							<?php //if ($mRecord['front_idling']=="yes")
-							//{
-								?>
-								
-								<div id="delayReason" class="mt-4">
-									<h5 class="page-title br-0 font-weight-bold">Reasons for Delay</h5>
-									<div id="reasons_delay" class="form-control" name="reasons_delay"><?php echo $mRecord['reasons_delay'] ?>
-									</div>
-							   </div>
-							
-							
-                            <div class="d-block mt-4">
-							<?php //if($mRecord['total_finalized_award_value']>3)
-							//{ ?>
-                                <h5 id="date1" class="page-title br-0 font-weight-bold">Contractor Appointment Dates</h5>
-								<?php 
-							//}?>
-							</div>
-
-                            <div id="appointment-date" class="table-responsive" >
-							<?php //if($mRecord['total_finalized_award_value']>3)
-							//{								?>
-                                <table class="table table-bordered mb-0 ">
-                                    <thead class="bg-primary">
-                                        <tr class='text-center'>
-                                            <th>Sr No.</th>
-                                           <th style="width:60%" colspan="2">
-                                                <label>Contract Package</label>
-                                                <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label"  value="<?php echo $mRecordAppointment['contract_package_works_label'] ?>" >
-                                            </th>
-                                            <th>Remarks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="bidderList">
-                                        <tr class='text-center'>
-                                            <td></td>
-                                           <td>
-                                                <label>Milestone on which contractor should be appointed</label>
-                                                <div data-tip="Please mention the milestone as per applicable PI">
-                                                <input type='text' class="form-control" name="milestone_label" id="milestone_label" autocomplete="off"  value="<?php echo $mRecordAppointment['milestone_label'] ?>">
-                                                </div>
-                                            </td>
-                                            <td>
-                                               <!-- <textarea class="form-control" rows="2" name="contract_package_works_value" id="contract_package_works_value"><?php echo $mRecordAppointment['contract_package_works_value'] ?></textarea> -->
-											     <select id="contract_package_works_value" name="contract_package_works_value"   class="form-control" >
-                                                    <option value="">Select</option>
-													<?php 
-													for($i=1;$i<=5;$i++)
-													{
-														$option_val = "pi".$i;
-														$works_sel = ($option_val==$mRecordAppointment['contract_package_works_value']) ? "selected" : "";
-													 ?>
-														<option value="pi<?php echo $i;?>" <?php echo $works_sel; ?>>PI<?php echo $i;?></option>
-													<?php 
-													}
-													?>
-                                                   <!-- <option value="pi2">PI2</option>
-                                                    <option value="pi3">PI3</option>
-                                                    <option value="pi4">PI4</option>
-                                                    <option value="pi5">PI5</option> -->
-                                                    <option value="not applicable" <?php echo ($mRecordAppointment['contract_package_works_value']=="not applicable") ? "selected" : "" ?>>Not applicable</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="contract_package_works_remarks" id="contract_package_works_remarks"><?php echo $mRecordAppointment['contract_package_works_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td></td>
-                                            <td class="page-title font-weight-bold">Activity</td>
-                                            <td class="page-title font-weight-bold">Dates</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>A</td>
-                                            <td>Planned date of Contractor appointment As per BI Logic</td>
-                                            <td>
-                                                <input type='date' class="form-control" style="width: 100% " name="activity_planned_date" id="activity_planned_date"  value="<?php echo $mRecordAppointment['activity_planned_date'] ?>">
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_planned_remarks" id="activity_planned_remarks"><?php echo $mRecordAppointment['activity_planned_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>B</td>
-                                            <td>Actual date as per current site progress</td>
-                                            <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_actual_date" id="activity_actual_date" value="<?php echo $mRecordAppointment['activity_actual_date'] ?>" >
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_actual_remarks" id="activity_actual_remarks"><?php echo $mRecordAppointment['activity_actual_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>C</td>
-                                            <td>CBE of contractor Appointment</td>
-                                            <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>">
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_cbe_remarks" id="activity_cbe_remarks"><?php echo $mRecordAppointment['activity_cbe_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>D</td>
-                                            <td>Delay in appointment</td>
-                                            <td>
-                                                <input type='text' class="form-control" name="activity_delay" id="activity_delay" readonly value="<?php echo $mRecordAppointment['activity_delay'] ?>">
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_delay_remarks" id="activity_delay_remarks"><?php echo $mRecordAppointment['activity_delay_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-									<?php 
-							//}?>
-                            </div>
-							
-							<div class="row mt-4">
-
-                                <div class="col-lg-12">
-                                    <label class="page-title br-0 font-weight-bold mr-4">Front Idling
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling1" value="yes" onclick="idlingCheck()" <?php echo ($mRecord['front_idling']=="yes")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" for="front_idling1">
-                                        Yes
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling2" value="no" onclick="idlingUnCheck()" <?php echo ($mRecord['front_idling']=="no")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="front_idling2">
-                                        No
-                                    </label>
-                                </div>
-                               
-                            </div>
-						
-								
-							<div id="delayReason" class="mt-4">
-									<h5 class="page-title br-0 font-weight-bold">Reasons for Delay</h5>
-									<div id="reasons_delay" class="form-control" name="reasons_delay"><?php echo $mRecord['reasons_delay'] ?>
-									</div>
-							   </div>
-							   
-							  <?php */?>
 						
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Award Efficiency</h5>

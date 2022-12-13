@@ -134,6 +134,8 @@ class Award_procurement extends ListNfa
 			$subject = $this->input->post('subject_hd');
 			$scope_of_work = $this->input->post('scope_of_work');
 			$procurement_type = $this->input->post('procurement_type');
+			$uom_label = $this->input->post('uom_label');
+			$uom_value = $this->input->post('uom_value');
 			$zone = $this->input->post('zone');
 			
 			$ho_approval = $this->input->post('ho_approval');
@@ -239,18 +241,14 @@ class Award_procurement extends ListNfa
 			//Upload Files
 			$mUpload1 = $this->input->post('upload_comparitive');
 			//$file1
-			
-			
+						
 			if ($_FILES['upload_comparitive']['size'] != 0)
 				$mFile1 = single_File_Upload('upload_comparitive', $mUpload1);
 				
 				
-				//print_r($mFile1);
-			
 			$mUpload2 = $this->input->post('upload_detailed');
 			
 			$mFile2 =single_File_Upload('upload_detailed', $mUpload2);
-			//print_r($mFile2);
 			
 			//Approvers
 			$approver_id = $this->input->post('approver_id');
@@ -328,7 +326,9 @@ class Award_procurement extends ListNfa
 							'type_work_id' => $type_work_id,
                             'subject' => $subject,
 							'scope_of_work'=>$scope_of_work,
-							'procurement_type'=>$procurement_type,							
+							'procurement_type'=>$procurement_type,	
+							'uom_label'=>$uom_label,	
+							'uom_value'=>$uom_value,							
 							'zone'=>$zone,
 							'package_count' => $package_count,
 							'bidder_count' => $bidder_count,
@@ -604,6 +604,8 @@ class Award_procurement extends ListNfa
                             'subject' => $subject,
 							'scope_of_work'=>$scope_of_work,
 							'procurement_type'=>$procurement_type,	
+							'uom_label'=>$uom_label,	
+							'uom_value'=>$uom_value,	
 							'zone'=>$zone,
 							'package_count' => $package_count,
                             'bidder_count' => $bidder_count,
@@ -663,7 +665,7 @@ class Award_procurement extends ListNfa
 							'created_date' => date('Y-m-d H:i:s')
 							);
 							$mInsertPackage = $this->awardRecommProcurement->addPackages($nfaPackageData);
-							//print_r(package_negot_value);
+							
 							//Insert Synopsis package data
 						
 							$nfaSynopsisData = array(
@@ -786,22 +788,7 @@ class Award_procurement extends ListNfa
 							$term_index++;
 												
 						}
-								/*foreach($term as $keyTerm=>$valTerm)
-								{
-									if(!empty($valTerm)){
-										$nfaMajorTermData = array(
-										'salient_id' => $mInsert,
-										'term' => $valTerm,
-										'term_label_value' => $term_label_value[$keyTerm],
-										'created_date' => date('Y-m-d H:i:s')
-										);
-									
-										//Insert Major Term data
-										$mInsertMajorTerm = $this->awardRecommProcurement->addMajorTerm($nfaMajorTermData);
-									}
-								}*/
-								
-								
+																
 								//Insert Approvers
 							
 								$isExistApprover=$this->awardRecommProcurement->checkApproverDelete($mInsert);
@@ -873,48 +860,6 @@ class Award_procurement extends ListNfa
 		
     }
 	
-    /*public function award_recomm_procurement_list()
-    {
-        $mSessionKey = $this->session->userdata('session_id');
-        if ($mSessionKey) {
-          
-            $data['records'] = $this->awardRecommProcurement->getAllParent();
-			$nfa_select = nfa_dropdown_draft("award_procurement");
-			$data['nfa_select'] = $nfa_select;
-            $this->load->view('nfa/award_procurement/award_recomm_procurement_list', $data);
-        } else {
-            $this->load->view('index', $data);
-        }
-    }*/
-
-	// public function award_recomm_procurement_list()
-    // {
-    //     $mSessionKey = $this->session->userdata('session_id');
-    //     if ($mSessionKey) {
-
-	// 		$awdType = $this->input->post('awdType');
-	// 		/*$buyer_id = $this->input->post('buyer_id');
-	// 		$start_date = $this->input->post('start_date');
-	// 		$end_date = $this->input->post('end_date');*/
-			
-	// 		//$data['records'] = $this->awardRecommContract->getReportData($nfaStatus,$buyer_id,$start_date,$end_date);
-			
-	// 		//$data['recordBuyers'] = displayReportUsers();
-	// 		/*$data['buyer_id'] = $buyer_id;
-	// 		$data['start_date'] = $start_date;
-	// 		$data['end_date'] = $end_date;*/
-	// 		$data['nfaStatus'] = $nfaStatus;
-    //         $data['records'] = $this->awardRecommProcurement->getAllParent();
-	// 		$nfa_select = nfa_dropdown_draft("award_procurement");
-	// 		$data['nfa_select'] = $nfa_select;
-    //         $this->load->view('nfa/award_procurement/award_recomm_procurement_list', $data);
-    //     } else {
-    //         $this->load->view('index', $data);
-    //     }
-    // }
-
-
-
 	
 	public function award_recomm_procurement_list($project_id='',$zone='',$type_work_id='')
     {

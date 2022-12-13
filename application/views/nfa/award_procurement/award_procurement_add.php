@@ -108,7 +108,13 @@
         }
 
     </style>
-
+    <?php if($type_work_id==1)
+            $uom_label = "Sqm";
+          else if($type_work_id==3)
+            $uom_label = "MT";
+          else if($type_work_id==4)
+            $uom_label = "Bags";
+    ?>
 
 
     <div class="wrapper">
@@ -290,7 +296,17 @@
                                     </table>
                                 </div>
 								
-								
+								<div class="row mt-4">
+
+                                    <div class="col-lg-4">
+                                        <div class='form-group'>
+                                            <label class="font-weight-bold"><?php echo $uom_label;?></label>
+                                            <input type="hidden" name="uom_label" id="uom_label" value="<?php echo $uom_label;?>">
+                                            <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value">
+                                        </div>
+                                    </div>
+
+                                </div>
 									
 								<div class="row mt-4">
                                     <div class="col-lg-12">

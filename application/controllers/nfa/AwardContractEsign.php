@@ -82,15 +82,10 @@ NOTES:
 //$libPath = APPPATH."libraries\\";
 $libPath = APPPATH."libraries//";
 // set certificate file
-//$certificate = ('file://data/cert/tcpdf.crt');
-//$certificate ='file://'.realpath('data/cert/tcpdf.crt');
+
 $certificate ='file://'.$libPath.'TCPDF-main\examples\data\cert\tcpdf.crt';
-//echo $certificate;
-//$libPath.'TCPDF-main\examples';
 
 $image_path = realpath(APPPATH.'../images');
-
-
 
 // set additional information
 $info = array(
@@ -663,8 +658,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 				{
 					$slNo  = $key+1;
 					$term = $val->term;
-					//$term_label_value = $val->term_label_value;
-			
+				
                     $html .='<tr>
                         <td>'. $slNo.'</td>
                         <td>'. $term.'</td>';
@@ -728,7 +722,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 			 else
 			 {
 				$getUser = $CI->getRoleUsers_approval($role,$mSessionZone,$approver_id);
-				//print_r($getUser);
+				
 				$approver_name = $getUser[0]->buyer_name;
 			 }
 			 
@@ -828,39 +822,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						</tr>';
 		}
 								 
-			/*$html .= '<tr>
-				<td>Level '.$level.' Approver'.$role.')</td>
-					<td>'.$approver_name;
-					if($approver_id!=0)
-					{
-						$approved_status = ($val['approved_status'] == 0) ? "Approval Pending" : "Approved" ;
-						$html .= ' - '.$approved_status;
-						if ($val['approved_status'] == 1)
-							$html .=  "<br>Approved Date: " . date("d-m-Y h:i:sa", strtotime($val['approved_date']))."<br>";
-							if ($val['returned_text_status'] == 1) {
-								$html .=   "Returned for Text correction" . "<br>";
-								$html .= "Remarks: " . $val['returned_text_remarks'] . "<br>";
-								
-								$html .= "Returned Date for text correction: " . date("d-m-Y h:i:sa", strtotime($val['returned_text_date'])) . "<br>";
-							}
-							if ($val['returned_by'] != 0) {
-
-								$html .=  "Returned NFA" . "<br>";
-								$html .= "Remarks: " . $val['returned_remarks'] . "<br>";
-								$html .= "Returned Date: " . date("d-m-Y h:i:sa", strtotime($val['returned_date'])) . "<br>";
-								
-							}
-							if ($val['amended_by'] != 0) {
-
-								$html .= "Amended NFA" . "<br>";
-								$html .= "Remarks: " . $val['amended_remarks'] . "<br>";
-								$html .= "Amended Date: " . date("d-m-Y h:i:sa", strtotime($val['amended_date'])) . "<br>";
-							}
-							
-					 } //end of approver id checking
-					$html .='</td>
-				</tr>';
-		}*/
+			
 				$html .='
 			</tbody>
 		</table>
@@ -878,9 +840,6 @@ $pdf->writeHTML($html, true, false, true, false, '');
 // *** set signature appearance ***
 
 // create content for signature (image and/or text)
-//echo realpath('TCPDF-main/examples/images/tcpdf_signature.png');
-//$pdf->Image(($libPath.'TCPDF-main\examples\images\tcpdf_signature.png'), 180, 60, 15, 15, 'PNG');
-//$pdf->Image('images\tcpdf_signature.png', 180, 60, 15, 15, 'PNG');
 
 // define active area for signature appearance
 $pdf->setSignatureAppearance(180, 60, 15, 15);
@@ -893,7 +852,7 @@ $pdf->addEmptySignatureAppearance(180, 80, 15, 15);
 // ---------------------------------------------------------
 
 //Close and output PDF document
-//$pdf->Output('example_052.pdf', 'D');
+
 $pdf->Output('award_contract.pdf', 'D');
 //============================================================+
 // END OF FILE

@@ -46,7 +46,6 @@ $pdf->setTitle('NFA - Award Recommendation for Procurement');
 $pdf->setSubject('Esigned NFA');
 $pdf->setKeywords('NFA, PDF, Award Recommendation for Procurement');
 
-//echo PDF_HEADER_LOGO;
 // set default header data
 $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Award Recommendation for Procurement", PDF_HEADER_STRING);
 

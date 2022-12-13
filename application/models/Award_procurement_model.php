@@ -288,68 +288,6 @@ class Award_procurement_model extends CI_Model {
 		
 	}
 
-	/*public function getProcurementData($awdType=null,$project_id=null,$nfaStatus=null,$zone=null) {
-		$mSessionKey = $this->session->userdata('session_id');
-		$tbl = "award_recomm_procurement_salient AWDContractSalient ";
-		
-		$data = "AWDContractSalient.*,AWDSynopsLbl.synopsis_label as synopsis_label";
-		
-		$joins[]=array("table"=>"award_recomm_procurement_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
-		if($nfaStatus!="Cancelled" && $nfaStatus!="Returned")
-		{
-			$joins[]=array("table"=>"award_recomm_procurement_status AWDContractStatus ","condition"=>"AWDSynopsLbl.salient_id = AWDContractStatus.id","type"=>'inner');
-		}
-		//$where = array('initiated_by'=>$mSessionKey,'status'=>'0','nfa_status!='=>'C');
-		if($project_id)
-		{
-			$where['project_id']= $project_id;
-		}
-		if($nfaStatus)
-		{
-			if($nfaStatus=="Approved")
-				$where['nfa_status']= 'A';
-			else if($nfaStatus=="Pending")
-				$where['status']= '0';
-			else if($nfaStatus=="Initiated")
-			{	
-				$where['status']= 1;
-				$where['approved_status']= 0;
-				$where['nfa_status !=']= 'R';
-				$where['nfa_status !=']= 'RT';
-			}
-			else if($nfaStatus=="Draft")
-			{
-				$where['status']= 0;
-				$where['nfa_status !=']= 'C';
-				$or_where['nfa_status=']= 'RT';
-			}
-			else if($nfaStatus=="Returned")
-			{
-				$where['status']= 1;
-				$where['nfa_status']= 'R';
-			}
-			else if($nfaStatus=="Cancelled")
-			{
-				
-				$where['status']= 0;
-				$where['nfa_status']= 'C';
-				//$data['records'] = $this->nfaAction->getNfaData($param,"award_contract");
-
-			}
-		}
-		if($zone)
-		{
-			$where['zone']= $zone;
-		}
-		//$or_where = array("nfa_status"=>'RT');
-		
-		$group_by = "AWDContractSalient.id";
-		$order_by='id DESC';
-		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
-		return $data;
-	
-    } */
 	//Get All nfa by initiator
 	 public function getAllNfa() {
 		$mSessionKey = $this->session->userdata('session_id');
@@ -360,12 +298,11 @@ class Award_procurement_model extends CI_Model {
 		$joins[]=array("table"=>"award_recomm_procurement_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
 	
 		$where = array('initiated_by'=>$mSessionKey);
-		//$or_where = array("nfa_status"=>'RT');
+		
 		$group_by = "AWDContractSalient.id";
 		$order_by='id DESC';
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $$single,'','',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
-		//($tbl = '', $data, $joins = '', $where = '', $single = FALSE, $field = '', $value = '',$group_by='',$order_by = '',$limit = '',$array = false)
+	
 		return $data;
 		
     }

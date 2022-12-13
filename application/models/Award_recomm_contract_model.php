@@ -280,90 +280,7 @@ class Award_recomm_contract_model extends CI_Model {
 
 			
     }
-	/*public function getContractData_old($awdType=null,$project_id=null,$nfaStatus=null,$zone=null){
-		$mSessionKey = $this->session->userdata('session_id');
-		$mSessionRole = $this->session->userdata('session_role');
-		
-		$tbl = "award_recomm_contract_salient AWDContractSalient ";
-		
-		
-		$data = "AWDContractSalient.*,AWDTypeofwork.name as package_name,AWDProjects.project_name as project_name,AWDSynopsLbl.synopsis_label as synopsis_label";
-		
-		$joins[]=array("table"=>"award_recomm_contract_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
-		$joins[]=array("table"=>"typeofwork AWDTypeofwork ","condition"=>"AWDTypeofwork.id = AWDContractSalient.type_work_id","type"=>'inner');
-		$joins[]=array("table"=>"projects AWDProjects ","condition"=>"AWDProjects.project_id = AWDContractSalient.project_id","type"=>'inner');
 
-		if($nfaStatus!="Cancelled" && $nfaStatus!="Returned")
-		{
-			$joins[]=array("table"=>"award_recomm_contractor_status AWDContractStatus ","condition"=>"AWDSynopsLbl.salient_id = AWDContractStatus.salient_id","type"=>'inner');
-		}
-		
-		if($project_id)
-		{
-			$where['AWDContractSalient.project_id']= $project_id;
-		}
-		
-		if($nfaStatus)
-		{
-			if($nfaStatus=="Approved")
-				$where['nfa_status']= 'A';
-			else if($nfaStatus=="Pending")
-			{	
-				$where['status']= 1;
-				$where['approved_status']= 0;
-				
-				$status_arr = array('R','RT');
-				
-				$status_str = " ( '" . implode( "', '" , $status_arr ) . "' )";
-				
-				$where = array('status'=>1,'approved_status'=>0,'nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status  !='=>'A','nfa_status   !='=>'AMD');
-			}
-			else if($nfaStatus=="Draft")
-			{
-				$where['status']= 0;
-				$where['nfa_status !=']= 'C';
-				$or_where['nfa_status=']= 'RT';
-			}
-			else if($nfaStatus=="Returned")
-			{
-				$where['status']= 1;
-				$where['nfa_status']= 'R';
-			}
-			else if($nfaStatus=="Cancelled")
-			{
-				
-				$where['status']= 0;
-				$where['nfa_status']= 'C';
-			
-			}
-			else if($nfaStatus=="Amended")
-			{
-				
-				$where['status']= 1;
-				$where['nfa_status']= 'AMD';
-			
-			}
-		}
-		else
-		{
-			if($mSessionRole!="PCM")
-			{
-				$where = array('nfa_status !='=>'R','nfa_status    !='=>'RT','nfa_status     !='=>'AMD' );
-				$or_where['nfa_status=']= 'A';
-			}
-		}
-		if($zone)
-		{
-			$where['zone']= $zone;
-		}
-		$where['status !=']= 2;
-		$group_by = "AWDContractSalient.id";
-		$order_by='id DESC';
-		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
-		return $data;
-	
-    }*/
 	//Get All nfa by initiator
 	 public function getAllNfa() {
 		$mSessionKey = $this->session->userdata('session_id');
@@ -374,12 +291,11 @@ class Award_recomm_contract_model extends CI_Model {
 		$joins[]=array("table"=>"award_recomm_contract_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
 	
 		$where = array('initiated_by'=>$mSessionKey);
-		//$or_where = array("nfa_status"=>'RT');
+		
 		$group_by = "AWDContractSalient.id";
 		$order_by='id DESC';
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $$single,'','',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
-		//($tbl = '', $data, $joins = '', $where = '', $single = FALSE, $field = '', $value = '',$group_by='',$order_by = '',$limit = '',$array = false)
+		
 		return $data;
 		
     }
@@ -403,20 +319,6 @@ class Award_recomm_contract_model extends CI_Model {
 	//Get Final Bidders
 	public function getFinalBidders($salient_id) {
 		
-		/* $this->db->select('*');
-        $this->db->from("award_recomm_contract_final_bidders ");
-		$where = array('salient_id'=>$salient_id);
-        $this->db->where($where);
-		$this->db->order_by('bid_position', 'ASC NULLS LAST');
-       
-        $data = array();
-        $mQuery_Res = $this->db->get();
-        if ($mQuery_Res->num_rows() > 0) {
-            $data = $mQuery_Res->row_array();
-            return $data;
-        } else {
-            return false;
-		} */
 		
 		$tbl = "award_recomm_contract_final_bidders ";
 		$data = "*";
@@ -427,10 +329,10 @@ class Award_recomm_contract_model extends CI_Model {
 		
 		
 		$order_by='ISNULL(bid_position) ASC, bid_position ASC ';
-		//$order_by='-'.'bid_position DESC';
+		
 		$array = false;
 		$data = $this->common->select_fields_where($tbl, $data,  $where, $single ,'','','',$group_by,$order_by,$array);
-		//print_r($this->db->last_query());  
+		
 		return $data; 
 		
        

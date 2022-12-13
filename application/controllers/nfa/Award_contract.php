@@ -542,19 +542,7 @@ class Award_contract extends ListNfa
 					
 					//Major Terms
 					$isExistMajorTerms=$this->awardRecommContract->checkMajorTermsDelete($mId);
-					/*foreach($term as $keyTerm=>$valTerm)
-					{
-						$nfaMajorTermData = array(
-						'salient_id' => $mId,
-						'term' => $valTerm,
-						'term_label_value' => $term_label_value[$keyTerm],
-						'created_date' => date('Y-m-d H:i:s')
-						);
-						//print_r($uploadData);
-						//Insert Major Term data
-						$mInsertMajorTerm = $this->awardRecommContract->addMajorTerm($nfaMajorTermData);
-					}*/
-					//foreach($term as $keyTerm=>$valTerm)
+					
 					$term_index=0;
 					
 					foreach($term_label_value as $keyLabel=>$valLabel)
@@ -638,7 +626,7 @@ class Award_contract extends ListNfa
 							
 							$mNfaInsert = $this->awardRecommContract->addNfaStatus($approveData);
 							
-							//if($approver_level==1 && $mSavingStatus==1)
+							
 							if($approver_id !=0 && $mSavingStatus==1)
 							{
 								
@@ -653,7 +641,7 @@ class Award_contract extends ListNfa
 								
 							}
 						}
-					 //exit;	
+					
 					}
                     if ($mUpdate) {
 						
@@ -694,7 +682,7 @@ class Award_contract extends ListNfa
                             'front_idling_desc' => $front_idling_desc,
 							'reasons_delay' => $reasons_delay,
                             'current_status_work' => $current_status_work,
-							//'term_label' => $term_label,
+							
                             'detailed_note' => $detailed_note,
 							'upload_comparitive_name' => $mFile1['file_name'],
 							'upload_comparitive_disp_name' => $this->input->post('upload_comparitive_disp_name'),
@@ -729,7 +717,7 @@ class Award_contract extends ListNfa
 								//$mLogNfaIns = $this->awardRecommContract->nfaLogs_insertData($mInsert, $nfaLogData);
 								
 							}
-							//exit;
+							
 							$nfaLabeldata = array(
 							'salient_id' => $mInsert,
 							'synopsis_label' => $synopsis_label,
@@ -868,7 +856,7 @@ class Award_contract extends ListNfa
 							'score_type' => $score_type[$keyBid],
 							'score' => $score[$keyBid],
 							'total_amt_gpl' => $total_amt_gpl,
-							//'total_amt_bidder' => 100,
+							
 							'total_amt_bidder' => $total_amt_bidder[$keyBid],
 							'bid_position' => $bid_position[$keyBid],		
 							'diff_budget_crs' => $diff_budget_crs[$keyBid],
@@ -945,13 +933,11 @@ class Award_contract extends ListNfa
 									
 									$mNfaInsert = $this->awardRecommContract->addNfaStatus($approveData);
 									
-									//if($approver_level==1 && $mSavingStatus==1)
 									if($approver_id !=0 && $mSavingStatus==1)
 									{
 										
 										$buyer = $this->buyer->getParentByKey($approver_id);
 										
-										//print_r($this->session->userdata);
 										$approver =   $buyer['buyer_name'];
 										$approver_mail =   $buyer['buyer_email'];
 										$sender =   $this->session->userdata('session_name');
@@ -961,8 +947,7 @@ class Award_contract extends ListNfa
 										
 									}
 								}
-								//print_r($approveData);
-									//exit;
+								
 							if($updType=="RF")
 							{
 								$nfadata = array(
@@ -992,32 +977,7 @@ class Award_contract extends ListNfa
         }
 	
     }
-	//Insert Major Terms
-	/*public function addMajorTermsPackage()
-	{
-
-		foreach($term_label as $labelIndex=>$labelVal)
-		{
-			
-			
-				$total_basic_rate_packageVal = $total_basic_rate_package[$keyPck];
-		
-				$anticipate_basic_rate_packageVal = $anticipate_basic_rate_package[$keyPck];
-		}
-	}*/
-	/*foreach($term as $keyTerm=>$valTerm)
-	{
-		$nfaMajorTermData = array(
-		'salient_id' => $mInsert,
-		'term' => $valTerm,
-		'term_label_value' => $term_label_value[$keyTerm],
-		'created_date' => date('Y-m-d H:i:s')
-		);
-		//print_r($uploadData);
-		//Insert Major Term data
-		$mInsertMajorTerm = $this->awardRecommContract->addMajorTerm($nfaMajorTermData);
-	}*/
-//}
+	
 	
     public function award_recomm_contract_list($project_id='',$zone='',$type_work_id='')
     {
@@ -1169,7 +1129,7 @@ class Award_contract extends ListNfa
 						);	
 				$mUpdate = $this->nfaAction->updateData($param, $returnData,"award_contract");
 				if ($mUpdate) {
-						//echo "updated";
+						
 						$nfadata = array(
 						
 						'nfa_status' => 'R'
@@ -1662,19 +1622,16 @@ class Award_contract extends ListNfa
 		
 			if ($mId) {
 				$mRecord = $this->nfaAction->get_salient_initiator($mId,"award_contract");
-				//print_r($mRecord);
+				
 				$salient_id = $mRecord['id'];
 				
 				
 				$mRecordLevelsObj = $this->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract","view");
 				$mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
 				
-				//$mRecordLogs = $this->nfaAction->getNfa_logs($salient_id,"award_contract");
-				
 				$data['mRecord'] = $mRecord;
 				
 				$data['mRecordLevels'] = $mRecordLevels; 
-				//$data['mRecordLogs'] = $mRecordLogs; 
 				
 				if($pgType=='A' || $pgType=='E' )
 				{
@@ -1714,7 +1671,6 @@ class Award_contract extends ListNfa
 			$nfa_select = nfa_dropdown_reports("award_contract");
 			$data['nfa_select'] = $nfa_select;
 		
-			//exit;
 			$this->load->view('nfa/award_contract/reports', $data);
         } else {
             $this->load->view('index', $data);
@@ -1733,13 +1689,9 @@ class Award_contract extends ListNfa
 		$header = array("Sl. No","ENFA No.","Subject","Award Synopsis","NFA Status"); 
 		
 		$data11 = $this->input->post('data1');	
-		//echo "data testing----";
-		//print_r($data11);
+		
 		$records1 = json_decode($data11,true);
-		//echo "testing----";
-		//echo 
-		//print_r($records1);
-		//exit;
+		
 		fputcsv($file, $header);
 		$excel_arr = array();
 		$slno = 1;
@@ -1764,11 +1716,9 @@ class Award_contract extends ListNfa
 		exit; 
 	}
 	public function export_csv1(){ 
-		 header('Content-Type: application/vnd.ms-excel');  
-		 header('Content-disposition: attachment; filename='.rand().'.xls');  
-		 //print_r($_GET);
-		 //echo $data; 
-		 //echo $_GET["data"];
+		header('Content-Type: application/vnd.ms-excel');  
+		header('Content-disposition: attachment; filename='.rand().'.xls');  
+		
 		$data = $this->input->post('data');	
 		echo $data;	
 		exit;		
@@ -1782,48 +1732,31 @@ class Award_contract extends ListNfa
 		$output = fopen("php://output", "w");
 		fputcsv($output, array('Id','Name','Skills','Address', 'Designation'));
 		$records = $this->input->post('data1');
-		/* $sql = "SELECT * FROM `developers`";
-		/* $qry = mysqli_query($con, $sql);
-		while($row= mysqli_fetch_assoc($qry))
-		{
-			fputcsv($output, $row);
-		} */ 
+		
 		fclose($output);
 	}
     public function esign()
     {
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
-            // $data['home'] = "reports";
+           
             $data['records'] = $this->buyer->getAllParent();
             $this->load->view('nfa/esign', $data);
         } else {
             $this->load->view('index', $data);
         }
     }
-	/*public function getLevelRole()
-    {
-        $mSessionKey = $this->session->userdata('session_id');
-        if ($mSessionKey) {
-            // $data['home'] = "reports";
-            $data['records'] = $this->awardRecommContract->getAllLevelRole();
-            //$this->load->view('nfa/esign', $data);
-        } else {
-            //$this->load->view('index', $data);
-        }
-    }*/
+	
 	public function getRoleUsers() {
         $role = $this->input->post('role');
-		//echo "role".$role;
-		//$contract_value = $this->input->post('contract_value');
+		
         if ($role) {
 			$tbl = "buyers";
 			$fields = 'buyer_id,buyer_name';
 			$where = array("buyer_role"=>$role);
 			$order_by = 'buyer_name asc';
             $getUsers = $this->common->select_fields_where($tbl, $fields, $where, '', '', '', '','',$order_by);
-			//print
-			//echo $role = $getUsers->role;
+			
             $result = '<option disabled="" selected="" value="" disabled="">Select Users</option>';
             foreach ($getUsers as $key => $valUser) {
                 $result = $result . "<option value='" . $valUser->buyer_id . "'>" . $valUser->buyer_name . "</option>" . PHP_EOL;
@@ -1853,22 +1786,20 @@ class Award_contract extends ListNfa
 		$package_name = $this->input->post('package_name');
 		$package_index = $this->input->post('package_index');
 		$package_row ="";
-		//print_r($package_name);
-			
+		
         if ($package_name) {
-			 //foreach ($package_name as $keyPck => $valPck) {
-				 $pck_index = $keyPck+1;
-				 $package_row.="
-												<td>".$package_name."</td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
-											   
-								";
-			// }
+			
+			$pck_index = $keyPck+1;
+			$package_row.="
+						<td>".$package_name."</td>
+						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
+						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
+						
+						";
+			
             
 		}
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
+		
 		echo $package_row; 
 		
     }
@@ -1887,18 +1818,13 @@ class Award_contract extends ListNfa
 			<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getGplBudget_total();' class='form-control decimalStrictClass' name='package_gpl_budget[]' id='package_gpl_budget1' required readonly></td>";
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
-				/*if($bid_index==1)
-				{
-					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' value='".$finalized_award_value."' required readonly></td>	
-				";
-				}
-				else*/
+			
 					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";
 			}
             
 		}
-		//echo "test bidders";
+		
 		echo $package_row; 
 		
     }
@@ -1919,20 +1845,13 @@ class Award_contract extends ListNfa
 			<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getGplBudget_total();' class='form-control decimalStrictClass' name='package_gpl_budget[]' id='package_gpl_budget2' required readonly></td>";
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
-				/*if($bid_index==2)
-				{
-					$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' value='".$finalized_award_value."' required readonly></td>	
+				
+				$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";
-				}
-				else
-				{*/
-					$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
-				";
-				//}
+				
 				
 			}
-			//<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][1]' id='package_bidder_".$pck_index."_1' required></td>
-			            
+			 
 		}
 		
 		echo $package_row2; 
@@ -1953,20 +1872,12 @@ class Award_contract extends ListNfa
 			<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getGplBudget_total();' class='form-control decimalStrictClass' name='package_gpl_budget[]' id='package_gpl_budget3' required readonly></td>";
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
-				/*if($bid_index==3)
-				{
-					$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' value='".$finalized_award_value."' required readonly></td>	
-				";
-				}
-				else
-				{*/
-					$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+				
+				$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";	
-				//}
+				
 			}
-			//<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][1]' id='package_bidder_".$pck_index."_1' required></td>
-											   
-								
+					
             
 		}
 		
@@ -1975,20 +1886,16 @@ class Award_contract extends ListNfa
     }
 	public function getMaxLevelApprovers() {
 		$result  = array();
-		//print_r($result);
-		//print_r($this->input->post());
+		
 		$l1_vendor1 = $this->input->post('l1_vendor1');
 		$package_value = $this->input->post('package_value');
 		$package_value = $package_value*10000000; 
-		//echo $package_value;
+		
 		$salient_id = $this->input->post('salient_id');
 		$pgType = $this->input->post('pgType');
-		//$result  = array();
-		//echo "package".$package_value;
-			
+		
         if ($package_value) {
 			
-             //echo "controller1";
 			$getConditions = $this->awardRecommContract->getApprover_conditions($l1_vendor1);
 			
             foreach ($getConditions as $key => $valConditions) {
@@ -2026,22 +1933,17 @@ class Award_contract extends ListNfa
                
             }
 			
-			
-		
-			//echo $level_max;
-			 //$getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,$salient_id,"award_contract");
+						
 			 $getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,'',"award_contract");
-			 //print_r($getLevels);
+			 
 			 $result_approvers = '';
 			 $mSessionZone = $this->session->userdata('session_zone');
 			
 			 foreach ($getLevels as $key => $valLevel) {
 				 $role = $valLevel->role;
 				 $approver_id = $valLevel->approver_id;
-				 //$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
-				 $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
-				 //print_r($this->db->last_query());
 				
+				 $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
 				
 				$result_approvers .='<div id="pm" class="col-md-3 mb-3">
 				<lable>'.$role.'</lable>
@@ -2052,8 +1954,7 @@ class Award_contract extends ListNfa
 					foreach ($getUsers as $keyUser => $valUser) {
 						$buyer_id = $valUser->buyer_id;
 						
-					//$result_approvers .='<option value="'.$valUser->buyer_id.'"'. ($approver_id==$buyer_id) ? "selected": "".'>'.$valUser->buyer_name .'</option>';
-					$result_approvers .='<option value="'.$valUser->buyer_id.'">'.$valUser->buyer_name .'</option>';
+						$result_approvers .='<option value="'.$valUser->buyer_id.'">'.$valUser->buyer_name .'</option>';
 					}    
 				$result_approvers .='</select>
 				</div>';
@@ -2064,9 +1965,7 @@ class Award_contract extends ListNfa
 	   
         } 
 		$result['data1'] = $result_approvers; 
-		
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
+	
 		echo $result_approvers; 
 		
     }
