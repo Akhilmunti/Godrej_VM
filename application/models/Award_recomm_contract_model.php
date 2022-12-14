@@ -14,8 +14,7 @@ class Award_recomm_contract_model extends CI_Model {
         $CI->load->library('session');
 		$this->load->model('common_model', 'common');
         $this->table_parent = 'award_recomm_contract_salient';
-	    //$mSessionKey = $this->session->userdata('session_id');
-		//echo "session".$mSessionKey;
+	   
     }
 
     function addParent($data) {
@@ -96,15 +95,7 @@ class Award_recomm_contract_model extends CI_Model {
             return false;
         }
     }
-	/* function addDelayReasons($data) {
-		$table_name = "ld_waiver_reasons_delay";
-        $query = $this->db->insert($table_name, $data);
-        if ($this->db->affected_rows() > 0) {
-            return $this->db->insert_id();
-        } else {
-            return false;
-        }
-    } */
+	
 	function addFileUploads($data) {
 		$table_name = "ld_waiver_uploads";
         $query = $this->db->insert($table_name, $data);
@@ -118,8 +109,7 @@ class Award_recomm_contract_model extends CI_Model {
         $this->db->set($data);
         $this->db->where('id', $salient_id);
         $query1 = $this->db->update("award_recomm_contract_salient");
-		//print_r($this->db->last_query());    
-		//exit;
+		
         if ($query1) {
             return TRUE;
         } else {
@@ -150,7 +140,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$group_by = "AWDContractSalient.id";
 		$order_by='id DESC';
 		$data = $this->common->select_fields_or_where_join($tbl, $data, $joins , $where, $or_where,'',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
+		
 		return $data;
 	
     }
@@ -198,7 +188,7 @@ class Award_recomm_contract_model extends CI_Model {
 				$this->db->where(array('nfa_status'=> 'A'));
 			else if($nfaStatus=="Pending")
 			{	
-				//$this->db->where(array('status'=> 1,'approved_status'=> 0));
+				
 				$this->db->where(array('status'=> 1));
 				$ignore = array('R', 'RT','A','AMD');
 				$this->db->where_not_in('nfa_status', $ignore);				
@@ -206,22 +196,8 @@ class Award_recomm_contract_model extends CI_Model {
 			}
 			else if($nfaStatus=="Draft")
 			{
-				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
-
-				//$this->db->or_where(array('status'=>1,'nfa_status'=> 'RT'));
-
-				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'))
-				//->or_where(array('status'=>1,'nfa_status'=> 'RT'));
-
-				//->or_where("nfa_status = 'A')", NULL, FALSE);
-
-				//$this->db->or_where('nfa_status =', 'RT'); 
-				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'),FALSE)
-
-				//$this->db->where(array('status'=> 0,'nfa_status !='=> 'C'));
-				//$this->db->or_where(array('status'=>1,'nfa_status'=> 'RT'));
-				$this->db->where('((status =', 0, TRUE)
-				//->where('nfa_status !=', 'C'), TRUE)
+				
+				$this->db->where('((status =', 0, TRUE)				
 				->where("nfa_status != 'C')", NULL, TRUE)
 				->or_where("(nfa_status = 'RT' and status=1))", NULL, TRUE);
 				
@@ -248,26 +224,22 @@ class Award_recomm_contract_model extends CI_Model {
 		{
 			if($mSessionRole!="PCM")
 			{
-				//$this->db->where(array('status'=> 1,'approved_status'=> 0));
+				
 				$this->db->where(array('status'=> 1));
 				$ignore = array('R', 'RT','AMD');
-				//$this->db->where_not_in('nfa_status', $ignore);	
-				//$this->db->or_where('nfa_status =', 'A');
-
+				
 				$this->db->where_not_in('(nfa_status', $ignore, TRUE)
 				->or_where("nfa_status = 'A')", NULL, FALSE);
-				//$this->db->or_where("nfa_status = 'A', NULL, FALSE);	
-				
+								
 			}
 		}
-	
-		
+			
 						
 		$this->db->order_by('AWDContractSalient.id', 'DESC');
 		$this->db->group_by('AWDContractSalient.id');
 		
 		$mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
 		if($mQuery_Res)	
 		{
 			if ($mQuery_Res->num_rows() > 0) {
@@ -317,25 +289,21 @@ class Award_recomm_contract_model extends CI_Model {
     }
 	
 	//Get Final Bidders
-	public function getFinalBidders($salient_id) {
-		
+	public function getFinalBidders($salient_id) {		
 		
 		$tbl = "award_recomm_contract_final_bidders ";
 		$data = "*";
 		$single = FALSE;
 		$group_by='';
 		$where = array('salient_id'=>$salient_id);
-		
-		
-		
+				
 		$order_by='ISNULL(bid_position) ASC, bid_position ASC ';
 		
 		$array = false;
 		$data = $this->common->select_fields_where($tbl, $data,  $where, $single ,'','','',$group_by,$order_by,$array);
 		
 		return $data; 
-		
-       
+		       
     }
 	
 	public function getAppointment_dates($salient_id) {
@@ -345,12 +313,11 @@ class Award_recomm_contract_model extends CI_Model {
 		$single = true;
 		$group_by='';
 		$where = array('salient_id'=>$salient_id);
-		
-		
+				
 		$order_by='id ASC';
 		$array = true;
 		$data = $this->common->select_fields_where($tbl, $data,  $where, $single ,'','','',$group_by,$order_by,$array);
-		//select_fields_where($tbl = '', $data=null, $where, $single = FALSE, $like = '', $field = '', $value = '',$group_by,$order_by = '',$array = false)
+		
 		return $data;
 		
        
@@ -360,9 +327,8 @@ class Award_recomm_contract_model extends CI_Model {
 	public function getMajorTerms($salient_id,$package_id=null,$term=null) {
 		
 		$tbl = "award_recomm_contract_packages AWDPackage ";
-		$data = "*";
+		$data = "*";		
 		
-		/* $joins[]=array("table"=>"award_recomm_contract_synopsis_label AWDSynopsLbl","condition"=>"AWDSynopsLbl.salient_id = AWDContractSynops.salient_id","type"=>'inner'); */
 		$joins[]=array("table"=>"award_recomm_contractor_major_terms AWDMajorTerms","condition"=>"AWDMajorTerms.salient_id = AWDPackage.salient_id and AWDMajorTerms.package_id = AWDPackage.id ","type"=>'inner');
 		
 		$where = array('AWDPackage.salient_id'=>$salient_id);
@@ -379,36 +345,17 @@ class Award_recomm_contract_model extends CI_Model {
 		else			
 			$single = FALSE;			
 		
-		//$group_by = "AWDPackage.id";
 		$group_by = "AWDMajorTerms.term";
 	
 		$order_by='AWDMajorTerms.id';
 		$array = false;
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $single,'','',$group_by,$order_by,'',$array);
-		//print_r($this->db->last_query());  
+		
 		return $data;
 		
        
     }
-	/*public function getMajorTerms($salient_id) {
 		
-		$tbl = "award_recomm_contractor_major_terms ";
-		$data = "*";
-		$single = FALSE;
-		$group_by='';
-		$where = array('salient_id'=>$salient_id);
-		
-		
-		$order_by='id ASC';
-		$array = false;
-		$data = $this->common->select_fields_where($tbl, $data,  $where, $single ,'','','',$group_by,$order_by,$array);
-		//select_fields_where($tbl = '', $data=null, $where, $single = FALSE, $like = '', $field = '', $value = '',$group_by,$order_by = '',$array = false)
-		return $data;
-		
-       
-    }*/
-	
-	
 	//Get the  approvers conditions
 	
 	public function getApprover_conditions($l1_vendor1=null) {
@@ -416,17 +363,14 @@ class Award_recomm_contract_model extends CI_Model {
         $this->db->select('ApproverCond.*');
         $this->db->from('award_recomm_contractor_approvers_conditions ApproverCond');
 		$mSessionKey = $this->session->userdata('session_id');
-		//echo $mSessionKey ;
-		//echo "var".$this->mSessionKey;
+		
         $this->db->where('condition3', $l1_vendor1);
 		
         $this->db->order_by('id', 'asc');
-       
-        
-		
+          		
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -440,7 +384,7 @@ class Award_recomm_contract_model extends CI_Model {
         $this->db->set($data);
         $this->db->where('id', $param);
         $query1 = $this->db->update($this->table_parent);
-		//print_r($this->db->last_query());
+		
         if ($query1) {
             return TRUE;
         } else {
@@ -454,10 +398,9 @@ class Award_recomm_contract_model extends CI_Model {
 		$tbl = "award_recomm_contract_synopsis_label ";
 		
 		$where = array('salient_id'=>$salient_id);
-		
-			
+					
 		$insUpd = $this->common->updateOrInsertData($tbl,$where, $data);
-		//print_r($this->db->last_query()); 
+		
 		return $insUpd;
 		
 	}
@@ -466,10 +409,9 @@ class Award_recomm_contract_model extends CI_Model {
 		$tbl = "award_recomm_contract_synopsis ";
 		
 		$where = array('salient_id'=>$salient_id);
-		
-			
+					
 		$insUpd = $this->common->updateOrInsertData($tbl,$where, $data);
-		//print_r($this->db->last_query()); 
+		
 		return $insUpd;
 		
 	}
@@ -478,10 +420,9 @@ class Award_recomm_contract_model extends CI_Model {
 		$tbl = "award_recomm_contractor_appointment_dates ";
 		
 		$where = array('salient_id'=>$salient_id);
-		
-			
+					
 		$insUpd = $this->common->updateOrInsertData($tbl,$where, $data);
-		//print_r($this->db->last_query()); 
+		
 		return $insUpd;
 		
 	}
@@ -490,10 +431,9 @@ class Award_recomm_contract_model extends CI_Model {
 		$tbl = "award_recomm_contractor_award_efficiency";
 		
 		$where = array('salient_id'=>$salient_id);
-		
-			
+					
 		$insUpd = $this->common->updateOrInsertData($tbl,$where, $data);
-		//print_r($this->db->last_query()); 
+	
 		return $insUpd;
 		
 	}
@@ -503,7 +443,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$where = array('salient_id'=>$salient_id);
 					
 		$insUpd = $this->common->updateOrInsertData($tbl,$where, $data);
-		//print_r($this->db->last_query()); 
+		
 		return $insUpd;
 		
 	}
@@ -513,7 +453,7 @@ class Award_recomm_contract_model extends CI_Model {
 		
 					
 		$ins = $this->common->insert_record($tbl,$data);
-		print_r($this->db->last_query()); 
+		
 		return $ins;
 		
 	}
@@ -526,7 +466,6 @@ class Award_recomm_contract_model extends CI_Model {
 		$isExist = $this->common->get_row_where($tbl,$where);
 		if($isExist)
 			$delData = $this->common->delete_data($tbl,$where);
-		//print_r($this->db->last_query()); 
 		
 		return $isExist;
 		
@@ -540,8 +479,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$isExist = $this->common->get_row_where($tbl,$where);
 		if($isExist)
 			$delData = $this->common->delete_data($tbl,$where);
-		//print_r($this->db->last_query()); 
-		
+				
 		return $isExist;
 		
 	}
@@ -553,8 +491,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$isExist = $this->common->get_row_where($tbl,$where);
 		if($isExist)
 			$delData = $this->common->delete_data($tbl,$where);
-		//print_r($this->db->last_query()); 
-		
+				
 		return $isExist;
 		
 	}
@@ -567,7 +504,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$isExist = $this->common->get_row_where($tbl,$where);
 		if($isExist)
 			$delData = $this->common->delete_data($tbl,$where);
-		//print_r($this->db->last_query()); 
+		
 		
 		return $isExist;
 		
@@ -590,12 +527,9 @@ class Award_recomm_contract_model extends CI_Model {
 		
 		$sql = "SELECT buyer_id,buyer_name FROM buyers WHERE buyer_role='$role' ";
 		
-		//echo $sql;
-        // print_r($sql);
+		
         $query = $this->db->query($sql);
         $res = $query->result();
-		
-		//$role = $res->role;
 		
         return $res;
     }
@@ -606,17 +540,17 @@ class Award_recomm_contract_model extends CI_Model {
 		$tbl = "award_recomm_contract_packages AWDPackage ";
 		$data = "*";
 		
-		/* $joins[]=array("table"=>"award_recomm_contract_synopsis_label AWDSynopsLbl","condition"=>"AWDSynopsLbl.salient_id = AWDContractSynops.salient_id","type"=>'inner'); */
+		
 		$joins[]=array("table"=>"award_recomm_contract_synopsis_packages AWDSynopsPkg","condition"=>"AWDSynopsPkg.salient_id = AWDPackage.salient_id and AWDSynopsPkg.package_id = AWDPackage.id","type"=>'inner');
 		
 		$where = array('AWDPackage.salient_id'=>$salient_id);
 		$single = false;
 		$group_by = "AWDPackage.id";
-		//$order_by='AWDSynopsPkg.id asc';
+		
 		$order_by='AWDSynopsPkg.finalized_award_value_package asc';
 		
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $single,'','',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
+		
 		return $data;
 		
 		
@@ -652,9 +586,9 @@ class Award_recomm_contract_model extends CI_Model {
 		$single = true;
 		$group_by = "";
 		$order_by='';
-		//select_fields_where_like_join($tbl = '', $data, $joins = '', $where = '', $single = FALSE, $field = '', $value = '',$group_by='',$order_by = '',$limit = '',$array = false)
+	
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $single,'','',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
+		
 		return $data;
 		
 		
@@ -671,10 +605,8 @@ class Award_recomm_contract_model extends CI_Model {
 		$this->db->select_min('package_bidder');
 		$this->db->where($where);
 		
-		$query = $this->db->get($tbl); // Produces: SELECT SUM(age) as age FROM members
+		$query = $this->db->get($tbl); 
 		$res = $query->result();
-		
-		//print_r($res);
 		
         return $res;
 		
@@ -695,7 +627,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$order_by='approver_level asc';
 		
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $single,'','',$group_by,$order_by,'',true);
-		//print_r($this->db->last_query());  
+		
 		return $data;
 		
 		
@@ -708,9 +640,9 @@ class Award_recomm_contract_model extends CI_Model {
        
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());    
+		
         if ($mQuery_Res->num_rows() > 0) {
-			//echo "<br>del";
+			
             $del = $this->deleteApprovers($salient_id);
             return $del;
         } else {
@@ -720,7 +652,7 @@ class Award_recomm_contract_model extends CI_Model {
 	public function deleteApprovers($salient_id) {
         $this->db->where('salient_id', $salient_id);
         $mDelete = $this->db->delete("award_recomm_contractor_status");
-		//print_r($this->db->last_query());    
+		
         if ($this->db->affected_rows() > 0) {
             return TRUE;
         } else {
@@ -735,20 +667,17 @@ class Award_recomm_contract_model extends CI_Model {
         $this->db->select('LDWSalient.*');
         $this->db->from('ld_waiver_salient LDWSalient');
 		$mSessionKey = $this->session->userdata('session_id');
-		//echo $mSessionKey ;
-		//echo "var".$this->mSessionKey;
-        
+		        
 		$this->db->where('initiated_by', $mSessionKey,FALSE);
         $this->db->where('status', 1,FALSE);
 		$this->db->where("nfa_status", "'R'", FALSE);
         $this->db->order_by('id', 'DESC');
-        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
-        //$this->db->where('buyer_status', 1);
+      
         $this->db->order_by('LDWSalient.id', 'DESC');
 		
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -761,7 +690,7 @@ class Award_recomm_contract_model extends CI_Model {
 		if($nfaStatus!="Cancelled")
 		{
 			$this->db->select('AWDContractSalient.*,AWDContractStatus.approver_level,approved_status, AWDSynopsLbl.synopsis_label');
-			//$this->db->select('AWDContractSalient.version_id,AWDContractSalient.subject,AWDContractStatus.approver_level,approved_status, AWDSynopsLbl.synopsis_label');
+			
 			$this->db->from('award_recomm_contract_salient AWDContractSalient');
 			
 			$this->db->join('award_recomm_contractor_status AWDContractStatus', 'AWDContractStatus.salient_id = AWDContractSalient.id','inner');
@@ -833,26 +762,6 @@ class Award_recomm_contract_model extends CI_Model {
 			}
 			
 			
-			
-			
-			/* $this->db->where('status', 1,FALSE);
-			$this->db->where("nfa_status", "'R'", FALSE);
-			if($buyer_id)
-			{
-				$this->db->where(array('returned_by'=> $buyer_id));
-			}
-			if($start_date)
-			{
-				$this->db->where(array('date(returned_date)>='=> $start_date));
-			}
-			if($end_date)
-			{
-				$this->db->where(array('date(returned_date)<='=> $end_date));
-			}
-			
-			$this->db->group_by('LDWSalient.id');
-			$this->db->order_by('LDWSalient.id', 'DESC');
-			$mQuery_Res = $this->db->get(); */
 		}
 		else if($nfaStatus=="Cancelled")
 		{
@@ -872,18 +781,15 @@ class Award_recomm_contract_model extends CI_Model {
 				$param['cancelled_date<='] =  $end_date;
 			}
 			$data['records'] = $this->nfaAction->getNfaData($param,"award_contract");
-			//print_r($data);
+			
 			return $data['records'];
-			//$this->db->group_by('LDWSalient.id');
-			//$this->db->order_by('LDWSalient.id', 'DESC');
-			//$mQuery_Res = $this->db->get();
-			//print_r($this->db->last_query());
+			
 		}
 		$this->db->order_by('AWDContractSalient.id', 'DESC');
 		$this->db->group_by('AWDContractSalient.id');
 		
 		$mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
 		if($mQuery_Res)	
 		{
 			if ($mQuery_Res->num_rows() > 0) {
@@ -911,7 +817,7 @@ class Award_recomm_contract_model extends CI_Model {
 				
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result();
             return $data;

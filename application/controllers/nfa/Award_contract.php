@@ -982,6 +982,7 @@ class Award_contract extends ListNfa
     public function award_recomm_contract_list($project_id='',$zone='',$type_work_id='')
     {
         $mSessionKey = $this->session->userdata('session_id');
+		$this->session->set_userdata('previous_url', current_url());
 		$pr_id = $this->uri->segment(4);
 		
         if ($mSessionKey) {

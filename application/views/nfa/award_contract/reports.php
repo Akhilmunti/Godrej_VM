@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $this->load->view('buyer/partials/header'); ?>
+<?php 
+    $previous_url = $this->session->userdata('previous_url');
+    
+    $this->load->view('buyer/partials/header'); 
+?>
 
 <style>
     .buttonPadding {
@@ -36,20 +40,22 @@
                 <section class="content">
 
                     <div class="content-header">
-                        <div class="d-flex align-items-center">
-                            <div class="d-block">
-                                <h3 class="page-title br-0">IOM Reports</h3>
+                        <div class="row">
+                            <div class="col-lg-8">
+								<h3 class="page-title br-0">IOM Reports</h3>
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <button type="button" onclick="location.href='<?php echo $previous_url;?>'" class="btn btn-secondary rounded">Go Back</button>
                             </div>
                         </div>
                     </div>
-
                     <div class="box">
                         <div class="box-body">
 							<form id="nfaForm" method="POST" action="<?php echo base_url('nfa/Award_contract/reports'); ?>" >
 							<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
                                              
                                             </div>

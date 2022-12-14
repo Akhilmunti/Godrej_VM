@@ -237,7 +237,7 @@ class ListNfa extends CI_Controller {
     {
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
-            //print_r($this->input->post());
+            
 			$awdType = $this->input->post('awdType');
 			
 			$project_id = $this->input->post('project_id');
@@ -283,11 +283,7 @@ class ListNfa extends CI_Controller {
 				
 				$this->load->view('nfa/award_contract/award_contract_listing', $data);
 			}
-            /*else
-            {
-                $data['records1'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$nfaStatus,$zone);
-                $data['records2'] = $this->awardRecommContract->getContractData($awdType,$project_id,$nfaStatus,$zone);
-            }*/
+           
         } else {
             $this->load->view('index', $data);
         }

@@ -865,6 +865,7 @@ class Award_procurement extends ListNfa
     {
 		
         $mSessionKey = $this->session->userdata('session_id');
+		$this->session->set_userdata('previous_url_proc', current_url());
 		$pr_id = $this->uri->segment(4);
         if ($mSessionKey) {
 			
