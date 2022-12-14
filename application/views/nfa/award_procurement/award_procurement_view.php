@@ -315,15 +315,17 @@
                                 </table>
                             </div>
 
-                            <div class="d-block table-view mt-4">
-                                <h5 class="br-0 font-size-14"><?php echo $mRecord['uom_label'] ?>: <?php echo $mRecord['uom_value'] ?></h5> 
-                            </div>
-						
-							<div class="d-block table-view mt-4">
-                                <h5 class="br-0 font-size-14">Is HO approval required ? : <?php echo ($mRecord['ho_approval'] == "Y") ? "Yes" : "No"; ?></h5> 
-                            </div>
-							
-							
+                            <div class="paddingLine mt-4">
+                                <h5>
+                                    <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?> Cr</span>
+                                </h5>
+                               
+                                <hr class='hr-bold-line' />
+                                
+                                <h5>
+                                    <span class="font-weight-bold">Is HO approval required ?</span> : <span class="font-size-14"><?php echo ($mRecord['ho_approval'] == "Y") ? "Yes" : "No"; ?></span>
+                                </h5>
+                            </div>							
 
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Final Bid Scenario</h5>
@@ -355,7 +357,7 @@
 											 <td class="">-></td>
 											<?php 
 											$bidVal_arr = array();
-											//print_r($mRecordFinalBidders);
+											
 											foreach($mRecordFinalBidders as $keyBid=>$valBid)
 											{
 												$id_index = $keyBid+1;
@@ -366,13 +368,9 @@
 													$score_class = " background-pq";
 												else if($score_type=="FB")
 													$score_class = " background-feedback";
-												
-												//$bidVal_arr[]=$package_bidder_value;
-																								
+																				
 											?>
-											
-                                           <!-- <td class=""></td> -->
-                                          
+										
                                               <td class="<?php echo $score_class;?>"><div style="width: 120px !important;"><?php echo ($score_type); ?><br><?php echo $score; ?></div></td>
 											    <?php 
 											 }
@@ -391,8 +389,7 @@
 											$package_gpl_budget_value =  $finalBidData->package_gpl_budget;
 											$min_bidder =  $CI->package_min_bidder_data($salient_id,$package_id);
 											$minBidValue = $min_bidder[0]->package_bidder; 
-											//print_r($finalBidData);
-											//echo "<br>fdfdf$minBidValue<br>";
+											
 										?>
                                         <tr class='text-center'>
                                             <td><?php echo $val['package_name'] ?></td>
@@ -411,8 +408,7 @@
 												$finalBiddersData = $CI->getFinalBidData($salient_id,$package_id,$bidder_id);
 												
 												$package_bidder_value =  $finalBiddersData->package_bidder;
-												//$bidVal_arr[]=$package_bidder_value;
-												//$min = min($bidVal_arr);
+												
 												if($package_bidder_value==$minBidValue)
 													$bidder_class = 'background-green';
 												else 
@@ -503,9 +499,7 @@
                                 </table>
 
                             </div>
-							
-							
-						
+																		
 
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Award Efficiency</h5>
@@ -527,20 +521,20 @@
                                         <tr class='text-center'>
                                             <td>Date</td>
                                             <td>
-                                                <?php //echo $mRecordAwdContract['receipt_date'] ?>
+                                             
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['receipt_date']));?>
                                             </td>
                                             <td>
-                                                <?php //echo $mRecordAwdContract['bidder_approval_date'] ?>
+                                              
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['bidder_approval_date']));?>
                                             </td>
                                             <td>
-                                                <?php //echo $mRecordAwdContract['award_recomm_date'] ?>
+                                               
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['award_recomm_date']));?>
                                             </td>
                                             <td>
                                                 <?php echo $mRecordAwdContract['remarks_date'] ?>
-												<?php //echo date("d-M-y", strtotime($mRecordAwdContract['remarks_date']));?>
+											
                                             </td>
                                         </tr>
                                         <tr class='text-center'>
@@ -574,9 +568,9 @@
                                         <tr class='text-center'>
                                             <th style="width:10%">Sl. No.</th>
                                             <th style="width:35%">Terms</th>
-                                            <!-- <th colspan="3">Description<br><?php echo $mRecord['term_label'] ?></th> -->
+                                          
                                             <th colspan="3">Description</th>
-                                            <!-- <th>Description3<br>Lorem</th> -->
+                                           
                                         </tr>
                                     </thead>
                                     <tbody id="">
@@ -591,36 +585,15 @@
                                         <?php echo $val['major_term_label'] ?>  
                                         </td>
                                         <?php }?>
-                                         <!--   <td class='text-center bg-primary'>Package 2</td>
-                                            <td class='text-center bg-primary'>Package 3</td>-->
+                                       
                                         </tr>
-									<?php
-										
-										/*foreach($mRecordMajorTerms as $key=>$val)
-										{
-											$slNo  = $key+1;
-											$term = $val->term;
-											$term_label_value = $val->term_label_value;
-										?>
-                                        <tr class='text-center'>
-                                            <td><?php echo $slNo ?></td>
-                                            <td><?php echo $term; ?></td>
-                                            <td><?php echo $term_label_value; ?></td>
-                                            <td>Lorem</td>
-                                            <td>Lorem</td>
-                                        </tr>
-										<?php
-										
-										}
-                                        */
-                                        ?>
-                                        	<?php
+								       	<?php
 										
 										foreach($mRecordMajorTerms as $key=>$val)
 										{
 											$slNo  = $key+1;
 											$term = $val->term;
-											//$term_label_value = $val->term_label_value;
+											
 										?>
                                         <tr class='text-center'>
                                         

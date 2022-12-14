@@ -22,21 +22,10 @@ class Award_procurement extends ListNfa
         $this->load->model('Award_procurement_model', 'awardRecommProcurement');
         $this->load->helper('date');
         error_reporting(0);
-        //error_reporting(E_ALL);
-        //ini_set('display_errors', 1);
+       
     }
 
-    // public function index() {
-    //     $mSessionKey = $this->session->userdata('session_id');
-    //     if ($mSessionKey) {
-    //         $data['home'] = "Nfa";
-    //         $data['records'] = $this->buyer->getAllParent();
-    //         $this->load->view('nfa/bidder_list', $data);
-    //     } else {
-    //         $this->load->view('index', $data);
-    //     }
-    // }
-
+   
     public function award_recommendation()
     {
         $mSessionKey = $this->session->userdata('session_id');
@@ -315,38 +304,36 @@ class Award_procurement extends ListNfa
 					$mNfaStatus = "SA";
 				}
 			}
-			
-			
+				
 
                 if ($mId && $updType=='') {
 					
                     $nfadata = array(
-							//'version_id' => $version_id,
-                            'project_id' => $project_id,
-							'type_work_id' => $type_work_id,
-                            'subject' => $subject,
-							'scope_of_work'=>$scope_of_work,
-							'procurement_type'=>$procurement_type,	
-							'uom_label'=>$uom_label,	
-							'uom_value'=>$uom_value,							
-							'zone'=>$zone,
-							'package_count' => $package_count,
-							'bidder_count' => $bidder_count,
-							'total_budget_esc' => $total_budget_esc,
-							'total_negot_value' => $total_negot_value,
-							'total_finalized_award_value' => $total_finalized_award_value,
-                            'total_awarded_benchmark' => $total_awarded_benchmark,
 							
-							'total_post_basic_rate' => $total_post_basic_rate,
-							'total_expected_savings' => $total_expected_savings,
-							'ho_approval' => $ho_approval,
-                          
-                            'detailed_note' => $detailed_note,
-							'initiated_by' => $mSessionKey,
-							'status' => $mSavingStatus,
-							'nfa_status' => $mNfaStatus
-							
-							
+						'project_id' => $project_id,
+						'type_work_id' => $type_work_id,
+						'subject' => $subject,
+						'scope_of_work'=>$scope_of_work,
+						'procurement_type'=>$procurement_type,	
+						'uom_label'=>$uom_label,	
+						'uom_value'=>$uom_value,							
+						'zone'=>$zone,
+						'package_count' => $package_count,
+						'bidder_count' => $bidder_count,
+						'total_budget_esc' => $total_budget_esc,
+						'total_negot_value' => $total_negot_value,
+						'total_finalized_award_value' => $total_finalized_award_value,
+						'total_awarded_benchmark' => $total_awarded_benchmark,
+						
+						'total_post_basic_rate' => $total_post_basic_rate,
+						'total_expected_savings' => $total_expected_savings,
+						'ho_approval' => $ho_approval,
+						
+						'detailed_note' => $detailed_note,
+						'initiated_by' => $mSessionKey,
+						'status' => $mSavingStatus,
+						'nfa_status' => $mNfaStatus
+													
                     );
 				
                     $mUpdate = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
@@ -843,7 +830,6 @@ class Award_procurement extends ListNfa
 								else if($mSavingStatus==1)
 									$this->session->set_flashdata('success', 'IOM submitted for approval.');
 								
-								//$this->session->set_flashdata('success', 'IOM added successfully.');
 								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
 							}
                         } else {
@@ -859,8 +845,7 @@ class Award_procurement extends ListNfa
         }
 		
     }
-	
-	
+		
 	public function award_recomm_procurement_list($project_id='',$zone='',$type_work_id='')
     {
 		
@@ -940,46 +925,7 @@ class Award_procurement extends ListNfa
         } 
      
     }
-    /*public function view_nfa_1($mId,$pgType='')
-    {
-		$mSessionKey = $this->session->userdata('session_id');
-		if ($mSessionKey) {
-		
-			if ($mId) {
-				
-				$mRecord = $this->nfaAction->get_salient_initiator($mId,"award_procurement");
-				
-				$salient_id = $mRecord['id'];
-				$mRecordPackage = $this->awardRecommProcurement->get_award_procurement_package_data($salient_id);
-				$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($salient_id);
-				$mRecordFinalBidders = $this->awardRecommProcurement->getFinalBidders($salient_id);
-			
-				$mRecordMajorTerms = $this->awardRecommProcurement->getMajorTerms($mId);
-				$mRecordLevelsObj = $this->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_procurement","view");
-				$mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
-				
-				
-				$data['mRecord'] = $mRecord;
-				$data['mRecordPackage'] = $mRecordPackage;
-				$data['mRecordAwdContract'] = $mRecordAwdContract;
-				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
-				
-				$data['mRecordMajorTerms'] = $mRecordMajorTerms;
-				$data['mRecordLevels'] = $mRecordLevels;
-				
-				
-				if($pgType=='A' || $pgType=='E' )
-				{
-					$data['pgType'] = $pgType; 
-					$data['mId'] = $mId; 
-				}
-				$this->load->view('nfa/award_procurement/award_procurement_view', $data);
-			}
-        } else {
-            $this->load->view('index', $data);
-        } 
-     
-    }*/
+    
 	//Initiated NFA
 	public function initiated_nfa()
     {
@@ -1050,29 +996,29 @@ class Award_procurement extends ListNfa
 				$mUpdate = $this->nfaAction->updateData($param, $returnData,"award_procurement");
 				if ($mUpdate) {
 						
-						$nfadata = array(
-						
-						'nfa_status' => 'R'
-											
+					$nfadata = array(
+					
+					'nfa_status' => 'R'
+										
 					);
-						$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-						if($mUpdateSalient)
-						{
-							$mail_type = "returnLowLevels";
-							$this->mail_details($mId, $returned_remarks,$mail_type);
-							
-						}
-						$mRecord = $this->awardRecommContract->getParentByKey($mId);
-						$project_id = $mRecord['project_id'];
-						$type_work_id = $mRecord['type_work_id'];
-						$zone = $mRecord['zone'];
-
+					$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
+					if($mUpdateSalient)
+					{
+						$mail_type = "returnLowLevels";
+						$this->mail_details($mId, $returned_remarks,$mail_type);
 						
-						$this->session->set_flashdata('success', 'IOM Returned successfully.');
-						if($sess_project_id)
-							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
-						else
-							redirect("nfa/Award_procurement/award_recomm_procurement_list");
+					}
+					$mRecord = $this->awardRecommContract->getParentByKey($mId);
+					$project_id = $mRecord['project_id'];
+					$type_work_id = $mRecord['type_work_id'];
+					$zone = $mRecord['zone'];
+
+					
+					$this->session->set_flashdata('success', 'IOM Returned successfully.');
+					if($sess_project_id)
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+					else
+						redirect("nfa/Award_procurement/award_recomm_procurement_list");
 
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
@@ -1172,52 +1118,52 @@ class Award_procurement extends ListNfa
 				$mUpdate = $this->nfaAction->updateData($param, $approvedata,"award_procurement");
 				if ($mUpdate) {
 						
-						if ($mId) {
-							$mail_user = array();
-							
-							$mRecord = $this->nfaAction->getNfaDetails_userLevel($mId,$mSessionKey,"award_procurement");
-							
-							$initiated_by = $mRecord['initiated_by'];
-							$approver_level = $mRecord['approver_level'];
-							$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($mId);
-							if($approver_level==$max_level)
-							{
-								$nfadata = array(
-									'nfa_status' => 'A'
-													
-								);
-								$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-							}
-							$buyer = $this->buyer->getParentByKey($initiated_by);
-							
-							$initiator =   $buyer['buyer_name'];
-							$sender =   $this->session->userdata('session_name');
-							$subject = $mRecord['subject'];
-							$project_id = $mRecord['project_id'];
-							$type_work_id = $mRecord['type_work_id'];
-							$zone = $mRecord['zone'];
-							$package_value_mail = $mRecord['total_post_basic_rate'];
-							$version_id = $mRecord['version_id'];
-							$approver_level = $mRecord['approver_level'];
-							$mail_user[$initiator] = $buyer['buyer_email'];
-							if($approver_level>1)
-							{
-								
-								$mRecordUsers = $this->nfaAction->get_low_level_users($mId,$approver_level,"award_procurement");
-								foreach ($mRecordUsers as $key => $val) {
-									$buyer_name = $val['buyer_name'];
-									$mail_user[$buyer_name] = $val['buyer_email'];
-								}
-															
-							}
-							
-							
-							$mail_url  = $this->config->item('base_url').'nfa/Award_procurement/view_nfa/'.$mId;
-							//send mail to level below
-							$mail_type = "LowLevels";
-							$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,'',$mail_type);
-							
+					if ($mId) {
+						$mail_user = array();
+						
+						$mRecord = $this->nfaAction->getNfaDetails_userLevel($mId,$mSessionKey,"award_procurement");
+						
+						$initiated_by = $mRecord['initiated_by'];
+						$approver_level = $mRecord['approver_level'];
+						$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($mId);
+						if($approver_level==$max_level)
+						{
+							$nfadata = array(
+								'nfa_status' => 'A'
+												
+							);
+							$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
 						}
+						$buyer = $this->buyer->getParentByKey($initiated_by);
+						
+						$initiator =   $buyer['buyer_name'];
+						$sender =   $this->session->userdata('session_name');
+						$subject = $mRecord['subject'];
+						$project_id = $mRecord['project_id'];
+						$type_work_id = $mRecord['type_work_id'];
+						$zone = $mRecord['zone'];
+						$package_value_mail = $mRecord['total_post_basic_rate'];
+						$version_id = $mRecord['version_id'];
+						$approver_level = $mRecord['approver_level'];
+						$mail_user[$initiator] = $buyer['buyer_email'];
+						if($approver_level>1)
+						{
+							
+							$mRecordUsers = $this->nfaAction->get_low_level_users($mId,$approver_level,"award_procurement");
+							foreach ($mRecordUsers as $key => $val) {
+								$buyer_name = $val['buyer_name'];
+								$mail_user[$buyer_name] = $val['buyer_email'];
+							}
+														
+						}
+						
+						
+						$mail_url  = $this->config->item('base_url').'nfa/Award_procurement/view_nfa/'.$mId;
+						//send mail to level below
+						$mail_type = "LowLevels";
+						$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,'',$mail_type);
+						
+					}
 						$this->session->set_flashdata('success', 'IOM Approved successfully.');
 						if($sess_project_id)
 							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
@@ -1273,20 +1219,20 @@ class Award_procurement extends ListNfa
 				$mUpdate = $this->nfaAction->updateData($param, $returnData,"award_procurement");
 				if ($mUpdate) {
 						
-						$nfadata = array(
-						'nfa_status' => 'RT'
-											
+					$nfadata = array(
+					'nfa_status' => 'RT'
+										
 					);
-						$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-						$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
-						$project_id = $mRecord['project_id'];
-						$type_work_id = $mRecord['type_work_id'];
-						$zone = $mRecord['zone'];
-						$this->session->set_flashdata('success', 'IOM Returned for text correction successfully.');
-						if($sess_project_id)
-							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
-						else
-							redirect("nfa/Award_procurement/award_recomm_procurement_list");
+					$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
+					$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
+					$project_id = $mRecord['project_id'];
+					$type_work_id = $mRecord['type_work_id'];
+					$zone = $mRecord['zone'];
+					$this->session->set_flashdata('success', 'IOM Returned for text correction successfully.');
+					if($sess_project_id)
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+					else
+						redirect("nfa/Award_procurement/award_recomm_procurement_list");
 				} else {
 						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
 						redirect('nfa/Award_procurement/return_text/' . $mId);
@@ -1321,33 +1267,32 @@ class Award_procurement extends ListNfa
 			$data['home'] = "users";
 			if ($mId) {
 				
-						$nfadata = array(
-						
-						'nfa_status' => 'C',
-						'cancelled_by' => $mSessionKey,
-						'cancelled_remarks' => $this->input->post('cancelled_remarks'),
-						'cancelled_date' => date('Y-m-d H:i:s')
-											
-					);
-						$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
-						$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
-						$project_id = $mRecord['project_id'];
-						$type_work_id = $mRecord['type_work_id'];
-						$zone = $mRecord['zone'];
-						if ($mUpdateSalient) {
-							$this->session->set_flashdata('success', 'IOM Cancelled  successfully.');
-						if($sess_project_id)
-							redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
-						else
-							redirect("nfa/Award_procurement/award_recomm_procurement_list");
-						//redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
-						}
-						else {
-							$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
-							redirect('nfa/Award_procurement/cancel/' . $mId);
-						}
-						
+				$nfadata = array(
 				
+				'nfa_status' => 'C',
+				'cancelled_by' => $mSessionKey,
+				'cancelled_remarks' => $this->input->post('cancelled_remarks'),
+				'cancelled_date' => date('Y-m-d H:i:s')
+									
+				);
+				$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
+				$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
+				$project_id = $mRecord['project_id'];
+				$type_work_id = $mRecord['type_work_id'];
+				$zone = $mRecord['zone'];
+				if ($mUpdateSalient) {
+					$this->session->set_flashdata('success', 'IOM Cancelled  successfully.');
+				if($sess_project_id)
+					redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+				else
+					redirect("nfa/Award_procurement/award_recomm_procurement_list");
+				
+				}
+				else {
+					$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
+					redirect('nfa/Award_procurement/cancel/' . $mId);
+				}
+						
 				
 			}
 		} else {
@@ -1384,7 +1329,7 @@ class Award_procurement extends ListNfa
 				'amended_remarks' => $this->input->post('amended_remarks'),
 				'amended_date' => date('Y-m-d H:i:s')
 									
-			);
+				);
 				$mUpdateSalient = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
 				$mRecord = $this->awardRecommProcurement->getParentByKey($mId);
 				$project_id = $mRecord['project_id'];
@@ -1460,37 +1405,36 @@ class Award_procurement extends ListNfa
 	public function mail_details($mId=null,$returned_remarks=null,$mail_type=null)
     {
 		if ($mId) {
-				$mail_user = array();
-				$mSessionKey = $this->session->userdata('session_id');
-				$mRecord = $this->nfaAction->getNfaDetails_userLevel($mId,$mSessionKey,"award_procurement");
+			$mail_user = array();
+			$mSessionKey = $this->session->userdata('session_id');
+			$mRecord = $this->nfaAction->getNfaDetails_userLevel($mId,$mSessionKey,"award_procurement");
+			
+			$initiated_by = $mRecord['initiated_by'];
+			$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($mId);
+			$buyer = $this->buyer->getParentByKey($initiated_by);
+			
+			$initiator =   $buyer['buyer_name'];
+			$sender =   $this->session->userdata('session_name');
+			$subject = $mRecord['subject'];
+			
+			$package_value_mail = $mRecord['total_post_basic_rate'];
+			$version_id = $mRecord['version_id'];
+			$approver_level = $mRecord['approver_level'];
+			$mail_user[$initiator] = $buyer['buyer_email'];
+			if($approver_level>1)
+			{
 				
-				$initiated_by = $mRecord['initiated_by'];
-				$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($mId);
-				$buyer = $this->buyer->getParentByKey($initiated_by);
-				
-				$initiator =   $buyer['buyer_name'];
-				$sender =   $this->session->userdata('session_name');
-				$subject = $mRecord['subject'];
-				
-				$package_value_mail = $mRecord['total_post_basic_rate'];
-				$version_id = $mRecord['version_id'];
-				$approver_level = $mRecord['approver_level'];
-				$mail_user[$initiator] = $buyer['buyer_email'];
-				if($approver_level>1)
-				{
-					
-					$mRecordUsers = $this->nfaAction->get_low_level_users($mId,$approver_level,"award_procurement");
-					foreach ($mRecordUsers as $key => $val) {
-						$buyer_name = $val['buyer_name'];
-						$mail_user[$buyer_name] = $val['buyer_email'];
-					}
-										
+				$mRecordUsers = $this->nfaAction->get_low_level_users($mId,$approver_level,"award_procurement");
+				foreach ($mRecordUsers as $key => $val) {
+					$buyer_name = $val['buyer_name'];
+					$mail_user[$buyer_name] = $val['buyer_email'];
 				}
-				
-				
-				$mail_url  = $this->config->item('base_url').'nfa/Award_procurement/view_nfa/'.$mId;
-				//send mail to level below
-				$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,$returned_remarks,$mail_type);
+									
+			}
+						
+			$mail_url  = $this->config->item('base_url').'nfa/Award_procurement/view_nfa/'.$mId;
+			//send mail to level below
+			$mail = sendEmailToUsers($subject,$package_value_mail,$version_id,$mail_user,$sender,$mail_url,$returned_remarks,$mail_type);
 	
 		}
 	}
@@ -1502,10 +1446,7 @@ class Award_procurement extends ListNfa
             $data['home'] = "nfa_logs";
 			
             $data['records'] = $this->nfaAction->getNfaData('',"award_procurement");
-			//$mRecordAwdContract = $this->awardRecommProcurement->get_award_procurement_data($salient_id);
-			//$selUrl =   base_url('nfa/Award_procurement/nfa_logs');									
 			
-			//$current_page = base_url($_SERVER['REDIRECT_QUERY_STRING']);
 			$selUrl =   $_SERVER['REQUEST_URI'];
 			
 			$current_page = base_url('nfa/Award_procurement/nfa_logs');
@@ -1565,8 +1506,7 @@ class Award_procurement extends ListNfa
 			$buyer_id = $this->input->post('buyer_id');
 			$start_date = $this->input->post('start_date');
 			$end_date = $this->input->post('end_date');
-			//if($nfaType=='')
-				//$nfaType="Initiated";
+			
 			$data['records'] = $this->awardRecommProcurement->getReportData($nfaStatus,$buyer_id,$start_date,$end_date);
 			
 			$data['recordBuyers'] = displayReportUsers();
@@ -1589,22 +1529,21 @@ class Award_procurement extends ListNfa
     }
 	public function export_csv(){ 
 		/* file name */
-		//echo "test";
+		
 		$filename = 'users_'.date('Ymd').'.csv'; 
 		header("Content-Description: File Transfer"); 
 		header("Content-Disposition: attachment; filename=$filename"); 
 		header("Content-Type: application/csv; ");
-	   /* get data */
-		//$records = $this->awardRecommProcurement->getReportData($nfaStatus,$buyer_id,$start_date,$end_date);
+	    /* get data */
+		
 		/* file creation */
-		//$file = fopen('php:/* output*/','w'); 
+		
 		$file = fopen("php://output", 'w');
 		$header = array("Sl. No","ENFA No.","Subject","Award Synopsis","IOM Status"); 
-		//$records = array("Username1","Name1","Gender1","Email1"); 
+	
 		$data1 = $this->input->post('data1');	
 		$records = json_decode($data1,true);
-		//print_r($records);
-		//exit;
+		
 		fputcsv($file, $header);
 		$excel_arr = array();
 		$slno = 1;
@@ -1621,74 +1560,36 @@ class Award_procurement extends ListNfa
 			else
 				$statusNfa = "Pending";
 			$excel_arr['nfa_status'] = $statusNfa;
-			//print_r($line);
+			
 			fputcsv($file,$excel_arr); 
 		}
 		fclose($file); 
-		//return;
+		
 		exit; 
 	}
-	public function export_csv1(){ 
-		 header('Content-Type: application/vnd.ms-excel');  
-		 header('Content-disposition: attachment; filename='.rand().'.xls');  
-		 //print_r($_GET);
-		 //echo $data; 
-		 //echo $_GET["data"];
-		$data = $this->input->post('data');	
-		echo $data;	
-		exit;		
-	}
 	
-	public function export_csv2(){ 
-		 header('Content-Type: text/csv; charset=utf-8');
-
-		header('Content-Disposition: attachment; filename=DevelopersData.csv');
-		
-		$output = fopen("php://output", "w");
-		fputcsv($output, array('Id','Name','Skills','Address', 'Designation'));
-		$records = $this->input->post('data1');
-		/* $sql = "SELECT * FROM `developers`";
-		/* $qry = mysqli_query($con, $sql);
-		while($row= mysqli_fetch_assoc($qry))
-		{
-			fputcsv($output, $row);
-		} */ 
-		fclose($output);
-	}
     public function esign()
     {
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
-            // $data['home'] = "reports";
+           
             $data['records'] = $this->buyer->getAllParent();
             $this->load->view('nfa/esign', $data);
         } else {
             $this->load->view('index', $data);
         }
     }
-	/*public function getLevelRole()
-    {
-        $mSessionKey = $this->session->userdata('session_id');
-        if ($mSessionKey) {
-            // $data['home'] = "reports";
-            $data['records'] = $this->awardRecommProcurement->getAllLevelRole();
-            //$this->load->view('nfa/esign', $data);
-        } else {
-            //$this->load->view('index', $data);
-        }
-    }*/
+	
 	public function getRoleUsers() {
         $role = $this->input->post('role');
-		//echo "role".$role;
-		//$contract_value = $this->input->post('contract_value');
+		
         if ($role) {
 			$tbl = "buyers";
 			$fields = 'buyer_id,buyer_name';
 			$where = array("buyer_role"=>$role);
 			$order_by = 'buyer_name asc';
             $getUsers = $this->common->select_fields_where($tbl, $fields, $where, '', '', '', '','',$order_by);
-			//print
-			//echo $role = $getUsers->role;
+			
             $result = '<option disabled="" selected="" value="" disabled="">Select Users</option>';
             foreach ($getUsers as $key => $valUser) {
                 $result = $result . "<option value='" . $valUser->buyer_id . "'>" . $valUser->buyer_name . "</option>" . PHP_EOL;
@@ -1720,22 +1621,20 @@ class Award_procurement extends ListNfa
 		$package_name = $this->input->post('package_name');
 		$package_index = $this->input->post('package_index');
 		$package_row ="";
-		//print_r($package_name);
-			
+		
         if ($package_name) {
-			 //foreach ($package_name as $keyPck => $valPck) {
+			
 				 $pck_index = $keyPck+1;
 				 $package_row.="
-												<td>".$package_name."</td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
-											   
+								<td>".$package_name."</td>
+								<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
+								<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
+								
 								";
-			// }
+			
             
 		}
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
+		
 		echo $package_row; 
 		
     }
@@ -1821,92 +1720,19 @@ class Award_procurement extends ListNfa
 		echo $package_row3; 
 		
     }
-	/*public function show_package_bidders1() {
-		
-		$package_name = $this->input->post('package_name');
-		$package_row ="";
-		//print_r($package_name);
-			
-        if ($package_name) {
-			 //foreach ($package_name as $keyPck => $valPck) {
-				 $pck_index = 1;
-				 $package_row.="
-												<td>".$package_name."</td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' required name='package_gpl_budget[]' id='package_gpl_budget1'></td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control' required name='package_bidder[".$pck_index."][1]' id='package_bidder_".$pck_index."_1'></td>
-											   
-								";
-			// }
-            
-		}
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
-		echo $package_row; 
-		
-    }
 
-	public function show_package_bidders2() {
-		
-		$package_name = $this->input->post('package_name');
-		$package_row2="";
-		print_r($package_name);
-			
-        if ($package_name) {
-			// foreach ($package_name as $keyPck => $valPck) {
-				 $pck_index = 2;
-				 $package_row2.="
-												<td>".$package_name."</td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' required name='package_gpl_budget[]' id='package_gpl_budget2'></td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control' required name='package_bidder[".$pck_index."][1]' id='package_bidder_".$pck_index."_1'></td>
-											   
-								";
-			// }
-            
-		}
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
-		echo $package_row2; 
-		
-    }
-	public function show_package_bidders3() {
-		
-		$package_name = $this->input->post('package_name');
-		$package_row3 ="";
-		print_r($package_name);
-			
-        if ($package_name) {
-			 //foreach ($package_name as $keyPck => $valPck) {
-				 $pck_index = 3;
-				 $package_row3.="
-												<td>".$package_name."</td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' required name='package_gpl_budget[]' id='package_gpl_budget3'></td>
-												<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control' required name='package_bidder[".$pck_index."][1]' id='package_bidder_".$pck_index."_1'></td>
-											   
-								";
-			// }
-            
-		}
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
-		echo $package_row3; 
-		
-    }*/
 	public function getMaxLevelApprovers() {
 		$result  = array();
-		//print_r($result);
-		//print_r($this->input->post());
+		
 		$ho_approval = $this->input->post('ho_approval');
 		$package_value = $this->input->post('package_value');
 		$package_value = $package_value*10000000; 
-		//echo $package_value;
+	
 		$salient_id = $this->input->post('salient_id');
 		$pgType = $this->input->post('pgType');
-		//$result  = array();
-		//echo "package".$package_value;
-			
+		
         if ($package_value) {
 			
-             //echo "controller1";
 			$getConditions = $this->awardRecommProcurement->getApprover_conditions($ho_approval);
 			
             foreach ($getConditions as $key => $valConditions) {
@@ -1946,21 +1772,18 @@ class Award_procurement extends ListNfa
 			
 			
 		
-			//echo $level_max;
-			 //$getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,$salient_id,"award_procurement");
+			
 			 $getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,'',"award_procurement");
-			 //print_r($getLevels);
+			
 			 $result_approvers = '';
 			 $mSessionZone = $this->session->userdata('session_zone');
 			
 			 foreach ($getLevels as $key => $valLevel) {
-				 $role = $valLevel->role;
-				 $approver_id = $valLevel->approver_id;
-				 //$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
-				 $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
-				 //print_r($this->db->last_query());
+				$role = $valLevel->role;
+				$approver_id = $valLevel->approver_id;
 				
-				
+				$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
+				 
 				$result_approvers .='<div id="pm" class="col-md-3 mb-3">
 				<lable>'.$role.'</lable>
 				<select name="approver_id[]"   class="form-control" required >
@@ -1969,9 +1792,8 @@ class Award_procurement extends ListNfa
 				
 					foreach ($getUsers as $keyUser => $valUser) {
 						$buyer_id = $valUser->buyer_id;
-						
-					//$result_approvers .='<option value="'.$valUser->buyer_id.'"'. ($approver_id==$buyer_id) ? "selected": "".'>'.$valUser->buyer_name .'</option>';
-					$result_approvers .='<option value="'.$valUser->buyer_id.'">'.$valUser->buyer_name .'</option>';
+									
+						$result_approvers .='<option value="'.$valUser->buyer_id.'">'.$valUser->buyer_name .'</option>';
 					}    
 				$result_approvers .='</select>
 				</div>';
@@ -1983,134 +1805,8 @@ class Award_procurement extends ListNfa
         } 
 		$result['data1'] = $result_approvers; 
 		
-		//echo json_encode($result); 
-		//echo json_encode("test"); 
 		echo $result_approvers; 
 		
     }
-/* 	public function getMaxLevelApprovers_old() {
-		
-        //$condition_l1 = $this->input->post('condition_l1');
-		 $l1_vendor1 = $this->input->post('l1_vendor1');
-		 $package_value = $this->input->post('package_value');
-		//exit;
-		$pgType = $this->input->post('pgType');
-		$result  = array();
-		
-			
-        if ($package_value) {
-			
-            //$getConditions = $this->awardRecommProcurement->getApprover_conditions($package_value);
-			$getConditions = $this->awardRecommProcurement->getApprover_conditions($l1_vendor1);
-			//exit;
-			//print_r($getConditions);
-			//print_r(json_encode($getConditions));
-			
-			//print
-			//echo $role = $getUsers->role;
-            //$result = '<option disabled="" selected="" value="" disabled="">Select Users</option>';
-			//print_r($getConditions);
-            foreach ($getConditions as $key => $valConditions) {
-				$condition3 = $valConditions['condition3'];
-				//echo $condition3."condition3";
-				$condition1 = $valConditions['condition1'];
-				//echo "<br>....".$condition1."condition1";
-				$condition2 = $valConditions['condition2'];
-				if($valConditions['condition2']!='')
-				{
-					//echo "condition2".$valConditions['condition2'];
-					//exit;
-					//$checkCond =  (($condition_l1==$valConditions['condition3']) && ($package_value.$valConditions['condition2'] && $package_value.$valConditions['condition1']) );
-					$checkCond =  eval("return ($l1_vendor1==$condition3) && ($package_value.$condition2 && $package_value.$condition1) ;");
-					//echo (($package_value.$valConditions['condition2']) && ($package_value.$valConditions['condition1']));
-					//if(($condition_l1==$valConditions['condition3']) && ($package_value.$valConditions['condition2'] && $package_value.$valConditions['condition1']) )
-						
-					//echo $checkCond;
-					//exit;
-					if($checkCond)
-					{
-						//echo "first".$condition_l1;
-						$level_max =  $valConditions['max_level'];
-						break;
-					} 
-				}
-				else
-				{
-					//echo "else".$l1_vendor1;
-					//exit;
-					
-					//echo "((eval($condition_l1)=={$valConditions['condition3']}) && ($package_value.{$valConditions['condition1']} ))";
-					//echo $checkCond =  "((".$l1_vendor1."==".$valConditions['condition3'].")" .'&&'. "(".$package_value.$valConditions['condition1'] ."))";
-					//echo $checkCond =  (($l1_vendor1==$valConditions['condition3']) && ($package_value.$valConditions['condition1']));
-					$checkCond =  eval("return ($l1_vendor1==$condition3) && ($package_value.$condition1);");
-					//echo $checkCond;
-					
-					
-					//echo "<br>.....";
-					//$checkCond =  ((Y==Y)&&(60000000>250000000));
-					//if(((Y==Y)&&(60000000>250000000)))
-					
-					//echo  $checkCond =  (("$l1_vendor1"=="{$valConditions['condition3']}") && ($package_value.$valConditions['condition1']));
-					//if(($condition_l1==$valConditions['condition3']) && eval($package_value.$valConditions['condition1'] ))
-					if($checkCond)
-					{	
-						//echo $package_value.$valConditions['condition1'];
-						//echo "second".$condition_l1;
-						$level_max =  $valConditions['max_level'];
-						//echo "max level".$level_max;
-						//return;
-						break;
-					} 
-					else
-					{
-						//echo "inside three";
-						//exit;
-					}
-					//exit;
-				}
-                //$result = $result . "<option value='" . $valUser->buyer_id . "'>" . $valUser->buyer_name . "</option>" . PHP_EOL;
-            }
-			//echo "max level".$level_max;
-			//exit;
-			
-			//Print level
-			$param = array("level<="=>$level_max);
-			$getLevels = $this->awardRecommProcurement->getAllLevelRole($param);
-			$result_maxLevel = '<option disabled="" selected="" value="" disabled="">Select Level</option>';
-			foreach ($getLevels as $key => $valLevel) {
-                $result_maxLevel = $result_maxLevel . "<option value='" . $valLevel->role . "'>Level " . $valLevel->level . "({$valLevel->role})</option>" . PHP_EOL;
-            }
-			
-            //echo $result;
-            //echo $result;
-        } else {
-           // echo "<option>No data</option>";
-        }
-		//$result  = array();
-		$result['data1'] = $result_maxLevel;
-		//echo "level max".$level_max;
-		if($pgType!="edit")
-		{
-			$result_approverList="";
-			$result_approverList .= '<input type="hidden"  name="maxLevel_hd" id="maxLevel_hd" value="'.$level_max.'" >';
-			for ($i = 1; $i <= $level_max; $i++) {
-									   
 
-				$result_approverList .= '<div class="col-lg-2" id="level'.$i.'_div">
-					<div class=\'form-group\'>
-						<label id="level'.$i.'_id">Level - '.$i.'</label>
-						<input type="text" class="form-control" placeholder="" name="level'.$i.'_approver" id="level'.$i.'_approver" required="" readonly>
-						<input type="hidden" class="form-control" placeholder="" name="level'.$i.'_approver_id" id="level'.$i.'_approver_id">
-					</div>
-				</div>';
-									   
-			}
-			//$result['string'] = $string;
-			$result['data2'] = $result_approverList;
-		}
-		//print_r($result);
-		//exit;
-		echo json_encode($result); 
-		
-    } */
 }

@@ -55,7 +55,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
             <div class='form-group'>
                 <label>Type</label>
                 <select id="awdType" name="awdType"  class="form-control">
-                    <!--<option value="">All</option>-->
+                   
                     <option value="Contract" <?php echo ($awdType=="Contract") ? "selected": ""?>>Contract</option>
                     <option value="Procurement" <?php echo ($awdType=="Procurement") ? "selected": ""?>>Procurement</option>
                 

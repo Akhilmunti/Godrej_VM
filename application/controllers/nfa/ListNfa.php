@@ -135,25 +135,11 @@ class ListNfa extends CI_Controller {
         if ($mSessionKey) {
 			$data['home'] = "cancelled";
 			$data['title'] = "Cancelled NFAs";
-            //$data['records'] = $this->ldWaiver->getAllParent();
-			//print_r($data['records']);
-			/* $nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-                                                    <option value="">Short Listing Approval For Contractor</option>
-                                                    <option value="">Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/cancelled_nfa').'">Award Recommendation for Contracts</option>
-                                                    <option value="">Award Recommendation for Procurement</option>
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>'; */
+            
 			$nfa_select = nfa_dropdown_cancelled();
 			$data['nfa_select'] = $nfa_select;
             $this->load->view('nfa/nfa_type', $data);
-			//echo "test1";
+			
         } else {
             $this->load->view('index', $data);
         }
@@ -169,7 +155,7 @@ class ListNfa extends CI_Controller {
 			$nfa_select = nfa_dropdown_logs();
 			$data['nfa_select'] = $nfa_select;
             $this->load->view('nfa/nfa_type', $data);
-			//echo "test1";
+			
         } else {
             $this->load->view('index', $data);
         }

@@ -122,8 +122,7 @@
 							<div>
                                 <button id="export_button" type="button" class="btn btn-info mt-3 mb-3 rounded font-weight-bold" value="csv">Export</button>
                             </div>
-							<!--<button id="button" value="csv">Export</button>-->
-
+							
 	<a href="javascript:void(0)" id="dlbtn" style="display: none;">
 		<button type="button" id="mine">Export</button>
 	</a>				
@@ -185,8 +184,7 @@
 								
                             </div>
 							 <div align="center">  
-                    <!-- <button name="create_excel" id="create_excel" class="btn btn-success">Create Excel File</button> -->
-	 
+                  	 
                 </div>  
                         </div>
                     </div>
@@ -215,66 +213,42 @@
     <?php $this->load->view('buyer/partials/scripts'); ?>
 	<script>
 		$('#nfaStatus').change(function () {
-			//alert("test"+$('#nfaStatus').val());
+			
 			nfaStatus= this.value;
-			//alert("level"+nfaStatus);
 			
 			$.post("<?php echo base_url('nfa/ListNfa/getReportUsers'); ?>",
 					{
 						nfaStatus: nfaStatus,
-						//contract_value:$('#original_contract_value').val()
+						
 					},
 					function (data, status) {
-						//alert(data);
 						
 						$('#buyer_id').html(data);
 						
 					});
 		});
 		</script>
-		 <script>  
- /* $(document).ready(function(){  
-      $('#create_excel').click(function(){  
-           //var excel_data = $('#employee_table').html();  
-		   var excel_data =  <?php echo json_encode($records); ?>
-		  //alert(excel_data);	
-           //var page = "excel.php?data=" + excel_data;  
-		
-		   $.post("<?php echo base_url('nfa/Award_procurement/export_csv'); ?>",
-					{
-						data1: excel_data,
-						//contract_value:$('#original_contract_value').val()
-					},
-					function (data, status) {
-						//alert(data);
-						
-						//$('#buyer_id').html(data);
-						
-					});
-		   
-      });  
- });  */
-
-$("#export_button").click(function(){
-	var csv = "csv";
-	var excel_data =  '<?php echo json_encode($records); ?>'
-	$.ajax({
-		type: 'POST',
-		url: "<?php echo base_url('nfa/Award_procurement/export_csv'); ?>",
-		data: {csv:csv,data1:excel_data},
-		
-	    success: function(result) {
-	      console.log(result);
-	      setTimeout(function() {
-				  var dlbtn = document.getElementById("dlbtn");
-				  var file = new Blob([result], {type: 'text/csv'});
-				  dlbtn.href = URL.createObjectURL(file);
-				  dlbtn.download = 'reports.csv';
-				  $( "#mine").click();
-				}, 2000);
-	    }
-	});
-}); 
+<script>  
+    $("#export_button").click(function(){
+        var csv = "csv";
+        var excel_data =  '<?php echo json_encode($records); ?>'
+        $.ajax({
+            type: 'POST',
+            url: "<?php echo base_url('nfa/Award_procurement/export_csv'); ?>",
+            data: {csv:csv,data1:excel_data},
+            
+            success: function(result) {
+            console.log(result);
+            setTimeout(function() {
+                var dlbtn = document.getElementById("dlbtn");
+                var file = new Blob([result], {type: 'text/csv'});
+                dlbtn.href = URL.createObjectURL(file);
+                dlbtn.download = 'reports.csv';
+                $( "#mine").click();
+                }, 2000);
+            }
+        });
+    }); 
  </script>  
 </body>
 
