@@ -73,8 +73,7 @@ class Award_contract extends ListNfa
 			
 				$mRecordAppointment = $this->awardRecommContract->getAppointment_dates($mId);
 				$mRecordMajorTerms = $this->awardRecommContract->getMajorTerms($mId);
-				//print_r($mRecordMajorTerms);
-			
+				
 				$mRecordApprovers = $this->awardRecommContract->get_level_approvers($mId); 
 				
                 $data['mRecord'] = $mRecord;
@@ -242,8 +241,7 @@ class Award_contract extends ListNfa
 			//Upload Files
 			$mUpload1 = $this->input->post('upload_comparitive');
 			//$file1
-			
-			
+						
 			if ($_FILES['upload_comparitive']['size'] != 0)
 				$mFile1 = single_File_Upload('upload_comparitive', $mUpload1);
 				
@@ -451,8 +449,7 @@ class Award_contract extends ListNfa
 						
 						
 					}					
-					
-					
+									
 					//Update or insert award synopsis Data
 				
 					
@@ -494,8 +491,7 @@ class Award_contract extends ListNfa
 					//Final Bid Data
 					$isExistBidders=$this->awardRecommContract->checkBiddersDelete($mId);
 					$isExistFinalBid=$this->awardRecommContract->checkFinalBidDelete($mId);
-					//foreach($final_bidder_name as $keyBid=>$valBid)
-				
+					
 					$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($mId);
 					
 					foreach($final_bidder_name as $keyBid=>$valBid)
@@ -582,13 +578,9 @@ class Award_contract extends ListNfa
 						);
 					$uploadDisplayData = array(
 						
-						
 						'upload_comparitive_disp_name' => $this->input->post('upload_comparitive_disp_name'),
 						
 						'upload_detailed_disp_name' => $this->input->post('upload_detailed_disp_name')
-						
-											
-						
 						
 						);
 					
@@ -620,8 +612,6 @@ class Award_contract extends ListNfa
 							
 							'created_date' => date('Y-m-d H:i:s')
 					
-							
-							
 							);
 							
 							$mNfaInsert = $this->awardRecommContract->addNfaStatus($approveData);
@@ -635,7 +625,6 @@ class Award_contract extends ListNfa
 								$approver =   $buyer['buyer_name'];
 								$approver_mail =   $buyer['buyer_email'];
 								$sender =   $this->session->userdata('session_name');
-								
 								
 								$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
 								
@@ -798,8 +787,6 @@ class Award_contract extends ListNfa
 							
 						}					
 					
-						
-						
 						//Appointment Data- if totla finalized_award_value>3  crore
 						if($total_finalized_award_value>3)
 						{
@@ -849,7 +836,6 @@ class Award_contract extends ListNfa
 							$bid_index = $keyBid+1;
 							
 							$nfaFinalBidder = array(
-						
 						
 							'salient_id' => $mInsert,
 							'final_bidder_name' => $valBid,
@@ -1322,7 +1308,7 @@ class Award_contract extends ListNfa
            
 			if ($mId) {
 				$mRecord = $this->nfaAction->getNfaInitiated($mId,$mSessionKey,"award_contract");
-				//print_r($mRecord);
+			
 				$approver_level = $mRecord[0]['approver_level'];
 				$mRecordApprovers = $this->nfaAction->getNfaStatus($mId,$mSessionKey,$approver_level,'',"award_contract");
 				$data['mRecord'] = $mRecord[0];
@@ -1665,10 +1651,7 @@ class Award_contract extends ListNfa
 			$data['start_date'] = $start_date;
 			$data['end_date'] = $end_date;
 			$data['nfaStatus'] = $nfaStatus;
-			
-			
-			
-			
+						
 			$nfa_select = nfa_dropdown_reports("award_contract");
 			$data['nfa_select'] = $nfa_select;
 		
@@ -1716,26 +1699,7 @@ class Award_contract extends ListNfa
 		
 		exit; 
 	}
-	public function export_csv1(){ 
-		header('Content-Type: application/vnd.ms-excel');  
-		header('Content-disposition: attachment; filename='.rand().'.xls');  
-		
-		$data = $this->input->post('data');	
-		echo $data;	
-		exit;		
-	}
 	
-	public function export_csv2(){ 
-		 header('Content-Type: text/csv; charset=utf-8');
-
-		header('Content-Disposition: attachment; filename=DevelopersData.csv');
-		
-		$output = fopen("php://output", "w");
-		fputcsv($output, array('Id','Name','Skills','Address', 'Designation'));
-		$records = $this->input->post('data1');
-		
-		fclose($output);
-	}
     public function esign()
     {
         $mSessionKey = $this->session->userdata('session_id');

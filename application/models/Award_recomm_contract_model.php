@@ -319,8 +319,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$data = $this->common->select_fields_where($tbl, $data,  $where, $single ,'','','',$group_by,$order_by,$array);
 		
 		return $data;
-		
-       
+	
     }
 	
 	//Major terms
@@ -352,8 +351,7 @@ class Award_recomm_contract_model extends CI_Model {
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $single,'','',$group_by,$order_by,'',$array);
 		
 		return $data;
-		
-       
+	
     }
 		
 	//Get the  approvers conditions
@@ -450,8 +448,7 @@ class Award_recomm_contract_model extends CI_Model {
 	//Insert NFA Logs
 	public function nfaLogs_insertData($salient_id,$data) {
 		$tbl = "award_recomm_contractor_nfa_logs";
-		
-					
+			
 		$ins = $this->common->insert_record($tbl,$data);
 		
 		return $ins;
@@ -505,7 +502,6 @@ class Award_recomm_contract_model extends CI_Model {
 		if($isExist)
 			$delData = $this->common->delete_data($tbl,$where);
 		
-		
 		return $isExist;
 		
 	}		
@@ -517,7 +513,6 @@ class Award_recomm_contract_model extends CI_Model {
 		$isExist = $this->common->get_row_where($tbl,$where);
 		if($isExist)
 			$delData = $this->common->delete_data($tbl,$where);
-		//print_r($this->db->last_query()); 
 		
 		return $isExist;
 		
@@ -527,7 +522,6 @@ class Award_recomm_contract_model extends CI_Model {
 		
 		$sql = "SELECT buyer_id,buyer_name FROM buyers WHERE buyer_role='$role' ";
 		
-		
         $query = $this->db->query($sql);
         $res = $query->result();
 		
@@ -535,7 +529,6 @@ class Award_recomm_contract_model extends CI_Model {
     }
 	//Get award contract package data
 	public function get_award_contract_package_data($salient_id) {
-		
 		
 		$tbl = "award_recomm_contract_packages AWDPackage ";
 		$data = "*";
@@ -552,7 +545,6 @@ class Award_recomm_contract_model extends CI_Model {
 		$data = $this->common->select_fields_where_like_join($tbl, $data, $joins , $where, $single,'','',$group_by,$order_by,'',true);
 		
 		return $data;
-		
 		
     }
 	
@@ -574,10 +566,8 @@ class Award_recomm_contract_model extends CI_Model {
 	//Get award contract data
 	public function get_award_contract_data($salient_id) {
 		
-		
 		$tbl = "award_recomm_contract_synopsis_label AWDSynopsLbl ";
 		$data = "*";
-		
 		
 		$joins[]=array("table"=>"award_recomm_contract_final_bidders AWDFinalBid","condition"=>"AWDFinalBid.salient_id = AWDSynopsLbl.salient_id","type"=>'inner');
 		
@@ -610,11 +600,9 @@ class Award_recomm_contract_model extends CI_Model {
 		
         return $res;
 		
-		
     }
 	
 	public function get_level_approvers($salient_id) {
-		
 		
 		$tbl = "award_recomm_contractor_status AWDContractStatus ";
 		$data = "AWDContractStatus.*,buyers.buyer_name";
@@ -630,8 +618,6 @@ class Award_recomm_contract_model extends CI_Model {
 		
 		return $data;
 		
-		
-        
     }
 	public function checkApproverDelete($salient_id) {
         $this->db->select('salient_id');
@@ -659,9 +645,7 @@ class Award_recomm_contract_model extends CI_Model {
             return FALSE;
         }
     }
-	
-	
-	
+
 	public function getReturnedNfa() {
 		
         $this->db->select('LDWSalient.*');
@@ -720,8 +704,6 @@ class Award_recomm_contract_model extends CI_Model {
 		else if($nfaStatus=="Approved")
 		{
 			
-			
-			
 			$this->db->where(array('status'=> 1,'approved_status'=> 1,'nfa_status '=> 'A','approver_id !='=> '','approver_id !='=> 0));
 			if($buyer_id)
 			{
@@ -736,15 +718,11 @@ class Award_recomm_contract_model extends CI_Model {
 			{
 				$this->db->where(array('date(approved_date)<='=> $end_date));
 			}
-			
-					
-			
+		
         
 		}
 		else if($nfaStatus=="Returned")
 		{
-			
-			
 			
 			$this->db->where('status', 1,FALSE);
 			$this->db->where("nfa_status", "'R'", FALSE);
@@ -808,8 +786,6 @@ class Award_recomm_contract_model extends CI_Model {
 		
         $this->db->select('*');
         $this->db->from('award_recomm_contractor_role_level');
-		
-		
 		
 		$this->db->where($param);
         

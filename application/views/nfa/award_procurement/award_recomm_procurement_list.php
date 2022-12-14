@@ -49,9 +49,7 @@
                             <div class="col-lg-6">
                                 <h3>Procurement IOM</h3>
                             </div>
-                            <!-- <div class="col-lg-6 text-right">
-                                <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
-                            </div> -->
+                          
                         </div>
                     </div>
 
@@ -131,7 +129,6 @@
                                                             <td>
                                                                  <p class="badge badge-primary">
 
-                                                                    <?php //echo ($record['nfa_status'] == 'A') ? "Approved" : "Pending"; ?>
                                                                     <?php 
                                                                       
                                                                         foreach ($mRecordLevels as $keyLevel => $valLevel) {
@@ -139,7 +136,7 @@
                                                                             $level = $valLevel['level'];
                                                                             $role = $valLevel['role'];
                                                                             $approver_id = $valLevel['approver_id'];
-                                                                            //$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
+                                                                           
                                                                             if($approver_id==0)
                                                                             {
                                                                                 $approver_name = "Not Applicable"; 
@@ -150,8 +147,7 @@
                                                                                
                                                                                 $approver_name = $getUser[0]->buyer_name;
                                                                             }
-                                                                            // echo $approver_name; ?> <?php //echo ($valLevel['approved_status']==0) ? "Pending" : "Approved"; 
-                                                                            // echo "(Level - ".$level.")<br>";
+                                                                           
                                                                             echo $approver_name; ?> - <?php 
                                                                             if($approver_id!=0)
                                                                                 echo ($valLevel['approved_status']==0 ) ? "Pending" : "Approved"; 

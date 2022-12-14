@@ -151,7 +151,7 @@ class Award_procurement extends ListNfa
 			$total_basic_rate_package = $this->input->post('total_basic_rate_package');
 			
 			$anticipate_basic_rate_package = $this->input->post('anticipate_basic_rate_package');
-            //$anticipate_basic_rate_package2 = $this->input->post('anticipate_basic_rate_package2');
+           
             $post_basic_rate_package = $this->input->post('post_basic_rate_package');
 			
 			

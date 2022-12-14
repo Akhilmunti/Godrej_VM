@@ -229,10 +229,7 @@ $this->load->view('buyer/partials/header'); ?>
 												</th>
 											<?php 
 											}?> 
-											<?php /*<th scope="col" style="display:none;">
-												<label>Package name</label>
-												<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key;?>" value="<?php echo $val['package_name'] ?>" required>
-											</th> <?php */?>
+											
                                            <th  style="width:20% ;">Total</th>
                                         </tr>
                                     </thead>
@@ -240,11 +237,11 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <td>Budget incl Escalation</td>
 											<?php 
-											// $total_budget_esc = 0;
+										
 											 foreach($mRecordPackage as $key=>$val)
 											 {
 											 	$id_index = $key+1;
-											 	//$total_budget_esc+=$val['package_budget_esc'];
+											 	
 											 ?>
                                             <td>
                                                 <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
