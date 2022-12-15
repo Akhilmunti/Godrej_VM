@@ -433,8 +433,10 @@ $pdf->writeHTML($text, true, 0, true, 0);
 		$html .='<div class="max-width">
                 <table class="p2" border="1">
                     <tbody>
+						
                         <tr>
-                            <td>Is HO approval required ? : ' . $ho_approval;
+                            <td>' . 
+							$mRecord["uom_label"].' : '.$mRecord['uom_value'].' Cr<br>Is HO approval required ? : ' . $ho_approval;
 							 
 							$html .='
 							</td>                           
