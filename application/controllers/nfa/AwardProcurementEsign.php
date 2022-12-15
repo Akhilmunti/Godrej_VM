@@ -506,11 +506,14 @@ $pdf->writeHTML($text, true, 0, true, 0);
                 <thead>
                     <tr class="bg-primary">
                         <th>Sl. No.</th>
-                        <th>Terms</th>
-                     
-                        <th>Description</th>
-                        <th colspan="3">Description</th>
-                    </tr>
+                        <th>Terms</th>';
+						
+						foreach($mRecordPackage as $key=>$val)
+						{
+					
+							$html .='<th>Description'.$mRecord['term_label'].'</th>';
+						}
+						$html .='</tr>
                 </thead>
                 <tbody>
 				<tr>
