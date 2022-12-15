@@ -1081,9 +1081,7 @@ class Nfa_action_model extends CI_Model {
 		
         $this->db->select('*');
         $this->db->from('nfa_approvers_role_level');
-		
-		
-		
+				
 		$this->db->where($param);
         
         $this->db->order_by('id', 'ASC');

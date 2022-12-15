@@ -145,7 +145,7 @@
                                                                             $level = $valLevel['level'];
                                                                             $role = $valLevel['role'];
                                                                             $approver_id = $valLevel['approver_id'];
-                                                                            //$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
+                                                                           
                                                                             if($approver_id==0)
                                                                             {
                                                                                 $approver_name = "Not Applicable"; 

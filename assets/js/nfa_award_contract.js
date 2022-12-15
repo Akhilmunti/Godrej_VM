@@ -399,20 +399,13 @@ function score_color(){
 		sum_gpl=0;
 		for(bid_index=1;bid_index<=bidder_count;bid_index++)
 		{
-			
-			
 		
 			sum_bidder = 0;
 			
 			for(pck_index=1;pck_index<=package_count;pck_index++)
 			{
 				
-				
-				
-				
-				
 				bid_text = "#package_bidder_"+pck_index+"_"+bid_index;
-				
 				
 				sum_bidder += parseFloat($(bid_text).val()); 
 				if(bid_index==1)
@@ -420,8 +413,6 @@ function score_color(){
 			
 			}
 			
-			
-			//console.log("bid_indexfff"+bid_index);
 			if(!isNaN(sum_gpl)) {
 				$("#total_amt_gpl").val(sum_gpl+" Cr"); 
 			}
@@ -432,7 +423,7 @@ function score_color(){
 			diff_budget_crs = parseFloat(sum_bidder)-parseFloat(total_amt_gpl);
 			
 			diff_budget_percentage = (parseFloat(diff_budget_crs)/parseFloat(total_amt_gpl))*100;
-			//diff_budget_percentage = (parseFloat(diff_budget_crs)*100/parseFloat(total_amt_gpl));
+			
 			if(!isNaN(diff_budget_crs)) {
 				$("#diff_budget_crs"+bid_index).val(diff_budget_crs.toFixed(2)+" Cr"); 
 			}
@@ -442,29 +433,25 @@ function score_color(){
 			
 			if(diff_budget_crs>0)
 			{
-				/* $("#diff_budget_crs"+bid_index).removeClass('background-red');
-				$("#diff_budget_crs"+bid_index).addClass('background-green'); */
+				
 				$("#diff_budget_crs"+bid_index).removeClass('background-green');
 				$("#diff_budget_crs"+bid_index).addClass('background-red'); 
 			}
 			else
 			{
-				/* $("#diff_budget_crs"+bid_index).removeClass('background-green');
-				$("#diff_budget_crs"+bid_index).addClass('background-red'); */
+				
 				$("#diff_budget_crs"+bid_index).removeClass('background-red');
 				$("#diff_budget_crs"+bid_index).addClass('background-green');
 			}
 			if(diff_budget_percentage>0)
 			{
-				/* $("#diff_budget_percentage"+bid_index).removeClass('background-red');
-				$("#diff_budget_percentage"+bid_index).addClass('background-green'); */
+				
 				$("#diff_budget_percentage"+bid_index).removeClass('background-green');
 				$("#diff_budget_percentage"+bid_index).addClass('background-red');
 			}
 			else
 			{
-				/* $("#diff_budget_percentage"+bid_index).removeClass('background-green');
-				$("#diff_budget_percentage"+bid_index).addClass('background-red'); */
+				
 				$("#diff_budget_percentage"+bid_index).removeClass('background-red');
 				$("#diff_budget_percentage"+bid_index).addClass('background-green');
 			}
@@ -472,14 +459,14 @@ function score_color(){
 		if(!isNaN(sum_bidder)) {
 			showPackage_L1();
 			showBidposition_bidders();
-			//calculateSum1();
+			
 		}
 		
 	}
 	
 	//Function for showing the L1 Package in Green color
 	function showPackage_L1(){
-		//console.log("showPackage_L1");
+		
 		var pck_index,bid_index,total_amt_bidder;
 		
 		var package_count = parseInt($("#package_count").val())+1;	

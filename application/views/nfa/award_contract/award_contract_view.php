@@ -162,24 +162,11 @@
 
                         <div class="box-body">
 
-                         
-
-                            <!-- <div class="row mt-4">
-                                <?php
-                                $mSessionRole = $this->session->userdata('session_role');
-								$upload_path = $this->config->item('upload_path'); 
-                                if ($mSessionRole != "PCM" && $pgType != 'A' && $pgType != 'C' && $pgType != 'E' && $preChkRecords == 1) { ?>
-                                    <div class="col-lg-12 text-right">
-                                        <a href="#" data-toggle="modal" data-target="#modal-right">
-                                            <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold">NFA Actions</button>
-                                        </a>
-                                    </div>
-                                <?php } ?>
-
-                             
-                            </div> -->
+                            <?php
+                            $mSessionRole = $this->session->userdata('session_role');
+                            $upload_path = $this->config->item('upload_path'); 
+                            ?>
 							
-                           
                             <div class="paddingLine mt-4">
                                 
                                 <h5>
@@ -396,7 +383,7 @@
 												
 											?>
                                             <td>
-                                               <?php //echo $val['basic_rate_month_package'] ?>
+                                              
 											   <?php echo date("d-M-y", strtotime($val['basic_rate_month_package']));?>
                                             </td>
                                            <?php 
@@ -438,7 +425,7 @@
 											 <td class="">-></td>
 											<?php 
 											$bidVal_arr = array();
-											//print_r($mRecordFinalBidders);
+											
 											foreach($mRecordFinalBidders as $keyBid=>$valBid)
 											{
 												$id_index = $keyBid+1;
@@ -449,9 +436,7 @@
 													$score_class = " background-pq";
 												else if($score_type=="FB")
 													$score_class = " background-feedback";
-												
-												//$bidVal_arr[]=$package_bidder_value;
-																								
+																				
 											?>
 											
                                          
@@ -494,8 +479,7 @@
 												$finalBiddersData = $CI->getFinalBidData($salient_id,$package_id,$bidder_id);
 												
 												$package_bidder_value =  $finalBiddersData->package_bidder;
-												//$bidVal_arr[]=$package_bidder_value;
-												//$min = min($bidVal_arr);
+												
 												if($package_bidder_value==$minBidValue)
 													$bidder_class = 'background-green';
 												else 
@@ -587,9 +571,6 @@
 
                             </div>
 
-                         
-
-                            
 						<?php if($mRecord['total_finalized_award_value']>3)
 							{	
 						?>
@@ -624,7 +605,7 @@
                                             <td>A</td>
                                             <td>Planned date of Contractor appointment As per PI Logic</td>
                                             <td>
-                                                <?php //echo $mRecordAppointment['activity_planned_date'] ?>
+                                               
 												<?php echo date("d-M-y", strtotime($mRecordAppointment['activity_planned_date']));?>
                                             </td>
                                             <td>
@@ -635,7 +616,7 @@
                                             <td>B</td>
                                             <td>Actual date as per current site progress</td>
                                             <td>
-                                                <?php //echo //$mRecordAppointment['activity_actual_date'] ?>
+                                               
 												<?php echo date("d-M-y", strtotime($mRecordAppointment['activity_actual_date']));?>
                                             </td>
                                             <td>
@@ -646,7 +627,7 @@
                                             <td>C</td>
                                             <td>CBE of contractor Appointment</td>
                                             <td>
-                                                <?php //echo $mRecordAppointment['activity_cbe_date'] ?>
+                                              
 												<?php echo date("d-M-y", strtotime($mRecordAppointment['activity_cbe_date']));?>
                                             </td>
                                             <td>
@@ -716,15 +697,15 @@
                                         <tr class='text-center'>
                                             <td>Date</td>
                                             <td>
-                                                <?php //echo $mRecordAwdContract['receipt_date'] ?>
+                                               
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['receipt_date']));?>
                                             </td>
                                             <td>
-                                                <?php //echo $mRecordAwdContract['bidder_approval_date'] ?>
+                                                
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['bidder_approval_date']));?>
                                             </td>
                                             <td>
-                                                <?php //echo $mRecordAwdContract['award_recomm_date'] ?>
+                                               
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['award_recomm_date']));?>
                                             </td>
                                             <td>
@@ -768,8 +749,7 @@
                                             ?>
                                                     <th>Description<br><?php echo $val['major_term_label'] ?></th>
                                             <?php }?>
-                                           <!-- <th>Description2<br>Lorem</th>
-                                            <th>Description3<br>Lorem</th>-->
+                                         
                                         </tr>
                                     </thead>
                                     <tbody id="">
@@ -779,7 +759,7 @@
 										{
 											$slNo  = $key+1;
 											$term = $val->term;
-											//$term_label_value = $val->term_label_value;
+											
 										?>
                                         <tr class='text-center'>
                                         
@@ -889,18 +869,7 @@
                                     $this->load->view('nfa/nfa_actions',$data); 
                                                 
                                }?>
-                              <?php /*  <div style="text-align:center ;" class="col-lg-12">
-                                    <a href="<?php echo base_url("$url/approve/$mId"); ?>">
-                                        <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold mr-2">Approve NFA</button>
-                                    </a>
-                                    <a href="<?php echo base_url("$url/return_nfa/$mId");?>">
-                                        <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold mr-2">Return NFA</button>
-                                    </a>
-                                    <a href="<?php echo base_url("$url/return_text/$mId");?>">
-                                        <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold mr-2">Return with Text Correction</button>
-                                    </a>
-                                </div>
-                                <?php */?>
+                             
                             </div>
 
 							<div class="modal modal-right fade" id="modal-right" tabindex="-1">

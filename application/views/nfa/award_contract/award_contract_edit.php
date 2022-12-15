@@ -29,18 +29,7 @@ $this->load->view('buyer/partials/header'); ?>
         .package-sec1{
             display: none;
         }
-        /* .package-sec2{
-            display: none;
-        } 
-
-		.sec2{
-            display: none;
-        }
-        .sec3{
-            display: none;
-        }  */
-
-
+       
         [data-tip] {
 	        position:relative;
         }
@@ -161,7 +150,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-12">
                                     <div class='form-group'>
                                         <label  class="font-weight-bold">Subject</label>
-                                        <!--<input type="text" class="form-control" placeholder="" name="subject" id="subject"> -->
+                                      
 										<div id="subject" class="form-control" name="subject"><?php echo $mRecord['subject'] ?></div>
 										
                                     </div>
@@ -438,14 +427,13 @@ $this->load->view('buyer/partials/header'); ?>
                                     </tbody>
                                 </table>
                             </div>
-
-						
+					
 
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Final Bid Scenario</h5>
                             </div>
 
-							<div class="mt-4"><?php //print_r($mRecord);?>
+							<div class="mt-4">
                                 <h5>How many Bidders participated?</h5>
                                 <select id="bidder_count" name="bidder_count" required="" style="width:25%;" class="form-control" > 
 									<?php for($bcount=0;$bcount<9;$bcount++)
@@ -1011,7 +999,7 @@ $this->load->view('buyer/partials/header'); ?>
 							 $level_max = sizeof($mRecordApprovers);
 							
 							 $getLevels = $CI->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract");
-							 //print_r($getLevels);
+							
 							 $result_maxLevel = '';
 							 $mSessionZone = $this->session->userdata('session_zone');
 							
@@ -1042,10 +1030,7 @@ $this->load->view('buyer/partials/header'); ?>
 								
 							}?>
                           
-							<?php 
-							//}
-							?>
-
+							
                             </div>			
 							
  
@@ -1112,7 +1097,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 	$( document ).ready(function() {
 	let total_finalized_val = parseFloat(document.getElementById("total_finalized_award_value").value);
-	//console.log("greater"+total_finalized_val)
+	
 	if (total_finalized_val > 3) {
 		console.log("greater"+total_finalized_val)	
 	document.getElementById("appointment-date").classList.remove("date-hide");
@@ -1136,7 +1121,7 @@ $this->load->view('buyer/partials/header'); ?>
 	console.log("ready doc");
 	showBidders_finalized();
 	getBidders_total();
-	//var pCount_obj = $('#package_count');
+	
 	var pCount_obj = document.getElementById("package_count");
 	addPackage(pCount_obj);
 	});
@@ -1360,8 +1345,7 @@ $this->load->view('buyer/partials/header'); ?>
 		}else{
 			var sel_package_count = $('#package_count').find(":selected").text();
 			
-			
-			
+						
 			for (let i = sel_package_count; i < pckCount_edit; i++) {
 				ele_pckIndex=parseInt(i)+1;
 				
@@ -1826,8 +1810,6 @@ $this->load->view('buyer/partials/header'); ?>
 
 				
 			});
-
-
    
 
 	}
@@ -1869,8 +1851,7 @@ $this->load->view('buyer/partials/header'); ?>
 	}
 	//get Bidders package total
 	function getBidders_total(){
-		
-		//var sum_pkgBidder=[];
+				
 		var sum_bidder;
 		var total_amt_gpl = $("#total_amt_gpl").val(); 
 		var diff_budget_crs;
@@ -1934,8 +1915,6 @@ $this->load->view('buyer/partials/header'); ?>
 		
 		var activity_planned_date= $("#activity_planned_date").val(); 
 		var activity_cbe_date = $("#activity_cbe_date").val();
-		
-		
 		
 		days = daysdifference(activity_planned_date, activity_cbe_date);
 		if(!isNaN(days)) {
@@ -2036,16 +2015,15 @@ $('#save, #submit').on('click', () => {
         }
 
 		function decimalStrictThree(){
-        let noOfClasses=document.getElementsByClassName("decimalStrictThreeClass").length;
-        for(let k = 0;k<=noOfClasses;k++){
-        setInputFilter(document.getElementsByClassName("decimalStrictThreeClass")[k], function(value) {
-            return /^-?\d*[.,]?\d{0,3}$/.test(value); });
-        }
+			let noOfClasses=document.getElementsByClassName("decimalStrictThreeClass").length;
+			for(let k = 0;k<=noOfClasses;k++){
+			setInputFilter(document.getElementsByClassName("decimalStrictThreeClass")[k], function(value) {
+				return /^-?\d*[.,]?\d{0,3}$/.test(value); });
+			}
         }
 
 		function addPackage(selectObj){
-            console.log("addpackage");
-			// console.log(selectObj.val());
+            
             contrSel = selectObj.value;
             let pack1=document.getElementsByClassName("sec2");
             let pack2=document.getElementsByClassName("sec3");

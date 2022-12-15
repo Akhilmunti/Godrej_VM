@@ -134,7 +134,7 @@
 											<th>ENFA No.</th>
 											<th>Subject</th>
 											<th>Award Synopsis </th>
-                                            <th>NFA Status</th>
+                                            <th>IOM Status</th>
 										  
 											<th>Actions</th>
                                         </tr>
@@ -215,17 +215,15 @@
     <?php $this->load->view('buyer/partials/scripts'); ?>
 	<script>
 		$('#nfaStatus').change(function () {
-			//alert("test"+$('#nfaStatus').val());
+			
 			nfaStatus= this.value;
-			//alert("level"+nfaStatus);
 			
 			$.post("<?php echo base_url('nfa/ListNfa/getReportUsers'); ?>",
 					{
 						nfaStatus: nfaStatus,
-						//contract_value:$('#original_contract_value').val()
+						
 					},
 					function (data, status) {
-						//alert(data);
 						
 						$('#buyer_id').html(data);
 						
@@ -238,14 +236,14 @@
 $("#export_button").click(function(){
 	var csv = "csv";
 	var excel_data =  '<?php echo json_encode($records); ?>'
-    //console.log("excel"+excel_data);
+  
 	$.ajax({
 		type: 'POST',
 		url: "<?php echo base_url('nfa/Award_contract/export_csv'); ?>",
 		data: {csv:csv,data1:excel_data},
 		
 	    success: function(result) {
-	      //console.log(result);
+	     
 	      setTimeout(function() {
 				  var dlbtn = document.getElementById("dlbtn");
 				  var file = new Blob([result], {type: 'text/csv'});

@@ -43,14 +43,6 @@
 
                 <section class="content">
 
-                    <!-- <div class="content-header">
-                        <div class="d-flex align-items-center">
-                            <div class="d-block">
-                                <h3 class="page-title br-0">Ammend IOM - LD Waiver</h3>
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-9">

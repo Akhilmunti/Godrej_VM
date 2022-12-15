@@ -22,12 +22,7 @@ foreach ($mRecordLogs as $key => $val) {
 		 $status = "Approved";
 	 else if($val['nfa_status']=="AMD")
 		 $status = "Amended NFA";
-	 /* else
-	 {
-		$getUser = $CI->getRoleUsers_approval($role,$mSessionZone,$approver_id);
-		//print_r($getUser);
-		$approver_name = $getUser[0]->buyer_name;
-	 } */
+	
 	?> 
 	  <tr>
                                                

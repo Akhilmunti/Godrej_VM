@@ -71,15 +71,15 @@
                                         <td class='font-weight-bold' style="width: 350px;"><?php echo $mRecord['version_id']; ?></td>
                                         <td>
 										 <?php 
-										 //print_r($mRecordApprovers);
+										
 										 foreach ($mRecordApprovers as $key => $record) {
 										
-                                      echo ($record['approver_id']==0) ? "Not Applicable" : $record['buyer_name']; ?> -<?php 
-									  if($record['approver_id']!=0)
-									  {
-										echo ($record['approved_status']==0) ? "Pending" : "Approved"; 
-									  }
-									  echo "(Level - ".$record['approver_level'].")<br>";
+                                            echo ($record['approver_id']==0) ? "Not Applicable" : $record['buyer_name']; ?> -<?php 
+                                            if($record['approver_id']!=0)
+                                            {
+                                                echo ($record['approved_status']==0) ? "Pending" : "Approved"; 
+                                            }
+                                            echo "(Level - ".$record['approver_level'].")<br>";
 										 }
 									  
 										?>										

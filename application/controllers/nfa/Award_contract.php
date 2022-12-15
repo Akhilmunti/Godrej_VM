@@ -1758,7 +1758,7 @@ class Award_contract extends ListNfa
 			$package_row.="
 						<td>".$package_name."</td>
 						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
-						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
+						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
 						
 						";
 			
@@ -1784,7 +1784,7 @@ class Award_contract extends ListNfa
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
 			
-					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";
 			}
             
@@ -1811,7 +1811,7 @@ class Award_contract extends ListNfa
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
 				
-				$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+				$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";
 				
 				
@@ -1838,7 +1838,7 @@ class Award_contract extends ListNfa
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
 				
-				$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+				$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";	
 				
 			}
