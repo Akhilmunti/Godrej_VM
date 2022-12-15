@@ -28,19 +28,7 @@ $this->load->view('buyer/partials/header'); ?>
 		.package-sec1{
             display: none;
         }
-		/*.sec1{
-            display: none;
-        }
-       .sec2{
-            display: none;
-        }
-        .package-sec1{
-            display: none;
-        }
-        .package-sec2{
-            display: none;
-        }*/
-
+		
 
         [data-tip] {
 	        position:relative;
@@ -162,7 +150,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-12">
                                     <div class='form-group'>
                                         <label  class="font-weight-bold">Subject</label>
-                                        <!--<input type="text" class="form-control" placeholder="" name="subject" id="subject"> -->
+                                      
 										<div id="subject" class="form-control" name="subject"><?php echo $mRecord['subject'] ?></div>
 										
                                     </div>
@@ -810,7 +798,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     </div>
                                 </div>
                             </div>
-<?php ?>
+
                             <div class="d-block mt-4 mb-4">
                                 <h5 class="page-title br-0 font-weight-bold">Select different levels of approvals</h5>
                             </div>
@@ -842,7 +830,6 @@ $this->load->view('buyer/partials/header'); ?>
 									
 								
                             ?>
-
 
 								<div id="pm" class="col-md-3 mb-3">
 									<lable><?php echo $role;?></lable>
@@ -918,7 +905,6 @@ $this->load->view('buyer/partials/header'); ?>
 		$( document ).ready(function() {
 			
 			let total_finalized_val = parseFloat(document.getElementById("total_finalized_award_value").value);
-					
 			
 			showBidders_finalized();
 			getBidders_total();
@@ -1012,9 +998,6 @@ function package_bidders_procurement(label_obj){
 	
 	var package_name;
 	
-	
-	
-	
 	var package_count = $('#package_count').find(":selected").text();
 	
     package_name= label_obj.value;
@@ -1027,23 +1010,23 @@ function package_bidders_procurement(label_obj){
 		var url = base_url+'nfa/Award_procurement/show_package_bidders3';
 
 	$.post(url,
-		{
-			
-			package_name: package_name
-		},
-		function (data, status) {
-			
-			if(label_id=="package_label1")
-				$('#package_row1').html(data);
-			else if(label_id=="package_label2")
-				$('#package_row2').html(data);
-			else if(label_id=="package_label3")
-				$('#package_row3').html(data);
-			
-			setGpl_budget();
-			showBidders_finalized();
-			getBidders_total();
-		});
+	{
+		
+		package_name: package_name
+	},
+	function (data, status) {
+		
+		if(label_id=="package_label1")
+			$('#package_row1').html(data);
+		else if(label_id=="package_label2")
+			$('#package_row2').html(data);
+		else if(label_id=="package_label3")
+			$('#package_row3').html(data);
+		
+		setGpl_budget();
+		showBidders_finalized();
+		getBidders_total();
+	});
 		 
 			
 } 
@@ -1142,13 +1125,10 @@ function package_bidders_procurement(label_obj){
 		$($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength-1]).before($(exp_saving))
 		$($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength-1]).before(rec_vendors)
 
-		
 
 		}
 		}else{
 			var sel_package_count = $('#package_count').find(":selected").text();
-			
-			
 			
 			for (let i = sel_package_count; i < pckCount_edit; i++) {
 				ele_pckIndex=parseInt(i)+1;
@@ -1170,8 +1150,7 @@ function package_bidders_procurement(label_obj){
 		
 		
 		//for Radio buttons
-		
-		
+	
 		let basic2 = document.getElementById("basic_rate2");
 		let anticipated2 = document.getElementById("anticipated_rate2");
 		let basic3 = document.getElementById("basic_rate3");
@@ -1237,17 +1216,13 @@ function package_bidders_procurement(label_obj){
 		 packageSynopsis_total('expected_savings_package','total_expected_savings');
 		 calculateSum1_v1(pckCount_edit);
 
-
-		
 		});
 
 		// ending award synopsis dynamic column
 
-
 		/* adding final bid scenario dynamic column */
 		
-		
-		 $('#bidder_count').on('change', function (e) {
+		$('#bidder_count').on('change', function (e) {
 
         let _th=`<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
 
@@ -1354,9 +1329,7 @@ function package_bidders_procurement(label_obj){
 				
 				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).closest("td").remove();
 				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).remove()
-				
-           
-               
+			
 				}
 				
             }
@@ -1385,8 +1358,6 @@ function package_bidders_procurement(label_obj){
         })
 		
         });
-	
-
 		/*  ending final bid scenario dynamic column */
 		
 
@@ -1506,8 +1477,6 @@ function addRow() {
 	tbody.appendChild(newrow);
 }
 
-
-
 function deleteRow(button) {
 	var row = button.parentNode.parentNode;
 	var tbody = row.parentNode;
@@ -1521,57 +1490,55 @@ function deleteRow(button) {
 	}
 }
 	
-	//Level role change 
+//Level role change 
 
-	$('#role').change(function () {
-		
-		user_name = $( "#role option:selected" ).text();
-		user_id = $('#role').val();
-		
-		level_val= $("#level")[0].selectedIndex;
-		level_text= $( "#level option:selected" ).text();
-		
-		$('#level'+level_val+'_id').html("Level "+level_val);
-		
-		
-		$('#level'+level_val+'_approver').val(user_name)
-		$('#level'+level_val+'_approver_id').val(user_id)
-
-		
+$('#role').change(function () {
 	
-	});
-		
-	//get the levels based on the amount/ho_approval
-	function getLevelApprovers(){
+	user_name = $( "#role option:selected" ).text();
+	user_id = $('#role').val();
 	
-		var pgType="edit";
-		
-		var ho_approval1;
-		var package_value;
-		
-		package_value= 200;
-		ho_approval1 = checkL1_vendor();
-		
-		
-		// Get max level of Approvers
-		
-							
-		$.ajax({
-			url: "<?php echo base_url('nfa/Award_procurement/getMaxLevelApprovers'); ?>",
-			type: 'post',
-			data: { package_value: package_value, ho_approval1: ho_approval1, pgType: pgType },
-		
-			success: function(response){
-				
-				var obj = jQuery.parseJSON(response);
-				data1 = obj.data1;
-				
-				$('#level').html(data1); 
-				
-				}
+	level_val= $("#level")[0].selectedIndex;
+	level_text= $( "#level option:selected" ).text();
+	
+	$('#level'+level_val+'_id').html("Level "+level_val);
+	
+	
+	$('#level'+level_val+'_approver').val(user_name)
+	$('#level'+level_val+'_approver_id').val(user_id)
 
+	
+
+});
+		
+//get the levels based on the amount/ho_approval
+function getLevelApprovers(){
+
+	var pgType="edit";
+	
+	var ho_approval1;
+	var package_value;
+	
+	package_value= 200;
+	ho_approval1 = checkL1_vendor();
+		
+	// Get max level of Approvers
+				
+	$.ajax({
+		url: "<?php echo base_url('nfa/Award_procurement/getMaxLevelApprovers'); ?>",
+		type: 'post',
+		data: { package_value: package_value, ho_approval1: ho_approval1, pgType: pgType },
+	
+		success: function(response){
 			
-		});
+			var obj = jQuery.parseJSON(response);
+			data1 = obj.data1;
+			
+			$('#level').html(data1); 
+			
+			}
+
+		
+	});
 
 }
 	
@@ -1819,7 +1786,6 @@ function deleteRow(button) {
 			$("#expected_savings_package_v"+i).val(percentage); 
 		}
 		
-		
 	}
 	
 	//Calculate Sum for the second package
@@ -1872,10 +1838,8 @@ function deleteRow(button) {
 		for(i=1;i<=2;i++)
 		{
 			sum_gplBudget+= parseFloat($("#package_gpl_budget"+i).val()); 
-			
-			
-		}
 		
+		}
 		
 		$("#total_amt_gpl").val(sum_gplBudget); 
 	}
@@ -1989,7 +1953,7 @@ $('#receipt_date').blur(function(){
 $('#bidder_approval_date').blur(function(){
 	var receipt_date= $("#receipt_date").val(); 
 	var bidder_approval_date = $("#bidder_approval_date").val();
-	// calculateDays_betDates(receipt_date,bidder_approval_date,"bidder_approval_days");
+	
 	calculateDays_betDates(bidder_approval_date, receipt_date,"bidder_approval_days");
   
 });
@@ -2008,7 +1972,6 @@ $('#save, #submit').on('click', () => {
     $('#subject_hd').val(subject_html);
 	
 })			
-
 
 function calculateSum1_v1(ele_id)
 {

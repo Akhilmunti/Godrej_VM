@@ -625,8 +625,6 @@
         function finalized_val(sender) {
             let val = sender.value;
 
-           
-
             val1 = String(val);
             if (val1) {
                 if (val1.includes("Cr")) {

@@ -72,12 +72,10 @@
                                     else
                                         $selOption = "";
 
-
                                     ?>
 
                                     <?php $this->load->view('nfa/award_recomm_listing'); ?>                        
-                                  
-
+                               
                                     <div class="table-responsive">
                                         <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                             <thead>
