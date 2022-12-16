@@ -72,18 +72,6 @@
                                                         <textarea required="" name="s_cas" class="form-control" rows="4"><?php echo $eoi['eoi_award'] ?></textarea>
                                                     </div>
                                                 </div>
-                                                <!--                                                <div class="col-md-12">
-                                                                                                    <div class="form-group">
-                                                                                                        <label for="wopo_usertype"> Free Issue Materials  : <span class="danger">*</span> </label>
-                                                                                                        <textarea required="" name="s_fim" class="form-control" rows="4"></textarea>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <div class="col-md-12">
-                                                                                                    <div class="form-group">
-                                                                                                        <label for="wopo_usertype"> Base Rate Materials  : <span class="danger">*</span> </label>
-                                                                                                        <textarea required="" name="s_brm" class="form-control" rows="4"></textarea>
-                                                                                                    </div>
-                                                                                                </div>-->
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="wlastName2"> Basic Rate Items: <span class="danger">*</span> </label>
@@ -115,7 +103,7 @@
                                                         <thead class="bg-primary">
                                                             <tr>
                                                                 <th>
-                                                                    Sl No.
+                                                                    Action
                                                                 </th>
                                                                 <th>
                                                                     Name of Contractor
@@ -139,7 +127,7 @@
                                                         </thead>
                                                         <tbody>
                                                             <?php
-                                                            $mVendors = json_decode($eoi['eoi_vendors_selected']);
+                                                            $mVendors = json_decode($eoi['eoi_accepted_by']);
                                                             $mCount = 0;
                                                             $mDanger = "";
                                                             foreach ($mVendors as $key => $mVendor) {
@@ -159,7 +147,7 @@
                                                                     $mPqScore = $this->pqc->getParentByVendorKey($mVendor);
                                                                     $mStageTwoAdded = strtotime($mStageTwo['stc_date_added']);
                                                                     $mStageTwoAdded = date("d-m-Y H:i:s", $mStageTwoAdded);
-                                                                } 
+                                                                }
 
                                                                 $mAllDescs = array();
                                                                 if (!empty($mStageTwo)) {
@@ -179,10 +167,27 @@
                                                                 $mBidCapacity = $mCheckBidCapacity['bc_to_4'] + $mCheckBidCapacity['bc_to_3'] + $mCheckBidCapacity['bc_to_2'] + $mCheckBidCapacity['bc_to_1'] / 4;
 
                                                                 //print_r($mRecord);
+
+                                                                $mFeedback = $this->feedback->getParentByVendorKey($mRecord['id']);
+                                                                if (!empty($mFeedback)) {
+                                                                    $mFormRecord = $this->feedbackforms->getAllParentByTypeAndFeedbackId($mFeedback['feedback_id']);
+                                                                    if (!empty($mFormRecord)) {
+                                                                        $mTotalScore = 0;
+                                                                        foreach ($mFormRecord as $key => $value) {
+                                                                            $mTotalScore += $value['ff_final_score'];
+                                                                        }
+                                                                        $mFeedbackScore = $mTotalScore / count($mFormRecord);
+                                                                    } else {
+                                                                        $mFeedbackScore = "-";
+                                                                    }
+                                                                } else {
+                                                                    $mFeedbackScore = "-";
+                                                                }
                                                                 ?>
                                                                 <tr>
                                                                     <td>
-                                                                        <?php echo $mCount; ?>
+                                                                        <input checked="" value="<?php echo $mRecord['id']; ?>" class="form-check-input" type="checkbox" id="checkbox_<?php echo $mRecord['id'] ?>" name="s_vendors_selected[]"> 
+                                                                        <label class="form-check-label" for="checkbox_<?php echo $mRecord['id'] ?>"></label>
                                                                     </td>
                                                                     <td>
                                                                         <?php echo $mRecord['company_name']; ?>
@@ -194,24 +199,23 @@
                                                                         <?php echo $mBidCapacity; ?>
                                                                     </td>
                                                                     <td>
+                                                                        <?php if ($mFeedbackScore != "-") { ?>
+                                                                            <?php echo $mFeedbackScore; ?>
+                                                                        <?php } else { ?>
+                                                                            <?php if ($mRecord['is_small'] == 0) { ?>
 
-                                                                        <?php if ($mRecord['is_small'] == 0) { ?>
-
-                                                                            <?php if ($mRecord['active'] == 2) { ?>
-                                                                                <?php
-                                                                                $mTows = json_decode($mRecord['consolidated_tows']);
-                                                                                $mTowsIds = json_decode($mRecord['consolidated_tows_ids']);
-                                                                                foreach ($mTows as $key => $value) {
+                                                                                <?php if ($mRecord['active'] == 2) { ?>
+                                                                                    <?php
                                                                                     if ($mRecord['nature_of_business_id'] == 1) {
-                                                                                        $mPqScore = $this->pqv->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mPqScore = $this->pqv->getParentByVendorKey($mRecord['id']);
                                                                                         $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
                                                                                         $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
                                                                                     } else if ($mRecord['nature_of_business_id'] == 3) {
-                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
                                                                                         $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
                                                                                         $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
                                                                                     } else if ($mRecord['nature_of_business_id'] == 2) {
                                                                                         $mPqScore = array();
                                                                                     }
@@ -234,25 +238,20 @@
                                                                                             <?php } ?>
                                                                                         <?php } ?>
                                                                                     <?php } ?>
-
                                                                                 <?php } ?>
-                                                                            <?php } ?>
-                                                                        <?php } else { ?>
-                                                                            <?php if ($mRecord['active'] == 2) { ?>
-                                                                                <?php
-                                                                                $mTows = json_decode($mRecord['consolidated_tows']);
-                                                                                $mTowsIds = json_decode($mRecord['consolidated_tows_ids']);
-                                                                                foreach ($mTows as $key => $value) {
+                                                                            <?php } else { ?>
+                                                                                <?php if ($mRecord['active'] == 2) { ?>
+                                                                                    <?php
                                                                                     if ($mRecord['nature_of_business_id'] == 1) {
                                                                                         $mPqScore = $this->pqv->getParentByVendorKey($mRecord['id']);
                                                                                         $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
                                                                                         $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
                                                                                     } else if ($mRecord['nature_of_business_id'] == 3) {
-                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
                                                                                         $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
                                                                                         $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
                                                                                     } else if ($mRecord['nature_of_business_id'] == 2) {
                                                                                         $mPqScore = array();
                                                                                     }
@@ -273,7 +272,6 @@
                                                                                             <?php echo $mPqScore['pqc_total']; ?>
                                                                                         <?php } ?>
                                                                                     <?php } ?>
-
                                                                                 <?php } ?>
                                                                             <?php } ?>
                                                                         <?php } ?>
@@ -491,7 +489,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         <b>
-                                                                            Planned date of Contractor appointment As per BI Logic.
+                                                                            Planned date of Contractor appointment As per PI Logic.
                                                                         </b>
                                                                     </td> 
                                                                     <td>
@@ -610,11 +608,11 @@
                                                             </select>
                                                         </div>
                                                         <div id="zonal" class="col-md-3 mb-3" style="display: none">
-                                                            <lable>Regional C&P</lable>
+                                                            <lable>Regional C&P Head</lable>
                                                             <select name="s_approvers[]" class="form-control">
                                                                 <option disabled="" selected="" value="">Select</option>
                                                                 <option value="">Not Applicable</option>
-                                                                <?php foreach ($zonals as $key => $record) { ?>
+                                                                <?php foreach ($RCH as $key => $record) { ?>
                                                                     <option value="<?php echo $record['buyer_id']; ?>"><?php echo $record['buyer_name']; ?></option>
                                                                 <?php } ?>
                                                             </select>
@@ -670,7 +668,7 @@
                                                             </select>
                                                         </div>
                                                         <div id="ho" class="col-md-3 mb-3" style="display: none">
-                                                            <lable>HO - C&P</lable>
+                                                            <lable>HO - C&P Head</lable>
                                                             <select name="s_approvers[]" class="form-control">
                                                                 <option disabled="" selected="" value="">Select</option>
                                                                 <option value="">Not Applicable</option>

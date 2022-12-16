@@ -52,7 +52,7 @@
                                                         <th>SL No</th>
                                                         <th>Scope of work</th>
                                                         <th>Estimated Value of Work (In Crores)</th>
-                                                        <th>Timeline</th>
+                                                        <th>Contract Period (In Months)</th>
                                                         <th>EOI Status</th>
                                                         <th>Bid capacity</th>
                                                         <th>Status</th>
@@ -126,11 +126,7 @@
                                                                 </td>
                                                                 <td>
                                                                     <?php
-                                                                    echo date('d-F-Y', strtotime($mRecord['eoi_start_date'])) . " to ";
-                                                                    ?>
-                                                                    <?php
-                                                                    echo date('d-F-Y', strtotime("+" . $mRecord['eoi_schedule'] . " months", strtotime($mRecord['eoi_start_date'])));
-                                                                    ;
+                                                                    echo $mRecord['eoi_schedule'];
                                                                     ?>
                                                                 </td>
                                                                 <td>
@@ -206,7 +202,7 @@
                                                                     <?php } ?>
                                                                 </td>
                                                                 <td>
-                                                                    <?php if (!empty($mAccepted)) { ?>
+                                                                    <?php if (!empty($mAccepted) && $mRecord['eoi_status'] !== "2") { ?>
                                                                         <a href="<?php echo base_url('buyer/vendor/approveShortlisting/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
                                                                             View
                                                                         </a>

@@ -1220,7 +1220,7 @@
                                                                         <th style="width: 150px">Contract Value Rs.(In Crores)</th>
                                                                         <th>Start  Date</th>
                                                                         <th>Completion Date</th>
-                                                                        <th>Upload Experience*</th>
+                                                                        <th>Upload Documents*</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="itemsTbody">
@@ -1243,7 +1243,7 @@
                                                                                     <input max="<?php echo date("Y-m-d"); ?>" <?php echo $disable; ?> value="<?php echo $mScope[5]; ?>" type="date" onchange="getStartDate('<?php echo $mCount; ?>')" id="stc_wpc_details_sd_<?php echo $mCount; ?>" name="stc_wpc_details[<?php echo $mCount; ?>][]"  class="form-control site-value-6"/>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input max="<?php echo date("Y-m-d"); ?>" <?php echo $disable; ?> value="<?php echo $mScope[6]; ?>" type="date" onchange="getEndDate('<?php echo $mCount; ?>')" id="stc_wpc_details_ed_<?php echo $mCount; ?>" name="stc_wpc_details[<?php echo $mCount; ?>][]"  class="form-control site-value-7"/>
+                                                                                    <input <?php echo $disable; ?> value="<?php echo $mScope[6]; ?>" type="date" onchange="getEndDate('<?php echo $mCount; ?>')" id="stc_wpc_details_ed_<?php echo $mCount; ?>" name="stc_wpc_details[<?php echo $mCount; ?>][]"  class="form-control site-value-7"/>
                                                                                 </td>
                                                                                 <td>
         <!--                                                                                    <input <?php echo $disable; ?> value="<?php echo $mScope[7]; ?>" type="file" name="stc_wpc_details[<?php echo $mCount; ?>][]"  class="form-control"/>-->
@@ -1267,7 +1267,7 @@
                                                                                 <input max="<?php echo date("Y-m-d"); ?>" value="" type="date" name="stc_wpc_details[1][]" onchange="getStartDate('1')" id="stc_wpc_details_sd_1" class="form-control required site-value-6"/>
                                                                             </td>
                                                                             <td>
-                                                                                <input max="<?php echo date("Y-m-d"); ?>" value="" type="date" name="stc_wpc_details[1][]" onchange="getEndDate('1')" id="stc_wpc_details_ed_1" class="form-control required site-value-7"/>
+                                                                                <input value="" type="date" name="stc_wpc_details[1][]" onchange="getEndDate('1')" id="stc_wpc_details_ed_1" class="form-control required site-value-7"/>
                                                                             </td>
                                                                             <td>
                                                                                 <input value="" type="file" name="stc_wpc_details[1][]"  class="form-control required site-value-8"/>
@@ -1351,7 +1351,7 @@
                                                                             Target Completion Date
                                                                         </th>
                                                                         <th>
-                                                                            Upload GOVERNEMENT DEPARTMENTS*
+                                                                            Upload Work Order*
                                                                         </th>
                                                                     </tr>
                                                                 </thead>
@@ -1377,7 +1377,7 @@
                                                                                     <input max="<?php echo date("Y-m-d"); ?>" <?php echo $disable; ?> value="<?php echo $mScope[7]; ?>" type="date" onchange="getDcwStartDate('<?php echo $mCount; ?>')" id="stc_dcw_details_sd_<?php echo $mCount; ?>" name="stc_dcw_details[<?php echo $mCount; ?>][]"  class="form-control site-value-8"/>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input max="<?php echo date("Y-m-d"); ?>" <?php echo $disable; ?> value="<?php echo $mScope[8]; ?>" type="date" onchange="getDcwStartDate('<?php echo $mCount; ?>')" id="stc_dcw_details_ed_<?php echo $mCount; ?>" name="stc_dcw_details[<?php echo $mCount; ?>][]"  class="form-control site-value-9"/>
+                                                                                    <input <?php echo $disable; ?> value="<?php echo $mScope[8]; ?>" type="date" onchange="getDcwStartDate('<?php echo $mCount; ?>')" id="stc_dcw_details_ed_<?php echo $mCount; ?>" name="stc_dcw_details[<?php echo $mCount; ?>][]"  class="form-control site-value-9"/>
                                                                                 </td>
                                                                                 <td>
         <!--                                                                                    <input <?php echo $disable; ?> value="<?php echo $mScope[9]; ?>" type="file" name="stc_dcw_details[<?php echo $mCount; ?>][]"  class="form-control"/>-->
@@ -1403,7 +1403,7 @@
                                                                                 <input max="<?php echo date("Y-m-d"); ?>" value="" type="date" name="stc_dcw_details[1][]" onchange="getDcwStartDate('1')" id="stc_dcw_details_sd_1" class="form-control site-value-8"/>
                                                                             </td>
                                                                             <td>
-                                                                                <input max="<?php echo date("Y-m-d"); ?>" value="" type="date" name="stc_dcw_details[1][]" onchange="getDcwStartDate('1')" id="stc_dcw_details_ed_1" class="form-control site-value-9"/>
+                                                                                <input value="" type="date" name="stc_dcw_details[1][]" onchange="getDcwStartDate('1')" id="stc_dcw_details_ed_1" class="form-control site-value-9"/>
                                                                             </td>
                                                                             <td>
                                                                                 <input value="" type="file" name="stc_dcw_details[1][]"  class="form-control site-value-10"/>
@@ -1483,7 +1483,7 @@
                                                                             Start Date
                                                                         </th>
                                                                         <th>
-                                                                            Target Completion Date
+                                                                            Completion Date
                                                                         </th>
                                                                         <th>
                                                                             Upload Certification*
@@ -1589,60 +1589,60 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Total Assets (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[0]; ?>" <?php echo $disable; ?>></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[1]; ?>" <?php echo $disable; ?>></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[2]; ?>" <?php echo $disable; ?>></td> 
-                                                                    <td><input pattern="\d{6}" class="required" required="" type="number" name="stc_total_assets[]" value="<?php echo $mTotal[3]; ?>" <?php echo $disable; ?>></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" type="number" id="stc_total_assets1" name="stc_total_assets1" value="<?php echo $mTotal[0]; ?>" <?php echo $disable; ?>></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" type="number" id="stc_total_assets2" name="stc_total_assets2" value="<?php echo $mTotal[1]; ?>" <?php echo $disable; ?>></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" type="number" id="stc_total_assets3" name="stc_total_assets3" value="<?php echo $mTotal[2]; ?>" <?php echo $disable; ?>></td> 
+                                                                    <td><input min="1" max="999999" class="required" required="" type="number" id="stc_total_assets4" name="stc_total_assets4" value="<?php echo $mTotal[3]; ?>" <?php echo $disable; ?>></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Current Assets (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[0]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[1]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[2]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets[]" value="<?php echo $mCurrent[3]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets1" value="<?php echo $mCurrent[0]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets2" value="<?php echo $mCurrent[1]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets3" value="<?php echo $mCurrent[2]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_assets4" value="<?php echo $mCurrent[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Total Liabilities (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[0]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[1]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[2]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia[]" value="<?php echo $mLia[3]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia1" value="<?php echo $mLia[0]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia2" value="<?php echo $mLia[1]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia3" value="<?php echo $mLia[2]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_total_lia4" value="<?php echo $mLia[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Current Liabilities (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[0]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[1]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[2]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia[]" value="<?php echo $mCurLia[3]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia1" value="<?php echo $mCurLia[0]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia2" value="<?php echo $mCurLia[1]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia3" value="<?php echo $mCurLia[2]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_current_lia4" value="<?php echo $mCurLia[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Turnover (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[0]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[1]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[2]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_turnover[]" value="<?php echo $mTurn[3]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_turnover1" name="stc_turnover1" value="<?php echo $mTurn[0]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_turnover2" name="stc_turnover2" value="<?php echo $mTurn[1]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_turnover3" name="stc_turnover3" value="<?php echo $mTurn[2]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_turnover4" name="stc_turnover4" value="<?php echo $mTurn[3]; ?>"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Profits before Taxes (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[0]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[1]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[2]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits[]" value="<?php echo $mProfits[3]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits1" value="<?php echo $mProfits[0]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits2" value="<?php echo $mProfits[1]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits3" value="<?php echo $mProfits[2]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits4" value="<?php echo $mProfits[3]; ?>"></td>
 
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Profits after Taxes (In Crores)*</td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[0]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[1]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[2]; ?>"></td>
-                                                                    <td><input pattern="\d{6}" class="required" required="" <?php echo $disable; ?> type="number" name="stc_profits_tax[]" value="<?php echo $mProfitsTax[3]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_profits_tax1" name="stc_profits_tax1" value="<?php echo $mProfitsTax[0]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_profits_tax2" name="stc_profits_tax2" value="<?php echo $mProfitsTax[1]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_profits_tax3" name="stc_profits_tax3" value="<?php echo $mProfitsTax[2]; ?>"></td>
+                                                                    <td><input min="1" max="999999" class="required" required="" <?php echo $disable; ?> type="number" id="stc_profits_tax4" name="stc_profits_tax4" value="<?php echo $mProfitsTax[3]; ?>"></td>
                                                                 </tr> 
 
                                                                 <tr>
                                                                     <td>Upload Audited Balance Sheet*</td>
                                                                     <td>
                                                                         <?php if ($disable == "") { ?>
-                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads[]" value="<?php echo $mFinUploads[0]; ?>">
+                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads1" value="<?php echo $mFinUploads[0]; ?>">
                                                                         <?php } ?>
                                                                         <?php if ($disable == "disabled" && $mFinUploads[0]) { ?>
                                                                             <a class="btn btn-sm btn-info" download="" href="<?php echo base_url('uploads/' . $mFinUploads[0]); ?>">Download</a>
@@ -1650,7 +1650,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <?php if ($disable == "") { ?>
-                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads[]" value="<?php echo $mFinUploads[1]; ?>">
+                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads2" value="<?php echo $mFinUploads[1]; ?>">
                                                                         <?php } ?>
                                                                         <?php if ($disable == "disabled" && $mFinUploads[1]) { ?>
                                                                             <a class="btn btn-sm btn-info" download="" href="<?php echo base_url('uploads/' . $mFinUploads[1]); ?>">Download</a>
@@ -1658,7 +1658,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <?php if ($disable == "") { ?>
-                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads[]" value="<?php echo $mFinUploads[2]; ?>">
+                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads3" value="<?php echo $mFinUploads[2]; ?>">
                                                                         <?php } ?>
                                                                         <?php if ($disable == "disabled" && $mFinUploads[2]) { ?>
                                                                             <a class="btn btn-sm btn-info" download="" href="<?php echo base_url('uploads/' . $mFinUploads[2]); ?>">Download</a>
@@ -1666,7 +1666,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <?php if ($disable == "") { ?>
-                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads[]" value="<?php echo $mFinUploads[3]; ?>">
+                                                                            <input style="width: 200px" required="" <?php echo $disable; ?> type="file" name="stc_fin_uploads4" value="<?php echo $mFinUploads[3]; ?>">
                                                                         <?php } ?>
                                                                         <?php if ($disable == "disabled" && $mFinUploads[3]) { ?>
                                                                             <a class="btn btn-sm btn-info" download="" href="<?php echo base_url('uploads/' . $mFinUploads[3]); ?>">Download</a>
@@ -2319,7 +2319,7 @@
                                 cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                                cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                                cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 newRow.append(cols);
                                 $("#stc_wpc_table").append(newRow);
@@ -2343,7 +2343,7 @@
                                 cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                                cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                                cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 newRow.append(cols);
                                 $("#stc_wpc_table").append(newRow);
@@ -2367,7 +2367,7 @@
                                 cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                                cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                                cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 newRow.append(cols);
                                 $("#stc_wpc_table").append(newRow);
@@ -2391,7 +2391,7 @@
                                 cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                                cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                                cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                                 newRow.append(cols);
                                 $("#stc_wpc_table").append(newRow);
@@ -2433,7 +2433,7 @@
                             cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                            cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_wpc_table").append(newRow);
@@ -2450,7 +2450,7 @@
                             cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                            cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_wpc_table").append(newRow);
@@ -2469,7 +2469,7 @@
                             cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                            cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_wpc_table").append(newRow);
@@ -2488,7 +2488,7 @@
                             cols += '<td><input required type="text" class="form-control site-value-4" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-5" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getStartDate(' + counterscope + ')" id="stc_wpc_details_sd_' + counterscope + '" class="form-control site-value-6" name="stc_wpc_details[' + counterscope + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
+                            cols += '<td><input required type="date" onchange="getEndDate(' + counterscope + ')" id="stc_wpc_details_ed_' + counterscope + '" class="form-control site-value-7" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-8" name="stc_wpc_details[' + counterscope + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_wpc_table").append(newRow);
@@ -2573,7 +2573,7 @@
                             cols += '<td><input required type="number" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="stc_dcw_details_ov_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="stc_dcw_details_bv_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="stc_dcw_details_sd_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
+                            cols += '<td><input required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-10" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_dcw_table").append(newRow);
@@ -2597,7 +2597,7 @@
                             cols += '<td><input required type="number" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="stc_dcw_details_ov_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="stc_dcw_details_bv_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="stc_dcw_details_sd_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
+                            cols += '<td><input required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-10" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_dcw_table").append(newRow);
@@ -2621,7 +2621,7 @@
                             cols += '<td><input required type="number" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="stc_dcw_details_ov_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="stc_dcw_details_bv_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="stc_dcw_details_sd_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
+                            cols += '<td><input required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-10" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_dcw_table").append(newRow);
@@ -2664,7 +2664,7 @@
                             cols += '<td><input required type="number" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="stc_dcw_details_ov_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="stc_dcw_details_bv_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="stc_dcw_details_sd_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
+                            cols += '<td><input required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-10" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_dcw_table").append(newRow);
@@ -2683,7 +2683,7 @@
                             cols += '<td><input required type="number" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="stc_dcw_details_ov_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="stc_dcw_details_bv_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="stc_dcw_details_sd_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
+                            cols += '<td><input required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-10" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_dcw_table").append(newRow);
@@ -2704,7 +2704,7 @@
                             cols += '<td><input required type="number" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="stc_dcw_details_ov_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="stc_dcw_details_bv_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="stc_dcw_details_sd_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
-                            cols += '<td><input max="<?php echo date("Y-m-d"); ?>" required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
+                            cols += '<td><input required type="date" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="stc_dcw_details_ed_' + counterdcw + '" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             cols += '<td><input required type="file" class="form-control site-value-10" name="stc_dcw_details[' + counterdcw + '][]"/></td>';
                             newRow.append(cols);
                             $("#stc_dcw_table").append(newRow);
@@ -3270,6 +3270,36 @@
                     $("#epf_panel").collapse('hide');
                 }
 <?php } ?>
+
+
+            $("#stc_turnover1").on('change keyup paste', function () {
+                var value = $("#stc_turnover1").val();
+                if (value) {
+                    $("#stc_profits_tax1").attr('max', value);
+                }
+            });
+            
+            $("#stc_turnover2").on('change keyup paste', function () {
+                var value = $("#stc_turnover2").val();
+                if (value) {
+                    $("#stc_profits_tax2").attr('max', value);
+                }
+            });
+            
+            $("#stc_turnover3").on('change keyup paste', function () {
+                var value = $("#stc_turnover3").val();
+                if (value) {
+                    $("#stc_profits_tax3").attr('max', value);
+                }
+            });
+            
+            $("#stc_turnover4").on('change keyup paste', function () {
+                var value = $("#stc_turnover4").val();
+                if (value) {
+                    $("#stc_profits_tax4").attr('max', value);
+                }
+            });
+
         </script>
 
     </body>

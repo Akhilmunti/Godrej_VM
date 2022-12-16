@@ -248,20 +248,52 @@ class Vendor_model extends CI_Model {
             return false;
         }
     }
+    
+    public function getVendorsData($mType) {
+        $this->db->select('*');
+        $this->db->from('registration');
+        if ($mType) {
+            $this->db->where('nature_of_business_id', $mType);
+        }
+        $this->db->where('active', 2);
+        $this->db->where('delisted', 0);
+        //$this->db->join('typeofwork', 'typeofwork.id = registration.type_of_work_id');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
 
     public function getStageOneVendorsForEoi($mSessionZone, $mTow, $mType) {
         $mCurated = array();
         if ($mTow == 66) {
             //Get All General Tows for Civil
             $mGetTowsByFilter = $this->getTowsByFilter($mTow, "Civil", $mType);
+
             foreach ($mGetTowsByFilter as $key => $mGetTow) {
                 $mVendorByTows = $this->getVendorsByTow($mGetTow['id'], $mType);
                 if (!empty($mVendorByTows)) {
                     foreach ($mVendorByTows as $key => $mRecord) {
-                        $mCurated[] = $mRecord;
+                        $mZonesSelected = $mRecord['location'];
+                        $mInterestedZones = json_decode($mRecord['interested_zones']);
+                        //Primary zone vendors
+                        if ($mZonesSelected == $mSessionZone) {
+                            $mCurated[] = $mRecord;
+                        }
+                        //Secondary zone vendors
+                        if (!empty($mInterestedZones)) {
+                            if (in_array($mSessionZone, $mInterestedZones)) {
+                                $mCurated[] = $mRecord;
+                            }
+                        }
                     }
                 }
             }
+            
         } else if ($mTow == 67) {
             //Get All General Tows for MEP
             $mGetTowsByFilter = $this->getTowsByFilter($mTow, "MEP", $mType);
@@ -269,7 +301,18 @@ class Vendor_model extends CI_Model {
                 $mVendorByTows = $this->getVendorsByTow($mGetTow['id'], $mType);
                 if (!empty($mVendorByTows)) {
                     foreach ($mVendorByTows as $key => $mRecord) {
-                        $mCurated[] = $mRecord;
+                        $mZonesSelected = $mRecord['location'];
+                        $mInterestedZones = json_decode($mRecord['interested_zones']);
+                        //Primary zone vendors
+                        if ($mZonesSelected == $mSessionZone) {
+                            $mCurated[] = $mRecord;
+                        }
+                        //Secondary zone vendors
+                        if (!empty($mInterestedZones)) {
+                            if (in_array($mSessionZone, $mInterestedZones)) {
+                                $mCurated[] = $mRecord;
+                            }
+                        }
                     }
                 }
             }
@@ -280,7 +323,18 @@ class Vendor_model extends CI_Model {
                 $mVendorByTows = $this->getVendorsByTow($mGetTow['id'], $mType);
                 if (!empty($mVendorByTows)) {
                     foreach ($mVendorByTows as $key => $mRecord) {
-                        $mCurated[] = $mRecord;
+                        $mZonesSelected = $mRecord['location'];
+                        $mInterestedZones = json_decode($mRecord['interested_zones']);
+                        //Primary zone vendors
+                        if ($mZonesSelected == $mSessionZone) {
+                            $mCurated[] = $mRecord;
+                        }
+                        //Secondary zone vendors
+                        if (!empty($mInterestedZones)) {
+                            if (in_array($mSessionZone, $mInterestedZones)) {
+                                $mCurated[] = $mRecord;
+                            }
+                        }
                     }
                 }
             }
@@ -289,10 +343,16 @@ class Vendor_model extends CI_Model {
             if (!empty($mVendorByTows)) {
                 foreach ($mVendorByTows as $key => $mRecord) {
                     $mZonesSelected = $mRecord['location'];
-                    $mZonesTransferredFrom = $mRecord['tranferred_from'];
-                    $mZonesTransferredTo = $mRecord['tranferred_to'];
-                    if (($mZonesSelected == $mSessionZone && $mZonesTransferredFrom != $mSessionZone) || $mZonesTransferredTo == $mSessionZone) {
+                    $mInterestedZones = json_decode($mRecord['interested_zones']);
+                    //Primary zone vendors
+                    if ($mZonesSelected == $mSessionZone) {
                         $mCurated[] = $mRecord;
+                    }
+                    //Secondary zone vendors
+                    if (!empty($mInterestedZones)) {
+                        if (in_array($mSessionZone, $mInterestedZones)) {
+                            $mCurated[] = $mRecord;
+                        }
                     }
                 }
             }
@@ -505,9 +565,7 @@ class Vendor_model extends CI_Model {
                 $mCheckInPre = $this->pre_model->check($mRecord['pan']);
                 if (empty($mCheckInPre)) {
                     $mZonesSelected = $mRecord['location'];
-                    $mZonesTransferredFrom = $mRecord['tranferred_from'];
-                    $mZonesTransferredTo = $mRecord['tranferred_to'];
-                    if (($mZonesSelected == $mSessionZone && $mZonesTransferredFrom != $mSessionZone) || $mZonesTransferredTo == $mSessionZone) {
+                    if ($mZonesSelected == $mSessionZone) {
                         $mCurated[] = $mRecord;
                     }
                 } else {
@@ -587,7 +645,103 @@ class Vendor_model extends CI_Model {
                 }
             }
 
+            return $mVendors;
+        } else {
+            return false;
+        }
+    }
 
+    public function getAllTransferredVendors() {
+        $mSessionKey = $this->session->userdata('session_id');
+        $this->db->select('*');
+        $this->db->from('registration');
+        $this->db->where('tranferred_to', $mSessionKey);
+        $this->db->where('delisted', 0);
+        $mRecords = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $mRecords = $mQuery_Res->result_array();
+            $mCurated = array();
+            foreach ($mRecords as $key => $mRecord) {
+                $mCheckInPre = $this->pre_model->check($mRecord['pan']);
+                if (empty($mCheckInPre)) {
+                    $mCurated[] = $mRecord;
+                } else {
+                    if ($mCheckInPre->pre_pq_score) {
+                        $mCurated[] = $mRecord;
+                    }
+                }
+            }
+
+            $mVendors = array();
+            if (!empty($mCurated)) {
+                foreach ($mCurated as $key => $mVendor) {
+                    if ($mVendor['nature_of_business_id'] == 2) {
+                        $mSiteVisitReport = $this->svr->getConsultantParentByVendorKey($mVendor['id']);
+                        $mStageTwo = $this->const->getParentByVendorKey($mVendor['id']);
+                        $mAllDescs = array();
+                        if (!empty($mStageTwo)) {
+                            $mGetSelectedTowsIds = json_decode($mStageTwo['stcon_tow']);
+                            foreach ($mGetSelectedTowsIds as $key => $mGetSelectedTowsId) {
+                                $mGetTowDesc = $this->buyer->getTypeOfWork($mGetSelectedTowsId);
+                                $mAllDescs[] = $mGetTowDesc['name'];
+                            }
+                            $mVendor = array_merge($mVendor, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode($mGetSelectedTowsIds)));
+                        } else {
+                            $mGetTowDesc = $this->buyer->getTypeOfWork($mVendor['type_of_work_id']);
+                            $mAllDescs[] = $mGetTowDesc['name'];
+                            $mVendor = array_merge($mVendor, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode(array($mVendor['type_of_work_id']))));
+                        }
+                        if (!empty($mSiteVisitReport)) {
+                            $mVendors[] = array_merge($mVendor, $mSiteVisitReport);
+                        } else {
+                            $mVendors[] = $mVendor;
+                        }
+                    } else if ($mVendor['nature_of_business_id'] == 3) {
+                        $mSiteVisitReport = $this->svrc->getParentByVendorKey($mVendor['id']);
+                        $mStageTwo = $this->cst->getParentByVendorKey($mVendor['id']);
+                        $mAllDescs = array();
+                        if (!empty($mStageTwo)) {
+                            $mGetSelectedTowsIds = json_decode($mStageTwo['stc_tow']);
+                            foreach ($mGetSelectedTowsIds as $key => $mGetSelectedTowsId) {
+                                $mGetTowDesc = $this->buyer->getTypeOfWork($mGetSelectedTowsId);
+                                $mAllDescs[] = $mGetTowDesc['name'];
+                            }
+                            $mVendor = array_merge($mVendor, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode($mGetSelectedTowsIds)));
+                        } else {
+                            $mGetTowDesc = $this->buyer->getTypeOfWork($mVendor['type_of_work_id']);
+                            $mAllDescs[] = $mGetTowDesc['name'];
+                            $mVendor = array_merge($mVendor, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode(array($mVendor['type_of_work_id']))));
+                        }
+                        if (!empty($mSiteVisitReport)) {
+                            $mVendors[] = array_merge($mVendor, $mSiteVisitReport);
+                        } else {
+                            $mVendors[] = $mVendor;
+                        }
+                    } else if ($mVendor['nature_of_business_id'] == 1) {
+                        $mSiteVisitReport = $this->svr->getParentByVendorKey($mVendor['id']);
+                        $mStageTwo = $this->vst->getParentByVendorKey($mVendor['id']);
+                        $mAllDescs = array();
+                        if (!empty($mStageTwo)) {
+                            $mGetSelectedTowsIds = json_decode($mStageTwo['stv_tow']);
+                            foreach ($mGetSelectedTowsIds as $key => $mGetSelectedTowsId) {
+                                $mGetTowDesc = $this->buyer->getTypeOfWork($mGetSelectedTowsId);
+                                $mAllDescs[] = $mGetTowDesc['name'];
+                            }
+                            $mVendor = array_merge($mVendor, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode($mGetSelectedTowsIds)));
+                        } else {
+                            $mGetTowDesc = $this->buyer->getTypeOfWork($mVendor['type_of_work_id']);
+                            $mAllDescs[] = $mGetTowDesc['name'];
+                            $mVendor = array_merge($mVendor, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode(array($mVendor['type_of_work_id']))));
+                        }
+                        if (!empty($mSiteVisitReport)) {
+                            $mVendors[] = array_merge($mVendor, $mSiteVisitReport);
+                        } else {
+                            $mVendors[] = $mVendor;
+                        }
+                    }
+                }
+            }
 
             return $mVendors;
         } else {

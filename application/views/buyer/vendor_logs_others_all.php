@@ -153,7 +153,7 @@
                                                         <th>Issue reported date	</th>
                                                         <th style="min-width: 300px !important">Issue Description</th>
                                                         <th>Current Status</th>
-                                                        <th>Pain For</th>
+                                                        <th>Reason Attributable To</th>
                                                         <th>
                                                             Last updated date
                                                         </th>
@@ -206,13 +206,13 @@
                                                                 <?php } ?>
                                                             </td>
                                                             <td>
-                                                                <?php if ($record['vl_pain'] == "Pain to GPL") { ?>
+                                                                <?php if ($record['vl_pain'] == "Company") { ?>
                                                                     <span class="btn btn-xs btn-success">
-                                                                        Pain to GPL
+                                                                        Company
                                                                     </span>
-                                                                <?php } else if ($record['vl_pain'] == "Pain to Contractor") { ?>
+                                                                <?php } else if ($record['vl_pain'] == "Contractor") { ?>
                                                                     <span class="btn btn-xs btn-success">
-                                                                        Pain to Contractor
+                                                                        Contractor
                                                                     </span>
                                                                 <?php } ?>
                                                             </td>

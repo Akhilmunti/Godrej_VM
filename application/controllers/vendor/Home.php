@@ -455,6 +455,8 @@ class Home extends CI_Controller {
                             array_push($value, $_FILES['bc_ongoing_works']['name'][$key][0]);
                             $mNewOg[$key] = $value;
                         }
+                    } else {
+                        $mNewOg = $mOgAttach;
                     }
                 }
 
@@ -1316,11 +1318,12 @@ class Home extends CI_Controller {
             $mOcaUpload = $this->single_File_Upload('stc_oca_attach', $mOca);
 
             $mWpcAttach = $this->input->post('stc_wpc_details');
+                        
             $mNewWpc = array();
             foreach ($mWpcAttach as $key => $value) {
                 //Get the temp file path
                 $tmpFilePath = $_FILES['stc_wpc_details']['tmp_name'][$key][0];
-
+                
                 //Make sure we have a file path
                 if ($tmpFilePath != "") {
                     //Setup our new file path
@@ -1332,6 +1335,8 @@ class Home extends CI_Controller {
                         array_push($value, $_FILES['stc_wpc_details']['name'][$key][0]);
                         $mNewWpc[$key] = $value;
                     }
+                } else {
+                    $mNewWpc = $mWpcAttach;
                 }
             }
 
@@ -1352,6 +1357,8 @@ class Home extends CI_Controller {
                         array_push($value, $_FILES['stc_cc_details']['name'][$key][0]);
                         $mNewCc[$key] = $value;
                     }
+                } else {
+                    $mNewCc = $mCcAttach;
                 }
             }
 
@@ -1372,24 +1379,8 @@ class Home extends CI_Controller {
                         array_push($value, $_FILES['stc_dcw_details']['name'][$key][0]);
                         $mNewDcw[$key] = $value;
                     }
-                }
-            }
-
-            $mFinUploads = array();
-            for ($i = 0; $i < count($_FILES['stc_fin_uploads']['name']); $i++) {
-                $tmpFilePath = $_FILES['stc_fin_uploads']['tmp_name'][$i];
-
-                //Make sure we have a file path
-                if ($tmpFilePath != "") {
-                    //Setup our new file path
-                    $newFilePath = "./uploads/" . $_FILES['stc_fin_uploads']['name'][$i];
-
-                    //Upload the file into the temp dir
-                    if (move_uploaded_file($tmpFilePath, $newFilePath)) {
-                        //Handle other code here
-                        array_push($value, $_FILES['stc_fin_uploads']['name'][$i]);
-                        $mFinUploads[$i] = $_FILES['stc_fin_uploads']['name'][$i];
-                    }
+                } else {
+                    $mNewDcw = $mDcwAttach;
                 }
             }
 
@@ -1399,6 +1390,75 @@ class Home extends CI_Controller {
                 $mIsSmall = 0;
             }
 
+            
+            $mTotalAssets = array(
+                $this->input->post('stc_total_assets1'),
+                $this->input->post('stc_total_assets2'),
+                $this->input->post('stc_total_assets3'),
+                $this->input->post('stc_total_assets4'),
+            );
+            
+            $mCurrentAssets = array(
+                $this->input->post('stc_current_assets1'),
+                $this->input->post('stc_current_assets2'),
+                $this->input->post('stc_current_assets3'),
+                $this->input->post('stc_current_assets4'),
+            );
+            
+            $mTotalLia = array(
+                $this->input->post('stc_total_lia1'),
+                $this->input->post('stc_total_lia2'),
+                $this->input->post('stc_total_lia3'),
+                $this->input->post('stc_total_lia4'),
+            );
+            
+            $mCurrentLia = array(
+                $this->input->post('stc_current_lia1'),
+                $this->input->post('stc_current_lia2'),
+                $this->input->post('stc_current_lia3'),
+                $this->input->post('stc_current_lia4'),
+            );
+            
+            $mTurnOver = array(
+                $this->input->post('stc_turnover1'),
+                $this->input->post('stc_turnover2'),
+                $this->input->post('stc_turnover3'),
+                $this->input->post('stc_turnover4'),
+            );
+            
+            $mProfits = array(
+                $this->input->post('stc_profits1'),
+                $this->input->post('stc_profits2'),
+                $this->input->post('stc_profits3'),
+                $this->input->post('stc_profits4'),
+            );
+            
+            $mProfitsTax = array(
+                $this->input->post('stc_profits_tax1'),
+                $this->input->post('stc_profits_tax2'),
+                $this->input->post('stc_profits_tax3'),
+                $this->input->post('stc_profits_tax4'),
+            );
+            
+            $mFin1 = $this->input->post('stc_fin_uploads1');
+            $mFin1Upload = $this->single_File_Upload('stc_fin_uploads1', $mFin1);
+            
+            $mFin2 = $this->input->post('stc_fin_uploads2');
+            $mFin2Upload = $this->single_File_Upload('stc_fin_uploads2', $mFin2);
+            
+            $mFin3 = $this->input->post('stc_fin_uploads3');
+            $mFin3Upload = $this->single_File_Upload('stc_fin_uploads3', $mFin3);
+            
+            $mFin4 = $this->input->post('stc_fin_uploads4');
+            $mFin4Upload = $this->single_File_Upload('stc_fin_uploads4', $mFin4);
+            
+            $mFinUploads = array(
+                $mFin1Upload,
+                $mFin2Upload,
+                $mFin3Upload,
+                $mFin4Upload
+            );
+                                    
             $vendorData = array(
                 'stc_user_id' => $mSessionKey,
                 'stc_company' => $this->input->post('stc_company'),
@@ -1479,13 +1539,13 @@ class Home extends CI_Controller {
                 'stc_hroe' => $this->input->post('stc_hroe'),
                 'stc_financial_referees' => json_encode($this->input->post('stc_financial_referees')),
                 'stc_attachment_two' => $mAttchUploadTwo,
-                'stc_total_assets' => json_encode($this->input->post('stc_total_assets')),
-                'stc_current_assets' => json_encode($this->input->post('stc_current_assets')),
-                'stc_total_lia' => json_encode($this->input->post('stc_total_lia')),
-                'stc_current_lia' => json_encode($this->input->post('stc_current_lia')),
-                'stc_turnover' => json_encode($this->input->post('stc_turnover')),
-                'stc_profits' => json_encode($this->input->post('stc_profits')),
-                'stc_profits_tax' => json_encode($this->input->post('stc_profits_tax')),
+                'stc_total_assets' => json_encode($mTotalAssets),
+                'stc_current_assets' => json_encode($mCurrentAssets),
+                'stc_total_lia' => json_encode($mTotalLia),
+                'stc_current_lia' => json_encode($mCurrentLia),
+                'stc_turnover' => json_encode($mTurnOver),
+                'stc_profits' => json_encode($mProfits),
+                'stc_profits_tax' => json_encode($mProfitsTax),
                 'stc_fin_uploads' => json_encode($mFinUploads),
                 'stc_qac' => json_encode($this->input->post('stc_qac')),
                 'stc_qap' => $this->input->post('stc_qap'),
@@ -2147,7 +2207,7 @@ class Home extends CI_Controller {
         $config['upload_path'] = './uploads/';
         $config['file_name'] = $mFile;
         $config['allowed_types'] = 'jpg|jpeg|gif|png|zip|xlsx|cad|pdf|doc|docx|ppt|pptx|pps|ppsx|odt|xls|xlsx|mp3|m4a|ogg|wav|mp4|m4v|mov|wmv|mpeg|MPG';
-        $config['overwrite'] = false;
+        $config['overwrite'] = true;
         $config['encrypt_name'] = false;
         $this->upload->initialize($config);
         $this->load->library('upload', $config);
@@ -2166,6 +2226,7 @@ class Home extends CI_Controller {
             $data['message'] = 'file was uploaded fine';
             $data['error'] = $this->upload->display_errors('<div class="alert alert-error">', '</div>');
         }
+        //print_r($data);
         return $filename;
     }
 

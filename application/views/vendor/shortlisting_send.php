@@ -90,10 +90,10 @@
                                                                     FY <?php echo date("Y", strtotime("-4 year")); ?>-<?php echo date("Y", strtotime("-3 year")); ?>
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" max="999999" id="bc_to_1" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" id="bc_pat_1" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
                                                                     <input name="bc_bs_1" required="" type="file" class="form-control form-control-sm" />
@@ -107,10 +107,10 @@
                                                                     FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" max="999999" id="bc_to_2" name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" id="bc_pat_2" name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
                                                                     <input name="bc_bs_2" required="" type="file" class="form-control form-control-sm" />
@@ -124,10 +124,10 @@
                                                                     FY <?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" max="999999" id="bc_to_3" name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" id="bc_pat_3" name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
                                                                     <input name="bc_bs_3" required="" type="file" class="form-control form-control-sm" />
@@ -141,10 +141,10 @@
                                                                     FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_to_4" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" max="999999" id="bc_to_4" name="bc_to_4" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
-                                                                    <input name="bc_pat_4" required="" type="number" class="form-control form-control-sm" />
+                                                                    <input min="0" id="bc_pat_4" name="bc_pat_4" required="" type="number" class="form-control form-control-sm" />
                                                                 </td>
                                                                 <td>
                                                                     <input name="bc_bs_4" required="" type="file" class="form-control form-control-sm" />
@@ -176,7 +176,7 @@
                                                                 <th>
                                                                     Expected Cummlative Billed amount in Cr by <?php
                                                                     echo date("F Y", strtotime("+" . $mRecord['eoi_schedule'] . "months", strtotime($mRecord['eoi_start_date'])));
-                                                                    ?> (Expected completion date as per PCM input)
+                                                                    ?> (Expected completion date)
                                                                 </th>
                                                                 <th>
                                                                     Supporting Document 
@@ -341,6 +341,34 @@
                 var rowCount = $('#stc_bc_table tr').length;
                 $(this).closest("tr").remove();
                 counterdcw -= 1
+            });
+
+            $("#bc_to_1").on('change keyup paste', function () {
+                var value = $("#bc_to_1").val();
+                if (value) {
+                    $("#bc_pat_1").attr('max', value);
+                }
+            });
+            
+            $("#bc_to_2").on('change keyup paste', function () {
+                var value = $("#bc_to_2").val();
+                if (value) {
+                    $("#bc_pat_2").attr('max', value);
+                }
+            });
+            
+            $("#bc_to_3").on('change keyup paste', function () {
+                var value = $("#bc_to_3").val();
+                if (value) {
+                    $("#bc_pat_3").attr('max', value);
+                }
+            });
+            
+            $("#bc_to_4").on('change keyup paste', function () {
+                var value = $("#bc_to_4").val();
+                if (value) {
+                    $("#bc_pat_4").attr('max', value);
+                }
             });
 
         </script>

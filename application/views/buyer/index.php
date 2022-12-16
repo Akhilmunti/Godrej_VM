@@ -40,79 +40,109 @@
 
                         <div class="row" style="margin-top: -30px">
                             <div class="col-xl-4 col-md-6 col-12">
-                                <a href="#" class="rfq-process">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Contracts</p>
-                                                    <h4 class="text-danger font-weight-200">- crs</h4>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-info font-size-40"></i>
-                                                </div>
+                                <!--                                <a href="#">-->
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="mb-0">Contracts</p>
+                                                <h4 class="text-danger font-weight-200">
+                                                    <?php
+                                                    if ($iomdata['contracts']['c']) {
+                                                        echo $iomdata['contracts']['c'];
+                                                    } else {
+                                                        "-";
+                                                    }
+                                                    ?> 
+                                                    crs
+                                                </h4>
                                             </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Saving @ -
-                                            </p>
-                                            <div class="progress progress-xxs mb-10">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    <span class="sr-only">- Complete (success)</span>
-                                                </div>
+                                            <div>
+                                                <i class="ti-info font-size-40"></i>
                                             </div>
                                         </div>
+                                        <p class="font-weight-600 mb-2">
+                                            <?php
+                                            if ($iomdata['contracts']['c'] > 0) {
+                                                echo "Escalation";
+                                            } else {
+                                                echo "Saving";
+                                            }
+                                            ?>
+                                        </p>
                                     </div>
-                                </a>
+                                </div>
+                                <!--                                </a>-->
                             </div>
                             <div class="col-xl-4 col-md-6 col-12">
-                                <a href="#" class="rfq-process">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Procurement</p>
-                                                    <h4 class="text-danger font-weight-200">- crs</h4>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-info font-size-40"></i>
-                                                </div>
+                                <!--                                <a href="#" class="rfq-process">-->
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="mb-0">Procurement</p>
+                                                <h4 class="text-danger font-weight-200">
+                                                    <?php
+                                                    if ($iomdata['procurement']['c']) {
+                                                        echo $iomdata['procurement']['c'];
+                                                    } else {
+                                                        "-";
+                                                    }
+                                                    ?> 
+                                                    crs
+                                                </h4>
                                             </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Escalation @ -
-                                            </p>
-                                            <div class="progress progress-xxs mb-10">
-                                                <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    <span class="sr-only">- Complete (success)</span>
-                                                </div>
+                                            <div>
+                                                <i class="ti-info font-size-40"></i>
                                             </div>
                                         </div>
+                                        <p class="font-weight-600 mb-2">
+                                            <?php
+                                            if ($iomdata['procurement']['c'] > 0) {
+                                                echo "Escalation";
+                                            } else {
+                                                echo "Saving";
+                                            }
+                                            ?>
+                                        </p>
                                     </div>
-                                </a>
+                                </div>
+                                <!--                                </a>-->
                             </div>
                             <div class="col-xl-4 col-md-6 col-12">
-                                <a href="#" class="rfq-process">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Total C&P</p>
-                                                    <h4 class="text-danger font-weight-200">- crs</h4>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-info font-size-40"></i>
-                                                </div>
+                                <!--                                <a href="#" class="rfq-process">-->
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="mb-0">Total C&P</p>
+                                                <h4 class="text-danger font-weight-200">
+                                                    <?php
+                                                    if ($iomdata['total']) {
+                                                        echo $iomdata['total'];
+                                                    } else {
+                                                        "-";
+                                                    }
+                                                    ?> 
+                                                    crs
+                                                </h4>
                                             </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Saving @ -
-                                            </p>
-                                            <div class="progress progress-xxs mb-10">
-                                                <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                                    <span class="sr-only">- Complete (success)</span>
-                                                </div>
+                                            <div>
+                                                <i class="ti-info font-size-40"></i>
                                             </div>
                                         </div>
+                                        <p class="font-weight-600 mb-2">
+                                            <?php
+                                            if ($iomdata['total'] > 0) {
+                                                echo "Escalation";
+                                            } else {
+                                                echo "Saving";
+                                            }
+                                            ?>
+                                        </p>
                                     </div>
-                                </a>
+                                </div>
+                                <!--                                </a>-->
                             </div>
 
                             <div class="col-xl-4 col-md-12">
@@ -147,13 +177,13 @@
                                                             FY(22-23)
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php echo $iomdata['total_contracts']; ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php echo $iomdata['total_procurements']; ?>
                                                         </td>
                                                     </tr>
-                                                    <tr>
+<!--                                                    <tr>
                                                         <td>
                                                             Average TAT
                                                         </td>
@@ -163,7 +193,7 @@
                                                         <td>
                                                             -
                                                         </td>
-                                                    </tr>
+                                                    </tr>-->
                                                 </tbody>
                                             </table>
                                         </div>
@@ -258,7 +288,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-lg-6 text-center mb-2">
-                                                <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/');?>" class="btn btn-block btn-primary">
+                                                <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
                                                     <span>
                                                         Award IOM
                                                     </span>
@@ -311,6 +341,11 @@
                                                     <span>
                                                         Vendor Logs
                                                     </span>
+                                                </a>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
+                                                    Shortlisting
                                                 </a>
                                             </div>
                                         </div>
@@ -416,16 +451,40 @@
                                                             MT
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_steel_price']['NCR']['uom_value']) {
+                                                                echo $iomdata['latest_steel_price']['NCR']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_steel_price']['South']['uom_value']) {
+                                                                echo $iomdata['latest_steel_price']['South']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_steel_price']['Mumbai']['uom_value']) {
+                                                                echo $iomdata['latest_steel_price']['Mumbai']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_steel_price']['Pune']['uom_value']) {
+                                                                echo $iomdata['latest_steel_price']['Pune']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -436,16 +495,40 @@
                                                             Bags
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_cement_price']['NCR']['uom_value']) {
+                                                                echo $iomdata['latest_cement_price']['NCR']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_cement_price']['South']['uom_value']) {
+                                                                echo $iomdata['latest_cement_price']['South']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_cement_price']['Mumbai']['uom_value']) {
+                                                                echo $iomdata['latest_cement_price']['Mumbai']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_cement_price']['Pune']['uom_value']) {
+                                                                echo $iomdata['latest_cement_price']['Pune']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -456,16 +539,40 @@
                                                             Sqm
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_aluminium_price']['NCR']['uom_value']) {
+                                                                echo $iomdata['latest_aluminium_price']['NCR']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_aluminium_price']['South']['uom_value']) {
+                                                                echo $iomdata['latest_aluminium_price']['South']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_aluminium_price']['Mumbai']['uom_value']) {
+                                                                echo $iomdata['latest_aluminium_price']['Mumbai']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                         <td>
-                                                            -
+                                                            <?php
+                                                            if ($iomdata['latest_aluminium_price']['Pune']['uom_value']) {
+                                                                echo $iomdata['latest_aluminium_price']['Pune']['uom_value'];
+                                                            } else {
+                                                                echo "-";
+                                                            }
+                                                            ?>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -475,40 +582,40 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-6 col-md-12">
-                                <div class="box">
-                                    <div class="box-header with-border primary-gradient text-white">
-                                        <h5 class="box-title text-bold">
-                                            <b>
-                                                Actions Required
-                                            </b>
-                                        </h5>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body py-0">
-
-                                        <div class="row">
-                                            <div class="col-md-6 p-3">
-                                                <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
-                                                    Shortlisting
-                                                </a>
-                                            </div>
-                                            <?php
-                                            $mSessionEmail = $this->session->userdata('session_email');
-                                            if ($mSessionEmail == "sharmeen.ahmed@godrejproperties.com" || $mSessionEmail == "rajashree.sonawane@godrejproperties.com" || $mSessionEmail == "neeraj.kalra@godrejproperties.com") {
-                                                ?>
-                                                <div class="col-md-6 p-3">
-                                                    <a href="<?php echo base_url('buyer/pending/vendor'); ?>" class="btn btn-primary btn-block">
-                                                        Vendor Management
-                                                    </a>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                            </div>
+                            <!--                            <div class="col-xl-6 col-md-12">
+                                                            <div class="box">
+                                                                <div class="box-header with-border primary-gradient text-white">
+                                                                    <h5 class="box-title text-bold">
+                                                                        <b>
+                                                                            Actions Required
+                                                                        </b>
+                                                                    </h5>
+                                                                </div>
+                                                                 /.box-header 
+                                                                <div class="box-body py-0">
+                            
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 p-3">
+                                                                            <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
+                                                                                Shortlisting
+                                                                            </a>
+                                                                        </div>
+                            <?php
+                            $mSessionEmail = $this->session->userdata('session_email');
+                            if ($mSessionEmail == "sharmeen.ahmed@godrejproperties.com" || $mSessionEmail == "rajashree.sonawane@godrejproperties.com" || $mSessionEmail == "neeraj.kalra@godrejproperties.com") {
+                                ?>
+                                                                                        <div class="col-md-6 p-3">
+                                                                                            <a href="<?php echo base_url('buyer/pending/vendor'); ?>" class="btn btn-primary btn-block">
+                                                                                                Vendor Management
+                                                                                            </a>
+                                                                                        </div>
+                            <?php } ?>
+                                                                    </div>
+                            
+                                                                </div>
+                                                                 /.box-body 
+                                                            </div>
+                                                        </div>-->
                         </div>			
                     </section>
                     <!-- /.content -->

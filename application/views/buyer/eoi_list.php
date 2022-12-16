@@ -36,9 +36,10 @@
                                 <div class="col-md-6 text-right">
                                     <span class="mr-3"><?php echo $project['project_name']; ?> / Contracts / <?php echo $tow['name']; ?></span>
 
-                                    <?php 
+                                    <?php
                                     $mSessionRole = $this->session->userdata('session_role');
-                                    if ($mSessionRole == "HO - C&P" || $mSessionRole == "Regional C&P Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "PCM") { ?>
+                                    if ($mSessionRole == "HO - C&P" || $mSessionRole == "Regional C&P Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "PCM") {
+                                        ?>
                                         <a href="<?php echo base_url('buyer/vendor/addEoi/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $tow['id']); ?>" class="btn btn-primary">Add</a>
                                     <?php } ?>
 
@@ -58,7 +59,7 @@
 
                                                     <tr>
                                                         <th>SL No</th>
-                                                        <th>Package Scope</th>
+                                                        <th>Scope of work</th>
                                                         <!--<th>Budget (In Crores)</th>
                                                         <th>Timeline in months</th>
                                                         <th>Shortlisted Vendors / Financial Categorization</th>
@@ -94,18 +95,39 @@
                                                                 <?php echo $mCount; ?>
                                                             </td>
                                                             <td>
-                                                                <?php echo $mTow['name']; ?>
+                                                                <?php echo $mRecord['eoi_scope']; ?>
                                                             </td>
                                                             <td>
                                                                 <?php if ($mRecord['eoi_status'] == 0) { ?>
                                                                     <span class="btn btn-xs btn-dark">
                                                                         EOI Sent
                                                                     </span>
+                                                                    <?php if (!empty($mApprovedVendors)) { ?>
+                                                                        <?php foreach ($mApprovedVendors as $key => $value) { ?>
+                                                                            <span class="btn btn-xs btn-dark">
+                                                                                Accepted By : <?php echo $value; ?>
+                                                                            </span>
+                                                                        <?php } ?>
+                                                                    <?php } ?>
+                                                                    <?php if (!empty($mRejectedVendors)) { ?>
+                                                                        <?php foreach ($mRejectedVendors as $key => $value) { ?>
+                                                                            <span class="btn btn-xs btn-dark">
+                                                                                Rejected By : <?php echo $value; ?>
+                                                                            </span>
+                                                                        <?php } ?>
+                                                                    <?php } ?>
                                                                 <?php } else if ($mRecord['eoi_status'] == 1) { ?>
                                                                     <?php if (!empty($mApprovedVendors)) { ?>
                                                                         <?php foreach ($mApprovedVendors as $key => $value) { ?>
                                                                             <span class="btn btn-xs btn-dark">
                                                                                 Accepted By : <?php echo $value; ?>
+                                                                            </span>
+                                                                        <?php } ?>
+                                                                    <?php } ?>
+                                                                    <?php if (!empty($mRejectedVendors)) { ?>
+                                                                        <?php foreach ($mRejectedVendors as $key => $value) { ?>
+                                                                            <span class="btn btn-xs btn-dark">
+                                                                                Rejected By : <?php echo $value; ?>
                                                                             </span>
                                                                         <?php } ?>
                                                                     <?php } ?>
@@ -117,9 +139,25 @@
                                                                             </span>
                                                                         <?php } ?>
                                                                     <?php } ?>
-                                                                <?php } else if ($mRecord['eoi_status'] == 10) { ?>
+                                                                    <?php if (!empty($mApprovedVendors)) { ?>
+                                                                        <?php foreach ($mApprovedVendors as $key => $value) { ?>
+                                                                            <span class="btn btn-xs btn-dark">
+                                                                                Accepted By : <?php echo $value; ?>
+                                                                            </span>
+                                                                        <?php } ?>
+                                                                    <?php } ?>
+                                                                <?php } else if ($mRecord['eoi_status'] == 2) { ?>
                                                                     <span class="btn btn-xs btn-dark">
                                                                         Bid Capacity sent by vendor
+                                                                    </span>
+                                                                    <?php foreach ($mApprovedVendors as $key => $value) { ?>
+                                                                        <span class="btn btn-xs btn-dark">
+                                                                            Accepted By : <?php echo $value; ?>
+                                                                        </span>
+                                                                    <?php } ?>
+                                                                <?php } else if ($mRecord['eoi_status'] == 9) { ?>
+                                                                    <span class="btn btn-xs btn-dark">
+                                                                        Shortlisting Approved
                                                                     </span>
                                                                 <?php } ?>
                                                             </td>

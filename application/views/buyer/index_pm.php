@@ -82,7 +82,7 @@
                                             <option selected="" disabled="">Select Project</option>
                                             <?php foreach ($projects as $key => $pro) { ?>
                                                 <option <?php
-                                                if ($project == $pro['project_id'] || $projects[0]['project_id'] == $pro['project_id']) {
+                                                if ($project['project_id'] == $pro['project_id']) {
                                                     echo "selected";
                                                 }
                                                 ?> value="<?php echo $pro['project_id']; ?>"><?php echo $pro['project_name']; ?></option>
@@ -110,7 +110,7 @@
                                                 </div>
                                             </div>
                                             <p class="font-weight-600 mb-2">
-                                                Contracts - 0 | Procurement - 0
+                                                Contracts : <?php echo $iomdata['total_contracts']; ?> | Procurement :  <?php echo $iomdata['total_procurements']; ?>
                                             </p>
                                         </div>
                                     </div>
@@ -129,7 +129,7 @@
                                                 </div>
                                             </div>
                                             <p class="font-weight-600 mb-2">
-                                                Contracts - 0 | Procurement - 0
+                                                Contracts : <?php echo $iomdata['total_contracts_ongoing']; ?> | Procurement : <?php echo $iomdata['total_procurements_ongoing']; ?>
                                             </p>
                                         </div>
                                     </div>
@@ -361,6 +361,13 @@
                                                         <br>
                                                     </div>
                                                 <?php } ?>
+
+                                                <div class="col-md-6">
+                                                    <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
+                                                        Shortlisting
+                                                    </a>
+                                                </div>
+
                                             </div>
 
                                         <?php } else { ?>
@@ -380,40 +387,40 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-4">
-                                <div class="box">
-                                    <div class="box-header with-border primary-gradient text-white">
-                                        <h5 class="box-title text-bold">
-                                            <b>
-                                                Actions Required
-                                            </b>
-                                        </h5>
-                                    </div>
-                                    <!-- /.box-header -->
-                                    <div class="box-body py-0">
-
-                                        <div class="row">
-                                            <div class="col-md-6 p-3">
-                                                <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
-                                                    Shortlisting
-                                                </a>
-                                            </div>
-                                            <?php
-                                            $mSessionEmail = $this->session->userdata('session_email');
-                                            if ($mSessionEmail == "sharmeen.ahmed@godrejproperties.com" || $mSessionEmail == "rajashree.sonawane@godrejproperties.com" || $mSessionEmail == "neeraj.kalra@godrejproperties.com") {
-                                                ?>
-                                                <div class="col-md-6 p-3">
-                                                    <a href="<?php echo base_url('buyer/pending/vendor'); ?>" class="btn btn-primary btn-block">
-                                                        Vendor Management
-                                                    </a>
-                                                </div>
-                                            <?php } ?>
-                                        </div>
-
-                                    </div>
-                                    <!-- /.box-body -->
-                                </div>
-                            </div>
+                            <!--                            <div class="col-xl-4">
+                                                            <div class="box">
+                                                                <div class="box-header with-border primary-gradient text-white">
+                                                                    <h5 class="box-title text-bold">
+                                                                        <b>
+                                                                            Actions Required
+                                                                        </b>
+                                                                    </h5>
+                                                                </div>
+                                                                 /.box-header 
+                                                                <div class="box-body py-0">
+                            
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 p-3">
+                                                                            <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
+                                                                                Shortlisting
+                                                                            </a>
+                                                                        </div>
+                            <?php
+                            $mSessionEmail = $this->session->userdata('session_email');
+                            if ($mSessionEmail == "sharmeen.ahmed@godrejproperties.com" || $mSessionEmail == "rajashree.sonawane@godrejproperties.com" || $mSessionEmail == "neeraj.kalra@godrejproperties.com") {
+                                ?>
+                                                                                <div class="col-md-6 p-3">
+                                                                                    <a href="<?php echo base_url('buyer/pending/vendor'); ?>" class="btn btn-primary btn-block">
+                                                                                        Vendor Management
+                                                                                    </a>
+                                                                                </div>
+                            <?php } ?>
+                                                                    </div>
+                            
+                                                                </div>
+                                                                 /.box-body 
+                                                            </div>
+                                                        </div>-->
                         </div>			
                     </section>
                     <!-- /.content -->
