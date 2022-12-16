@@ -71,12 +71,11 @@
                                         <td class='font-weight-bold' style="width: 350px;"><?php echo $mRecord['version_id']; ?></td>
                                         <td>
 										 <?php 
-										 
-										 foreach ($mRecordApprovers as $key => $record) {
+										foreach ($mRecordApprovers as $key => $record) {
 										
-                                      echo $record['buyer_name']; ?> -<?php echo ($record['approved_status']==0) ? "Pending" : "Approved"; 
-									  echo "(Level - ".$record['approver_level'].")<br>";
-										 }
+                                            echo $record['buyer_name']; ?> -<?php echo ($record['approved_status']==0) ? "Pending" : "Approved"; 
+                                            echo "(Level - ".$record['approver_level'].")<br>";
+										}
 									  
 										?>										
 											

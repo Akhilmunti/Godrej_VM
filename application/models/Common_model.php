@@ -100,8 +100,7 @@ class common_model extends CI_Model
             }
         }
         $query = $this->db->get();
-		//print_r($this->db->last_query());    
-//return $this->db->last_query();
+		
         if ($query->num_rows() > 0) {
 // query returned results
             if ($single == TRUE) {

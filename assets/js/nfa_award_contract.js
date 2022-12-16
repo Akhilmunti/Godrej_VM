@@ -1,6 +1,5 @@
 var base_url = $('#base').val();
 
-
 // get your select element and listen for a change event on it
 $('#nfaType').change(function() {
   // set the window's location property to the value of the option the user has selected
@@ -35,18 +34,15 @@ function checkL1_vendor(){
 }
 //get budeget esc total
 function budgetEsc_total(){
-	//alert("total");
+	
 	var sum_budget_esc=0;
 	var package_count = $("#package_count").val();
-			
-	
+		
 		for(i=1;i<=package_count;i++)
 		{
 			
-	
 			sum_budget_esc+= parseFloat($("#package_budget_esc"+i).val()); 
 	
-		
 		}
 	
 	$("#total_budget_esc").val(sum_budget_esc.toFixed(2)); 
@@ -55,8 +51,7 @@ function budgetEsc_total(){
 //get finalized total
 function finalized_total(){
 	var sum_finalized=0;
-	//var package_count = $("#package_count").val();
-	//var total_finalized_award_value ;
+	
 	var package_count = $('#package_count').find(":selected").text();
 	
 	
@@ -85,8 +80,6 @@ function finalized_total(){
 		
 	}
 
-	//calculateSum1();
-	
 }
 
 //get fields value total
@@ -199,7 +192,7 @@ function calculateSum1(){
 		total_expected_savings += expected_savings_package; 
 		
 	}
-	//alert(total_expected_savings);
+	
 	if(!isNaN(total_sum)) {
 		$("#total_post_basic_rate").val(total_sum.toFixed(2)+" Cr"); 
 	}
@@ -210,7 +203,6 @@ function calculateSum1(){
 	}
 	else
 		$("#total_expected_savings").val('0%'); 
-	
 	
 	package_value= total_sum;
 	l1_vendor1 = checkL1_vendor();			
@@ -255,24 +247,23 @@ function package_bidders(label_obj) {
 	if (label_id == "package_label1")
 	{
 		var url = base_url + 'nfa/Award_contract/show_package_bidders1';
-		//finalized_award_value = $("#finalized_award_value_package1").val();
-		
+				
 	}
 	else if (label_id == "package_label2")
 	{
 		var url = base_url + 'nfa/Award_contract/show_package_bidders2';
-		//finalized_award_value = $("#finalized_award_value_package2").val();
+		
 	}
 	else if (label_id == "package_label3")
 	{
 		var url = base_url + 'nfa/Award_contract/show_package_bidders3';
-		//finalized_award_value = $("#finalized_award_value_package3").val();
+		
 	}
 	$.post(url, {
 			bidder_count: bidder_count,
-			//finalized_award_value: finalized_award_value,
+			
 			package_name: package_name
-			//async: "false"
+			
 		},
 		function(data, status) {
 			
@@ -327,7 +318,7 @@ function getExpectedSavings(){
 	var percentage=0;
 	var post_basic_rate_package;
 	var package_budget_esc;
-	//var package_count = $("#package_count").val();
+	
 	var package_count = $('#package_count').find(":selected").text();
 	for(i=1;i<=package_count;i++)
 	{
@@ -340,7 +331,6 @@ function getExpectedSavings(){
 		}
 	}
 
-	
 	
 }
 
@@ -356,7 +346,6 @@ function getGplBudget_total(){
 		
 	}
 	
-	
 	if(!isNaN(sum_gplBudget)) {
 		$("#total_amt_gpl").val(sum_gplBudget.toFixed(2)+" Cr"); 
 	}
@@ -365,7 +354,6 @@ function getGplBudget_total(){
 //schange score color PQ/Feedback
 function score_color(){
 	
-		
 	var score_type,bid_index,bid_text;
 	var bidder_count = parseInt($("#bidder_count").val())+1;	
 	sum_gpl=0;
@@ -399,20 +387,13 @@ function score_color(){
 		sum_gpl=0;
 		for(bid_index=1;bid_index<=bidder_count;bid_index++)
 		{
-			
-			
 		
 			sum_bidder = 0;
 			
 			for(pck_index=1;pck_index<=package_count;pck_index++)
 			{
 				
-				
-				
-				
-				
 				bid_text = "#package_bidder_"+pck_index+"_"+bid_index;
-				
 				
 				sum_bidder += parseFloat($(bid_text).val()); 
 				if(bid_index==1)
@@ -420,8 +401,6 @@ function score_color(){
 			
 			}
 			
-			
-			//console.log("bid_indexfff"+bid_index);
 			if(!isNaN(sum_gpl)) {
 				$("#total_amt_gpl").val(sum_gpl+" Cr"); 
 			}
@@ -432,7 +411,7 @@ function score_color(){
 			diff_budget_crs = parseFloat(sum_bidder)-parseFloat(total_amt_gpl);
 			
 			diff_budget_percentage = (parseFloat(diff_budget_crs)/parseFloat(total_amt_gpl))*100;
-			//diff_budget_percentage = (parseFloat(diff_budget_crs)*100/parseFloat(total_amt_gpl));
+			
 			if(!isNaN(diff_budget_crs)) {
 				$("#diff_budget_crs"+bid_index).val(diff_budget_crs.toFixed(2)+" Cr"); 
 			}
@@ -442,29 +421,25 @@ function score_color(){
 			
 			if(diff_budget_crs>0)
 			{
-				/* $("#diff_budget_crs"+bid_index).removeClass('background-red');
-				$("#diff_budget_crs"+bid_index).addClass('background-green'); */
+				
 				$("#diff_budget_crs"+bid_index).removeClass('background-green');
 				$("#diff_budget_crs"+bid_index).addClass('background-red'); 
 			}
 			else
 			{
-				/* $("#diff_budget_crs"+bid_index).removeClass('background-green');
-				$("#diff_budget_crs"+bid_index).addClass('background-red'); */
+				
 				$("#diff_budget_crs"+bid_index).removeClass('background-red');
 				$("#diff_budget_crs"+bid_index).addClass('background-green');
 			}
 			if(diff_budget_percentage>0)
 			{
-				/* $("#diff_budget_percentage"+bid_index).removeClass('background-red');
-				$("#diff_budget_percentage"+bid_index).addClass('background-green'); */
+				
 				$("#diff_budget_percentage"+bid_index).removeClass('background-green');
 				$("#diff_budget_percentage"+bid_index).addClass('background-red');
 			}
 			else
 			{
-				/* $("#diff_budget_percentage"+bid_index).removeClass('background-green');
-				$("#diff_budget_percentage"+bid_index).addClass('background-red'); */
+				
 				$("#diff_budget_percentage"+bid_index).removeClass('background-red');
 				$("#diff_budget_percentage"+bid_index).addClass('background-green');
 			}
@@ -472,23 +447,19 @@ function score_color(){
 		if(!isNaN(sum_bidder)) {
 			showPackage_L1();
 			showBidposition_bidders();
-			//calculateSum1();
+			
 		}
 		
 	}
 	
 	//Function for showing the L1 Package in Green color
 	function showPackage_L1(){
-		//console.log("showPackage_L1");
+		
 		var pck_index,bid_index,total_amt_bidder;
 		
 		var package_count = parseInt($("#package_count").val())+1;	
 		var bidder_count = parseInt($("#bidder_count").val())+1;	
 		
-		
-		
-
-
 		for(pck_index=1;pck_index<=package_count;pck_index++)
 		{
 			stuff = [];
@@ -511,7 +482,7 @@ function score_color(){
 			}
 			
 			var min = Math.min.apply(null, stuff.map(function(a){ return a.bid_details.package_bidder_value;}));
-			//console.log("min"+min);
+			
 			for(bid_index=1;bid_index<=bidder_count;bid_index++)
 			{
 				  package_bidder_value = parseFloat($("#package_bidder_"+pck_index+"_"+bid_index).val());
@@ -526,18 +497,16 @@ function score_color(){
 					
 
 				  }
-				  
 			
 			 
 			}
 
-			//console.log("L1 Package start");
 			showBidposition_packages();
 		
 			
 		}//end of package
 		
-		//calculateSum1();
+		
 	}
 	function get_minimumN(arr, n)
 	{
@@ -548,7 +517,6 @@ function score_color(){
 			return false;
 			}
 			
-		
 			return arr.slice().sort((a,b) => {
 			return a.bid_details.package_bidder_value - b.bid_details.package_bidder_value
 			
@@ -564,7 +532,7 @@ function score_color(){
 		var package_count = parseInt($("#package_count").val())+1;	
 		var bidder_count = parseInt($("#bidder_count").val())+1;	
 		console.log("showBidposition_packages start");
-		//console.log(stuff_sort);
+		
 		stuff_unique = remove_duplicates_array(stuff);
 		const minimumN = (arr, n) => {
 		
@@ -579,7 +547,7 @@ function score_color(){
 			})
 			.slice(0, n);
 		};
-		//console.log(stuff_unique);
+		
 		if(stuff_unique.length>=3)
 		{
 			stuff_minimum = minimumN(stuff_unique, 3);
@@ -592,14 +560,9 @@ function score_color(){
 		else 
 		{
 			stuff_minimum = stuff_unique;
-			
-			
+		
 		}
 		
-		
-		//get_minimumN(stuff_unique, 3)
-		console.log(stuff_minimum);
-		console.log("showBidposition_packages end");
 		$.each(stuff_minimum, function( key, value ) {
 			
 			bidder_value = value.bid_details.package_bidder_value;
@@ -609,22 +572,20 @@ function score_color(){
 			bidder_name = $("#final_bidder_name"+bid_ndex_basis).val();
 			recommVendor_val = $("#recomm_vendor_package"+pck_ndex_basis).val();
 			finalized_value = $("#finalized_award_value_package"+pck_ndex_basis).val();
-			//console.log(bidder_value+"bidFinal"+finalized_value);
+			
 			if(recommVendor_val==bidder_name || finalized_value==bidder_value)
 			{
-				//console.log(recommVendor_val+"=="+bidder_name);
+				
 				basis_award_index=key+1;
 				$("#basis_award_package"+pck_ndex_basis).val("L"+basis_award_index);
 			}
 
-				
-			
 		
 		});
-		//calculateSum1();
+		
 	}
 	
-		//remove duplicates
+	//remove duplicates
 	function remove_duplicates_array(stuff_pck)
 	{
 		var result_unique_pck = [];
@@ -645,12 +606,9 @@ function score_color(){
 		
 		var bidder_count = parseInt($("#bidder_count").val())+1;	
 		 
-		
 		stuff = [];
 		stuff_sort = [];
 
-
-		//stuff = {}; // Object
 		for(bid_index=1;bid_index<=bidder_count;bid_index++)
 		{
 			 var bid_details = {  
@@ -669,14 +627,13 @@ function score_color(){
 			  return false;
 			}
 		   
-		  
 			return arr.slice().sort((a,b) => {
 			return a.bid_details.total_value - b.bid_details.total_value
 			
 			})
 			.slice(0, n);
 		};
-		//console.log(leastN(stuff, 2));
+		
 		//remove duplicates
 		var result_unique = [];
 		$.each(stuff, function (i, e) {
@@ -687,11 +644,9 @@ function score_color(){
 				result_unique.push(e);
 			}
 		});
-		//console.log("result_unique");
-		//console.log(result_unique);
+		
 		//end remove duplicates
 		var result;
-		
 		
 		if(result_unique.length>=3)
 		{
@@ -711,9 +666,6 @@ function score_color(){
 			
 			result=false;
 		}
-		console.log(stuff);
-		console.log(stuff_sort);
-		console.log("resuly"+result);
 		
 		if(result===false)
 		{
@@ -722,15 +674,13 @@ function score_color(){
 				flag=0;
 				total_amt_bidder = parseFloat($("#total_amt_bidder"+bid_index).val());
 			
-				
 				$.each( stuff_sort, function( key, value ) {
-					//console.log( key + ":" + value.bid_details.total_value );
-					least3_value = value.bid_details.total_value;
 					
+					least3_value = value.bid_details.total_value;
 					
 					if((stuff_value.bid_details.total_value==value.bid_details.total_value) )
 					{
-						//console.log("bid_index"+bid_index+total_amt_bidder + " if and " + least3_value );
+					
 						flag=1;
 						$("#bid_position"+bid_index).val("L"+(key+1)); 
 					}
@@ -765,7 +715,7 @@ function isSameAnswer(el, index, arr) {
   if (index === 0) {
     return true;
   } else {
-    //return (el.bid_details.total_value === arr[index - 1].bid_details.total_value);
+   
 	res = (el.bid_details.total_value === arr[index - 1].bid_details.total_value);
 	if(res)
 		$("#bid_position"+el.bid_details.bid_index).val("L1"); 
@@ -806,16 +756,14 @@ function showBidders_finalized(){
 		}
 	}
 	getBidders_total();
-	
-	
+
 }
 
 
 
 //Function for date comparison	
 function validate_greater_date(firstDate, secondDate){
-		
-		
+	
 		$("#date_cmp_err").html("");
 		if(firstDate){
 			if(firstDate >= secondDate){ 

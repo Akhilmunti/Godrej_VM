@@ -55,7 +55,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
             <div class='form-group'>
                 <label>Type</label>
                 <select id="awdType" name="awdType"  class="form-control">
-                    <!--<option value="">All</option>-->
+                   
                     <option value="Contract" <?php echo ($awdType=="Contract") ? "selected": ""?>>Contract</option>
                     <option value="Procurement" <?php echo ($awdType=="Procurement") ? "selected": ""?>>Procurement</option>
                 
@@ -125,7 +125,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
 </div>
 <div class="row ">
     <div class="col-lg-12 text-right">
-    <input type="hidden" name="hd_awdType" id="hd_awdType" value="<?php echo $hd_awdType ?>">
+    <input type="hidden" name="hd_awdType" id="hd_awdType" value="<?php echo ($awdType) ? $awdType : $hd_awdType; ?>">
         <input type="hidden" name="hd_project_id" id="hd_project_id" value="<?php echo $hd_project_id ?>">
         <input type="hidden" name="hd_zone" id="hd_zone" value="<?php echo $hd_zone ?>">
         <input type="hidden" name="hd_type_work_id" id="hd_type_work_id" value="<?php echo $hd_type_work_id ?>">

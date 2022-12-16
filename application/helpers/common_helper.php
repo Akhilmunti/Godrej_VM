@@ -12,7 +12,7 @@ function single_File_Upload($mId, $mFile) {
         $config['encrypt_name'] = false;
 		$ci->load->library('upload', $config);
         $ci->upload->initialize($config);
-        //$this->load->library('upload', $config);
+      
         $data = array();
 		$file_arr = array();
         if (!$ci->upload->do_upload($mId)) {
@@ -31,7 +31,7 @@ function single_File_Upload($mId, $mFile) {
 			$file_arr['file_name'] = $filename;
 			$file_arr['file_path'] = $config['upload_path'];
         }
-        //return $filename;
+       
 		return $file_arr;
     }
 	
@@ -54,17 +54,13 @@ function  removeEmptyValues(array &$array){
 
 //Send mail while submit NFA
 function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id=null,$approver=null,$approver_mail=null,$sender=null,$mail_url=null) {
-		
-		
+			
 		$mSubject=strip_tags($mSubject);
-
 		
 		// send email
 		
-		 //$to = "sreenavc@datatemplate.com";
 		 $to = $approver_mail;
-		 //echo $to;
-				
+		
 		 $subject = "IOM for Approval: $mSubject: $package_value_mail ";
 		 
 		 $message = "";
@@ -190,19 +186,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 		 foreach($receiver_arr as $key=>$val)
 		 {
 			 $to = $val;
-			 
-			 /*if($key==0)
-				 $to = "sreenavc@datatemplate.com";
-			 else if($key==1)
-				 $to = "abhinandmp@datatemplate.com";
-			 else if($key==2)
-				 $to = "deepakk@datatemplate.in";
-			 else if($key>=3)
-				 $to = "pramodvb@datatemplate.com";
-			 else
-				 $to = "sreenavc@datatemplate.com";*/
-			 
-			
+			 						
 			 $receiver = $key;
 			
 			 if($mail_type=="LowLevels")
@@ -342,12 +326,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			</body>
 
 			</html>';
-				 
-			 /*$header = "From:abhinandmp@datatemplate.com \r\n";
-			 $headers .= "Reply-To: poojasm@datatemplate.com\r\n";
-			 $headers .= "Return-Path: abhinandmp@datatemplate.com\r\n";*/
-
-			 //$header .= "Cc:abhinandmp@datatemplate.com \r\n";
+						
 			 $header = "From:".NFA_FROM_EMAIL." \r\n";
 			 $headers .= "Reply-To: ".NFA_REPLYTO_EMAIL."\r\n";
 			 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
@@ -365,7 +344,6 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 
 		 }
 
-		 
 
 		 return $retval;
         
@@ -381,7 +359,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 		
 		$found[$i][] = current(array_filter($ar, function($item) {
 			global $approver_arr;
-			//print_r($item);
+			
 			$level_approver = "level".$i."_approver";
 			$$level_approver =  $item['buyer_name'];
 			$approver_id = "approver".$i."_id";
@@ -413,18 +391,18 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 		$selOption = "selected";
 				
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-                                                    <option value="'. base_url('nfa/BidderListContractor/bidder_contract_list').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
-                                                    <option value="'. base_url('nfa/BidderListSupplier/bidder_supplier_list').'"'.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/award_recomm_contract_list').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/award_recomm_procurement_list').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>
-                                                    <option value="'. base_url('nfa/amendment_in_contract/amendment_contract_list').'" '.(($nfaType=="amendment_contract") ? $selOption : "").'>Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>';
+							<option value="">Select NFA Type</option>
+							<option value="'. base_url('nfa/BidderListContractor/bidder_contract_list').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
+							<option value="'. base_url('nfa/BidderListSupplier/bidder_supplier_list').'"'.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
+							<option value="'. base_url('nfa/Award_contract/award_recomm_contract_list').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/award_recomm_procurement_list').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>
+							<option value="'. base_url('nfa/amendment_in_contract/amendment_contract_list').'" '.(($nfaType=="amendment_contract") ? $selOption : "").'>Amendment in Contract</option>
+							<option value="">Descoping IOM</option>
+							<option value="">Termination IOM</option>
+							<option value="">BG Encashment</option>
+							<option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
+							<option value="">Contractual Deviations</option>
+						</select>';
 		return 	$nfa_select;	
 		
 	}
@@ -454,19 +432,19 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-													<option value="'. base_url('nfa/BidderListContractor/approved_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
-                                                    <option value="'. base_url('nfa/BidderListSupplier/approved_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/approved_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/approved_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>  
-                                                   
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>';
+							<option value="">Select NFA Type</option>
+							<option value="'. base_url('nfa/BidderListContractor/approved_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
+							<option value="'. base_url('nfa/BidderListSupplier/approved_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
+							<option value="'. base_url('nfa/Award_contract/approved_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/approved_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>  
+							
+							<option value="">Amendment in Contract</option>
+							<option value="">Descoping IOM</option>
+							<option value="">Termination IOM</option>
+							<option value="">BG Encashment</option>
+							<option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
+							<option value="">Contractual Deviations</option>
+                        </select>';
 		return 	$nfa_select;	
 		
 	}
@@ -475,18 +453,18 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-                                                   <option value="'. base_url('nfa/BidderListContractor/returned_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
-                                                    <option value="'. base_url('nfa/BidderListSupplier/returned_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/returned_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/returned_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>  
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>';
+							<option value="">Select NFA Type</option>
+							<option value="'. base_url('nfa/BidderListContractor/returned_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
+							<option value="'. base_url('nfa/BidderListSupplier/returned_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
+							<option value="'. base_url('nfa/Award_contract/returned_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/returned_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>  
+							<option value="">Amendment in Contract</option>
+							<option value="">Descoping IOM</option>
+							<option value="">Termination IOM</option>
+							<option value="">BG Encashment</option>
+							<option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
+							<option value="">Contractual Deviations</option>
+						</select>';
 		return 	$nfa_select;	
 		
 	}
@@ -495,18 +473,18 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-													<option value="'. base_url('nfa/BidderListContractor/amended_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
-                                                    <option value="'. base_url('nfa/BidderListSupplier/amended_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/amended_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/amended_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>  
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>';
+							<option value="">Select NFA Type</option>
+							<option value="'. base_url('nfa/BidderListContractor/amended_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
+							<option value="'. base_url('nfa/BidderListSupplier/amended_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
+							<option value="'. base_url('nfa/Award_contract/amended_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/amended_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>  
+							<option value="">Amendment in Contract</option>
+							<option value="">Descoping IOM</option>
+							<option value="">Termination IOM</option>
+							<option value="">BG Encashment</option>
+							<option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
+							<option value="">Contractual Deviations</option>
+						</select>';
 		return 	$nfa_select;	
 		
 	}
@@ -515,17 +493,17 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-                                                   	<option value="'. base_url('nfa/BidderListContractor/cancelled_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
-                                                    <option value="'. base_url('nfa/BidderListSupplier/cancelled_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/cancelled_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/cancelled_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>										                                      <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>';
+							<option value="">Select NFA Type</option>
+							<option value="'. base_url('nfa/BidderListContractor/cancelled_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
+							<option value="'. base_url('nfa/BidderListSupplier/cancelled_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
+							<option value="'. base_url('nfa/Award_contract/cancelled_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/cancelled_nfa').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>										                                      <option value="">Amendment in Contract</option>
+							<option value="">Descoping IOM</option>
+							<option value="">Termination IOM</option>
+							<option value="">BG Encashment</option>
+							<option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
+							<option value="">Contractual Deviations</option>
+						</select>';
 		return 	$nfa_select;	
 		
 	}
@@ -533,14 +511,13 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	function nfa_dropdown_reports($nfaType=null)
 	{
 		$selOption = "selected";
-		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-													
-                                                    <option value="'. base_url('nfa/Award_contract/reports').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/reports').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>                                                   
-                                                  
-                                                   
-                                                </select>';
+		$nfa_select =   '<select id="nfaType" name="nfaType" required="" class="form-control">
+							<option value="">Select NFA Type</option>
+							
+							<option value="'. base_url('nfa/Award_contract/reports').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/reports').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>                                                   
+					
+						</select>';
 												
 		
 		return 	$nfa_select;	
@@ -555,35 +532,32 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			$param = array("initiated_by="=>'PCM');
 		else if($nfaStatus=="Cancelled")
 			$param = array("cancelled_by="=>'PCM');
-			//$param = array("buyer_role!="=>'PCM');
+			
         if ($nfaStatus) {
             $getUsers = $ci->nfaAction->get_report_users($nfaStatus);
-			//print_r($getUsers);
-			//echo $role = $getUsers->role;
+			
             return $getUsers;
-        } else {
-            //echo "<option>No data</option>";
-        }
+        } 
     }
 	
 	//NFA Logs
-	//Nfa Type dropdown for Reports
+	//Nfa Type dropdown for Logs
 	function nfa_dropdown_logs($nfaType=null)
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-													<option value="'. base_url('nfa/BidderListContractor/nfa_logs').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
-                                                    <option value="'. base_url('nfa/BidderListSupplier/nfa_logs').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
-                                                    <option value="'. base_url('nfa/Award_contract/nfa_logs').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
-                                                    <option value="'. base_url('nfa/Award_procurement/nfa_logs').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>			
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select>';
+							<option value="">Select NFA Type</option>
+							<option value="'. base_url('nfa/BidderListContractor/nfa_logs').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
+							<option value="'. base_url('nfa/BidderListSupplier/nfa_logs').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
+							<option value="'. base_url('nfa/Award_contract/nfa_logs').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
+							<option value="'. base_url('nfa/Award_procurement/nfa_logs').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>			
+							<option value="">Amendment in Contract</option>
+							<option value="">Descoping IOM</option>
+							<option value="">Termination IOM</option>
+							<option value="">BG Encashment</option>
+							<option value="'.base_url('nfa/LdWaiver').'>">LD Waiver</option>
+							<option value="">Contractual Deviations</option>
+						</select>';
 		return 	$nfa_select;	
 		
 	}

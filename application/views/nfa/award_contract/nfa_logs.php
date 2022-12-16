@@ -41,7 +41,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h3 class="page-title br-0">NFA Logs - Award Recommendation for Contracts</h3>
+                                <h3 class="page-title br-0">IOM Logs - Award Recommendation for Contracts</h3>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
 													<th>ENFA No.</th>
                                                     <th>Subject</th>
                                                     <th>Award Synopsis </th>
-                                                    <th>NFA Status</th>
+                                                    <th>IOM Status</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>

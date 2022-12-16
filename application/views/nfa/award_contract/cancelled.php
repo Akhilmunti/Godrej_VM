@@ -70,19 +70,7 @@
                                             <div class='form-group'>
                                                 <label>NFA Type</label>
 												<?php echo $nfa_select;?>
-                                                <?php /*<select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-                                                    <option value="">Short Listing Approval For Contractor</option>
-                                                    <option value="">Short Listing Approval For Supplier</option>
-                                                    <option value="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list')?>">Award Recommendation for Contracts</option>
-                                                    <option value="">Award Recommendation for Procurement</option>
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="<?php echo base_url('nfa/LdWaiver')?>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select> <?php */?>
+                                              
                                             </div>
                                         </div>
                                     </div>

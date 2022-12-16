@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php $this->load->view('buyer/partials/header'); ?>
+<?php 
+    $previous_url = $this->session->userdata('previous_url');
+    
+    $this->load->view('buyer/partials/header'); 
+?>
 
 <style>
     .buttonPadding {
@@ -36,20 +40,22 @@
                 <section class="content">
 
                     <div class="content-header">
-                        <div class="d-flex align-items-center">
-                            <div class="d-block">
-                                <h3 class="page-title br-0">NFA Reports</h3>
+                        <div class="row">
+                            <div class="col-lg-8">
+								<h3 class="page-title br-0">IOM Reports</h3>
+                            </div>
+                            <div class="col-lg-4 text-right">
+                                <button type="button" onclick="location.href='<?php echo $previous_url;?>'" class="btn btn-secondary rounded">Go Back</button>
                             </div>
                         </div>
                     </div>
-
                     <div class="box">
                         <div class="box-body">
 							<form id="nfaForm" method="POST" action="<?php echo base_url('nfa/Award_contract/reports'); ?>" >
 							<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
                                              
                                             </div>
@@ -128,7 +134,7 @@
 											<th>ENFA No.</th>
 											<th>Subject</th>
 											<th>Award Synopsis </th>
-                                            <th>NFA Status</th>
+                                            <th>IOM Status</th>
 										  
 											<th>Actions</th>
                                         </tr>
@@ -209,17 +215,15 @@
     <?php $this->load->view('buyer/partials/scripts'); ?>
 	<script>
 		$('#nfaStatus').change(function () {
-			//alert("test"+$('#nfaStatus').val());
+			
 			nfaStatus= this.value;
-			//alert("level"+nfaStatus);
 			
 			$.post("<?php echo base_url('nfa/ListNfa/getReportUsers'); ?>",
 					{
 						nfaStatus: nfaStatus,
-						//contract_value:$('#original_contract_value').val()
+						
 					},
 					function (data, status) {
-						//alert(data);
 						
 						$('#buyer_id').html(data);
 						
@@ -232,14 +236,14 @@
 $("#export_button").click(function(){
 	var csv = "csv";
 	var excel_data =  '<?php echo json_encode($records); ?>'
-    //console.log("excel"+excel_data);
+  
 	$.ajax({
 		type: 'POST',
 		url: "<?php echo base_url('nfa/Award_contract/export_csv'); ?>",
 		data: {csv:csv,data1:excel_data},
 		
 	    success: function(result) {
-	      //console.log(result);
+	     
 	      setTimeout(function() {
 				  var dlbtn = document.getElementById("dlbtn");
 				  var file = new Blob([result], {type: 'text/csv'});

@@ -28,19 +28,7 @@ $this->load->view('buyer/partials/header'); ?>
 		.package-sec1{
             display: none;
         }
-		/*.sec1{
-            display: none;
-        }
-       .sec2{
-            display: none;
-        }
-        .package-sec1{
-            display: none;
-        }
-        .package-sec2{
-            display: none;
-        }*/
-
+		
 
         [data-tip] {
 	        position:relative;
@@ -162,7 +150,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-12">
                                     <div class='form-group'>
                                         <label  class="font-weight-bold">Subject</label>
-                                        <!--<input type="text" class="form-control" placeholder="" name="subject" id="subject"> -->
+                                      
 										<div id="subject" class="form-control" name="subject"><?php echo $mRecord['subject'] ?></div>
 										
                                     </div>
@@ -229,10 +217,7 @@ $this->load->view('buyer/partials/header'); ?>
 												</th>
 											<?php 
 											}?> 
-											<?php /*<th scope="col" style="display:none;">
-												<label>Package name</label>
-												<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key;?>" value="<?php echo $val['package_name'] ?>" required>
-											</th> <?php */?>
+											
                                            <th  style="width:20% ;">Total</th>
                                         </tr>
                                     </thead>
@@ -240,11 +225,11 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <td>Budget incl Escalation</td>
 											<?php 
-											// $total_budget_esc = 0;
+										
 											 foreach($mRecordPackage as $key=>$val)
 											 {
 											 	$id_index = $key+1;
-											 	//$total_budget_esc+=$val['package_budget_esc'];
+											 	
 											 ?>
                                             <td>
                                                 <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
@@ -310,66 +295,7 @@ $this->load->view('buyer/partials/header'); ?>
 											</td>
                                         </tr>
 										
-										<?php /*
-                                        <tr class='text-center'>
-                                            <td>Is there any basic rate item in tender</td>
-											 <?php 
-											 //print_r($mRecordPackage);
-											 foreach($mRecordPackage as $key=>$val)
-											{	
-												$id_index = $key+1;
-												
-											?>
-												<td>
-													<input class="form-check-input _is_basic_rate_td" type="radio" name="group_<?php echo $id_index;?>" id="packageYesRadios<?php echo $id_index;?>" value="yes" <?php echo ($val['is_basic_rate_package']=="yes")? "checked" : "" ?> >
-													<label class="form-check-label font-weight-bold" for="packageYesRadios<?php echo $id_index;?>">
-														Yes
-													</label>
-													<input class="form-check-input _is_basic_rate_td" type="radio" name="group_<?php echo $id_index;?>" id="packageNoRadios<?php echo $id_index;?>" value="no" <?php echo ($val['is_basic_rate_package']=="no")? "checked" : "" ?>>
-													<label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="packageNoRadios<?php echo $id_index;?>">
-														No
-													</label>
-												
-												</td>
-											<?php 
-											}?> 
-										
-                                          
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Total Amount of Basic Rate Items in Tender</td>
-										 <?php foreach($mRecordPackage as $key=>$val)
-											{	
-												$id_index = $key+1;
-											?>
-												<td>
-													<input id="basic_rate<?php echo $id_index;?>"   oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');" name="total_basic_rate_package[]" <?php echo ($val['is_basic_rate_package']=="no")? "style='display:none ;'" : "" ?> type='text' class="form-control _amnt_basic_rate_td" value="<?php echo $val['total_basic_rate_package'] ?> Cr" >
-												</td>
-											<?php 
-											}?> 
-                                         
-                                            <td>
-												<input type='text' class="form-control" name="total_basic_rate" id="total_basic_rate" value="<?php echo $mRecord['total_basic_rate'] ?> Cr" readonly>
-											</td> 
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
-										 <?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-												<td>
-											  <input  oninput="allowNumOnly(this)" onblur="changeToCr(this);calculateSum1_v1('<?php echo $id_index;?>');packageSynopsis_total('anticipated_rate','total_anticipated_rate');" id="anticipated_rate<?php echo $id_index;?>" name="anticipate_basic_rate_package[]" <?php echo ($mRecordAwdContract['is_basic_rate_package1']=="no")? "style='display:none ;'" : "" ?> type='text' class="form-control _anti_basic_rate_td" required value="<?php echo $val['anticipate_basic_rate_package'] ?> Cr">
-												</td>
-											<?php 
-											}?> 
-                                        	
-                                            <td>
-												<input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="<?php echo $mRecord['total_anticipated_rate'] ?> Cr" readonly>
-											</td> 
-                                        </tr>
-										*/ ?>
+		
                                         <tr class='text-center'>
                                             <td>Proposed Award Value (Excl Tax)- Adjusted Awarded Value(Post Basic Rate Adjustment): <span class=" font-weight-bold">SAP WO VALUE TO BE CREATED</span></td>
 										 <?php foreach($mRecordPackage as $key=>$val)
@@ -418,51 +344,21 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td></td>
                                         </tr>
 										
-										<?php /*
-                                        <tr class='text-center'>
-                                            <td>Basis of award</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package<?php echo $id_index;?>" value="<?php echo $val['basis_award_package'] ?>" readonly>
-                                            </td>
-                                            <?php 
-											}?>
-											<td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Deviation from Approved Contracting Strategy</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-											   <td>
-													<input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
-												</td>
-											<?php 
-											}?> 
-                                           
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Base Rate Consideration Month in Award</td> 
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>">
-                                            </td>
-											<?php 
-											}?> 
-                                          
-                                            <td></td>
-                                        </tr>
-										*/ ?>
+							
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="row mt-4">
+
+                                <div class="col-lg-4">
+                                    <div class='form-group'>
+                                        <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
+										<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
+										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+                                    </div>
+                                </div>
+
                             </div>
 								
 							
@@ -487,7 +383,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 <h5 class="page-title br-0 font-weight-bold">Final Bid Scenario</h5>
                             </div>
 
-							<div class="mt-4"><?php //print_r($mRecord);?>
+							<div class="mt-4">
                                 <h5>How many Bidders participated?</h5>
                                 <select id="bidder_count" name="bidder_count" required="" style="width:25%;" class="form-control" > 
 									<?php for($bcount=0;$bcount<9;$bcount++)
@@ -579,8 +475,7 @@ $this->load->view('buyer/partials/header'); ?>
 												<?php 
 												//Bidders Record
 												$bidders_count = sizeof($mRecordFinalBidders);
-												//print_r($mRecordFinalBidders);
-												//$bidVal_arr = array();
+												
 												foreach($mRecordFinalBidders as $keyBid=>$valBid)
 												{
 													
@@ -591,18 +486,12 @@ $this->load->view('buyer/partials/header'); ?>
 													$finalBiddersData = $CI->getFinalBidData($salient_id,$package_id,$bidder_id);
 													
 													$package_bidder_value =  $finalBiddersData->package_bidder;
-													/* $bidVal_arr[]=$package_bidder_value;
-													$min = min($bidVal_arr);
-													if($package_bidder_value==$min)
-														$bidder_class = 'background-green';
-													else */
+													
 														$bidder_class = '';
 													
-													//if($bid_index==$bidders_count && $id_index==2)
+													
 														$script_text = ' onblur="getBidders_total();changeToCr(this)"';
-													/* else
-														$script_text = 'onblur="changeToCr(this)"'; */
-													//
+													
 												?>
 													<td><input type='text' oninput="allowNumOnly(this)"  class="form-control package_common_tower_label_custom_td" name="package_bidder[<?php echo $id_index;?>][<?php echo $bid_index;?>]" id="package_bidder_<?php echo $id_index;?>_<?php echo $bid_index;?>" value="<?php echo $package_bidder_value; ?> Cr" <?php echo $script_text; ?>></td>
 												<?php 
@@ -625,9 +514,7 @@ $this->load->view('buyer/partials/header'); ?>
 										  }
 									$total_amt_gpl = $mRecordFinalBidders[0]->total_amt_gpl;
 									?>
-										<!--<tr id="package_row" class='text-center'>
-                                       
-										</tr>-->
+										
                                         <tr class='text-center' id="totAmt_row">
                                             <td class="page-title font-weight-bold">Total Amount</td>
 											 <td><input type='text' class="form-control" name="total_amt_gpl" id="total_amt_gpl" value="<?php echo $total_amt_gpl; ?>" readonly></td>
@@ -652,9 +539,7 @@ $this->load->view('buyer/partials/header'); ?>
 												{
 													$id_index = $keyBid+1;
 													$bid_position = $valBid->bid_position;
-													//$score = $val->score;
-													
-													
+																									
 												?>
 													
 													<td><input type='text' class="form-control bid_position_label_custom_td" name="bid_position[]" id="bid_position<?php echo $id_index;?>" value="<?php echo $bid_position; ?>" readonly  ></td>
@@ -706,7 +591,7 @@ $this->load->view('buyer/partials/header'); ?>
 												
 												}
 											?> 
-											<?php /* <td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control <?php echo $budget_class?> diff_age_gp_custom_td" name="diff_budget_percentage[]" id="diff_budget_percentage<?php echo $id_index;?>" value="<?php echo $diff_budget_percentage ?> %"></td> */ ?>
+											
 												<td><input type='text' oninput="allowNumOnly(this)" class="form-control <?php echo $budget_class?> diff_age_gp_custom_td" name="diff_budget_percentage[]" id="diff_budget_percentage<?php echo $id_index;?>" value="<?php echo $diff_budget_percentage ?> %"></td>
                                            <?php 
 											}?>
@@ -717,167 +602,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 </table>
 
                             </div>
-                            
-                         <?php /*   <div class="row mt-4">
 
-                                <div class="col-lg-12">
-                                    <label class="page-title br-0 font-weight-bold mr-4">Front Idling
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling1" value="yes" onclick="idlingCheck()" <?php echo ($mRecord['front_idling']=="yes")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" for="front_idling1">
-                                        Yes
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling2" value="no" onclick="idlingUnCheck()" <?php echo ($mRecord['front_idling']=="no")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="front_idling2">
-                                        No
-                                    </label>
-                                </div>
-                               
-                            </div>
-							<?php //if ($mRecord['front_idling']=="yes")
-							//{
-								?>
-								
-								<div id="delayReason" class="mt-4">
-									<h5 class="page-title br-0 font-weight-bold">Reasons for Delay</h5>
-									<div id="reasons_delay" class="form-control" name="reasons_delay"><?php echo $mRecord['reasons_delay'] ?>
-									</div>
-							   </div>
-							
-							
-                            <div class="d-block mt-4">
-							<?php //if($mRecord['total_finalized_award_value']>3)
-							//{ ?>
-                                <h5 id="date1" class="page-title br-0 font-weight-bold">Contractor Appointment Dates</h5>
-								<?php 
-							//}?>
-							</div>
-
-                            <div id="appointment-date" class="table-responsive" >
-							<?php //if($mRecord['total_finalized_award_value']>3)
-							//{								?>
-                                <table class="table table-bordered mb-0 ">
-                                    <thead class="bg-primary">
-                                        <tr class='text-center'>
-                                            <th>Sr No.</th>
-                                           <th style="width:60%" colspan="2">
-                                                <label>Contract Package</label>
-                                                <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label"  value="<?php echo $mRecordAppointment['contract_package_works_label'] ?>" >
-                                            </th>
-                                            <th>Remarks</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="bidderList">
-                                        <tr class='text-center'>
-                                            <td></td>
-                                           <td>
-                                                <label>Milestone on which contractor should be appointed</label>
-                                                <div data-tip="Please mention the milestone as per applicable PI">
-                                                <input type='text' class="form-control" name="milestone_label" id="milestone_label" autocomplete="off"  value="<?php echo $mRecordAppointment['milestone_label'] ?>">
-                                                </div>
-                                            </td>
-                                            <td>
-                                               <!-- <textarea class="form-control" rows="2" name="contract_package_works_value" id="contract_package_works_value"><?php echo $mRecordAppointment['contract_package_works_value'] ?></textarea> -->
-											     <select id="contract_package_works_value" name="contract_package_works_value"   class="form-control" >
-                                                    <option value="">Select</option>
-													<?php 
-													for($i=1;$i<=5;$i++)
-													{
-														$option_val = "pi".$i;
-														$works_sel = ($option_val==$mRecordAppointment['contract_package_works_value']) ? "selected" : "";
-													 ?>
-														<option value="pi<?php echo $i;?>" <?php echo $works_sel; ?>>PI<?php echo $i;?></option>
-													<?php 
-													}
-													?>
-                                                   <!-- <option value="pi2">PI2</option>
-                                                    <option value="pi3">PI3</option>
-                                                    <option value="pi4">PI4</option>
-                                                    <option value="pi5">PI5</option> -->
-                                                    <option value="not applicable" <?php echo ($mRecordAppointment['contract_package_works_value']=="not applicable") ? "selected" : "" ?>>Not applicable</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="contract_package_works_remarks" id="contract_package_works_remarks"><?php echo $mRecordAppointment['contract_package_works_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td></td>
-                                            <td class="page-title font-weight-bold">Activity</td>
-                                            <td class="page-title font-weight-bold">Dates</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>A</td>
-                                            <td>Planned date of Contractor appointment As per BI Logic</td>
-                                            <td>
-                                                <input type='date' class="form-control" style="width: 100% " name="activity_planned_date" id="activity_planned_date"  value="<?php echo $mRecordAppointment['activity_planned_date'] ?>">
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_planned_remarks" id="activity_planned_remarks"><?php echo $mRecordAppointment['activity_planned_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>B</td>
-                                            <td>Actual date as per current site progress</td>
-                                            <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_actual_date" id="activity_actual_date" value="<?php echo $mRecordAppointment['activity_actual_date'] ?>" >
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_actual_remarks" id="activity_actual_remarks"><?php echo $mRecordAppointment['activity_actual_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>C</td>
-                                            <td>CBE of contractor Appointment</td>
-                                            <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>">
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_cbe_remarks" id="activity_cbe_remarks"><?php echo $mRecordAppointment['activity_cbe_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>D</td>
-                                            <td>Delay in appointment</td>
-                                            <td>
-                                                <input type='text' class="form-control" name="activity_delay" id="activity_delay" readonly value="<?php echo $mRecordAppointment['activity_delay'] ?>">
-                                            </td>
-                                            <td>
-                                                <textarea class="form-control" rows="2" name="activity_delay_remarks" id="activity_delay_remarks"><?php echo $mRecordAppointment['activity_delay_remarks'] ?></textarea>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-									<?php 
-							//}?>
-                            </div>
-							
-							<div class="row mt-4">
-
-                                <div class="col-lg-12">
-                                    <label class="page-title br-0 font-weight-bold mr-4">Front Idling
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling1" value="yes" onclick="idlingCheck()" <?php echo ($mRecord['front_idling']=="yes")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" for="front_idling1">
-                                        Yes
-                                    </label>
-                                    <input class="form-check-input" type="radio" name="front_idling" id="front_idling2" value="no" onclick="idlingUnCheck()" <?php echo ($mRecord['front_idling']=="no")? "checked" : "" ?>>
-                                    <label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="front_idling2">
-                                        No
-                                    </label>
-                                </div>
-                               
-                            </div>
-						
-								
-							<div id="delayReason" class="mt-4">
-									<h5 class="page-title br-0 font-weight-bold">Reasons for Delay</h5>
-									<div id="reasons_delay" class="form-control" name="reasons_delay"><?php echo $mRecord['reasons_delay'] ?>
-									</div>
-							   </div>
-							   
-							  <?php */?>
 						
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Award Efficiency</h5>
@@ -936,18 +661,11 @@ $this->load->view('buyer/partials/header'); ?>
 
 
                           <div class="d-block mt-4">
-                                
-								<?php /*
-								<h5 class="page-title br-0 font-weight-bold">Current Status of Work at Site</h5>
-                                <div id="current_status_work" class="form-control" name="current_status_work"><?php echo $mRecord['current_status_work'] ?>
-                            </div>
-							*/ ?>
-
-							
+                             
 							 <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Major Terms and Conditions</h5>
                             </div>
-														<?php //print_r($mRecordPackage); ?>
+													
                             <div class="table-responsive mt-4">
 							<table class="table table-bordered mb-0" id="t1">
                                     <thead class="bg-primary">
@@ -992,7 +710,7 @@ $this->load->view('buyer/partials/header'); ?>
 												
 												?>
 												<textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required><?php echo $term_label_value_arr[0]; ?></textarea><textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value2" ><?php echo $term_label_value_arr[1]; ?></textarea><textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec3 mr-2" rows="2"  id="term_label_value3" ><?php echo $term_label_value_arr[2]; ?></textarea>
-												<?php /*<textarea rows="2" class="form-control mr-2" name="term_label_value[]" id="term_label_value<?php echo $slNo;?>"><?php echo $term_label_value; ?></textarea> <?php */?>
+												
 											</td>
 										
 											<?php 
@@ -1019,49 +737,7 @@ $this->load->view('buyer/partials/header'); ?>
                                         </tr>
                                     </tbody>
                                 </table>
-                               <?php /* <table class="table table-bordered mb-0" id="t1">
-                                    <thead class="bg-primary">
-                                        <tr class='text-center'>
-                                            <th style="width:10%">Sl. No.</th>
-                                            <th style="width:25%">Terms</th>
-                                            <th style="width:45%"><label for="term_label">Description</label><div style="display:flex ;"><div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text' class="form-control mr-2" placeholder="" name="term_label" id="	term_label" value="<?php echo $mRecord['term_label'] ?>"></div><div style="width: 100%;" class="sec1 mr-2"><label>Package 2</label><input type='text' class="form-control sec1 mr-2" placeholder="Package 2" name="term_label" id="term_label" required></div><div style="width: 100%;" class="sec2 mr-2"><label>Package 3</label><input type='text' class="form-control sec2 mr-2" placeholder="Package 3" name="term_label" id="term_label" required></div></div></th>
-                                            <th style="width:20%;">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="">
-										<?php
-										
-										foreach($mRecordMajorTerms as $key=>$val)
-										{
-											$slNo  = $key+1;
-											$term = $val->term;
-											$term_label_value = $val->term_label_value;
-										?>
-											<tr class="text-center"><td><?php echo $slNo ?></td><td><input type="text" class="form-control" name="term[]" value="<?php echo $term; ?>"></td><td><div style="display:flex ;"><textarea rows="2" class="form-control mr-2" name="term_label_value[]"><?php echo $term_label_value; ?></textarea><textarea name="term_label_value[]" value="" class="form-control sec1 mr-2" rows="2" name="" id="" required></textarea><textarea name="term_label_value[]" value="" class="form-control sec2 mr-2" rows="2" name="" id="" required></textarea></div></td><td>
-											<?php if($slNo>=2)
-											{	
-											?>
-												<input type="button" value="Delete" class="btn ibtnDelDcw2 btn-sm btn-danger rounded" onclick="deleteRow(this)">
-											<?php 
-											}
-											?>
-											</td>
-											
-											</tr>
-										<?php
-										
-										}?>
-                                       <!-- <tr class='text-center'>
-                                            <td>1</td>
-                                            <td><input type='text' class="form-control" placeholder=""></td>
-                                            <td> <textarea class="form-control" rows="2" name="" id=""></textarea></td>
-                                            <td></td>
-                                        </tr>--> 
-                                        <tr>
-
-                                        </tr>
-                                    </tbody>
-                                </table> <?php */?>
+                            
                             </div>
 
                             <div class="row text-right mt-20">
@@ -1080,7 +756,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-12">
                                     <div class='form-group'>
                                         <label class="font-weight-bold">Background / Detailed Note</label>
-                                        <!-- <input type="text" class="form-control" placeholder=""> -->
+                                      
                                <textarea class="form-control" rows="3" name="detailed_note" id="detailed_note"><?php echo $mRecord['detailed_note'] ?></textarea>
                                     </div>
                                 </div>
@@ -1122,7 +798,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     </div>
                                 </div>
                             </div>
-<?php ?>
+
                             <div class="d-block mt-4 mb-4">
                                 <h5 class="page-title br-0 font-weight-bold">Select different levels of approvals</h5>
                             </div>
@@ -1138,11 +814,11 @@ $this->load->view('buyer/partials/header'); ?>
 							
 							<?php 
 							 $CI =& get_instance();
-							 //print_r($mRecordApprovers);
+							
 							 $level_max = sizeof($mRecordApprovers);
-							 //$param = array("level<="=>$level_max);
+							
 							 $getLevels = $CI->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_procurement");
-							 //print_r($getLevels);
+							
 							 $result_maxLevel = '';
 							 $mSessionZone = $this->session->userdata('session_zone');
 							
@@ -1151,18 +827,16 @@ $this->load->view('buyer/partials/header'); ?>
 								 $approver_id = $valLevel->approver_id;
 								
 								 $getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
-								 
-			
+									
 								
                             ?>
-
 
 								<div id="pm" class="col-md-3 mb-3">
 									<lable><?php echo $role;?></lable>
 									<select name="approver_id[]"   class="form-control" required >
 										<option disabled="" selected="" value="">Select</option>
 										<option value="0" <?php echo ($approver_id==0) ? "selected": "";?>>Not Applicable</option>
-										<?php  //print_r($getLevels);
+										<?php  
 										foreach ($getUsers as $keyUser => $valUser) {
 											$buyer_id = $valUser->buyer_id;
 											?>
@@ -1174,10 +848,7 @@ $this->load->view('buyer/partials/header'); ?>
 								
 							}?>
                           
-							<?php 
-							//}
-							?>
-
+							
                             </div>			
 							
  
@@ -1235,27 +906,6 @@ $this->load->view('buyer/partials/header'); ?>
 			
 			let total_finalized_val = parseFloat(document.getElementById("total_finalized_award_value").value);
 			
-			/*if (total_finalized_val > 3) {
-				
-			document.getElementById("appointment-date").classList.remove("date-hide");
-			document.getElementById("date1").classList.remove("date-hide");
-			} else 
-			{
-			document.getElementById("appointment-date").classList.add("date-hide");
-			document.getElementById("date1").classList.add("date-hide");
-			}*/
-
-			// For front Idling
-			/*var checkBox = document.getElementById("front_idling1");
-			if (checkBox.checked == true){
-				document.getElementById("delayReason").classList.remove("idling-hide");
-			}
-			
-			var checkBox = document.getElementById("front_idling2");
-			if (checkBox.checked == true){
-				document.getElementById("delayReason").classList.add("idling-hide");
-			} */
-			console.log("ready doc");
 			showBidders_finalized();
 			getBidders_total();
 			var pCount_obj = document.getElementById("package_count");
@@ -1297,8 +947,7 @@ $this->load->view('buyer/partials/header'); ?>
 		function addPackage(selectObj){
             
             contrSel = selectObj.value;
-            //let pack1=document.getElementsByClassName("sec1");
-            //let pack2=document.getElementsByClassName("sec2");
+            
 			let pack1=document.getElementsByClassName("sec2");
             let pack2=document.getElementsByClassName("sec3");
             
@@ -1349,9 +998,6 @@ function package_bidders_procurement(label_obj){
 	
 	var package_name;
 	
-	
-	
-	
 	var package_count = $('#package_count').find(":selected").text();
 	
     package_name= label_obj.value;
@@ -1364,26 +1010,26 @@ function package_bidders_procurement(label_obj){
 		var url = base_url+'nfa/Award_procurement/show_package_bidders3';
 
 	$.post(url,
-				{
-					
-					package_name: package_name
-				},
-				function (data, status) {
-					
-					if(label_id=="package_label1")
-						$('#package_row1').html(data);
-					else if(label_id=="package_label2")
-						$('#package_row2').html(data);
-					else if(label_id=="package_label3")
-						$('#package_row3').html(data);
-					
-					setGpl_budget();
-					showBidders_finalized();
-					getBidders_total();
-				});
+	{
+		
+		package_name: package_name
+	},
+	function (data, status) {
+		
+		if(label_id=="package_label1")
+			$('#package_row1').html(data);
+		else if(label_id=="package_label2")
+			$('#package_row2').html(data);
+		else if(label_id=="package_label3")
+			$('#package_row3').html(data);
+		
+		setGpl_budget();
+		showBidders_finalized();
+		getBidders_total();
+	});
 		 
 			
-	} 
+} 
 
 		// adding award synopsis dynamic column
 
@@ -1479,13 +1125,10 @@ function package_bidders_procurement(label_obj){
 		$($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength-1]).before($(exp_saving))
 		$($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength-1]).before(rec_vendors)
 
-		
 
 		}
 		}else{
 			var sel_package_count = $('#package_count').find(":selected").text();
-			
-			
 			
 			for (let i = sel_package_count; i < pckCount_edit; i++) {
 				ele_pckIndex=parseInt(i)+1;
@@ -1507,8 +1150,7 @@ function package_bidders_procurement(label_obj){
 		
 		
 		//for Radio buttons
-		
-		
+	
 		let basic2 = document.getElementById("basic_rate2");
 		let anticipated2 = document.getElementById("anticipated_rate2");
 		let basic3 = document.getElementById("basic_rate3");
@@ -1574,17 +1216,13 @@ function package_bidders_procurement(label_obj){
 		 packageSynopsis_total('expected_savings_package','total_expected_savings');
 		 calculateSum1_v1(pckCount_edit);
 
-
-		
 		});
 
 		// ending award synopsis dynamic column
 
-
 		/* adding final bid scenario dynamic column */
 		
-		
-		 $('#bidder_count').on('change', function (e) {
+		$('#bidder_count').on('change', function (e) {
 
         let _th=`<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
 
@@ -1606,71 +1244,66 @@ function package_bidders_procurement(label_obj){
 	
 		var pckIndex,bidIndex,ele_bidIndex;
 		var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
-		console.log("if"+$(".custom_th").length);
-		console.log("if1"+e.target.value);
-		console.log("ifbidder"+bidCount_disp);
-		console.log("ifbidder1"+bid_count);
-      
+		      
 		if(bidCount_disp <= bid_count){
-		
-	
-		for(pckIndex=1;pckIndex<=package_count;pckIndex++)
-		{
 			
-			for (bidIndex = bidCount_disp; bidIndex < bid_count; bidIndex++) {
-				ele_bidIndex=bidIndex+1;
-			
-				let th=$(_th);
-				th.find("input").attr("name",th.find("input").attr("name"))
-				th.find("input").attr("id",th.find("input").attr("id")+(bidIndex+1))
+			for(pckIndex=1;pckIndex<=package_count;pckIndex++)
+			{
 				
-
-				let pq_fb_score=$(_pqfb);
-				pq_fb_score.find("select").attr("name",pq_fb_score.find("select").attr("name"))
-            	pq_fb_score.find("select").attr("id",pq_fb_score.find("select").attr("id")+ele_bidIndex) 
-				pq_fb_score.find("input").attr("name",pq_fb_score.find("input").attr("name"))
-				pq_fb_score.find("input").attr("id",pq_fb_score.find("input").attr("id")+ele_bidIndex) 
+				for (bidIndex = bidCount_disp; bidIndex < bid_count; bidIndex++) {
+					ele_bidIndex=bidIndex+1;
 				
-				let package_bidder=$(_package_bidder);
-				package_bidder.find("input").attr("name","package_bidder["+pckIndex+"]["+ele_bidIndex+"]")
-				package_bidder.find("input").attr("required","required")
-				package_bidder.find("input").attr("id","package_bidder_"+pckIndex+"_"+ele_bidIndex)
+					let th=$(_th);
+					th.find("input").attr("name",th.find("input").attr("name"))
+					th.find("input").attr("id",th.find("input").attr("id")+(bidIndex+1))
+					
+
+					let pq_fb_score=$(_pqfb);
+					pq_fb_score.find("select").attr("name",pq_fb_score.find("select").attr("name"))
+					pq_fb_score.find("select").attr("id",pq_fb_score.find("select").attr("id")+ele_bidIndex) 
+					pq_fb_score.find("input").attr("name",pq_fb_score.find("input").attr("name"))
+					pq_fb_score.find("input").attr("id",pq_fb_score.find("input").attr("id")+ele_bidIndex) 
+					
+					let package_bidder=$(_package_bidder);
+					package_bidder.find("input").attr("name","package_bidder["+pckIndex+"]["+ele_bidIndex+"]")
+					package_bidder.find("input").attr("required","required")
+					package_bidder.find("input").attr("id","package_bidder_"+pckIndex+"_"+ele_bidIndex)
+					
+
+					let total_amt_label=$(_total_amt_label);
+					total_amt_label.find("input").attr("name",total_amt_label.find("input").attr("name"))
+					total_amt_label.find("input").attr("id",total_amt_label.find("input").attr("id")+ele_bidIndex)
+
+					let bid_position_label=$(_bid_position_label);
+					bid_position_label.find("input").attr("name",bid_position_label.find("input").attr("name"))
+					bid_position_label.find("input").attr("id",bid_position_label.find("input").attr("id")+ele_bidIndex)
+
+					let bid_position_gp=$(_bid_position_gp);
+					bid_position_gp.find("input").attr("name",bid_position_gp.find("input").attr("name"))
+					bid_position_gp.find("input").attr("id",bid_position_gp.find("input").attr("id")+ele_bidIndex)
+
+					let diff_age_gp=$(_diff_age_gp);
+					diff_age_gp.find("input").attr("name",diff_age_gp.find("input").attr("name"))
+					diff_age_gp.find("input").attr("id",diff_age_gp.find("input").attr("id")+ele_bidIndex) 
+
+					if(pckIndex==1)
+					{
+						$("#mainTable").find("thead").find("tr").append(th)
+						$($("#mainTable").find("tbody").find("tr")[0]).append(pq_fb_score)
+					}
+					$($("#mainTable").find("tbody").find("tr")[pckIndex]).append(package_bidder)
+					
+					if(pckIndex==1)
+					{
+						$($("#mainTable").find("tbody").find("tr")[4]).append(total_amt_label)
+						$($("#mainTable").find("tbody").find("tr")[5]).append(bid_position_label)
+						$($("#mainTable").find("tbody").find("tr")[6]).append(bid_position_gp)
+						$($("#mainTable").find("tbody").find("tr")[7]).append(diff_age_gp)
+					}
 				
-
-				let total_amt_label=$(_total_amt_label);
-				total_amt_label.find("input").attr("name",total_amt_label.find("input").attr("name"))
-				total_amt_label.find("input").attr("id",total_amt_label.find("input").attr("id")+ele_bidIndex)
-
-				let bid_position_label=$(_bid_position_label);
-				bid_position_label.find("input").attr("name",bid_position_label.find("input").attr("name"))
-				bid_position_label.find("input").attr("id",bid_position_label.find("input").attr("id")+ele_bidIndex)
-
-				let bid_position_gp=$(_bid_position_gp);
-				bid_position_gp.find("input").attr("name",bid_position_gp.find("input").attr("name"))
-				bid_position_gp.find("input").attr("id",bid_position_gp.find("input").attr("id")+ele_bidIndex)
-
-				let diff_age_gp=$(_diff_age_gp);
-				diff_age_gp.find("input").attr("name",diff_age_gp.find("input").attr("name"))
-				diff_age_gp.find("input").attr("id",diff_age_gp.find("input").attr("id")+ele_bidIndex) 
-
-				if(pckIndex==1)
-				{
-					$("#mainTable").find("thead").find("tr").append(th)
-					$($("#mainTable").find("tbody").find("tr")[0]).append(pq_fb_score)
+				
 				}
-				$($("#mainTable").find("tbody").find("tr")[pckIndex]).append(package_bidder)
-				
-				if(pckIndex==1)
-				{
-					$($("#mainTable").find("tbody").find("tr")[4]).append(total_amt_label)
-					$($("#mainTable").find("tbody").find("tr")[5]).append(bid_position_label)
-					$($("#mainTable").find("tbody").find("tr")[6]).append(bid_position_gp)
-					$($("#mainTable").find("tbody").find("tr")[7]).append(diff_age_gp)
-				}
-			
-			
 			}
-		}
       
 
         } else {
@@ -1696,9 +1329,7 @@ function package_bidders_procurement(label_obj){
 				
 				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).closest("td").remove();
 				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).remove()
-				
-           
-               
+			
 				}
 				
             }
@@ -1727,13 +1358,10 @@ function package_bidders_procurement(label_obj){
         })
 		
         });
-
-			
-
 		/*  ending final bid scenario dynamic column */
 		
 
-         /* cotractor appointment date toggle */
+         /* contractor appointment date toggle */
 
          function finalized_val(sender){
             let val = sender.value;
@@ -1766,166 +1394,153 @@ function package_bidders_procurement(label_obj){
         let basic<?php echo $id_index;?> = document.getElementById("basic_rate<?php echo $id_index;?>");
         let anticipated<?php echo $id_index;?> = document.getElementById("anticipated_rate<?php echo $id_index;?>");
        
-	  
-	<?php } ?>
-
+	<?php 
+	} 
+	?>
 		
+function createRowColumn(row) {
+	var column = document.createElement("td");
+	row.appendChild(column);
+	return column;
+}
+
 	
-		
-        function createRowColumn(row) {
-            var column = document.createElement("td");
-            row.appendChild(column);
-            return column;
-        }
+function addRow() {
+	contrSel = document.getElementById("package_count").value;
+	console.log("contrSel",contrSel);
+	var newrow = document.createElement("tr");
+	newrow.setAttribute("class","text-center");
+	var numericColumn = createRowColumn(newrow);
+	var textColumn = createRowColumn(newrow);
+	var textAreaColumn = createRowColumn(newrow);
+	var removeColumn = createRowColumn(newrow);
 
-		
-        function addRow() {
-			contrSel = document.getElementById("package_count").value;
-            console.log("contrSel",contrSel);
-            var newrow = document.createElement("tr");
-            newrow.setAttribute("class","text-center");
-            var numericColumn = createRowColumn(newrow);
-            var textColumn = createRowColumn(newrow);
-            var textAreaColumn = createRowColumn(newrow);
-            var removeColumn = createRowColumn(newrow);
+	var textbox = document.createElement("input");
+	textbox.setAttribute("type", "text");
+	textbox.setAttribute("class", "form-control");
+	textbox.setAttribute("name", "term[]");
+	textColumn.appendChild(textbox);
 
-            var textbox = document.createElement("input");
-            textbox.setAttribute("type", "text");
-            textbox.setAttribute("class", "form-control");
-			textbox.setAttribute("name", "term[]");
-            textColumn.appendChild(textbox);
+	var textArea1 = document.createElement("div");
+	textArea1.setAttribute("style", "display:flex ;");
 
-			var textArea1 = document.createElement("div");
-            textArea1.setAttribute("style", "display:flex ;");
+	var term_len = $('input[name="term[]"]').length;
+	console.log("term_len"+term_len);
+	var term_len_index = parseInt(term_len)+1;
 
-			var term_len = $('input[name="term[]"]').length;
-			console.log("term_len"+term_len);
-			var term_len_index = parseInt(term_len)+1;
+	var textAreaRow = document.createElement("textarea");
+	textAreaRow.setAttribute("class", "form-control mr-2");
+	textAreaRow.setAttribute("rows", "2");
+	textAreaRow.setAttribute("required","");
+	textAreaRow.setAttribute("name", "term_label_value["+term_len_index+"][]");
 
-            var textAreaRow = document.createElement("textarea");
-            textAreaRow.setAttribute("class", "form-control mr-2");
-            textAreaRow.setAttribute("rows", "2");
-            textAreaRow.setAttribute("required","");
-            textAreaRow.setAttribute("name", "term_label_value["+term_len_index+"][]");
-		
-			
-            if(contrSel === "1"){
-                var textAreaRow2 = document.createElement("textarea");
-                textAreaRow2.setAttribute("class", "form-control mr-2");
-                textAreaRow2.setAttribute("rows", "2");
-                textAreaRow2.setAttribute("required","");
-                textAreaRow2.setAttribute("name", "term_label_value["+term_len_index+"][]");
-                textArea1.appendChild(textAreaRow2);
-
-            }else if(contrSel === "2"){
-                var textAreaRow2 = document.createElement("textarea");
-                textAreaRow2.setAttribute("class", "form-control mr-2");
-                textAreaRow2.setAttribute("rows", "2");
-                textAreaRow2.setAttribute("required","");
-                textAreaRow2.setAttribute("name", "term_label_value["+term_len_index+"][]");
-
-                var textAreaRow3 = document.createElement("textarea");
-                textAreaRow3.setAttribute("class", "form-control mr-2");
-                textAreaRow3.setAttribute("rows", "2");
-                textAreaRow3.setAttribute("required","");
-                textAreaRow3.setAttribute("name", "term_label_value["+term_len_index+"][]");
-
-                textArea1.appendChild(textAreaRow2);
-                textArea1.appendChild(textAreaRow3);
-            }
-            textArea1.appendChild(textAreaRow);
-            textAreaColumn.appendChild(textArea1);
-           
-            var remove = document.createElement("input");
-            remove.setAttribute("type", "button");
-            remove.setAttribute("value", "Delete");
-            remove.setAttribute("class", "btn ibtnDelDcw2 btn-sm btn-danger rounded");
-            remove.setAttribute("onClick", "deleteRow(this)");
-            removeColumn.appendChild(remove);
-
-            var table = document.getElementById('t1');
-            var tbody = table.querySelector('tbody') || table;
-            var count = tbody.getElementsByTagName('tr').length;
-            numericColumn.innerText = count.toLocaleString();
-
-            tbody.appendChild(newrow);
-        }
-
-  
-
-        function deleteRow(button) {
-            var row = button.parentNode.parentNode;
-            var tbody = row.parentNode;
-            tbody.removeChild(row);
-            
-            // refactoring numbering
-            var rows = tbody.getElementsByTagName("tr");
-            for (var i = 1; i < rows.length ; i++) {
-                var currentRow = rows[i];
-                currentRow.childNodes[0].innerText = i.toLocaleString() ;
-            }
-        }
-		
-		//Level role change 
-		
-		
-		//Calculate Sum for the first package
-
-		
-		$('#role').change(function () {
-			
-			user_name = $( "#role option:selected" ).text();
-			user_id = $('#role').val();
-			
-			level_val= $("#level")[0].selectedIndex;
-			level_text= $( "#level option:selected" ).text();
-			
-			$('#level'+level_val+'_id').html("Level "+level_val);
-			
-			
-			$('#level'+level_val+'_approver').val(user_name)
-			$('#level'+level_val+'_approver_id').val(user_id)
 	
-			
-		
-		});
-		
-		//get the levels based on the amount/ho_approval
-		function getLevelApprovers(){
-		
-			var pgType="edit";
-			
-			var ho_approval1;
-			var package_value;
-			
-			package_value= 200;
-			ho_approval1 = checkL1_vendor();
-			
-			
-			// Get max level of Approvers
-			
-								
-			$.ajax({
-				url: "<?php echo base_url('nfa/Award_procurement/getMaxLevelApprovers'); ?>",
-				type: 'post',
-				data: { package_value: package_value, ho_approval1: ho_approval1, pgType: pgType },
-			
-				success: function(response){
-					
-					var obj = jQuery.parseJSON(response);
-					data1 = obj.data1;
-					
-					$('#level').html(data1); 
-					
-					}
+	if(contrSel === "1"){
+		var textAreaRow2 = document.createElement("textarea");
+		textAreaRow2.setAttribute("class", "form-control mr-2");
+		textAreaRow2.setAttribute("rows", "2");
+		textAreaRow2.setAttribute("required","");
+		textAreaRow2.setAttribute("name", "term_label_value["+term_len_index+"][]");
+		textArea1.appendChild(textAreaRow2);
 
-				
-			});
+	}else if(contrSel === "2"){
+		var textAreaRow2 = document.createElement("textarea");
+		textAreaRow2.setAttribute("class", "form-control mr-2");
+		textAreaRow2.setAttribute("rows", "2");
+		textAreaRow2.setAttribute("required","");
+		textAreaRow2.setAttribute("name", "term_label_value["+term_len_index+"][]");
 
+		var textAreaRow3 = document.createElement("textarea");
+		textAreaRow3.setAttribute("class", "form-control mr-2");
+		textAreaRow3.setAttribute("rows", "2");
+		textAreaRow3.setAttribute("required","");
+		textAreaRow3.setAttribute("name", "term_label_value["+term_len_index+"][]");
 
-   
-
+		textArea1.appendChild(textAreaRow2);
+		textArea1.appendChild(textAreaRow3);
 	}
+	textArea1.appendChild(textAreaRow);
+	textAreaColumn.appendChild(textArea1);
+	
+	var remove = document.createElement("input");
+	remove.setAttribute("type", "button");
+	remove.setAttribute("value", "Delete");
+	remove.setAttribute("class", "btn ibtnDelDcw2 btn-sm btn-danger rounded");
+	remove.setAttribute("onClick", "deleteRow(this)");
+	removeColumn.appendChild(remove);
+
+	var table = document.getElementById('t1');
+	var tbody = table.querySelector('tbody') || table;
+	var count = tbody.getElementsByTagName('tr').length;
+	numericColumn.innerText = count.toLocaleString();
+
+	tbody.appendChild(newrow);
+}
+
+function deleteRow(button) {
+	var row = button.parentNode.parentNode;
+	var tbody = row.parentNode;
+	tbody.removeChild(row);
+	
+	// refactoring numbering
+	var rows = tbody.getElementsByTagName("tr");
+	for (var i = 1; i < rows.length ; i++) {
+		var currentRow = rows[i];
+		currentRow.childNodes[0].innerText = i.toLocaleString() ;
+	}
+}
+	
+//Level role change 
+
+$('#role').change(function () {
+	
+	user_name = $( "#role option:selected" ).text();
+	user_id = $('#role').val();
+	
+	level_val= $("#level")[0].selectedIndex;
+	level_text= $( "#level option:selected" ).text();
+	
+	$('#level'+level_val+'_id').html("Level "+level_val);
+	
+	
+	$('#level'+level_val+'_approver').val(user_name)
+	$('#level'+level_val+'_approver_id').val(user_id)
+
+	
+
+});
+		
+//get the levels based on the amount/ho_approval
+function getLevelApprovers(){
+
+	var pgType="edit";
+	
+	var ho_approval1;
+	var package_value;
+	
+	package_value= 200;
+	ho_approval1 = checkL1_vendor();
+		
+	// Get max level of Approvers
+				
+	$.ajax({
+		url: "<?php echo base_url('nfa/Award_procurement/getMaxLevelApprovers'); ?>",
+		type: 'post',
+		data: { package_value: package_value, ho_approval1: ho_approval1, pgType: pgType },
+	
+		success: function(response){
+			
+			var obj = jQuery.parseJSON(response);
+			data1 = obj.data1;
+			
+			$('#level').html(data1); 
+			
+			}
+
+		
+	});
+
+}
 	
 	//Function for showing Bid position category(L1/L2/L3)
 	
@@ -2151,18 +1766,10 @@ function package_bidders_procurement(label_obj){
 			}
 			
 		}
-		
-		
-		
-		
 	
-		
-		
 		
 	}
 		
-
-	
 	//Function for Expected Savings -Percentage
 	function getExpectedSavings(){
 		var i;
@@ -2178,10 +1785,6 @@ function package_bidders_procurement(label_obj){
 			
 			$("#expected_savings_package_v"+i).val(percentage); 
 		}
-		
-	
-		
-		
 		
 	}
 	
@@ -2204,9 +1807,7 @@ function package_bidders_procurement(label_obj){
 		var anticipated_rate2 = $("#anticipated_rate2").val();  
 		
 		sum2= parseFloat(finalized_award_value_package2)+parseFloat(anticipated_rate2);
-		
-		
-		
+				
 		$("#post_basic_rate_package2").val(sum2); 
 	}
 	
@@ -2237,18 +1838,14 @@ function package_bidders_procurement(label_obj){
 		for(i=1;i<=2;i++)
 		{
 			sum_gplBudget+= parseFloat($("#package_gpl_budget"+i).val()); 
-			
-			
+		
 		}
-		
-		
 		
 		$("#total_amt_gpl").val(sum_gplBudget); 
 	}
 	//get Bidders package total
 	function getBidders_total(){
 		
-	
 		var sum_bidder;
 		var total_amt_gpl = $("#total_amt_gpl").val(); 
 		var diff_budget_crs;
@@ -2267,8 +1864,7 @@ function package_bidders_procurement(label_obj){
 			
 			foreach($mRecordPackage as $keyPck=>$valPck)
 			{
-				
-				
+			
 				$package_id = $valPck['package_id'];
 				$id_index = $keyPck+1;
 	
@@ -2290,26 +1886,23 @@ function package_bidders_procurement(label_obj){
 			<?php 
 		}
 		?>
-		
-
-		
-		
+	
 	}
 
-		function myFunction(item) {
-		 
-		  <?php 
+	function myFunction(item) {
+		
+		<?php 
+		
+		foreach($mRecordPackage as $keyBid=>$valBid)
+		{
 			
-			foreach($mRecordPackage as $keyBid=>$valBid)
-			{
-				
-				$id_index = $keyBid+1;
-			?>
-			
-				$("#total_amt_bidder<?php echo $id_index;?>").val(item); 
-			<?php 
-			}?>
-		}
+			$id_index = $keyBid+1;
+		?>
+		
+			$("#total_amt_bidder<?php echo $id_index;?>").val(item); 
+		<?php 
+		}?>
+	}
 	
 	
 	//Calculate Days
@@ -2317,9 +1910,7 @@ function package_bidders_procurement(label_obj){
 		
 		var activity_planned_date= $("#activity_planned_date").val(); 
 		var activity_cbe_date = $("#activity_cbe_date").val();
-		
-		
-		
+	
 		days = daysdifference(activity_planned_date, activity_cbe_date);
 		
 		$("#activity_delay").val(days); 
@@ -2338,15 +1929,15 @@ function package_bidders_procurement(label_obj){
 		var startDay = new Date(firstDate);  
 		var endDay = new Date(secondDate);  
 	  
-	// Determine the time difference between two dates     
+		// Determine the time difference between two dates     
 		var millisBetween = endDay.getTime() -  startDay.getTime() ; 
 		
 		//var millisBetween = startDay.getTime() - endDay.getTime(); 
 	  
-	// Determine the number of days between two dates  
+		// Determine the number of days between two dates  
 		var days = millisBetween / (1000 * 3600 * 24);  
 		
-	// Show the final number of days between dates     
+		// Show the final number of days between dates     
 		//return Math.round(Math.abs(days)); 
 		return Math.round(days);  		
 	}  
@@ -2362,7 +1953,7 @@ $('#receipt_date').blur(function(){
 $('#bidder_approval_date').blur(function(){
 	var receipt_date= $("#receipt_date").val(); 
 	var bidder_approval_date = $("#bidder_approval_date").val();
-	// calculateDays_betDates(receipt_date,bidder_approval_date,"bidder_approval_days");
+	
 	calculateDays_betDates(bidder_approval_date, receipt_date,"bidder_approval_days");
   
 });
@@ -2374,23 +1965,14 @@ $('#award_recomm_date').blur(function(){
 });
 $('#save, #submit').on('click', () => { 
     // Get HTML content
-   
-	
+  
 	var subject_html = quill.root.innerHTML;
-	
 	
     // Copy HTML content in hidden form
     $('#subject_hd').val(subject_html);
 	
 })			
 
-
-
-
-
-
-		
-//function calculateSum1_v1(index){
 function calculateSum1_v1(ele_id)
 {
 	
@@ -2441,10 +2023,8 @@ function calculateSum1_v1(ele_id)
 		package_value= total_sum;
 	
 		ho_approval = $("input[name='ho_approval']:checked").val(); 
-		
-		
+	
 		// Get max level of Approvers
-		
 		
 		if(index==package_count)
 		{
@@ -2464,8 +2044,6 @@ function calculateSum1_v1(ele_id)
 		}
   	}
 
-	
-	
 	function validate_greater_appr_date(th){
 		let receipt_date = $("#receipt_date").val();
 		let bidder_approval_date = $("#bidder_approval_date").val();

@@ -46,7 +46,6 @@ $pdf->setTitle('NFA - Award Recommendation for Procurement');
 $pdf->setSubject('Esigned NFA');
 $pdf->setKeywords('NFA, PDF, Award Recommendation for Procurement');
 
-//echo PDF_HEADER_LOGO;
 // set default header data
 $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Award Recommendation for Procurement", PDF_HEADER_STRING);
 
@@ -110,7 +109,7 @@ $pdf->setFont('helvetica', '', 12);
 $pdf->AddPage();
 
 // print a line of text
-$text = 'NFA Information';
+$text = 'IOM Information';
 $pdf->writeHTML($text, true, 0, true, 0);
 
 	$mSessionKey = $this->session->userdata('session_id');
@@ -434,8 +433,10 @@ $pdf->writeHTML($text, true, 0, true, 0);
 		$html .='<div class="max-width">
                 <table class="p2" border="1">
                     <tbody>
+						
                         <tr>
-                            <td>Is HO approval required ? : ' . $ho_approval;
+                            <td>' . 
+							$mRecord["uom_label"].' : '.$mRecord['uom_value'].' Cr<br>Is HO approval required ? : ' . $ho_approval;
 							 
 							$html .='
 							</td>                           
@@ -505,11 +506,14 @@ $pdf->writeHTML($text, true, 0, true, 0);
                 <thead>
                     <tr class="bg-primary">
                         <th>Sl. No.</th>
-                        <th>Terms</th>
-                     
-                        <th>Description</th>
-                        <th colspan="3">Description</th>
-                    </tr>
+                        <th>Terms</th>';
+						
+						foreach($mRecordPackage as $key=>$val)
+						{
+					
+							$html .='<th>Description'.$mRecord['term_label'].'</th>';
+						}
+						$html .='</tr>
                 </thead>
                 <tbody>
 				<tr>

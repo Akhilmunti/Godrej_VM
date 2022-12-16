@@ -40,7 +40,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-md-9">
-                                <h3 class="page-title br-0">Cancelled NFA's</h3>
+                                <h3 class="page-title br-0">Cancelled IOM's</h3>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,6 @@
 
 									$selUrl =   base_url('nfa/Award_procurement/cancelled_nfa');
 									
-									//echo $current_page = $config['base_url'].$_SERVER['REDIRECT_QUERY_STRING'];
 									$current_page = base_url($_SERVER['REDIRECT_QUERY_STRING']);
 									if($current_page==$selUrl)
 										$selOption="selected";
@@ -68,21 +67,9 @@
 									<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
-                                                <?php /*<select id="nfaType" name="nfaType" required="" class="form-control">
-                                                    <option value="">Select NFA Type</option>
-                                                    <option value="">Short Listing Approval For Contractor</option>
-                                                    <option value="">Short Listing Approval For Supplier</option>
-                                                    <option value="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list')?>">Award Recommendation for Contracts</option>
-                                                    <option value="<?php echo base_url('nfa/Award_procurement/cancelled_nfa')?>">Award Recommendation for Procurement</option> 
-                                                    <option value="">Amendment in Contract</option>
-                                                    <option value="">Descoping IOM</option>
-                                                    <option value="">Termination IOM</option>
-                                                    <option value="">BG Encashment</option>
-                                                    <option value="<?php echo base_url('nfa/LdWaiver')?>">LD Waiver</option>
-                                                    <option value="">Contractual Deviations</option>
-                                                </select> <?php */?>
+                                            
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +81,7 @@
 													<th>ENFA No.</th>
                                                     <th>Subject</th>
                                                     <th>Award Synopsis </th>
-                                                    <th>NFA Status</th>
+                                                    <th>IOM Status</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>

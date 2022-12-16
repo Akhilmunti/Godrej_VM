@@ -13,9 +13,7 @@ class Nfa_action_model extends CI_Model {
         $CI->load->database();
         $CI->load->library('session');
 		$this->load->model('common_model', 'common');
-        //$this->table_parent = 'award_recomm_contract_salient';
-	    //$mSessionKey = $this->session->userdata('session_id');
-		//echo "session".$mSessionKey;
+       
     }
 
     //Get salient with initiator
@@ -117,10 +115,6 @@ class Nfa_action_model extends CI_Model {
 			$this->db->from('ld_waiver_salient LDWSalient');
 			
 			$this->db->join('ld_waiver_status LDWStatus', 'LDWStatus.salient_id = LDWSalient.id','inner');
-			/* $this->db->where(array('status'=> 1,'approved_status'=> 0,'approver_id'=> $logUserId));
-			$ignore = array('R', 'RT');
-
-			$this->db->where_not_in('nfa_status', $ignore); */
 			
 			$this->db->order_by('LDWSalient.id', 'DESC');
 		}
@@ -130,7 +124,7 @@ class Nfa_action_model extends CI_Model {
 		$this->db->where_not_in('nfa_status', $ignore);
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -203,13 +197,12 @@ class Nfa_action_model extends CI_Model {
 			
 			$this->db->join('ld_waiver_status LDWStatus', 'LDWStatus.salient_id = LDWSalient.id','inner');
 			$this->db->where(array('status'=> 1,'approved_status'=> 0,'approver_id'=> $logUserId,'LDWSalient.id'=> $salient_id));
-			//$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
-			//$this->db->where('buyer_status', 1);
+			
 			$this->db->order_by('LDWSalient.id', 'DESC');
 		}
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -261,7 +254,7 @@ class Nfa_action_model extends CI_Model {
 		}
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -287,10 +280,6 @@ class Nfa_action_model extends CI_Model {
 			
 			$query = $this->db->get();
 			
-			/* $sql = "SELECT AWDRecommSalient.*,AWDRecommStatus.approver_level,approved_status FROM award_recomm_contract_salient AWDRecommSalient INNER JOIN award_recomm_contractor_status AWDRecommStatus ON AWDRecommSalient.id = AWDRecommStatus.`salient_id` INNER JOIN ( SELECT `salient_id`, MAX(`approver_level`) max_view FROM award_recomm_contractor_status where approver_id!='' GROUP BY salient_id ) c ON AWDRecommStatus.salient_id = c.salient_id AND AWDRecommStatus.approver_level = c.max_View WHERE AWDRecommSalient.status = 1 AND AWDRecommSalient.nfa_status != 'AMD' AND AWDRecommStatus.`approver_id` != '' and AWDRecommStatus.approved_status=1 order by AWDRecommSalient.id desc";
-			$query = $this->db->query($sql);
-			$mQuery_Res = $query->result(); */
-			//print_r($mQuery_Res);
 		}
 		else if($nfaType=="award_procurement")
 		{
@@ -412,7 +401,7 @@ class Nfa_action_model extends CI_Model {
 		
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -443,7 +432,8 @@ class Nfa_action_model extends CI_Model {
 			if($nfaSt=="draft")
 				$cond = array('status'=> 0,'AWDProSalient.id'=> $salient_id,'AWDProStatus.approver_level<='=> $approver_level);
 			else
-				$cond = array('status'=> 1,'AWDProSalient.id'=> $salient_id,'AWDProStatus.approver_level<='=> $approver_level);
+		        	$cond = array('status'=> 1,'AWDProSalient.id'=> $salient_id,'AWDProStatus.approver_level<='=> $approver_level);
+
 			$data = $this->nfaStatusDetails($cond,$nfaType);
 		}
 		else if($nfaType=="bidder_contract")
@@ -469,20 +459,12 @@ class Nfa_action_model extends CI_Model {
 		}
 		else if($nfaType=="amendment_contract")
 		{
-			/* if($nfaSt=="draft")
-			{ */
-				$cond = array('AmendContractSalient.id'=> $salient_id,'AmendContractStatus.approver_level<='=> $approver_level,'AmendContractStatus.approver_level>='=> ($approver_level-1));
-				
-			//}
-			/* else
-			{
-				
-				$cond = array('AWDRecommSalient.id'=> $salient_id,'AmendContractStatus.approver_level<='=> $approver_level,'AWDRecommStatus.approver_level>='=> ($approver_level-1));
-			} */
 			
+			$cond = array('AmendContractSalient.id'=> $salient_id,'AmendContractStatus.approver_level<='=> $approver_level,'AmendContractStatus.approver_level>='=> ($approver_level-1));
+									
 			$data = $this->nfaStatusDetails($cond,$nfaType);
 		}
-		//print_r($this->db->last_query());
+		
 		return $data;
 		
 		
@@ -495,7 +477,7 @@ class Nfa_action_model extends CI_Model {
 			$this->db->from('award_recomm_contract_salient AWDRecommSalient');
 			
 			$this->db->join('award_recomm_contractor_status AWDRecommStatus', 'AWDRecommStatus.salient_id = AWDRecommSalient.id','inner');
-			//$this->db->join('buyers', 'buyers.buyer_id = AWDRecommStatus.approver_id',"inner");
+			
 			$this->db->join('buyers', 'buyers.buyer_id = AWDRecommStatus.approver_id',"left");
 			
 			$this->db->where($cond);
@@ -554,7 +536,7 @@ class Nfa_action_model extends CI_Model {
 		
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -600,19 +582,15 @@ class Nfa_action_model extends CI_Model {
 			$this->db->order_by('LDWSalient.id', 'DESC');
 		}
 		$mSessionKey = $this->session->userdata('session_id');
-		//echo $mSessionKey ;
-		//echo "var".$this->mSessionKey;
-        
+		
 		$this->db->where('initiated_by', $mSessionKey,FALSE);
         $this->db->where('status', 1,FALSE);
 		$this->db->where("nfa_status", "'R'", FALSE);
         $this->db->order_by('id', 'DESC');
        
-        
-		
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -671,7 +649,7 @@ class Nfa_action_model extends CI_Model {
 		
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());  
+		
 		if ($mQuery_Res->num_rows() == $preLevel) {
           
             return 1;
@@ -720,7 +698,7 @@ class Nfa_action_model extends CI_Model {
         $this->db->set($data);
         $this->db->where($param);
         $query1 = $this->db->update($statusTbl);
-		//print_r($this->db->last_query());    
+		 
         if ($query1) {
             return TRUE;
         } else {
@@ -739,7 +717,7 @@ class Nfa_action_model extends CI_Model {
 			$this->db->join('award_recomm_contract_salient AWDContractSalient', 'AWDContractSalient.cancelled_by = buyers.buyer_id');
 		else
 			$this->db->join('award_recomm_contractor_status AWDContractStatus', 'AWDContractStatus.approver_id = buyers.buyer_id');
-		//$param = array("buyer_role!="=>'PCM');
+		
 		if($nfaStatus!="Initiated" && $nfaStatus!="Cancelled")
 			$this->db->where("buyer_role!=",'PCM');
 		$this->db->group_by('buyer_id');
@@ -747,11 +725,10 @@ class Nfa_action_model extends CI_Model {
        
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());   
-		//exit;
+	
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result();
-			//print_r($data);
+			
             return $data;
         } else {
             return false;
@@ -760,152 +737,7 @@ class Nfa_action_model extends CI_Model {
         return $res;
     }
 	
-	/* public function getReportData($nfaStatus=null,$buyer_id=null,$start_date=null,$end_date=null) {
-
 		
-		
-		if($nfaStatus=="Initiated")
-		{
-			$this->db->select('LDWSalient.*,LDWStatus.approver_level,approved_status');
-			$this->db->from('ld_waiver_salient LDWSalient');
-			
-			$this->db->join('ld_waiver_status LDWStatus', 'LDWStatus.salient_id = LDWSalient.id','inner');
-			$this->db->where(array('status'=> 1,'approved_status'=> 0));
-			if($buyer_id)
-			{
-				$this->db->where(array('initiated_by'=> $buyer_id));
-			}
-			if($start_date)
-			{
-				$this->db->where(array('date(initiated_date)>='=> $start_date));
-			}
-			if($end_date)
-			{
-				$this->db->where(array('date(initiated_date)<='=> $end_date));
-			}
-			$ignore = array('R', 'RT');
-			$this->db->where_not_in('nfa_status', $ignore);
-			$this->db->group_by('LDWSalient.id');
-			$this->db->order_by('LDWSalient.id', 'DESC');
-			$mQuery_Res = $this->db->get();
-			//print_r($this->db->last_query());
-		}
-		else if($nfaStatus=="Approved")
-		{
-			
-			
-			$sql = "SELECT LDWSalient.*,LDWStatus.approver_level,approved_status,LDWStatus.approver_id FROM ld_waiver_salient LDWSalient INNER JOIN ld_waiver_status LDWStatus ON LDWSalient.id = LDWStatus.`salient_id`   WHERE LDWSalient.status = 1 AND LDWSalient.nfa_status != 'AMD' AND LDWStatus.`approver_id` != '' and LDWStatus.approved_status=1 ";
-			
-			//echo $sql;
-			
-			if($buyer_id)
-			{
-				$sql .=" and LDWStatus.approver_id='$buyer_id'";
-			}
-			if($start_date)
-			{
-				$sql .=" and LDWStatus.approved_date>='$start_date'";
-			}
-			if($end_date)
-			{
-				$sql .=" and LDWStatus.approved_date<='$end_date'";
-			}
-			$sql .=" group by LDWSalient.id order by LDWSalient.id desc";
-			
-			$mQuery_Res = $this->db->query($sql);
-			
-        
-		}
-		else if($nfaStatus=="Returned")
-		{
-			$this->db->select('LDWSalient.*');
-			$this->db->from('ld_waiver_salient LDWSalient');
-			$this->db->join('ld_waiver_status LDWStatus', 'LDWStatus.salient_id = LDWSalient.id','inner');
-			$mSessionKey = $this->session->userdata('session_id');
-			//echo $mSessionKey ;
-			//echo "var".$this->mSessionKey;
-			
-			//$this->db->where('initiated_by', $mSessionKey,FALSE);
-			$this->db->where('status', 1,FALSE);
-			$this->db->where("nfa_status", "'R'", FALSE);
-			if($buyer_id)
-			{
-				$this->db->where(array('returned_by'=> $buyer_id));
-			}
-			if($start_date)
-			{
-				$this->db->where(array('date(returned_date)>='=> $start_date));
-			}
-			if($end_date)
-			{
-				$this->db->where(array('date(returned_date)<='=> $end_date));
-			}
-			
-			$this->db->group_by('LDWSalient.id');
-			$this->db->order_by('LDWSalient.id', 'DESC');
-			$mQuery_Res = $this->db->get();
-		}
-		else if($nfaStatus=="Cancelled")
-		{
-			
-			$param = array('status'=> 0,'nfa_status '=> 'C');
-           
-			if($buyer_id)
-			{
-				$param['cancelled_by']= $buyer_id;
-			}
-			if($start_date)
-			{
-				$param['cancelled_date>=']= $start_date;
-			}
-			if($end_date)
-			{
-				$param['cancelled_date<='] =  $end_date;
-			}
-			$data['records'] = $this->getNfaData($param);
-			//print_r($data);
-			return $data['records'];
-			//$this->db->group_by('LDWSalient.id');
-			//$this->db->order_by('LDWSalient.id', 'DESC');
-			//$mQuery_Res = $this->db->get();
-			//print_r($this->db->last_query());
-		}
-		if($mQuery_Res)	
-		{
-			if ($mQuery_Res->num_rows() > 0) {
-				$data = $mQuery_Res->result_array();
-				return $data;
-			} else {
-				return false;
-			}
-		}
-
-	}
-	 */
-	//Get Level with Roles
-	
-	/* public function getAllLevelRole($param=null) {
-		
-        $this->db->select('*');
-        $this->db->from('award_recomm_contractor_role_level');
-		
-		
-		
-		$this->db->where($param);
-        
-        $this->db->order_by('id', 'ASC');
-				
-        $data = array();
-        $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
-        if ($mQuery_Res->num_rows() > 0) {
-            $data = $mQuery_Res->result();
-            return $data;
-        } else {
-            return false;
-        }
-    } */
-	
 	public function getAllLevelRole($param=null) {
 		
         $this->db->select('*');
@@ -919,7 +751,7 @@ class Nfa_action_model extends CI_Model {
 				
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result();
             return $data;
@@ -946,7 +778,7 @@ class Nfa_action_model extends CI_Model {
 				if($approver_level)
 				{
 									
-					//$cond =array('AWDRecommStatus.approver_level>'=>($approver_level-1),'AWDRecommStatus.approver_level<='=>($approver_level));
+					
 					$cond['AWDRecommStatus.approver_level>='] = ($approver_level-1);
 					$cond['AWDRecommStatus.approver_level<='] = ($approver_level);					
 				
@@ -970,8 +802,7 @@ class Nfa_action_model extends CI_Model {
 				$cond =array('AWDRecommStatus.salient_id'=>$salient_id);
 				if($approver_level)
 				{
-									
-					//$cond =array('AWDRecommStatus.approver_level>'=>($approver_level-1),'AWDRecommStatus.approver_level<='=>($approver_level));
+					
 					$cond['AWDRecommStatus.approver_level>='] = ($approver_level-1);
 					$cond['AWDRecommStatus.approver_level<='] = ($approver_level);					
 				
@@ -994,7 +825,7 @@ class Nfa_action_model extends CI_Model {
 				$cond =array('AWDRecommStatus.salient_id'=>$salient_id);
 				if($approver_level)
 				{ 					
-					//$cond =array('AWDRecommStatus.approver_level>'=>($approver_level-1),'AWDRecommStatus.approver_level<='=>($approver_level));
+				
 					$cond['AWDRecommStatus.approver_level>='] = ($approver_level-1);
 					$cond['AWDRecommStatus.approver_level<='] = ($approver_level); 
 				} 
@@ -1014,7 +845,7 @@ class Nfa_action_model extends CI_Model {
 				$cond =array('AWDRecommStatus.salient_id'=>$salient_id);
 				if($approver_level)
 				{ 					
-					//$cond =array('AWDRecommStatus.approver_level>'=>($approver_level-1),'AWDRecommStatus.approver_level<='=>($approver_level));
+				
 					$cond['AWDRecommStatus.approver_level>='] = ($approver_level-1);
 					$cond['AWDRecommStatus.approver_level<='] = ($approver_level); 
 				} 
@@ -1054,23 +885,19 @@ class Nfa_action_model extends CI_Model {
 				
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
-			
-			if ($mQuery_Res->num_rows() > 0) {
-				$data = $mQuery_Res->result();
-				return $data;
-			} else {
-				return false;
-			}
+		
+		if ($mQuery_Res->num_rows() > 0) {
+			$data = $mQuery_Res->result();
+			return $data;
+		} else {
+			return false;
+		}
     	
 	}
 	//Get Log Details
 	public function getNfa_logs($salient_id=null,$nfaType=null) {
 		
-      
-        
-		
-		
+    		
 		if($nfaType=="award_contract")
 		{
 			$this->db->from('award_recomm_contractor_nfa_logs NFALogs');
@@ -1089,7 +916,7 @@ class Nfa_action_model extends CI_Model {
 			if($salient_id)
 			{ 
 				$this->db->select('NFARole.*,AWDRecommStatus.*');
-				// $this->db->select('NFARole.*,AWDRecommStatus.approver_id');
+			
 				$this->db->join('award_recomm_procurement_status AWDRecommStatus', 'AWDRecommStatus.approver_level = NFARole.level','inner');
 				
 				$cond =array('AWDRecommStatus.salient_id'=>$salient_id);
@@ -1108,8 +935,7 @@ class Nfa_action_model extends CI_Model {
 				
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
-		 
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -1140,8 +966,7 @@ class Nfa_action_model extends CI_Model {
 			
 			$cond =array('AWDProStatus.salient_id'=>$salient_id,'AWDProStatus.approver_id'=>$approver_id);
 			$this->db->where($cond);
-		   
-			//$this->db->order_by('AWDProStatus.approver_level', 'asc');
+		   			
 		}
 		else if($nfaType=="bidder_contract")
 		{
@@ -1180,7 +1005,7 @@ class Nfa_action_model extends CI_Model {
 		}
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
              $data = $mQuery_Res->row_array();
             return $data;
@@ -1256,16 +1081,14 @@ class Nfa_action_model extends CI_Model {
 		
         $this->db->select('*');
         $this->db->from('nfa_approvers_role_level');
-		
-		
-		
+				
 		$this->db->where($param);
         
         $this->db->order_by('id', 'ASC');
 				
         $data = array();
         $mQuery_Res = $this->db->get();
-		//print_r($this->db->last_query());
+		
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result();
             return $data;

@@ -802,13 +802,11 @@
 
         })
 
-       
-     
+         
         $('#package_count').on('change', function(e) {
 
             //Remove TD from final Bid
-            //jQuery('table tbody tr').find('td:lt(3)').remove();
-
+           
             $('#bidder_count').val(0);
             $('#bidHead_row').find('th:gt(2)').remove();
             $('#pqFb_row').find('td:gt(2)').remove();
@@ -819,8 +817,7 @@
             $('#bidPos_row').find('td:gt(1)').remove();
             $('#diffCrs_row').find('td:gt(1)').remove();
             $('#diffPercent_row').find('td:gt(1)').remove();
-            //alert($('#package_row1').find('td:gt(2)'));
-
+            
             let _th = `<th><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
 
             let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict();decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
@@ -982,7 +979,7 @@
             });
 
             $('#group_1_2').click(function() {
-                //alert("test2");
+              
                 basic2.style.display = "none";
                 anticipated2.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
@@ -1020,7 +1017,7 @@
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 			});    
 
-			//$("#nfaForm").validate();  
+		  
 
             $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
@@ -1068,11 +1065,10 @@
 
             var package_count = $('#package_count').find(":selected").text();
             var bid_count = $('#bidder_count').find(":selected").text();
-            //alert(bid_count);
+           
             var pckIndex, bidIndex, ele_bidIndex;
             var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
-            //alert("bidCount_disp"+bidCount_disp);
-            //if ($(".custom_th").length <= e.target.value) {
+          
 			if(bidCount_disp <= bid_count){
 
 
@@ -1116,19 +1112,14 @@
                             $($("#mainTable").find("tbody").find("tr")[0]).append(pq_fb_score)
                         }
                         $($("#mainTable").find("tbody").find("tr")[pckIndex]).append(package_bidder)
-                        //$($("#mainTable").find("tbody").find("tr")[1]).append(package_bidder)
-                        //$($("#mainTable").find("tbody").find("tr")[1]).append(package_common_tower)
-
-                        //$($("#mainTable").find("tbody").find("tr")[2]).append(package_tower_label)
+                        
                         if (pckIndex == 1) {
                             $($("#mainTable").find("tbody").find("tr")[4]).append(total_amt_label)
                             $($("#mainTable").find("tbody").find("tr")[5]).append(bid_position_label)
                             $($("#mainTable").find("tbody").find("tr")[6]).append(bid_position_gp)
                             $($("#mainTable").find("tbody").find("tr")[7]).append(diff_age_gp)
                         }
-                        /*$($("#mainTable").find("tbody").find("tr")[4]).append(bid_position_label)
-                        $($("#mainTable").find("tbody").find("tr")[5]).append(bid_position_gp)
-                        $($("#mainTable").find("tbody").find("tr")[6]).append(diff_age_gp) */
+                        
 
                     }
                 }
@@ -1140,7 +1131,6 @@
                    
                     for (bidIndex = bid_count; bidIndex < bidCount_disp; bidIndex++) {
                        
-                        //ele_bidIndex = bidIndex;
 						ele_bidIndex=parseInt(bidIndex)+1;
                         
                         if (pckIndex == 1) {
@@ -1151,7 +1141,7 @@
                             $(".bid_position_gp_custom_td").parent().last().remove()
                             $(".diff_age_gp_custom_td").parent().last().remove()
                         }
-                        //$(".package_common_tower_label_custom_td").parent().last().remove()
+                      
 						$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).closest("td").remove();
 						$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).remove()
                        
@@ -1228,7 +1218,7 @@
         }
 
         function addRow() {
-            // console.log("add",contrSel);
+          
             var newrow = document.createElement("tr");
             newrow.setAttribute("class", "text-center");
             var numericColumn = createRowColumn(newrow);
@@ -1247,7 +1237,7 @@
             textArea1.setAttribute("style", "display:flex ;");
 
             var term_len = $('input[name="term[]"]').length;
-			//console.log("term_len"+term_len);
+			
             var term_len_index = parseInt(term_len)+1;
 
             if(contrSel === "1"){
@@ -1255,7 +1245,7 @@
                 textAreaRow.setAttribute("class", "form-control mr-2");
                 textAreaRow.setAttribute("rows", "2");
                 textAreaRow.setAttribute("required","");
-                //textAreaRow.setAttribute("name", "term_label_value"+term_len_index+"[]");
+               
                 textAreaRow.setAttribute("name", "term_label_value["+term_len_index+"][]");
                 textAreaRow.setAttribute("id", "term_label_value1");
                 
@@ -1263,8 +1253,7 @@
                 var textAreaRow2 = document.createElement("textarea");
                 textAreaRow2.setAttribute("class", "form-control mr-2");
                 textAreaRow2.setAttribute("rows", "2");
-                //textAreaRow2.setAttribute("required","");
-                //textAreaRow2.setAttribute("name", "term_label_value"+term_len_index+"[]");
+               
                 textAreaRow2.setAttribute("name", "term_label_value["+term_len_index+"][]");
                 textAreaRow2.setAttribute("id", "term_label_value2");
                 textArea1.appendChild(textAreaRow);
@@ -1275,23 +1264,21 @@
                 textAreaRow.setAttribute("class", "form-control mr-2");
                 textAreaRow.setAttribute("rows", "2");
                 textAreaRow.setAttribute("required","");
-                //textAreaRow.setAttribute("name", "term_label_value"+term_len_index+"[]");
+                
                 textAreaRow.setAttribute("name", "term_label_value["+term_len_index+"][]");
                 textAreaRow.setAttribute("id", "term_label_value1");
 
                 var textAreaRow2 = document.createElement("textarea");
                 textAreaRow2.setAttribute("class", "form-control mr-2");
                 textAreaRow2.setAttribute("rows", "2");
-                //textAreaRow2.setAttribute("required","");
-                //textAreaRow2.setAttribute("name", "term_label_value"+term_len_index+"[]");
+               
                 textAreaRow2.setAttribute("name", "term_label_value["+term_len_index+"][]");
                 textAreaRow2.setAttribute("id", "term_label_value2");
 
                 var textAreaRow3 = document.createElement("textarea");
                 textAreaRow3.setAttribute("class", "form-control mr-2");
                 textAreaRow3.setAttribute("rows", "2");
-                //textAreaRow3.setAttribute("required","");
-                //textAreaRow3.setAttribute("name", "term_label_value"+term_len_index+"[]");
+              
                 textAreaRow3.setAttribute("name", "term_label_value["+term_len_index+"][]");
                 textAreaRow3.setAttribute("id", "term_label_value3");
 
@@ -1303,7 +1290,7 @@
                 textAreaRow.setAttribute("class", "form-control mr-2");
                 textAreaRow.setAttribute("rows", "2");
                 textAreaRow.setAttribute("required","");
-                //textAreaRow.setAttribute("name", "term_label_value"+term_len_index+"[]");
+               
                 textAreaRow.setAttribute("name", "term_label_value["+term_len_index+"][]");
                 textAreaRow.setAttribute("id", "term_label_value1");
 
@@ -1311,7 +1298,6 @@
             }
 
             textAreaColumn.appendChild(textArea1);
-
            
             var remove = document.createElement("input");
             remove.setAttribute("type", "button");
@@ -1356,26 +1342,20 @@
             
             $.post("<?php echo base_url('nfa/Award_contract/getRoleUsers'); ?>", {
                     role: level,
-                    //contract_value:$('#original_contract_value').val()
+                    
                 },
                 function(data, status) {
-                    //alert(data);
-
+                    
                     $('#role').html(data);
 
                 });
         });
 
         $('#role').change(function() {
-            //alert("test"+$('#role').val());
-
+           
             user_name = $("#role option:selected").text();
             user_id = $('#role').val();
-            //contract_value=$('#original_contract_value').val()
-            //if(contract_value=='')
-            //contract_value=0;
-            //level_val= $('#level').val();
-
+           
             level_val = $("#level")[0].selectedIndex;
 
 
@@ -1386,43 +1366,15 @@
 
             }
             level_text = $("#level option:selected").text();
-            //alert(level_val);
-            //$('#level'+level_val+'_id').html(level_text);
+          
             $('#level' + level_val + '_id').html("Level " + level_val);
 
-            //$('#level6_approver').val("test");
             $('#level' + level_val + '_approver').val(user_name);
             $('#level' + level_val + '_approver_id').val(user_id);
             $('#level' + level_val + '_approver').prop('readonly', true);
 
         });
 
-
-
-        //Calculate Sum for the second package
-        function calculateSum2() {
-            var sum1 = 0;
-            var sum2 = 0;
-            var condition_l1;
-            var l1_vendor1;
-            var finalized_award_value_package1 = $("#finalized_award_value_package1").val();
-            var anticipated_rate1 = $("#anticipated_rate1").val();
-
-            sum1 = parseFloat(finalized_award_value_package1) + parseFloat(anticipated_rate1);
-
-            $("#post_basic_rate_package1").val(sum1);
-            var package_value = $("#post_basic_rate_package1").val();
-
-
-            var finalized_award_value_package2 = $("#finalized_award_value_package2").val();
-            var anticipated_rate2 = $("#anticipated_rate2").val();
-            //var sum2=0;
-            sum2 = parseFloat(finalized_award_value_package2) + parseFloat(anticipated_rate2);
-
-
-
-            $("#post_basic_rate_package2").val(sum2);
-        }
 
         //Calculate Days
 
@@ -1466,12 +1418,7 @@
            
             return Math.round(days1);
         }
-        $(document).ready(function() {
-
-
-
-
-        });
+      
         $('#receipt_date').blur(function() {
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
@@ -1494,7 +1441,6 @@
         $('#save, #submit').on('click', () => {
             // Get HTML content
 
-
             var subject_html = quill.root.innerHTML;
             var reasons_delay_html = quil2.root.innerHTML;
             var current_status_work_html = quil3.root.innerHTML;
@@ -1505,7 +1451,7 @@
             $('#current_status_work_hd').val(current_status_work_html);
 
         })
-
+       
         function setInputFilter(textbox, inputFilter) {
             ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
                 textbox.addEventListener(event, function() {
@@ -1521,26 +1467,21 @@
             });
         }
         
-        // let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
-        // for(let k = 0;k<=noOfClasses;k++){
-        // setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
-        //     return /^-?\d*[.,]?\d{0,2}$/.test(value); });
-        // }
-
+       
         function decimalStrict(){
-        let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
-        for(let k = 0;k<=noOfClasses;k++){
-        setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
-            return /^-?\d*[.,]?\d{0,2}$/.test(value); });
-        }
+            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            for(let k = 0;k<=noOfClasses;k++){
+                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                return /^-?\d*[.,]?\d{0,2}$/.test(value); });
+            }
         }
 
         function decimalStrictThree(){
-        let noOfClasses=document.getElementsByClassName("decimalStrictThreeClass").length;
-        for(let k = 0;k<=noOfClasses;k++){
-        setInputFilter(document.getElementsByClassName("decimalStrictThreeClass")[k], function(value) {
-            return /^-?\d*[.,]?\d{0,3}$/.test(value); });
-        }
+            let noOfClasses=document.getElementsByClassName("decimalStrictThreeClass").length;
+            for(let k = 0;k<=noOfClasses;k++){
+                setInputFilter(document.getElementsByClassName("decimalStrictThreeClass")[k], function(value) {
+                return /^-?\d*[.,]?\d{0,3}$/.test(value); });
+            }
         }
 
         function addPackage(selectObj){
@@ -1577,10 +1518,10 @@
     </script>
     <script src="../../assets/js/summernote-bs4.min.js"></script>
     <script src="../../assets/js/jquery.min.js"></script>
-    <!-- <script src="../../assets/js/bootstrap.bundle.min.js"></script> -->
+   
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/nfa_award_contract.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/nfa_scripts.js"></script>
-    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 </body>

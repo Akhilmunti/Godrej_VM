@@ -145,7 +145,7 @@
                                                                             $level = $valLevel['level'];
                                                                             $role = $valLevel['role'];
                                                                             $approver_id = $valLevel['approver_id'];
-                                                                            //$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
+                                                                           
                                                                             if($approver_id==0)
                                                                             {
                                                                                 $approver_name = "Not Applicable"; 
@@ -181,10 +181,8 @@
                                                                        <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Edit</button>
                                                                        </a>
                                                                     <?php 
-                                                                     }
-                                                                   
-                                                                    //else
-                                                                    if($record['nfa_status']!='C')
+                                                                    }
+                                                                    else if($record['nfa_status']!='C')
                                                                     {
                                                                     ?>
                                                                         <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">

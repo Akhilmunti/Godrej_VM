@@ -56,6 +56,7 @@ class Award_contract extends ListNfa {
             $data['home'] = "award_recommendation";
             if ($mId) {
                 $mRecord = $this->awardRecommContract->getParentByKey($mId);
+<<<<<<< HEAD
 
                 $salient_id = $mRecord['id'];
                 $mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($salient_id);
@@ -71,6 +72,22 @@ class Award_contract extends ListNfa {
 
                 $mRecordApprovers = $this->awardRecommContract->get_level_approvers($mId);
 
+=======
+				
+				$salient_id = $mRecord['id'];
+				$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($salient_id);
+			
+				//Get Final Bid Data
+				$mRecordFinalBidders = $this->awardRecommContract->getFinalBidders($salient_id);
+				
+				$mRecordAwdContract = $this->awardRecommContract->get_award_contract_data($salient_id);
+			
+				$mRecordAppointment = $this->awardRecommContract->getAppointment_dates($mId);
+				$mRecordMajorTerms = $this->awardRecommContract->getMajorTerms($mId);
+				
+				$mRecordApprovers = $this->awardRecommContract->get_level_approvers($mId); 
+				
+>>>>>>> origin/vendor_dt
                 $data['mRecord'] = $mRecord;
                 $data['mRecordPackage'] = $mRecordPackage;
                 $data['mRecordFinalBidders'] = $mRecordFinalBidders;
@@ -210,6 +227,103 @@ class Award_contract extends ListNfa {
             $bidder_approval_date = $this->input->post('bidder_approval_date');
             $bidder_approval_days = $this->input->post('bidder_approval_days');
             $award_recomm_date = $this->input->post('award_recomm_date');
+<<<<<<< HEAD
+=======
+			
+			$award_recomm_days = $this->input->post('award_recomm_days');
+            $remarks_date = $this->input->post('remarks_date');
+			$remarks_days = $this->input->post('remarks_days');
+			
+			//Major terms
+			$term_label = $this->input->post('term_label');
+			$term = $this->input->post('term');
+            $term_label_value = $this->input->post('term_label_value');
+			
+			$maxLevel_hd = $this->input->post('maxLevel_hd');
+		                     
+			//Upload Files
+			$mUpload1 = $this->input->post('upload_comparitive');
+			//$file1
+						
+			if ($_FILES['upload_comparitive']['size'] != 0)
+				$mFile1 = single_File_Upload('upload_comparitive', $mUpload1);
+				
+			
+			$mUpload2 = $this->input->post('upload_detailed');
+			
+			$mFile2 =single_File_Upload('upload_detailed', $mUpload2);
+			
+			//Approvers
+			$approver_id = $this->input->post('approver_id');
+			
+			$nfa_status = $this->input->post('nfa_status');
+			
+			$save_status = $this->input->post('save');
+			
+			//Getting Package Value
+			
+			$package_value_mail = $total_post_basic_rate;
+			$mail_url  = $this->config->item('base_url').'nfa/ListNfa/award_recomm_list';
+			if($save_status=="")
+				$save_status = $this->input->post('submit');
+			
+			
+			if($nfa_status=="RT")
+			{
+				
+				$mSavingStatus = 1;
+				if($save_status=="submit")
+				{
+					$mNfaStatus = "SA";
+				}
+				else
+				{
+					$mNfaStatus = "RT";
+					$mSavingStatus = 0;
+				}
+			}
+			else if($nfa_status=="R") // for return
+			{
+				$mSavingStatus = 1;
+				if($save_status=="submit")
+				{
+					$mNfaStatus = "RF";
+				}
+				else
+				{
+					$mNfaStatus = "R";
+					$mSavingStatus = 0;
+				}
+			}
+			else if($nfa_status=="AMD") // for amend
+			{
+				$mSavingStatus = 1;
+				if($save_status=="submit")
+				{
+					$mNfaStatus = "SA";
+				}
+				else
+				{
+					$mNfaStatus = "AMD";
+					$mSavingStatus = 0;
+				}
+			}
+			else
+			{
+				if($save_status=="save")
+				{
+					$mSavingStatus = 0;
+					$mNfaStatus = "S";
+				}
+				else
+				{
+					$mSavingStatus = 1;
+					$mNfaStatus = "SA";
+				}
+			}
+			
+			
+>>>>>>> origin/vendor_dt
 
             $award_recomm_days = $this->input->post('award_recomm_days');
             $remarks_date = $this->input->post('remarks_date');
@@ -325,6 +439,7 @@ class Award_contract extends ListNfa {
                         'status_date' => date('Y-m-d H:i:s'),
                         'created_date' => date('Y-m-d H:i:s')
                     );
+<<<<<<< HEAD
                     //$mLogNfaIns = $this->awardRecommContract->nfaLogs_insertData($mId, $nfaLogData);
                 }
                 $nfaLabeldata = array(
@@ -345,6 +460,298 @@ class Award_contract extends ListNfa {
                         $total_basic_rate_packageVal = $total_basic_rate_package[$keyPck];
 
                         $anticipate_basic_rate_packageVal = $anticipate_basic_rate_package[$keyPck];
+=======
+					
+                    $mUpdate = $this->awardRecommContract->updateParentByKey($mId, $nfadata);
+					if($mNfaStatus == "SA")
+					{
+						$nfaLogData = array(
+							'salient_id' => $mId,
+							'buyer_id' => $mSessionKey,
+                           
+                            'nfa_status' => 'SA',
+							'status_date' => date('Y-m-d H:i:s'),
+							'created_date' => date('Y-m-d H:i:s')							
+                            
+						);
+						//$mLogNfaIns = $this->awardRecommContract->nfaLogs_insertData($mId, $nfaLogData);
+						
+					}
+					$nfaLabeldata = array(
+							
+							'synopsis_label' => $synopsis_label,
+                           
+                            'benchmark_label' => $benchmark_label                           
+                            
+                    );
+					$insUpd=$this->awardRecommContract->awardSynopsLbl_updateOrInsertData($mId,$nfaLabeldata);
+					
+					
+					$isExistPackages=$this->awardRecommContract->checkPackageDelete($mId);
+					$isExistSynopsPkg=$this->awardRecommContract->checkSynopsPackageDelete($mId);
+					
+					foreach($package_label as $keyPck=>$valPck)
+					{
+						
+						$radioIndex = $keyPck+1;
+					
+						$is_basic_rate_package = $this->input->post('group_'.$radioIndex);
+						if($is_basic_rate_package=="yes")
+						{
+							$total_basic_rate_packageVal = $total_basic_rate_package[$keyPck];
+					 
+							$anticipate_basic_rate_packageVal = $anticipate_basic_rate_package[$keyPck];
+						}
+						else
+						{
+							$total_basic_rate_packageVal = 0;
+					 
+							$anticipate_basic_rate_packageVal = 0;
+						}
+						$major_term_label = $term_label[$keyPck];	
+						$nfaPackageData = array(
+						'salient_id' => $mId,
+						'package_name' => $valPck,
+						'major_term_label' => $major_term_label,
+						'created_date' => date('Y-m-d H:i:s')
+						);
+						
+						$mInsertPackage = $this->awardRecommContract->addPackages($nfaPackageData);
+						
+						
+						//Insert Synopsis package data
+						//Synopsis data
+						$nfaSynopsisData = array(
+						'salient_id' => $mId,
+						'package_id' => $mInsertPackage,
+						'package_budget_esc' => $package_budget_esc[$keyPck],
+						'package_negot_value' => $package_negot_value[$keyPck],
+					
+						'finalized_award_value_package' => $finalized_award_value_package[$keyPck],
+					  
+						'awarded_benchmark_package' => $awarded_benchmark_package[$keyPck],
+					
+					    'is_basic_rate_package' => $is_basic_rate_package,
+						'total_basic_rate_package' => $total_basic_rate_packageVal,
+					 
+						'anticipate_basic_rate_package' => $anticipate_basic_rate_packageVal,
+						
+						'post_basic_rate_package' => $post_basic_rate_package[$keyPck],
+					 
+						'total_package' => $total_package[$keyPck],
+					
+						'expected_savings_package' => $expected_savings_package[$keyPck],
+					
+						'recomm_vendor_package' => $recomm_vendor_package[$keyPck],
+					   
+						'basis_award_package' => $basis_award_package[$keyPck],
+						
+						'deviation_approved_package' => $deviation_approved_package[$keyPck],
+						
+						'basic_rate_month_package' => $basic_rate_month_package[$keyPck],
+					             
+						'created_date' => date('Y-m-d H:i:s')
+						
+					);
+					
+					$mInsertSynopsis = $this->awardRecommContract->addSynopsisPackage($nfaSynopsisData);
+						
+						
+					}					
+									
+					//Update or insert award synopsis Data
+				
+					
+					//Appointment Data
+					$nfaAppointmentData = array(
+						'salient_id' => $mId,
+						'contract_package_works_label' => $contract_package_works_label,
+						'milestone_label' => $milestone_label,
+						'contract_package_works_value' => $contract_package_works_value,
+						'contract_package_works_remarks' => $contract_package_works_remarks,
+						'activity_planned_date' => $activity_planned_date,
+						'activity_planned_remarks' => $activity_planned_remarks,
+						'activity_actual_date' => $activity_actual_date,
+						'activity_actual_remarks' => $activity_actual_remarks,
+						'activity_cbe_date' => $activity_cbe_date,
+						'activity_cbe_remarks' => $activity_cbe_remarks,
+						'activity_delay' => $activity_delay,
+						'activity_delay_remarks' => $activity_delay_remarks						
+						
+					);
+					$insUpd=$this->awardRecommContract->awardAppointment_updateOrInsertData($mId,$nfaAppointmentData);
+					
+					//Award efficiency Data
+					$nfaAwardData = array(
+						'salient_id' => $mId,
+						
+						'receipt_date' => $receipt_date,
+						'receipt_days' => $receipt_days,
+						'bidder_approval_date' => $bidder_approval_date,
+						'bidder_approval_days' => $bidder_approval_days,
+						'award_recomm_date' => $award_recomm_date,
+						'award_recomm_days' => $award_recomm_days,
+						'remarks_date' => $remarks_date,
+						'remarks_days' => $remarks_days
+											
+					);
+					$insUpd=$this->awardRecommContract->awardEfficiency_updateOrInsertData($mId,$nfaAwardData);	
+					
+					//Final Bid Data
+					$isExistBidders=$this->awardRecommContract->checkBiddersDelete($mId);
+					$isExistFinalBid=$this->awardRecommContract->checkFinalBidDelete($mId);
+					
+					$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($mId);
+					
+					foreach($final_bidder_name as $keyBid=>$valBid)
+					{
+						$bid_index = $keyBid+1;
+						$package_id = $valPck['package_id'];
+						
+						$nfaFinalBidder = array(
+					
+					
+						'salient_id' => $mId,
+						'final_bidder_name' => $valBid,
+						'score_type' => $score_type[$keyBid],
+						'score' => $score[$keyBid],
+						'total_amt_gpl' => $total_amt_gpl,
+						'total_amt_bidder' => $total_amt_bidder[$keyBid],
+						'bid_position' => $bid_position[$keyBid],			
+						'diff_budget_crs' => $diff_budget_crs[$keyBid],
+						'diff_budget_percentage' => $diff_budget_percentage[$keyBid],
+						'created_date' => date('Y-m-d H:i:s')
+						);
+						
+						$mInsertBidder = $this->awardRecommContract->addFinalBidders($nfaFinalBidder);
+						$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($mId);
+						
+						foreach($mRecordPackage as $keyPck=>$valPck)
+						{
+							$package_id = $valPck['package_id'];
+							$pck_index = $keyPck+1;
+							
+							$nfaFinalBidData = array(
+							'salient_id' => $mId,
+							'bidder_id' => $mInsertBidder,
+							'package_id' => $package_id,
+						
+							'package_gpl_budget' => $package_gpl_budget[$keyPck],
+							'package_bidder' => $package_bidder[$pck_index][$bid_index],
+											
+							'created_date' => date('Y-m-d H:i:s')
+							);
+							$mInsertFinalBid = $this->awardRecommContract->addFinalBidScenario($nfaFinalBidData);
+						}
+					} 
+					
+					//Major Terms
+					$isExistMajorTerms=$this->awardRecommContract->checkMajorTermsDelete($mId);
+					
+					$term_index=0;
+					
+					foreach($term_label_value as $keyLabel=>$valLabel)
+					{
+						//Packages
+						
+						foreach($mRecordPackage as $keyPck=>$valPck)
+						{
+							$package_id = $valPck['package_id'];
+						
+							$nfaMajorTermData = array(
+								'salient_id' => $mId,
+								'package_id' => $package_id,
+								'term' => $term[$term_index],
+								'term_label_value' => $term_label_value[$keyLabel][$keyPck],
+								'created_date' => date('Y-m-d H:i:s')
+								);
+								
+							//Insert Major Term data
+							$mInsertMajorTerm = $this->awardRecommContract->addMajorTerm($nfaMajorTermData);
+						}
+						$term_index++;
+					}					
+					
+					
+					$uploadAllData = array(
+						
+						'upload_comparitive_name' => $mFile1['file_name'],
+						'upload_comparitive_disp_name' => $this->input->post('upload_comparitive_disp_name'),
+						'upload_comparitive_path' => $mFile1['file_path'],
+						'upload_detailed_name' => $mFile2['file_name'],
+						'upload_detailed_disp_name' => $this->input->post('upload_detailed_disp_name'),
+						'upload_detailed_path' => $mFile2['file_path']
+						
+						
+						
+						);
+					$uploadDisplayData = array(
+						
+						'upload_comparitive_disp_name' => $this->input->post('upload_comparitive_disp_name'),
+						
+						'upload_detailed_disp_name' => $this->input->post('upload_detailed_disp_name')
+						
+						);
+					
+					
+					$uploadData = removeEmptyValues($uploadAllData);
+					
+					if(!empty($uploadAllData))
+					{						
+						$mUploadUpdate = $this->awardRecommContract->updateFileUploads($mId,$uploadData);
+						$mUploadDispUpdate = $this->awardRecommContract->updateFileUploads($mId,$uploadDisplayData);
+					}
+					
+					
+					if($nfa_status!='RT')
+					{
+						
+						$isExistApprover=$this->awardRecommContract->checkApproverDelete($mId);
+						
+						foreach($approver_id as $keyApr=>$valApr)
+						{	
+							
+							$approver_id = $valApr;
+							$approver_level = $keyApr+1;
+							
+							$approveData = array(
+							'salient_id' => $mId,
+							'approver_id' => $approver_id,
+							'approver_level' => $approver_level,
+							
+							'created_date' => date('Y-m-d H:i:s')
+					
+							);
+							
+							$mNfaInsert = $this->awardRecommContract->addNfaStatus($approveData);
+							
+							
+							if($approver_id !=0 && $mSavingStatus==1)
+							{
+								
+								$buyer = $this->buyer->getParentByKey($approver_id);
+								
+								$approver =   $buyer['buyer_name'];
+								$approver_mail =   $buyer['buyer_email'];
+								$sender =   $this->session->userdata('session_name');
+								
+								$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
+								
+							}
+						}
+					
+					}
+                    if ($mUpdate) {
+						
+						
+						if($mSavingStatus==0)
+							$this->session->set_flashdata('success', 'IOM updated successfully.');
+						else
+							$this->session->set_flashdata('success', 'IOM submitted for approval.');
+						
+						redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						
+>>>>>>> origin/vendor_dt
                     } else {
                         $total_basic_rate_packageVal = 0;
 
@@ -824,8 +1231,319 @@ class Award_contract extends ListNfa {
                         redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
                     }
                 } else {
+<<<<<<< HEAD
                     $this->session->set_flashdata('error', 'Something went wrong, Please try again.');
                     redirect('nfa/Award_contract/actionAdd');
+=======
+						   
+                        $nfadata = array(
+							'version_id' => $version_id,
+							'project_id' => $project_id,
+							'type_work_id' => $type_work_id,
+                            'subject' => $subject,
+							'scope_of_work'=>$scope_of_work,
+							'zone'=>$zone,
+							'package_count' => $package_count,
+                            'bidder_count' => $bidder_count,
+							'total_budget_esc' => $total_budget_esc,
+							'total_negot_value' => $total_negot_value,
+							'total_finalized_award_value' => $total_finalized_award_value,
+                            'total_awarded_benchmark' => $total_awarded_benchmark,
+							'total_basic_rate' => $total_basic_rate,
+                            'total_anticipated_rate' => $total_anticipated_rate,
+							'total_post_basic_rate' => $total_post_basic_rate,
+							'total_expected_savings' => $total_expected_savings,
+							
+							'l1_vendor' => $l1_vendor,
+                            'front_idling' => $front_idling,
+                            'front_idling_desc' => $front_idling_desc,
+							'reasons_delay' => $reasons_delay,
+                            'current_status_work' => $current_status_work,
+							
+                            'detailed_note' => $detailed_note,
+							'upload_comparitive_name' => $mFile1['file_name'],
+							'upload_comparitive_disp_name' => $this->input->post('upload_comparitive_disp_name'),
+							'upload_comparitive_path' => $mFile1['file_path'],
+							'upload_detailed_name' => $mFile2['file_name'],
+							'upload_detailed_disp_name' => $this->input->post('upload_detailed_disp_name'),
+							'upload_detailed_path' => $mFile2['file_path'],
+                           
+							'initiated_by' => $mSessionKey,
+							'status' => $mSavingStatus,
+							'nfa_status' => $mNfaStatus,
+                            'initiated_date' => date('Y-m-d H:i:s'),
+                            'created_date' => date('Y-m-d H:i:s')
+                            
+                        );
+						
+                        $mInsert = $this->awardRecommContract->addParent($nfadata);
+                        if ($mInsert) {
+							
+							//Insert Logs
+							if($mNfaStatus == "SA")
+							{
+								$nfaLogData = array(
+									'salient_id' => $mInsert,
+									'buyer_id' => $mSessionKey,
+								   
+									'nfa_status' => 'SA',
+									'status_date' => date('Y-m-d H:i:s'),
+									'created_date' => date('Y-m-d H:i:s')							
+									
+								);
+								//$mLogNfaIns = $this->awardRecommContract->nfaLogs_insertData($mInsert, $nfaLogData);
+								
+							}
+							
+							$nfaLabeldata = array(
+							'salient_id' => $mInsert,
+							'synopsis_label' => $synopsis_label,
+                           
+                            'benchmark_label' => $benchmark_label,
+                            'created_date' => date('Y-m-d H:i:s')
+                            
+                        );
+						
+                        $mInsertLabel = $this->awardRecommContract->addLabels($nfaLabeldata);
+						
+						//Packages
+						foreach($package_label as $keyPck=>$valPck)
+						{
+							
+							$radioIndex = $keyPck+1;
+							$is_basic_rate_package = $this->input->post('group_'.$radioIndex);
+							//Get anticipated/otal based on the radio button selected
+							if($is_basic_rate_package=="yes")
+							{
+								$total_basic_rate_packageVal = $total_basic_rate_package[$keyPck];
+						 
+								$anticipate_basic_rate_packageVal = $anticipate_basic_rate_package[$keyPck];
+							}
+							else
+							{
+								$total_basic_rate_packageVal = 0;
+						 
+								$total_basic_rate_packageVal = 0;
+							}
+							$major_term_label = $term_label[$keyPck];	
+							$nfaPackageData = array(
+							'salient_id' => $mInsert,
+							'package_name' => $valPck,
+							'major_term_label' => $major_term_label,
+							'created_date' => date('Y-m-d H:i:s')
+							);
+							$mInsertPackage = $this->awardRecommContract->addPackages($nfaPackageData);
+						
+							//Insert Synopsis package data
+						
+							$nfaSynopsisData = array(
+							'salient_id' => $mInsert,
+							'package_id' => $mInsertPackage,
+                            'package_budget_esc' => $package_budget_esc[$keyPck],
+							'package_negot_value' => $package_negot_value[$keyPck],
+							
+                            'finalized_award_value_package' => $finalized_award_value_package[$keyPck],
+                          
+							'awarded_benchmark_package' => $awarded_benchmark_package[$keyPck],
+							
+                            'is_basic_rate_package' => $is_basic_rate_package,
+							'total_basic_rate_package' => $total_basic_rate_packageVal,
+                         
+                            'anticipate_basic_rate_package' => $anticipate_basic_rate_packageVal,
+							
+                            'post_basic_rate_package' => $post_basic_rate_package[$keyPck],
+                         
+							'total_package' => $total_package[$keyPck],
+                        
+                            'expected_savings_package' => $expected_savings_package[$keyPck],
+						
+                            'recomm_vendor_package' => $recomm_vendor_package[$keyPck],
+                           
+							'basis_award_package' => $basis_award_package[$keyPck],
+                            
+                            'deviation_approved_package' => $deviation_approved_package[$keyPck],
+							
+							'basic_rate_month_package' => $basic_rate_month_package[$keyPck],
+							
+                                                 
+                            'created_date' => date('Y-m-d H:i:s')
+                            
+                        );
+						
+                        $mInsertSynopsis = $this->awardRecommContract->addSynopsisPackage($nfaSynopsisData);
+												
+							
+						}					
+					
+						//Appointment Data- if totla finalized_award_value>3  crore
+						if($total_finalized_award_value>3)
+						{
+							$nfaAppointmentData = array(
+								'salient_id' => $mInsert,
+								'contract_package_works_label' => $contract_package_works_label,
+								'milestone_label' => $milestone_label,
+								'contract_package_works_value' => $contract_package_works_value,
+								'contract_package_works_remarks' => $contract_package_works_remarks,
+								'activity_planned_date' => $activity_planned_date,
+								'activity_planned_remarks' => $activity_planned_remarks,
+								'activity_actual_date' => $activity_actual_date,
+								'activity_actual_remarks' => $activity_actual_remarks,
+								'activity_cbe_date' => $activity_cbe_date,
+								'activity_cbe_remarks' => $activity_cbe_remarks,
+								'activity_delay' => $activity_delay,
+								'activity_delay_remarks' => $activity_delay_remarks,
+								'created_date' => date('Y-m-d H:i:s')
+								
+							);
+							
+							$mInsertAppointment = $this->awardRecommContract->addAppointment($nfaAppointmentData);
+						}
+						//Award efficiency Data
+						$nfaAwardData = array(
+							'salient_id' => $mInsert,
+                          
+                            'receipt_date' => $receipt_date,
+                            'receipt_days' => $receipt_days,
+							'bidder_approval_date' => $bidder_approval_date,
+                            'bidder_approval_days' => $bidder_approval_days,
+                            'award_recomm_date' => $award_recomm_date,
+							'award_recomm_days' => $award_recomm_days,
+                            'remarks_date' => $remarks_date,
+                            'remarks_days' => $remarks_days,
+							
+                            'created_date' => date('Y-m-d H:i:s')
+                            
+                        );
+						
+                        $mInsertAward = $this->awardRecommContract->addAwardEfficiency($nfaAwardData);
+						
+							
+						//Final Bid
+						foreach($final_bidder_name as $keyBid=>$valBid)
+						{
+							$bid_index = $keyBid+1;
+							
+							$nfaFinalBidder = array(
+						
+							'salient_id' => $mInsert,
+							'final_bidder_name' => $valBid,
+							'score_type' => $score_type[$keyBid],
+							'score' => $score[$keyBid],
+							'total_amt_gpl' => $total_amt_gpl,
+							
+							'total_amt_bidder' => $total_amt_bidder[$keyBid],
+							'bid_position' => $bid_position[$keyBid],		
+							'diff_budget_crs' => $diff_budget_crs[$keyBid],
+							'diff_budget_percentage' => $diff_budget_percentage[$keyBid],
+							'created_date' => date('Y-m-d H:i:s')
+							);
+							
+							$mInsertBidder = $this->awardRecommContract->addFinalBidders($nfaFinalBidder);
+							$mRecordPackage = $this->awardRecommContract->get_award_contract_package_data($mInsert);
+						
+							foreach($mRecordPackage as $keyPck=>$valPck)
+							{
+								$package_id = $valPck['package_id'];
+								$pck_index = $keyPck+1;
+								
+								$nfaFinalBidData = array(
+								'salient_id' => $mInsert,
+								'bidder_id' => $mInsertBidder,
+								'package_id' => $package_id,
+								
+								'package_gpl_budget' => $package_gpl_budget[$keyPck],
+								'package_bidder' => $package_bidder[$pck_index][$bid_index],
+								'created_date' => date('Y-m-d H:i:s')
+								);
+								$mInsertFinalBid = $this->awardRecommContract->addFinalBidScenario($nfaFinalBidData);
+							}
+						} 
+					
+						//Major Terms
+						
+						$term_index=0;
+						
+						foreach($term_label_value as $keyLabel=>$valLabel)
+						{
+							
+							//Packages
+							
+							foreach($mRecordPackage as $keyPck=>$valPck)
+							{
+								$nfaMajorTermData = array(
+									'salient_id' => $mInsert,
+									'package_id' => $valPck['package_id'],
+									'term' => $term[$term_index],
+									'term_label_value' => $term_label_value[$keyLabel][$keyPck],
+									'created_date' => date('Y-m-d H:i:s')
+									);
+									
+								//Insert Major Term data
+								$mInsertMajorTerm = $this->awardRecommContract->addMajorTerm($nfaMajorTermData);
+								
+							}
+							$term_index++;
+												
+						}
+						
+								//Insert Approvers
+							
+								$isExistApprover=$this->awardRecommContract->checkApproverDelete($mInsert);
+								
+								foreach($approver_id as $keyApr=>$valApr)
+								{	
+									
+									$approver_id = $valApr;
+									$approver_level = $keyApr+1;
+									
+									$approveData = array(
+									'salient_id' => $mInsert,
+									'approver_id' => $approver_id,
+									'approver_level' => $approver_level,
+									
+									'created_date' => date('Y-m-d H:i:s')
+																									
+									);
+									
+									$mNfaInsert = $this->awardRecommContract->addNfaStatus($approveData);
+									
+									if($approver_id !=0 && $mSavingStatus==1)
+									{
+										
+										$buyer = $this->buyer->getParentByKey($approver_id);
+										
+										$approver =   $buyer['buyer_name'];
+										$approver_mail =   $buyer['buyer_email'];
+										$sender =   $this->session->userdata('session_name');
+										
+										
+										$mail = sendEmailToApprover($subject,$package_value_mail,$version_id,$approver,$approver_mail,$sender,$mail_url);
+										
+									}
+								}
+								
+							if($updType=="RF")
+							{
+								$nfadata = array(
+									'status' => 2);
+								$mUpdate = $this->awardRecommContract->updateParentByKey($mId, $nfadata);
+								$this->session->set_flashdata('success', 'IOM refloated successfully.');
+								redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+							}
+							else
+							{
+								if($mSavingStatus==0)
+									$this->session->set_flashdata('success', 'IOM added successfully.');
+								else if($mSavingStatus==1)
+									$this->session->set_flashdata('success', 'IOM submitted for approval.');
+								redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+							}
+                        } else {
+                            $this->session->set_flashdata('error', 'Something went wrong, Please try again.');
+                           redirect('nfa/Award_contract/actionAdd');
+                        }
+                   
+>>>>>>> origin/vendor_dt
                 }
             }
         } else {
@@ -833,6 +1551,7 @@ class Award_contract extends ListNfa {
             $this->load->view('index', $data);
         }
     }
+<<<<<<< HEAD
 
     //Insert Major Terms
     /* public function addMajorTermsPackage()
@@ -880,6 +1599,30 @@ class Award_contract extends ListNfa {
             $data['records'] = $this->awardRecommContract->getContractData($awdType, $project_id, $type_work_id, '', $zone);
             //$nfa_select = nfa_dropdown_draft("award_contract");
             //$data['nfa_select'] = $nfa_select;
+=======
+	
+	
+    public function award_recomm_contract_list($project_id='',$zone='',$type_work_id='')
+    {
+        $mSessionKey = $this->session->userdata('session_id');
+		$this->session->set_userdata('previous_url', current_url());
+		$pr_id = $this->uri->segment(4);
+		
+        if ($mSessionKey) {
+			
+			$data['hd_awdType'] = "Contract";
+			$data['hd_project_id'] = $project_id;
+			$data['hd_zone'] = $zone;
+			$data['hd_type_work_id'] = $type_work_id;
+			$data['hd_type_work_id'] = $type_work_id;
+		
+			$this->session->set_userdata('sess_project_id',$pr_id);
+			$data['projects'] = $this->projects->getAllParent();
+           
+			$awdType = "Contract";
+			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,'',$zone);
+			
+>>>>>>> origin/vendor_dt
             $this->load->view('nfa/award_contract/award_contract_listing', $data);
         } else {
             $this->load->view('index', $data);
@@ -988,6 +1731,7 @@ class Award_contract extends ListNfa {
             $this->load->view('index', $data);
         }
     }
+<<<<<<< HEAD
 
     public function actionReturnNfa($mId) {
 
@@ -1034,6 +1778,59 @@ class Award_contract extends ListNfa {
         } else {
             $this->load->view('index', $data);
         }
+=======
+	public function actionReturnNfa($mId) {
+		
+		$mSessionKey = $this->session->userdata('session_id');
+		$sess_project_id = $this->session->userdata('sess_project_id');
+		if ($mSessionKey) {
+			$data['home'] = "users";
+			$returned_remarks = $this->input->post('returned_remarks');
+			if ($mId) {
+				$returnData = array(
+						
+						'returned_by' => $mSessionKey,
+						'returned_remarks	' => $this->input->post('returned_remarks'),
+						'returned_date' => date('Y-m-d H:i:s')
+						
+					);
+				$param = array('salient_id' => $mId,
+						'approver_id' => $mSessionKey
+						);	
+				$mUpdate = $this->nfaAction->updateData($param, $returnData,"award_contract");
+				if ($mUpdate) {
+						
+						$nfadata = array(
+						
+						'nfa_status' => 'R'
+											
+					);
+						$mUpdateSalient = $this->awardRecommContract->updateParentByKey($mId, $nfadata);
+						if($mUpdateSalient)
+						{
+							$mail_type = "returnLowLevels";
+							$this->mail_details($mId, $returned_remarks,$mail_type);
+							
+						}
+						$mRecord = $this->awardRecommContract->getParentByKey($mId);
+						$project_id = $mRecord['project_id'];
+						$type_work_id = $mRecord['type_work_id'];
+						$zone = $mRecord['zone'];
+						$this->session->set_flashdata('success', 'IOM Returned successfully.');
+						
+						if($sess_project_id)
+						 	redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+						else
+							redirect("nfa/Award_contract/award_recomm_contract_list");
+				} else {
+						$this->session->set_flashdata('error', 'Something went wrong, Please try again.');
+						redirect('nfa/Award_contract/return_nfa/' . $mId);
+				}
+			}
+		} else {
+			$this->load->view('index', $data);
+		}
+>>>>>>> origin/vendor_dt
     }
 
     public function returned_nfa() {
@@ -1105,6 +1902,7 @@ class Award_contract extends ListNfa {
         $mSessionKey = $this->session->userdata('session_id');
         $sess_project_id = $this->session->userdata('sess_project_id');
         if ($mSessionKey) {
+<<<<<<< HEAD
             $data['home'] = "users";
             if ($mId) {
                 //Get Max level approver
@@ -1177,6 +1975,20 @@ class Award_contract extends ListNfa {
                     redirect('nfa/Award_contract/approve/' . $mId);
                 }
             }
+=======
+           
+			if ($mId) {
+				$mRecord = $this->nfaAction->getNfaInitiated($mId,$mSessionKey,"award_contract");
+			
+				$approver_level = $mRecord[0]['approver_level'];
+				$mRecordApprovers = $this->nfaAction->getNfaStatus($mId,$mSessionKey,$approver_level,'',"award_contract");
+				$data['mRecord'] = $mRecord[0];
+				$data['mRecordApprovers'] = $mRecordApprovers;
+				$this->load->view('nfa/award_contract/return_text_correction', $data);
+			}
+			
+			
+>>>>>>> origin/vendor_dt
         } else {
             $this->load->view('index', $data);
         }
@@ -1462,11 +2274,48 @@ class Award_contract extends ListNfa {
             $this->load->view('index', $data);
         }
     }
+<<<<<<< HEAD
 
     //View NFA Logs
     public function view_logs($mId, $pgType = '') {
+=======
+	//View NFA Logs
+	public function view_logs($mId,$pgType='')
+    {
+		$mSessionKey = $this->session->userdata('session_id');
+		if ($mSessionKey) {
+		
+			if ($mId) {
+				$mRecord = $this->nfaAction->get_salient_initiator($mId,"award_contract");
+				
+				$salient_id = $mRecord['id'];
+				
+				
+				$mRecordLevelsObj = $this->nfaAction->getAllLevelRole_approvers('',$salient_id,"award_contract","view");
+				$mRecordLevels = json_decode(json_encode($mRecordLevelsObj), true);
+				
+				$data['mRecord'] = $mRecord;
+				
+				$data['mRecordLevels'] = $mRecordLevels; 
+				
+				if($pgType=='A' || $pgType=='E' )
+				{
+					$data['pgType'] = $pgType; 
+					$data['mId'] = $mId; 
+				}
+				$this->load->view('nfa/award_contract/view_logs', $data);
+			}
+        } else {
+            $this->load->view('index', $data);
+        } 
+      
+    }
+    public function reports()
+    {
+>>>>>>> origin/vendor_dt
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
+<<<<<<< HEAD
 
             if ($mId) {
                 $mRecord = $this->nfaAction->get_salient_initiator($mId, "award_contract");
@@ -1489,10 +2338,32 @@ class Award_contract extends ListNfa {
                 }
                 $this->load->view('nfa/award_contract/view_logs', $data);
             }
+=======
+            $data['home'] = "reports";
+			
+			$nfaStatus = $this->input->post('nfaStatus');
+			$buyer_id = $this->input->post('buyer_id');
+			$start_date = $this->input->post('start_date');
+			$end_date = $this->input->post('end_date');
+			
+			$data['records'] = $this->awardRecommContract->getReportData($nfaStatus,$buyer_id,$start_date,$end_date);
+			
+			$data['recordBuyers'] = displayReportUsers();
+			$data['buyer_id'] = $buyer_id;
+			$data['start_date'] = $start_date;
+			$data['end_date'] = $end_date;
+			$data['nfaStatus'] = $nfaStatus;
+						
+			$nfa_select = nfa_dropdown_reports("award_contract");
+			$data['nfa_select'] = $nfa_select;
+		
+			$this->load->view('nfa/award_contract/reports', $data);
+>>>>>>> origin/vendor_dt
         } else {
             $this->load->view('index', $data);
         }
     }
+<<<<<<< HEAD
 
     public function reports() {
         $mSessionKey = $this->session->userdata('session_id');
@@ -1596,15 +2467,60 @@ class Award_contract extends ListNfa {
     }
 
     public function esign() {
+=======
+	public function export_csv(){ 
+		/* file name */
+		
+		$filename = 'users_'.date('Ymd').'.csv'; 
+		header("Content-Description: File Transfer"); 
+		header("Content-Disposition: attachment; filename=$filename"); 
+		header("Content-Type: application/csv; ");
+	   /* get data */
+		
+		$file = fopen("php://output", 'w');
+		$header = array("Sl. No","ENFA No.","Subject","Award Synopsis","NFA Status"); 
+		
+		$data11 = $this->input->post('data1');	
+		
+		$records1 = json_decode($data11,true);
+		
+		fputcsv($file, $header);
+		$excel_arr = array();
+		$slno = 1;
+		foreach ($records1 as $key=>$line){ 
+			$excel_arr = array();
+			$excel_arr[$slno] = $slno++;
+			$excel_arr['version_id'] = $line['version_id'];
+			$excel_arr['subject'] = strip_tags($line['subject']);
+			$excel_arr['synopsis_label'] = $line['synopsis_label'];
+			if($line['status']==1 && $line['nfa_status']=='A' )
+				$statusNfa = "Approved";
+			else if($line['nfa_status']=='C' )
+				$statusNfa = "Cancelled";
+			else
+				$statusNfa = "Pending";
+			$excel_arr['nfa_status'] = $statusNfa;
+			
+			fputcsv($file,$excel_arr); 
+		}
+		fclose($file); 
+		
+		exit; 
+	}
+	
+    public function esign()
+    {
+>>>>>>> origin/vendor_dt
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
-            // $data['home'] = "reports";
+           
             $data['records'] = $this->buyer->getAllParent();
             $this->load->view('nfa/esign', $data);
         } else {
             $this->load->view('index', $data);
         }
     }
+<<<<<<< HEAD
 
     /* public function getLevelRole()
       {
@@ -1630,6 +2546,19 @@ class Award_contract extends ListNfa {
             $getUsers = $this->common->select_fields_where($tbl, $fields, $where, '', '', '', '', '', $order_by);
             //print
             //echo $role = $getUsers->role;
+=======
+	
+	public function getRoleUsers() {
+        $role = $this->input->post('role');
+		
+        if ($role) {
+			$tbl = "buyers";
+			$fields = 'buyer_id,buyer_name';
+			$where = array("buyer_role"=>$role);
+			$order_by = 'buyer_name asc';
+            $getUsers = $this->common->select_fields_where($tbl, $fields, $where, '', '', '', '','',$order_by);
+			
+>>>>>>> origin/vendor_dt
             $result = '<option disabled="" selected="" value="" disabled="">Select Users</option>';
             foreach ($getUsers as $key => $valUser) {
                 $result = $result . "<option value='" . $valUser->buyer_id . "'>" . $valUser->buyer_name . "</option>" . PHP_EOL;
@@ -1638,12 +2567,106 @@ class Award_contract extends ListNfa {
         } else {
             echo "<option>No data</option>";
         }
+<<<<<<< HEAD
     }
 
     //Get Final bid Data
     public function getFinalBidData($salient_id, $package_id = null, $bidder_id = null) {
         $mRecordFinalBid = $this->awardRecommContract->get_award_contract_FinalBid($salient_id, $package_id, $bidder_id);
         return $mRecordFinalBid;
+=======
+		
+    }
+	//Get Final bid Data
+	public function getFinalBidData($salient_id,$package_id=null,$bidder_id=null) {
+		$mRecordFinalBid = $this->awardRecommContract->get_award_contract_FinalBid($salient_id,$package_id,$bidder_id);
+		return $mRecordFinalBid;
+		
+    }
+	
+	//Get Min bidder data
+	public function package_min_bidder_data($salient_id=null,$package_id=null) {
+		$mRecordMinBid = $this->awardRecommContract->get_min_bidder_data($salient_id,$package_id);
+		return $mRecordMinBid;
+	}
+	
+	//Display packages in Final bid
+	public function show_package_bidders() {
+		
+		$package_name = $this->input->post('package_name');
+		$package_index = $this->input->post('package_index');
+		$package_row ="";
+		
+        if ($package_name) {
+			
+			$pck_index = $keyPck+1;
+			$package_row.="
+						<td>".$package_name."</td>
+						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
+						<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
+						
+						";
+			
+            
+		}
+		
+		echo $package_row; 
+		
+    }
+	//Display packages in Final bid
+	public function show_package_bidders1() {
+		
+		$package_name = $this->input->post('package_name');
+		$bidder_count = $this->input->post('bidder_count');
+		$finalized_award_value = $this->input->post('finalized_award_value');
+		$package_row ="";
+					
+        if ($package_name) {
+			
+			$pck_index = 1;
+			$package_row.="<td>".$package_name."<input type='hidden' name='package_name_bid_hd' id='package_name_bid_hd".$pck_index."' value='".$package_name."'></td>
+			<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getGplBudget_total();' class='form-control decimalStrictClass' name='package_gpl_budget[]' id='package_gpl_budget1' required readonly></td>";
+			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
+			{
+			
+					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+				";
+			}
+            
+		}
+		
+		echo $package_row; 
+		
+    }
+
+	public function show_package_bidders2() {
+		
+		$package_name = $this->input->post('package_name');
+		$bidder_count = $this->input->post('bidder_count');
+		$finalized_award_value = $this->input->post('finalized_award_value');
+		$package_row2="";
+		
+			
+        if ($package_name) {
+			
+			$pck_index = 2;
+			$package_row2.="
+			<td>".$package_name."<input type='hidden' name='package_name_bid_hd' id='package_name_bid_hd".$pck_index."' value='".$package_name."'></td>
+			<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getGplBudget_total();' class='form-control decimalStrictClass' name='package_gpl_budget[]' id='package_gpl_budget2' required readonly></td>";
+			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
+			{
+				
+				$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+				";
+				
+				
+			}
+			 
+		}
+		
+		echo $package_row2; 
+		
+>>>>>>> origin/vendor_dt
     }
 
     //Get Min bidder data
@@ -1661,6 +2684,7 @@ class Award_contract extends ListNfa {
         //print_r($package_name);
 
         if ($package_name) {
+<<<<<<< HEAD
             //foreach ($package_name as $keyPck => $valPck) {
             $pck_index = $keyPck + 1;
             $package_row .= "
@@ -1850,6 +2874,111 @@ class Award_contract extends ListNfa {
         //echo json_encode($result); 
         //echo json_encode("test"); 
         echo $result_approvers;
+=======
+			
+			$pck_index = 3;
+			$package_row3.="
+			<td>".$package_name."<input type='hidden' name='package_name_bid_hd' id='package_name_bid_hd".$pck_index."' value='".$package_name."'></td>
+			<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getGplBudget_total();' class='form-control decimalStrictClass' name='package_gpl_budget[]' id='package_gpl_budget3' required readonly></td>";
+			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
+			{
+				
+				$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+				";	
+				
+			}
+					
+            
+		}
+		
+		echo $package_row3; 
+		
+    }
+	public function getMaxLevelApprovers() {
+		$result  = array();
+		
+		$l1_vendor1 = $this->input->post('l1_vendor1');
+		$package_value = $this->input->post('package_value');
+		$package_value = $package_value*10000000; 
+		
+		$salient_id = $this->input->post('salient_id');
+		$pgType = $this->input->post('pgType');
+		
+        if ($package_value) {
+			
+			$getConditions = $this->awardRecommContract->getApprover_conditions($l1_vendor1);
+			
+            foreach ($getConditions as $key => $valConditions) {
+				$condition3 = $valConditions['condition3'];
+				
+				$condition1 = $valConditions['condition1'];
+				
+				$condition2 = $valConditions['condition2'];
+				if($valConditions['condition2']!='')
+				{
+					
+					$checkCond =  eval("return ($l1_vendor1==$condition3) && ($package_value.$condition2 && $package_value.$condition1) ;");
+					
+					if($checkCond)
+					{
+						
+						$level_max =  $valConditions['max_level'];
+						break;
+					} 
+				}
+				else
+				{
+					
+					$checkCond =  eval("return ($l1_vendor1==$condition3) && ($package_value.$condition1);");
+					
+					if($checkCond)
+					{	
+						
+						$level_max =  $valConditions['max_level'];
+						
+						break;
+					} 
+					
+				}
+               
+            }
+			
+						
+			 $getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,'',"award_contract");
+			 
+			 $result_approvers = '';
+			 $mSessionZone = $this->session->userdata('session_zone');
+			
+			 foreach ($getLevels as $key => $valLevel) {
+				 $role = $valLevel->role;
+				 $approver_id = $valLevel->approver_id;
+				
+				 $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
+				
+				$result_approvers .='<div id="pm" class="col-md-3 mb-3">
+				<lable>'.$role.'</lable>
+				<select name="approver_id[]"   class="form-control" required >
+					<option disabled="" selected="" value="">Select</option>
+					<option value="0">Not Applicable</option>';
+				
+					foreach ($getUsers as $keyUser => $valUser) {
+						$buyer_id = $valUser->buyer_id;
+						
+						$result_approvers .='<option value="'.$valUser->buyer_id.'">'.$valUser->buyer_name .'</option>';
+					}    
+				$result_approvers .='</select>
+				</div>';
+		
+				
+			}
+		
+	   
+        } 
+		$result['data1'] = $result_approvers; 
+	
+		echo $result_approvers; 
+		
+>>>>>>> origin/vendor_dt
     }
 
 }

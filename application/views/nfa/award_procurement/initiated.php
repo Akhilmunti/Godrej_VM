@@ -47,7 +47,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-md-10">
-                                <h3 class="page-title br-0">Current NFA's  - Award Recommendation for Procurement</h3>
+                                <h3 class="page-title br-0">Current IOM's  - Award Recommendation for Procurement</h3>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
 									<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
                                              
                                             </div>
@@ -79,7 +79,7 @@
 													<th>ENFA No.</th>
                                                     <th>Subject</th>
                                                     <th>Award Synopsis</th>
-                                                    <th>NFA Status</th>
+                                                    <th>IOM Status</th>
                                                    
                                                     <th>Actions</th>
                                                 </tr>
@@ -99,7 +99,7 @@
 																$preChkRecords = $CI->nfaAction->chkPreApproved($salient_id,$approver_level,"award_procurement");
 															else
 																$preChkRecords=1;
-															//$CI->model_name->method_name();
+															
                                                             ?>
                                                 <tr>
                                                     <td>
@@ -121,8 +121,8 @@
                                                      <?php if($preChkRecords==1)
 													{	
 													?>    
-                                                       <a href="#" data-toggle="modal" data-target="#modal-right<?php echo $record['id']?>">
-                                                            <button type="button" class="btn btn-primary rounded border-secondary font-weight-bold mr-5 buttonPadding">NFA Actions</button>
+                                                        <a href="#" data-toggle="modal" data-target="#modal-right<?php echo $record['id']?>">
+                                                            <button type="button" class="btn btn-primary rounded border-secondary font-weight-bold mr-5 buttonPadding">IOM Actions</button>
                                                         </a>
 														<?php 
 													}
@@ -130,16 +130,14 @@
                                                        <a href="<?php echo base_url('nfa/Award_procurement/view_nfa/'. $record['id']); ?>">
                                                             <button type="button" class="btn btn-success rounded buttonPadding">View</button>
                                                         </a>
-                                                       <?php /*?> <a href="<?php echo base_url('nfa/LdWaiver/esign'); ?>">
-                                                            <button type="button" class="btn btn-success rounded ml-2">Esign</button>
-                                                        </a> <?php */?>
+                                                      
                                                     </td>
                                                 </tr><div class="modal modal-right fade" id="modal-right<?php echo $record['id']?>" tabindex="-1">
 												<?php 
 		$data['mId']=$record['id'];
 		$data['title']="Award Recommendation for Procurement";
 		$data['url']="nfa/Award_procurement";
-		//$this->load->vars($mid);
+		
 		$this->load->view('nfa/nfa_actions',$data); ?></div>
                                                 <?php } ?>
 
@@ -176,102 +174,6 @@
         <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
 
         <div class="control-sidebar-bg"></div>
-		<?php 
-		//$data['mId']=$record['id'];
-		
-		//$this->load->view('nfa/nfa_actions',$data); ?>
-		        <!-- Modal -->
-        <?php /*<div class="modal modal-right fade" id="modal-right" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            LD Waiver
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-						
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/LdWaiver/approve/'.$record['id']); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white ">
-                                            <h3>
-                                                Approve NFA1
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-						
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/LdWaiver/cancel'); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white ">
-                                            <h3>
-                                                Cancel NFA
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!--<div class="col-md-12">
-                                <a href="">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white ">
-                                            <h3>
-                                                Transfer NFA
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-							-->
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/LdWaiver/return'); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white ">
-                                            <h3>
-                                                Return NFA
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/LdWaiver/return_text/'.$record['id']); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white ">
-                                            <h3>
-                                                Return with Text Correction
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <!-- <div class="col-md-12">
-                                <a href="">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white ">
-                                            <h3>
-                                                Esign NFA
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div> -->
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-uniform">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div> */?>
-        <!-- /.modal -->
 
     </div>
 

@@ -37,7 +37,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h3 class="page-title br-0">
-                                    NFA - Award Recommendation
+                                    IOM - Award Recommendation
                                 </h3>
                             </div>
                             <div class="col-md-6 text-right pt-3">
@@ -93,101 +93,7 @@
 
         <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
-        <!-- Modal -->
-        <!-- /.modal -->
-        <!-- Modal -->
-        <!-- <div class="modal modal-right fade" id="modal-right-1" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            Short Listing Approval for Contractor
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/Short_listing_contractor/actionAdd'); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white">
-                                            <h3>
-                                                Create NFA
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/amendment/list'); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white">
-                                            <h3>
-                                                Cancel NFA's
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-uniform">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal modal-right fade" id="modal-right-2" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">
-                            Short Listing Approval for Supplier
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/Short_listing_supplier/actionAdd'); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white">
-                                            <h3>
-                                                Create NFA
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                            <div class="col-md-12">
-                                <a href="<?php echo base_url('nfa/amendment/list'); ?>">
-                                    <div class="box primary-gradient">
-                                        <div class="box-body p-10 text-center text-white">
-                                            <h3>
-                                                Cancel NFA's
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer modal-footer-uniform">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- /.modal -->
+       
     </div>
     <!-- ./wrapper -->
 

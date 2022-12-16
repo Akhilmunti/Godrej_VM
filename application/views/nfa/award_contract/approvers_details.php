@@ -2,13 +2,13 @@
   $CI=&get_instance();
                                             
 foreach ($mRecordLevels as $key => $val) {
-   // $approver_id  = $key;
+ 
 	$level = $val['level'];
 	$approver_name = $val['approver_name'];
 	
 	 $role = $val['role'];
 	 $approver_id = $val['approver_id'];
-	 //$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
+	
 	 if($approver_id==0)
 	 {
 		$approver_name = "Not Applicable"; 
@@ -16,7 +16,7 @@ foreach ($mRecordLevels as $key => $val) {
 	 else
 	 {
 		$getUser = $CI->getRoleUsers_approval($role,$mSessionZone,$approver_id);
-		//print_r($getUser);
+		
 		$approver_name = $getUser[0]->buyer_name;
 	 }
 	?> 
@@ -125,48 +125,7 @@ foreach ($mRecordLevels as $key => $val) {
                                                 </td>
                                             </tr>
 											<?php 
-/*	 
-?>
-	<tr>
-		<td class='font-weight-bold' style="width: 60%;">Level <?php echo $level; ?> Approver(<?php echo $role ?>)</td>
-		<td><?php echo $approver_name; 
-		
-		
-		if($approver_id!=0)
-		 {
-			?>
-				- <?php echo ($val['approved_status'] == 0) ? "Approval Pending" : "Approved" ?><br>
-				<?php
-				if ($val['approved_status'] == 1)
-					echo "Approved Date: " . date("d-m-Y h:i:sa", strtotime($val['approved_date'])) . "<br>";
-				if ($val['returned_text_status'] == 1) {
-					echo "Returned for Text correction" . "<br>";
-					echo "Remarks: " . $val['returned_text_remarks'] . "<br>";
-					//echo "Returned Date for text correction: ".$val['returned_text_date']."<br>";
-					echo "Returned Date for text correction: " . date("d-m-Y h:i:sa", strtotime($val['returned_text_date'])) . "<br>";
-				}
-				if ($val['returned_by'] != 0) {
 
-					echo "Returned NFA" . "<br>";
-					echo "Remarks: " . $val['returned_remarks'] . "<br>";
-					echo "Returned Date: " . date("d-m-Y h:i:sa", strtotime($val['returned_date'])) . "<br>";
-					//$date=date_create($val['returned_date']);
-					//echo date_format($date,"Y/m/d h:i:sa");
-				}
-				if ($val['amended_by'] != 0) {
-
-					echo "Amended NFA" . "<br>";
-					echo "Remarks: " . $val['amended_remarks'] . "<br>";
-					echo "Amended Date: " . date("d-m-Y h:i:sa", strtotime($val['amended_date'])) . "<br>";
-				}
-				
-		 } //end of approver id checking
-			?>
-			
-			</td>
-	</tr>
-<?php
-*/
 }
 
 

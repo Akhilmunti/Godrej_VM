@@ -108,7 +108,13 @@
         }
 
     </style>
-
+    <?php if($type_work_id==1)
+            $uom_label = "Sqm";
+          else if($type_work_id==3)
+            $uom_label = "MT";
+          else if($type_work_id==4)
+            $uom_label = "Bags";
+    ?>
 
 
     <div class="wrapper">
@@ -290,7 +296,17 @@
                                     </table>
                                 </div>
 								
-								
+								<div class="row mt-4">
+
+                                    <div class="col-lg-4">
+                                        <div class='form-group'>
+                                            <label class="font-weight-bold"><?php echo $uom_label;?></label>
+                                            <input type="hidden" name="uom_label" id="uom_label" value="<?php echo $uom_label;?>">
+                                            <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value">
+                                        </div>
+                                    </div>
+
+                                </div>
 									
 								<div class="row mt-4">
                                     <div class="col-lg-12">
@@ -457,7 +473,7 @@
                                                     <th style="width:45%">
                                                     <label for="term_label">Description</label>
                                                     <div style="display:flex ;">
-                                                    <!--<input type='text' class="form-control mr-2" placeholder="Package 1" name="term_label" id="term_label" required><input type='text' class="form-control sec1 mr-2" placeholder="Package 2" name="term_label" id="term_label" required><input type='text' class="form-control sec2 mr-2" placeholder="Package 3" name="term_label" id="term_label" required>-->
+                                                  
                                                     <div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label>Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label>Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required>
                                                     </div></div></th>
                                                     <th style="width:20%;">Action</th>
@@ -467,7 +483,7 @@
                                                 <tr class='text-center'>
                                                     <td>1</td>
                                                     <td><input type='text' class="form-control" name="term[]" placeholder="" required></td>
-                                                    <td><div style="display:flex ;"><!--<textarea name="term_label_value[]" value="" class="form-control mr-2" rows="2" name="" id="" required></textarea><textarea name="term_label_value[]" value="" class="form-control sec1 mr-2" rows="2" name="" id="" required></textarea><textarea name="term_label_value[]" value="" class="form-control sec2 mr-2" rows="2" name="" id="" required></textarea>-->
+                                                    <td><div style="display:flex ;">
                                                     <textarea name="term_label_value[1][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required></textarea><textarea name="term_label_value[1][]"  class="form-control sec1 mr-2" rows="2"  id="term_label_value2" ></textarea><textarea name="term_label_value[1][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value3" ></textarea>
                                                 </div></td>
                                                     <td></td>
@@ -608,8 +624,6 @@
 
         function finalized_val(sender) {
             let val = sender.value;
-
-           
 
             val1 = String(val);
             if (val1) {
@@ -759,7 +773,6 @@
 
             //Remove TD from final Bid
           
-
             $('#bidder_count').val(0);
             $('#bidHead_row').find('th:gt(2)').remove();
             $('#pqFb_row').find('td:gt(2)').remove();
@@ -909,29 +922,24 @@
 					anticipated3.style.display = "none";
 			});    
 
-			//$("#nfaForm").validate();  
-
+		
             $('.onMouseOutClass').on('mouseout', (event) => {
-            let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
-            for(let i = 0;i<ele.length;i++){
-                let val = event.target.value;
-                val1 = String(event.target.value);
-                if (val1) {
-                    if (val1.includes("Cr")) {
-                        event.target.value = val;
-                    } else if (!val1.includes("Cr")) {
-                        event.target.value = event.target.value + " Cr";
+                let ele = document.getElementsByClassName("onMouseOutClass");
+            
+                for(let i = 0;i<ele.length;i++){
+                    let val = event.target.value;
+                    val1 = String(event.target.value);
+                    if (val1) {
+                        if (val1.includes("Cr")) {
+                            event.target.value = val;
+                        } else if (!val1.includes("Cr")) {
+                            event.target.value = event.target.value + " Cr";
+                        }
                     }
                 }
-            }
 
-        })
+            })
         });
-
-
-
-
 
         /* Ending award synopsis dynamic column */
 
@@ -962,7 +970,6 @@
             var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
            
 			if(bidCount_disp <= bid_count){
-
 
                 for (pckIndex = 1; pckIndex <= package_count; pckIndex++) {
 
@@ -1088,8 +1095,6 @@
         let basic3 = document.getElementById("basic_rate3");
         let anticipated3 = document.getElementById("anticipated_rate3");
   
-
-
         function createRowColumn(row) {
             var column = document.createElement("td");
             row.appendChild(column);
@@ -1190,7 +1195,6 @@
 
             package_value = $('#post_basic_rate_package1').val();
 
-           
             $.post("<?php echo base_url('nfa/Award_procurement/getRoleUsers'); ?>", {
                     role: level,
                    
@@ -1227,8 +1231,6 @@
 
         });
 
-
-
         //Calculate Sum for the second package
         function calculateSum2() {
             var sum1 = 0;
@@ -1246,10 +1248,8 @@
 
             var finalized_award_value_package2 = $("#finalized_award_value_package2").val();
             var anticipated_rate2 = $("#anticipated_rate2").val();
-            //var sum2=0;
+           
             sum2 = parseFloat(finalized_award_value_package2) + parseFloat(anticipated_rate2);
-
-
 
             $("#post_basic_rate_package2").val(sum2);
         }
@@ -1260,7 +1260,6 @@
 
             var activity_planned_date = $("#activity_planned_date").val();
             var activity_cbe_date = $("#activity_cbe_date").val();
-
 
             // end - start returns difference in milliseconds 
           
@@ -1290,12 +1289,7 @@
           
             return Math.round(days);
         }
-        $(document).ready(function() {
-
-
-
-
-        });
+       
         $('#receipt_date').blur(function() {
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
@@ -1319,7 +1313,6 @@
         $('#save, #submit').on('click', () => {
             // Get HTML content
 
-
             var subject_html = quill.root.innerHTML;
            
             // Copy HTML content in hidden form
@@ -1328,15 +1321,11 @@
 
         })
 		
-		
-		
-		
-		
+	
 //function calculateSum1_v1(index){
 function calculateSum1_v1(ele_id)
 {
-		
-		
+	
 		var total_sum=0;
 		var total_expected_savings=0;
 		var sum=0;
@@ -1368,8 +1357,6 @@ function calculateSum1_v1(ele_id)
 			total_expected_savings += expected_savings_package; 
 			total_sum += sum; 
 
-		
-			
 		}
 	
 		total_sum = parseFloat(total_sum) || 0;
@@ -1378,17 +1365,12 @@ function calculateSum1_v1(ele_id)
 		total_expected_savings = parseFloat(total_expected_savings) || 0;
 		$("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
 		
-		console.log("pro"+total_sum);
-
-		
 		package_value= total_sum;
 		
 		ho_approval = $("input[name='ho_approval']:checked").val(); 
 		
-		
 		// Get max level of Approvers
 		
-	
 		if(index==package_count)
 		{
 			var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
@@ -1400,8 +1382,7 @@ function calculateSum1_v1(ele_id)
 						function (data, status) {
 						
 							$('#approvers_list_div').html(data);
-							
-							
+						
 						});
 		
 		}
@@ -1442,20 +1423,20 @@ function calculateSum1_v1(ele_id)
         
       
         function decimalStrict(){
-        let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
-        for(let k = 0;k<=noOfClasses;k++){
-        setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
-            return /^-?\d*[.,]?\d{0,2}$/.test(value); });
-        }
+            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            for(let k = 0;k<=noOfClasses;k++){
+                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                return /^-?\d*[.,]?\d{0,2}$/.test(value); });
+            }
         }
 	
     </script>
     <script src="../../assets/js/summernote-bs4.min.js"></script>
     <script src="../../assets/js/jquery.min.js"></script>
-    <!-- <script src="../../assets/js/bootstrap.bundle.min.js"></script> -->
+  
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/nfa_award_contract.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/nfa_scripts.js"></script>
-    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script> -->
+   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 </body>

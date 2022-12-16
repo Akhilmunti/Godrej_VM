@@ -80,7 +80,7 @@
 
                                                         <?php 
 														$mSessionRole = $this->session->userdata('session_role');
-														//echo $mSessionRole."session";
+													
                                                         $mCount = 0;
                                                         foreach ($records as $key => $record) {
                                                             $mCount++;
