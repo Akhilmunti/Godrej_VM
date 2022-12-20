@@ -212,7 +212,9 @@ class ListNfa extends CI_Controller {
 			}
 			$order_by = 'buyer_name asc';
             $getUsers = $this->common->select_fields_where($tbl, $fields, $where, '', '', '', '','',$order_by);
-			return $getUsers;
+			//print_r($this->db->last_query());    
+            
+            return $getUsers;
 			
         } 
 		

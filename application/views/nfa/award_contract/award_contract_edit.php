@@ -216,7 +216,7 @@ $this->load->view('buyer/partials/header'); ?>
 											 	
 											 ?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
+                                                <input type='text'  oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();calculateSum1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
                                             </td> 
                                             <?php 
 											}
@@ -256,6 +256,64 @@ $this->load->view('buyer/partials/header'); ?>
 											}?> 
 											
                                             <td> <input  type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="<?php echo $mRecord['total_finalized_award_value'] ?> Cr" readonly></td> 
+                                        </tr>
+										                                      
+                                        <tr class='text-center'>
+                                            <td>Expected Savings w.r.t Budget incl.escalation:</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package<?php echo $id_index;?>" value="<?php echo $val['expected_savings_package'] ?> %" readonly>
+                                            </td>
+                                            <?php 
+											}?> 
+											
+                                            <td>
+												<input type='text' class="form-control"  name="total_expected_savings" id="total_expected_savings" value="<?php echo $mRecord['total_expected_savings'] ?> %" readonly>
+											</td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Recommended Vendors</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package<?php echo $id_index;?>" value="<?php echo $val['recomm_vendor_package'] ?>" onblur="setRecommended_vendorName();">
+                                            </td>
+											<?php 
+											}?> 
+                                           
+                                            <td></td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Basis of award</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package<?php echo $id_index;?>" value="<?php echo $val['basis_award_package'] ?>" readonly>
+                                            </td>
+                                            <?php 
+											}?>
+											<td></td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Deviation from Approved Contracting Strategy</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+											   <td>
+													<input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
+												</td>
+											<?php 
+											}?> 
+                                           
+                                            <td></td>
                                         </tr>
                                         <tr class='text-center'>
                                             <td>
@@ -352,64 +410,6 @@ $this->load->view('buyer/partials/header'); ?>
 												<input type='text' class="form-control"  name="total_post_basic_rate" id="total_post_basic_rate" value="<?php echo $mRecord['total_post_basic_rate'] ?> Cr"  readonly>
 											</td> 
                                         </tr>
-                                      
-                                        <tr class='text-center'>
-                                            <td>Expected Savings w.r.t Budget incl.escalation(after accounting the anticipated basic rate adjustment):</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package<?php echo $id_index;?>" value="<?php echo $val['expected_savings_package'] ?> %" readonly>
-                                            </td>
-                                            <?php 
-											}?> 
-											
-                                            <td>
-												<input type='text' class="form-control"  name="total_expected_savings" id="total_expected_savings" value="<?php echo $mRecord['total_expected_savings'] ?> %" readonly>
-											</td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Recommended Vendors</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package<?php echo $id_index;?>" value="<?php echo $val['recomm_vendor_package'] ?>" onblur="setRecommended_vendorName();">
-                                            </td>
-											<?php 
-											}?> 
-                                           
-                                            <td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Basis of award</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package<?php echo $id_index;?>" value="<?php echo $val['basis_award_package'] ?>" readonly>
-                                            </td>
-                                            <?php 
-											}?>
-											<td></td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Deviation from Approved Contracting Strategy</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-											   <td>
-													<input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
-												</td>
-											<?php 
-											}?> 
-                                           
-                                            <td></td>
-                                        </tr>
                                         <tr class='text-center'>
                                             <td>Base Rate Consideration Month in Award</td> 
 											<?php foreach($mRecordPackage as $key=>$val)
@@ -417,7 +417,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>">
+                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" required>
                                             </td>
 											<?php 
 											}?> 
@@ -539,10 +539,7 @@ $this->load->view('buyer/partials/header'); ?>
 													$bidder_class = '';
 																									
 													$script_text = ' onblur="getBidders_total();changeToCr(this);calculateSum1();"';
-													/*if(($id_index==1 && $bid_index==1) || ($id_index==2 && $bid_index==2) || ($id_index==3 && $bid_index==3))
-													 	$read_attr = "readonly";
-													else
-														$read_attr = "";*/
+													
 													
 												?>
 													<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control package_common_tower_label_custom_td decimalStrictClass" name="package_bidder[<?php echo $id_index;?>][<?php echo $bid_index;?>]" id="package_bidder_<?php echo $id_index;?>_<?php echo $bid_index;?>" value="<?php echo $package_bidder_value; ?> Cr" <?php echo $script_text; ?>></td>
@@ -566,9 +563,7 @@ $this->load->view('buyer/partials/header'); ?>
 										  }
 									$total_amt_gpl = $mRecordFinalBidders[0]->total_amt_gpl;
 									?>
-										<!--<tr id="package_row" class='text-center'>
-                                       
-										</tr>-->
+										
                                         <tr class='text-center' id="totAmt_row">
                                             <td class="page-title font-weight-bold">Total Amount</td>
 											 <td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control decimalStrictClass onMouseOutClass" name="total_amt_gpl" id="total_amt_gpl" value="<?php echo $total_amt_gpl; ?> Cr" readonly></td>
@@ -685,12 +680,12 @@ $this->load->view('buyer/partials/header'); ?>
                                            <td>
                                                 <label>Milestone on which contractor should be appointed</label>
                                                 <div data-tip="Please mention the milestone as per applicable PI">
-                                                <input type='text' class="form-control" name="milestone_label" id="milestone_label" autocomplete="off"  value="<?php echo $mRecordAppointment['milestone_label'] ?>">
+                                                <input type='text' class="form-control" name="milestone_label" id="milestone_label" autocomplete="off"  value="<?php echo $mRecordAppointment['milestone_label'] ?>" required>
                                                 </div>
                                             </td>
                                             <td>
                                               
-											     <select id="contract_package_works_value" name="contract_package_works_value"   class="form-control" >
+											     <select id="contract_package_works_value" name="contract_package_works_value"   class="form-control" required >
                                                     <option value="">Select</option>
 													<?php 
 													for($i=1;$i<=5;$i++)
@@ -720,7 +715,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>A</td>
                                             <td>Planned date of Contractor appointment As per PI Logic</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100% " name="activity_planned_date" id="activity_planned_date"  value="<?php echo $mRecordAppointment['activity_planned_date'] ?>">
+                                                <input type='date' class="form-control" style="width: 100% " name="activity_planned_date" id="activity_planned_date"  value="<?php echo $mRecordAppointment['activity_planned_date'] ?>" required>
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_planned_remarks" id="activity_planned_remarks"><?php echo $mRecordAppointment['activity_planned_remarks'] ?></textarea>
@@ -730,7 +725,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>B</td>
                                             <td>Actual date as per current site progress</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_actual_date" id="activity_actual_date" value="<?php echo $mRecordAppointment['activity_actual_date'] ?>" >
+                                                <input type='date' class="form-control" style="width: 100%;" name="activity_actual_date" id="activity_actual_date" value="<?php echo $mRecordAppointment['activity_actual_date'] ?>" required>
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_actual_remarks" id="activity_actual_remarks"><?php echo $mRecordAppointment['activity_actual_remarks'] ?></textarea>
@@ -740,7 +735,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>C</td>
                                             <td>CBE of contractor Appointment</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();" onchange="validate_receipt_date();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>">
+                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();" onchange="validate_receipt_date();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>" required>
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_cbe_remarks" id="activity_cbe_remarks"><?php echo $mRecordAppointment['activity_cbe_remarks'] ?></textarea>
@@ -858,9 +853,9 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label>Package 2</label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label>Package 3</label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
+											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>
@@ -1004,10 +999,13 @@ $this->load->view('buyer/partials/header'); ?>
 							 $mSessionZone = $this->session->userdata('session_zone');
 							
 							 foreach ($getLevels as $key => $valLevel) {
-								 $role = $valLevel->role;
-								 $approver_id = $valLevel->approver_id;
+								$role = $valLevel->role;
+								$approver_id = $valLevel->approver_id;
 								
-								 $getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
+								if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
+									$getUsers = $CI->getRoleUsers_approval($role);
+								else
+								 	$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
 								 	
 								
                             ?>
@@ -1208,11 +1206,19 @@ $this->load->view('buyer/partials/header'); ?>
 
 		let _th=`<th><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
 
-		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
+		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');calculateSum1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
 
 		let _negotiated_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td decimalStrictClass onMouseOutClass" name="package_negot_value" id="package_negot_value"></td>`;
 
 		let _finalized=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="finalized_val(this);finalized_total();showBidders_finalized();calculateSum1();" required></td>`;
+
+		let _exp_saving=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _exp_saving_td decimalStrictClass onMouseOutClass" name="expected_savings_package[]" id="expected_savings_package" readonly></td>`;
+
+		let _rec_vendors=`<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();"></td>`;
+
+		let _basis_awrd=`<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
+
+		let _deviation_contr=`<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package"></td>`;
 
 		let _last_awarded=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
 		
@@ -1224,14 +1230,6 @@ $this->load->view('buyer/partials/header'); ?>
 		let _anti_basic_rate=`<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]" style="display:none ;"  type='text' oninput="decimalStrict(this)" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1(this.id);" class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required></td>`;
 
 		let _proposed_awrd_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
-
-		let _exp_saving=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _exp_saving_td decimalStrictClass onMouseOutClass" name="expected_savings_package[]" id="expected_savings_package" readonly></td>`;
-
-		let _rec_vendors=`<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();"></td>`;
-
-		let _basis_awrd=`<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
-
-		let _deviation_contr=`<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package"></td>`;
 
 		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package"></td>`;
 		
@@ -1263,36 +1261,6 @@ $this->load->view('buyer/partials/header'); ?>
 		finalized_val.find("input").attr("name",finalized_val.find("input").attr("name"))
 		finalized_val.find("input").attr("id",finalized_val.find("input").attr("id")+String(i+1))
 
-		let last_awarded=$(_last_awarded);
-		last_awarded.find("input").attr("name",last_awarded.find("input").attr("name"))
-		last_awarded.find("input").attr("id",last_awarded.find("input").attr("id")+String(i+1))
-		
-		let is_basic_rate=$(_is_basic_rate);
-		let groupName=is_basic_rate.find("input").attr("name")+"_"+String(i+1)
-		$(is_basic_rate.find("input")[0]).attr("id",groupName+"_1")
-		$(is_basic_rate.find("input")[1]).attr("id",groupName+"_2")
-		$(is_basic_rate.find("input")[2]).attr("id",groupName+"_3")
-		
-		$(is_basic_rate.find("label")[0]).attr("for",groupName+"_1")
-		$(is_basic_rate.find("label")[1]).attr("for",groupName+"_2")
-		$(is_basic_rate.find("label")[2]).attr("for",groupName+"_3")
-		is_basic_rate.find("input").attr("name",groupName)
-
-
-		
-
-		let amnt_basic_rate=$(_amnt_basic_rate);
-		amnt_basic_rate.find("input").attr("name",amnt_basic_rate.find("input").attr("name"))
-		amnt_basic_rate.find("input").attr("id",amnt_basic_rate.find("input").attr("id")+String(i+1))
-
-		let anti_basic_rate=$(_anti_basic_rate);
-		anti_basic_rate.find("input").attr("name",anti_basic_rate.find("input").attr("name"))
-		anti_basic_rate.find("input").attr("id",anti_basic_rate.find("input").attr("id")+String(i+1))
-
-		let proposed_award_val=$(_proposed_awrd_val);
-		proposed_award_val.find("input").attr("name",proposed_award_val.find("input").attr("name"))
-		proposed_award_val.find("input").attr("id",proposed_award_val.find("input").attr("id")+String(i+1))
-
 		let exp_saving=$(_exp_saving);
 		exp_saving.find("input").attr("name",exp_saving.find("input").attr("name"))
 		exp_saving.find("input").attr("id",exp_saving.find("input").attr("id")+String(i+1))
@@ -1308,6 +1276,32 @@ $this->load->view('buyer/partials/header'); ?>
 		let deviation_contr=$(_deviation_contr);
 		deviation_contr.find("input").attr("name",deviation_contr.find("input").attr("name"))
 		deviation_contr.find("input").attr("id",deviation_contr.find("input").attr("id")+String(i+1))
+		let last_awarded=$(_last_awarded);
+		last_awarded.find("input").attr("name",last_awarded.find("input").attr("name"))
+		last_awarded.find("input").attr("id",last_awarded.find("input").attr("id")+String(i+1))
+		
+		let is_basic_rate=$(_is_basic_rate);
+		let groupName=is_basic_rate.find("input").attr("name")+"_"+String(i+1)
+		$(is_basic_rate.find("input")[0]).attr("id",groupName+"_1")
+		$(is_basic_rate.find("input")[1]).attr("id",groupName+"_2")
+		$(is_basic_rate.find("input")[2]).attr("id",groupName+"_3")
+		
+		$(is_basic_rate.find("label")[0]).attr("for",groupName+"_1")
+		$(is_basic_rate.find("label")[1]).attr("for",groupName+"_2")
+		$(is_basic_rate.find("label")[2]).attr("for",groupName+"_3")
+		is_basic_rate.find("input").attr("name",groupName)
+
+		let amnt_basic_rate=$(_amnt_basic_rate);
+		amnt_basic_rate.find("input").attr("name",amnt_basic_rate.find("input").attr("name"))
+		amnt_basic_rate.find("input").attr("id",amnt_basic_rate.find("input").attr("id")+String(i+1))
+
+		let anti_basic_rate=$(_anti_basic_rate);
+		anti_basic_rate.find("input").attr("name",anti_basic_rate.find("input").attr("name"))
+		anti_basic_rate.find("input").attr("id",anti_basic_rate.find("input").attr("id")+String(i+1))
+
+		let proposed_award_val=$(_proposed_awrd_val);
+		proposed_award_val.find("input").attr("name",proposed_award_val.find("input").attr("name"))
+		proposed_award_val.find("input").attr("id",proposed_award_val.find("input").attr("id")+String(i+1))
 
 		let base_rate_mnth=$(_base_rate_mnth);
 		base_rate_mnth.find("input").attr("name",base_rate_mnth.find("input").attr("name"))
@@ -1323,24 +1317,26 @@ $this->load->view('buyer/partials/header'); ?>
 
 		$($($("#dyntable").find("tbody").find("tr")[2]).find("td")[elementlength-1]).before(finalized_val)
 
-		$($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength-1]).before(last_awarded)
+		$($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength-1]).before($(exp_saving))
 
-		$($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength-1]).before(is_basic_rate)
+		$($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength-1]).before(rec_vendors)
 
-		$( $($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength-1]).before(amnt_basic_rate)
-		$($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength-1]).before(anti_basic_rate)
+		$($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength-1]).before(basis_awrd)
 
-		$($($("#dyntable").find("tbody").find("tr")[7]).find("td")[elementlength-1]).before(proposed_award_val)
+		$( $($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength-1]).before(deviation_contr)
 
-		$($($("#dyntable").find("tbody").find("tr")[8]).find("td")[elementlength-1]).before($(exp_saving))
+		$($($("#dyntable").find("tbody").find("tr")[7]).find("td")[elementlength-1]).before(last_awarded)
 
-		$($($("#dyntable").find("tbody").find("tr")[9]).find("td")[elementlength-1]).before(rec_vendors)
-		$($($("#dyntable").find("tbody").find("tr")[10]).find("td")[elementlength-1]).before(basis_awrd)
-		$( $($("#dyntable").find("tbody").find("tr")[11]).find("td")[elementlength-1]).before(deviation_contr)
+		$($($("#dyntable").find("tbody").find("tr")[8]).find("td")[elementlength-1]).before(is_basic_rate)
+
+		$( $($("#dyntable").find("tbody").find("tr")[9]).find("td")[elementlength-1]).before(amnt_basic_rate)
+		$($($("#dyntable").find("tbody").find("tr")[10]).find("td")[elementlength-1]).before(anti_basic_rate)
+
+		$($($("#dyntable").find("tbody").find("tr")[11]).find("td")[elementlength-1]).before(proposed_award_val)
+
 		$($($("#dyntable").find("tbody").find("tr")[12]).find("td")[elementlength-1]).before(base_rate_mnth)
 
 		
-
 		}
 		}else{
 			var sel_package_count = $('#package_count').find(":selected").text();

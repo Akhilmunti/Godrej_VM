@@ -1897,25 +1897,29 @@ class Award_contract extends ListNfa
 				}
                
             }
-			
-						
+				
 			 $getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,'',"award_contract");
 			 
 			 $result_approvers = '';
 			 $mSessionZone = $this->session->userdata('session_zone');
 			
 			 foreach ($getLevels as $key => $valLevel) {
-				 $role = $valLevel->role;
-				 $approver_id = $valLevel->approver_id;
+				$role = $valLevel->role;
+				$approver_id = $valLevel->approver_id;
+
+				if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
+					$getUsers = $this->getRoleUsers_approval($role);
+				else
+					$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
 				
-				 $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
+				//$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
 				
 				$result_approvers .='<div id="pm" class="col-md-3 mb-3">
 				<lable>'.$role.'</lable>
 				<select name="approver_id[]"   class="form-control" required >
 					<option disabled="" selected="" value="">Select</option>
 					<option value="0">Not Applicable</option>';
-				
+					
 					foreach ($getUsers as $keyUser => $valUser) {
 						$buyer_id = $valUser->buyer_id;
 						

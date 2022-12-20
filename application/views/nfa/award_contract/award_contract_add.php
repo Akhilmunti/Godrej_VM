@@ -226,6 +226,39 @@
 
                                                 <td><input type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="" readonly></td>
                                             </tr>
+                                            
+                                            <tr class='text-center'>
+                                                <td>Expected Savings w.r.t Budget incl.escalation:</td>
+                                                <td>
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="packageSynopsis_total('expected_savings_package','total_expected_savings');getExpectedSavings();calculateSum1();" class="form-control decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package1" readonly>
+                                                </td>
+
+                                                <td><input type='text' class="form-control" name="total_expected_savings" id="total_expected_savings" value="" readonly></td>
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <td>Recommended Vendors</td>
+                                                <td>
+                                                    <input type='text' class="form-control" name="recomm_vendor_package[]" id="recomm_vendor_package1" required  onblur="setRecommended_vendorName();">
+                                                </td>
+
+                                                <td></td>
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <td>Basis of award</td>
+                                                <td>
+                                                    <input type='text' class="form-control" name="basis_award_package[]" id="basis_award_package1" readonly>
+                                                </td>
+
+                                                <td></td>
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <td>Deviation from Approved Contracting Strategy</td>
+                                                <td>
+                                                    <input type='text' class="form-control" name="deviation_approved_package[]" id="deviation_approved_package1" required>
+                                                </td>
+
+                                                <td></td>
+                                            </tr>
                                             <tr class='text-center'>
                                                 <td>
                                                     <label>Last Awarded Benchmark with Date</label>
@@ -280,38 +313,6 @@
                                                 <td><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
                                             </tr>
 
-                                            <tr class='text-center'>
-                                                <td>Expected Savings w.r.t Budget incl.escalation(after accounting the anticipated basic rate adjustment):</td>
-                                                <td>
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="packageSynopsis_total('expected_savings_package','total_expected_savings');" class="form-control decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package1" readonly>
-                                                </td>
-
-                                                <td><input type='text' class="form-control" name="total_expected_savings" id="total_expected_savings" value="" readonly></td>
-                                            </tr>
-                                            <tr class='text-center'>
-                                                <td>Recommended Vendors</td>
-                                                <td>
-                                                    <input type='text' class="form-control" name="recomm_vendor_package[]" id="recomm_vendor_package1" required  onblur="setRecommended_vendorName();">
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
-                                            <tr class='text-center'>
-                                                <td>Basis of award</td>
-                                                <td>
-                                                    <input type='text' class="form-control" name="basis_award_package[]" id="basis_award_package1" readonly>
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
-                                            <tr class='text-center'>
-                                                <td>Deviation from Approved Contracting Strategy</td>
-                                                <td>
-                                                    <input type='text' class="form-control" name="deviation_approved_package[]" id="deviation_approved_package1" required>
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
                                             <tr class='text-center'>
                                                 <td>Base Rate Consideration Month in Award</td>
                                                 <td>
@@ -577,7 +578,7 @@
                                                     <th style="width:25%">Terms</th>
                                                     <th style="width:55%"><label for="term_label">Description</label>
                                                     <div style="display:flex ;">
-                                                    <div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label>Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label>Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required></div></div></th>
+                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2">Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3">Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required></div></div></th>
                                                     <th style="width:10%;">Action</th>
                                                 </tr>
                                             </thead>
@@ -811,8 +812,12 @@
             $('#bidHead_row').find('th:gt(2)').remove();
             $('#pqFb_row').find('td:gt(2)').remove();
             $('#package_row1').find('td:gt(2)').remove();
-            $('#package_row2').find('td:gt(2)').remove();
-            $('#package_row3').find('td:gt(2)').remove();
+           // $('#package_row2').find('td:gt(2)').remove();
+            //$('#package_row3').find('td:gt(2)').remove();
+            //$('#package_row2').find('td:gt(0)').remove();
+            //$('#package_row3').find('td:gt(0)').remove();
+            $('#package_row2').hide();
+            $('#package_row3').hide();
             $('#totAmt_row').find('td:gt(2)').remove();
             $('#bidPos_row').find('td:gt(1)').remove();
             $('#diffCrs_row').find('td:gt(1)').remove();
@@ -826,6 +831,14 @@
 
             let _finalized = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="finalized_val(this);finalized_total();showBidders_finalized();calculateSum1();" required></td>`;
 
+            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package" readonly></td>`;
+
+            let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" required onblur="setRecommended_vendorName();"></td>`;
+
+            let _basis_awrd = `<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
+
+            let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
+
             let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
 
             let _is_basic_rate = `<td><input class="form-check-input _is_basic_rate_td" type="radio" id="group_" name="group" value="yes"><label class="form-check-label font-weight-bold" for="one_">Yes</label><input class="form-check-input" type="radio" id="group_" name="group"
@@ -836,14 +849,6 @@
             let _anti_basic_rate = `<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required style="display:none ;" ></td>`;
 
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
-
-            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package" readonly></td>`;
-
-            let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" required onblur="setRecommended_vendorName();"></td>`;
-
-            let _basis_awrd = `<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
-
-            let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
 
             let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" required></td>`;
 
@@ -869,33 +874,6 @@
                     finalized_val.find("input").attr("name", finalized_val.find("input").attr("name"))
                     finalized_val.find("input").attr("id", finalized_val.find("input").attr("id") + String(i + 2))
 
-                    let last_awarded = $(_last_awarded);
-                    last_awarded.find("input").attr("name", last_awarded.find("input").attr("name"))
-                    last_awarded.find("input").attr("id", last_awarded.find("input").attr("id") + String(i + 2))
-
-                    let is_basic_rate = $(_is_basic_rate);
-                    let groupName = is_basic_rate.find("input").attr("name") + "_" + String(i + 2)
-                  
-                    $(is_basic_rate.find("input")[0]).attr("id", groupName + "_1")
-                    $(is_basic_rate.find("input")[1]).attr("id", groupName + "_2")
-                    $(is_basic_rate.find("label")[0]).attr("for", groupName + "_1")
-                    $(is_basic_rate.find("label")[1]).attr("for", groupName + "_2")
-                    is_basic_rate.find("input").attr("name", groupName)
-
-                    
-
-                    let amnt_basic_rate = $(_amnt_basic_rate);
-                    amnt_basic_rate.find("input").attr("name", amnt_basic_rate.find("input").attr("name"))
-                    amnt_basic_rate.find("input").attr("id", amnt_basic_rate.find("input").attr("id") + String(i + 2))
-
-                    let anti_basic_rate = $(_anti_basic_rate);
-                    anti_basic_rate.find("input").attr("name", anti_basic_rate.find("input").attr("name"))
-                    anti_basic_rate.find("input").attr("id", anti_basic_rate.find("input").attr("id") + String(i + 2))
-
-                    let proposed_award_val = $(_proposed_awrd_val);
-                    proposed_award_val.find("input").attr("name", proposed_award_val.find("input").attr("name"))
-                    proposed_award_val.find("input").attr("id", proposed_award_val.find("input").attr("id") + String(i + 2))
-
                     let exp_saving = $(_exp_saving);
                     exp_saving.find("input").attr("name", exp_saving.find("input").attr("name"))
                     exp_saving.find("input").attr("id", exp_saving.find("input").attr("id") + String(i + 2))
@@ -912,6 +890,32 @@
                     deviation_contr.find("input").attr("name", deviation_contr.find("input").attr("name"))
                     deviation_contr.find("input").attr("id", deviation_contr.find("input").attr("id") + String(i + 2))
 
+                    let last_awarded = $(_last_awarded);
+                    last_awarded.find("input").attr("name", last_awarded.find("input").attr("name"))
+                    last_awarded.find("input").attr("id", last_awarded.find("input").attr("id") + String(i + 2))
+
+                    let is_basic_rate = $(_is_basic_rate);
+                    let groupName = is_basic_rate.find("input").attr("name") + "_" + String(i + 2)
+                  
+                    $(is_basic_rate.find("input")[0]).attr("id", groupName + "_1")
+                    $(is_basic_rate.find("input")[1]).attr("id", groupName + "_2")
+                    $(is_basic_rate.find("label")[0]).attr("for", groupName + "_1")
+                    $(is_basic_rate.find("label")[1]).attr("for", groupName + "_2")
+                    is_basic_rate.find("input").attr("name", groupName)
+
+                
+                    let amnt_basic_rate = $(_amnt_basic_rate);
+                    amnt_basic_rate.find("input").attr("name", amnt_basic_rate.find("input").attr("name"))
+                    amnt_basic_rate.find("input").attr("id", amnt_basic_rate.find("input").attr("id") + String(i + 2))
+
+                    let anti_basic_rate = $(_anti_basic_rate);
+                    anti_basic_rate.find("input").attr("name", anti_basic_rate.find("input").attr("name"))
+                    anti_basic_rate.find("input").attr("id", anti_basic_rate.find("input").attr("id") + String(i + 2))
+
+                    let proposed_award_val = $(_proposed_awrd_val);
+                    proposed_award_val.find("input").attr("name", proposed_award_val.find("input").attr("name"))
+                    proposed_award_val.find("input").attr("id", proposed_award_val.find("input").attr("id") + String(i + 2))
+
                     let base_rate_mnth = $(_base_rate_mnth);
                     base_rate_mnth.find("input").attr("name", base_rate_mnth.find("input").attr("name"))
                     base_rate_mnth.find("input").attr("id", base_rate_mnth.find("input").attr("id") + String(i + 2))
@@ -926,20 +930,24 @@
 
                     $($($("#dyntable").find("tbody").find("tr")[2]).find("td")[elementlength - 1]).before(finalized_val)
 
-                    $($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength - 1]).before(last_awarded)
+                    $($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength - 1]).before($(exp_saving))
 
-                    $($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength - 1]).before(is_basic_rate)
+                    $($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength - 1]).before(rec_vendors)
 
-                    $($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength - 1]).before(amnt_basic_rate)
-                    $($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength - 1]).before(anti_basic_rate)
+                    $($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength - 1]).before(basis_awrd)
 
-                    $($($("#dyntable").find("tbody").find("tr")[7]).find("td")[elementlength - 1]).before(proposed_award_val)
+                    $($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength - 1]).before(deviation_contr)
 
-                    $($($("#dyntable").find("tbody").find("tr")[8]).find("td")[elementlength - 1]).before($(exp_saving))
+                    $($($("#dyntable").find("tbody").find("tr")[7]).find("td")[elementlength - 1]).before(last_awarded)
 
-                    $($($("#dyntable").find("tbody").find("tr")[9]).find("td")[elementlength - 1]).before(rec_vendors)
-                    $($($("#dyntable").find("tbody").find("tr")[10]).find("td")[elementlength - 1]).before(basis_awrd)
-                    $($($("#dyntable").find("tbody").find("tr")[11]).find("td")[elementlength - 1]).before(deviation_contr)
+                    $($($("#dyntable").find("tbody").find("tr")[8]).find("td")[elementlength - 1]).before(is_basic_rate)
+
+                    $($($("#dyntable").find("tbody").find("tr")[9]).find("td")[elementlength - 1]).before(amnt_basic_rate)
+                    $($($("#dyntable").find("tbody").find("tr")[10]).find("td")[elementlength - 1]).before(anti_basic_rate)
+
+                    $($($("#dyntable").find("tbody").find("tr")[11]).find("td")[elementlength - 1]).before(proposed_award_val)
+
+                   
                     $($($("#dyntable").find("tbody").find("tr")[12]).find("td")[elementlength - 1]).before(base_rate_mnth)
 
                     
@@ -952,15 +960,15 @@
                     $("._budget_incl_td").parent().last().remove()
                     $("._negotiated_val_td").parent().last().remove()
                     $("._finalized_td").parent().last().remove()
-                    $("._last_awarded_td").parent().last().remove()
-                    $("._is_basic_rate_td").parent().last().remove()
-                    $("._amnt_basic_rate_td").parent().last().remove()
-                    $("._anti_basic_rate_td").parent().last().remove()
-                    $("._proposed_awrd_val_td").parent().last().remove()
                     $("._exp_saving_td").parent().last().remove()
                     $("._rec_vendors_td").parent().last().remove()
                     $("._basis_awrd_td").parent().last().remove()
                     $("._deviation_contr_td").parent().last().remove()
+                    $("._last_awarded_td").parent().last().remove()
+                    $("._is_basic_rate_td").parent().last().remove()
+                    $("._amnt_basic_rate_td").parent().last().remove()
+                    $("._anti_basic_rate_td").parent().last().remove()
+                    $("._proposed_awrd_val_td").parent().last().remove()      
                     $("._base_rate_mnth_td").parent().last().remove()
                 }
 
@@ -1510,10 +1518,8 @@
                     pack2[i].style.display="none";
                     
                 }
-            }
+            }     
         }
-
-
         
     </script>
     <script src="../../assets/js/summernote-bs4.min.js"></script>

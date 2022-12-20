@@ -182,7 +182,8 @@ function calculateSum1(){
 		else
 			$("#post_basic_rate_package"+i).val(0+" Cr");
 		
-		expected_savings_package = (parseFloat(sum_proposed)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+		//expected_savings_package = (parseFloat(sum_proposed)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+		expected_savings_package = (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
 		if(!isNaN(expected_savings_package)) {
 			$("#expected_savings_package"+i).val(expected_savings_package.toFixed(2)+" %"); 
 		}
@@ -240,10 +241,10 @@ function package_bidders(label_obj) {
 
 	var package_count = $('#package_count').find(":selected").text();
 	var bidder_count = parseInt($("#bidder_count").val())+1;
-
+	$('#package_row2').show();
+	$('#package_row3').show();
 	package_name = label_obj.value;
 	
-
 	if (label_id == "package_label1")
 	{
 		var url = base_url + 'nfa/Award_contract/show_package_bidders1';
@@ -277,6 +278,8 @@ function package_bidders(label_obj) {
 			setGpl_budget();
 			showBidders_finalized();
 			getBidders_total();
+			setMajorTerms_package();
+
 		});
 
 			
@@ -299,6 +302,21 @@ function  setRecommended_vendorName(){
 }
 
 //Function for setting recommended vendor
+function  setMajorTerms_package(){
+	
+	var package_count = $('#package_count').find(":selected").text();
+	for(i=1;i<=package_count;i++)
+	{
+		package_name= $("#package_label"+i).val(); 
+		
+		$("#pckLabel"+i).text(package_name); 
+		
+	}
+	
+
+}
+
+//Function for setting recommended vendor
 function  setGpl_budget(){
 	
 	var package_count = $('#package_count').find(":selected").text();
@@ -317,15 +335,17 @@ function getExpectedSavings(){
 	var i;
 	var percentage=0;
 	var post_basic_rate_package;
-	var package_budget_esc;
+	var package_budget_esc,finalized_award_value_package;
 	
 	var package_count = $('#package_count').find(":selected").text();
 	for(i=1;i<=package_count;i++)
 	{
-		post_basic_rate_package= $("#post_basic_rate_package"+i).val(); 
+		//post_basic_rate_package= $("#post_basic_rate_package"+i).val(); 
+		finalized_award_value_package= $("#finalized_award_value_package"+i).val(); 
 		
 		package_budget_esc = $("#package_budget_esc"+i).val(); 
-		percentage= (parseFloat(post_basic_rate_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+		//percentage= (parseFloat(post_basic_rate_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+		percentage= (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
 		if(!isNaN(percentage)) {
 			$("#expected_savings_package"+i).val(percentage.toFixed(2)+" %"); 
 		}
