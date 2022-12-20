@@ -106,6 +106,9 @@
             font-weight: 300;
             color: red;
         }
+        .total-hide{
+            display: none;
+        }
 
     </style>
 
@@ -197,7 +200,7 @@
                                                     <label>Package name</label>
                                                     <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders(this);">
                                                 </th>
-                                                <th style="width:20% ;">Total</th>
+                                                <th  id="total-h" class="total-hide" style="width:20% ;">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody id="bidderList">
@@ -208,7 +211,7 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();" class="form-control decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc1" autocomplete="off" required>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>
+                                                <td id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
@@ -216,7 +219,7 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value1" required>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="" readonly></td>
+                                                <td id="total-td2" class="total-hide"><input type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Finalized Proposed Award Value (Excl Tax)</td>
@@ -224,7 +227,7 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package1" required onblur="finalized_val(this);finalized_total();showBidders_finalized();calculateSum1();">
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="" readonly></td>
+                                                <td id="total-td3" class="total-hide"><input type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="" readonly></td>
                                             </tr>
                                             
                                             <tr class='text-center'>
@@ -233,7 +236,7 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="packageSynopsis_total('expected_savings_package','total_expected_savings');getExpectedSavings();calculateSum1();" class="form-control decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package1" readonly>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_expected_savings" id="total_expected_savings" value="" readonly></td>
+                                                <td id="total-td4" class="total-hide"><input type='text' class="form-control" name="total_expected_savings" id="total_expected_savings" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Recommended Vendors</td>
@@ -241,7 +244,7 @@
                                                     <input type='text' class="form-control" name="recomm_vendor_package[]" id="recomm_vendor_package1" required  onblur="setRecommended_vendorName();">
                                                 </td>
 
-                                                <td></td>
+                                                <td id="total-td5" class="total-hide"></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Basis of award</td>
@@ -249,7 +252,7 @@
                                                     <input type='text' class="form-control" name="basis_award_package[]" id="basis_award_package1" readonly>
                                                 </td>
 
-                                                <td></td>
+                                                <td id="total-td6" class="total-hide"></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Deviation from Approved Contracting Strategy</td>
@@ -257,7 +260,7 @@
                                                     <input type='text' class="form-control" name="deviation_approved_package[]" id="deviation_approved_package1" required>
                                                 </td>
 
-                                                <td></td>
+                                                <td id="total-td7" class="total-hide"></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>
@@ -270,7 +273,7 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>
+                                                <td id="total-td8" class="total-hide"><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Is there any basic rate item in tender</td>
@@ -286,7 +289,7 @@
 
                                                 </td>
 
-                                                <td></td>
+                                                <td id="total-td9" class="total-hide"></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Total Amount of Basic Rate Items in Tender</td>
@@ -294,7 +297,7 @@
                                                     <input id="basic_rate1" name="total_basic_rate_package[]" style="display:none ;" type='text' oninput="allowNumOnly(this);decimalStrictThree()"  onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');" class="form-control decimalStrictThreeClass onMouseOutClass">
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_basic_rate" id="total_basic_rate" value="" readonly></td>
+                                                <td id="total-td10" class="total-hide"><input type='text' class="form-control" name="total_basic_rate" id="total_basic_rate" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
@@ -302,7 +305,7 @@
                                                     <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();" required>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="" readonly></td>
+                                                <td id="total-td11" class="total-hide"><input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Proposed Award Value (Excl Tax)- Adjusted Awarded Value(Post Basic Rate Adjustment): <span class=" font-weight-bold">SAP WO VALUE TO BE CREATED</span></td>
@@ -310,7 +313,7 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package1" readonly>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
+                                                <td id="total-td12" class="total-hide"><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
                                             </tr>
 
                                             <tr class='text-center'>
@@ -319,7 +322,7 @@
                                                     <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" required>
                                                 </td>
 
-                                                <td></td>
+                                                <td id="total-td13" class="total-hide"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -1497,6 +1500,21 @@
             contrSel = selectObj.value;
             let pack1=document.getElementsByClassName("sec1");
             let pack2=document.getElementsByClassName("sec2");
+            let total_col=document.getElementsByClassName("total-hide");
+            let total_h=document.getElementById("total-h");
+            let tr1=document.getElementById("total-td1");
+            let tr2=document.getElementById("total-td2");
+            let tr3=document.getElementById("total-td3");
+            let tr4=document.getElementById("total-td4");
+            let tr5=document.getElementById("total-td5");
+            let tr6=document.getElementById("total-td6");
+            let tr7=document.getElementById("total-td7");
+            let tr8=document.getElementById("total-td8");
+            let tr9=document.getElementById("total-td9");
+            let tr10=document.getElementById("total-td10");
+            let tr11=document.getElementById("total-td11");
+            let tr12=document.getElementById("total-td12");
+            let tr13=document.getElementById("total-td13");
             
             if(selectObj.value === "1"){
 
@@ -1519,6 +1537,37 @@
                     
                 }
             }     
+            if(selectObj.value === "1" || selectObj.value === "2"){
+                total_h.classList.remove("total-hide");
+                tr1.classList.remove("total-hide");
+                tr2.classList.remove("total-hide");
+                tr3.classList.remove("total-hide");
+                tr4.classList.remove("total-hide");
+                tr5.classList.remove("total-hide");
+                tr6.classList.remove("total-hide");
+                tr7.classList.remove("total-hide");
+                tr8.classList.remove("total-hide");
+                tr9.classList.remove("total-hide");
+                tr10.classList.remove("total-hide");
+                tr11.classList.remove("total-hide");
+                tr12.classList.remove("total-hide");
+                tr13.classList.remove("total-hide");
+            }else{
+                total_h.classList.add("total-hide");
+                tr1.classList.add("total-hide");
+                tr2.classList.add("total-hide");
+                tr3.classList.add("total-hide");
+                tr4.classList.add("total-hide");
+                tr5.classList.add("total-hide");
+                tr6.classList.add("total-hide");
+                tr7.classList.add("total-hide");
+                tr8.classList.add("total-hide");
+                tr9.classList.add("total-hide");
+                tr10.classList.add("total-hide");
+                tr11.classList.add("total-hide");
+                tr12.classList.add("total-hide");
+                tr13.classList.add("total-hide");
+            }
         }
         
     </script>

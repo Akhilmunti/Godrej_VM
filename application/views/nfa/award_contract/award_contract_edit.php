@@ -1206,7 +1206,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		let _th=`<th><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
 
-		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');calculateSum1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
+		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();calculateSum1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
 
 		let _negotiated_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td decimalStrictClass onMouseOutClass" name="package_negot_value" id="package_negot_value"></td>`;
 
@@ -2030,6 +2030,10 @@ $('#save, #submit').on('click', () => {
                     pack1[i].style.display="block";
                     pack2[i].style.display="none";
                 }
+
+				$("#dyntable th:last-child").show();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").show();
             }
             else if(selectObj.value === "2"){
                 
@@ -2037,11 +2041,19 @@ $('#save, #submit').on('click', () => {
                     pack1[i].style.display="block";
                     pack2[i].style.display="block";
                 }
+				//Hide last child i.e last header
+				$("#dyntable th:last-child").show();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").show();
             }else{
                 for (i = 0; i < pack1.length; i++) {
                     pack1[i].style.display="none";
                     pack2[i].style.display="none";
                 }
+				//Hide last child i.e last header
+				$("#dyntable th:last-child").hide();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").hide();
             }
         }
     </script>

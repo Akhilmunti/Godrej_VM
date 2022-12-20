@@ -185,10 +185,10 @@
                                 <h5 style="margin-bottom: -2px;">
                                     <span class="font-weight-bold">Scope of Work</span> : <span class="font-size-14"><?php echo strip_tags($mRecord['scope_of_work']); ?></span>
                                 </h5>
-                                <hr class='hr-bold-line' />
+                                <!-- <hr class='hr-bold-line' />
                                 <h5 style="margin-bottom: -2px;">
                                     <span class="font-weight-bold">Type of Procurement</span> : <span class="font-size-14"><?php echo ($mRecord['procurement_type']); ?></span>
-                                </h5>
+                                </h5> -->
 
                             </div>
 
@@ -257,6 +257,62 @@
 											}?> 
                                             <td><?php echo $mRecord['total_finalized_award_value'] ?> Cr</td>
                                         </tr>
+
+                                        <tr class='text-center'>
+                                            <td>Expected Savings w.r.t Budget incl. escalation</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+											
+											?>
+                                            <td>
+                                                <?php echo $val['expected_savings_package'] ?> %
+                                            </td>
+                                            <?php 
+											}?> 
+                                            <td><?php echo $mRecord['total_expected_savings'] ?> %</td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Recommended Vendors based on L1 position ( Package-wise)</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <?php echo $val['recomm_vendor_package'] ?>
+                                            </td>
+                                            <?php 
+											}?> 
+                                            <td></td>
+                                        </tr>
+
+                                        <tr class='text-center'>
+                                            <td>Basis of award</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <?php echo $val['basis_award_package'] ?>
+                                            </td>
+                                            <?php 
+											}?> 
+                                            <td></td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Deviation from Approved Contracting Strategy</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <?php echo $val['deviation_approved_package'] ?>
+                                            </td>
+                                            <?php 
+											}?> 
+                                            <td></td>
+                                        </tr>
+									
+									
                                         <tr class='text-center'>
                                             <td>Last Awarded Benchmark with Date<?php echo $mRecordAwdContract['benchmark_label'] ?></td>
 											<?php foreach($mRecordPackage as $key=>$val)
@@ -284,33 +340,8 @@
 											}?> 
                                             <td><?php echo $mRecord['total_post_basic_rate'] ?> Cr</td>
                                         </tr>
-                                        <tr class='text-center'>
-                                            <td>Expected Savings w.r.t Budget incl. escalation</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-											
-											?>
-                                            <td>
-                                                <?php echo $val['expected_savings_package'] ?> %
-                                            </td>
-                                            <?php 
-											}?> 
-                                            <td><?php echo $mRecord['total_expected_savings'] ?> %</td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Recommended Vendors based on L1 position ( Package-wise)</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{	
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <?php echo $val['recomm_vendor_package'] ?>
-                                            </td>
-                                            <?php 
-											}?> 
-                                            <td></td>
-                                        </tr>
-									
+                                       
+                                        
                                     </tbody>
                                 </table>
                             </div>

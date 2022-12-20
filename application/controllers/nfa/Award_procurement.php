@@ -59,7 +59,7 @@ class Award_procurement extends ListNfa
             $data['home'] = "users";
             if ($mId) {
                 $mRecord = $this->awardRecommProcurement->getParentByKey($mId);
-				
+				// $mRecord =$this->awardRecommProcurement->getProjectData($mId);
 				$salient_id = $mRecord['id'];
 				$mRecordPackage = $this->awardRecommProcurement->get_award_procurement_package_data($salient_id);
 				
@@ -72,7 +72,9 @@ class Award_procurement extends ListNfa
 				
 				$mRecordApprovers = $this->awardRecommProcurement->get_level_approvers($mId); 
 				
-                $data['mRecord'] = $mRecord;
+				$data['mId'] = $mId; 				
+				$data['records'] = $this->awardRecommProcurement->getAllParent();
+                		$data['mRecord'] = $mRecord;
 				$data['mRecordPackage'] = $mRecordPackage;
 				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
 				$data['mRecordAwdContract'] = $mRecordAwdContract;
@@ -122,7 +124,7 @@ class Award_procurement extends ListNfa
 			$type_work_id = $this->input->post('type_work_id');
 			$subject = $this->input->post('subject_hd');
 			$scope_of_work = $this->input->post('scope_of_work');
-			$procurement_type = $this->input->post('procurement_type');
+			// $procurement_type = $this->input->post('procurement_type');
 			$uom_label = $this->input->post('uom_label');
 			$uom_value = $this->input->post('uom_value');
 			$zone = $this->input->post('zone');
@@ -150,7 +152,7 @@ class Award_procurement extends ListNfa
 			
 			$total_basic_rate_package = $this->input->post('total_basic_rate_package');
 			
-			$anticipate_basic_rate_package = $this->input->post('anticipate_basic_rate_package');
+			// $anticipate_basic_rate_package = $this->input->post('anticipate_basic_rate_package');
            
             $post_basic_rate_package = $this->input->post('post_basic_rate_package');
 			
@@ -314,7 +316,7 @@ class Award_procurement extends ListNfa
 						'type_work_id' => $type_work_id,
 						'subject' => $subject,
 						'scope_of_work'=>$scope_of_work,
-						'procurement_type'=>$procurement_type,	
+						// 'procurement_type'=>$procurement_type,	
 						'uom_label'=>$uom_label,	
 						'uom_value'=>$uom_value,							
 						'zone'=>$zone,
@@ -376,21 +378,18 @@ class Award_procurement extends ListNfa
 						'package_negot_value' => $package_negot_value[$keyPck],
 					
 						'finalized_award_value_package' => $finalized_award_value_package[$keyPck],
-					  
-						'awarded_benchmark_package' => $awarded_benchmark_package[$keyPck],
+						'expected_savings_package' => $expected_savings_package[$keyPck],
+						'recomm_vendor_package' => $recomm_vendor_package[$keyPck],
+						'basis_award_package' => $basis_award_package[$keyPck],
 						
+						'deviation_approved_package' => $deviation_approved_package[$keyPck],					  
+						'awarded_benchmark_package' => $awarded_benchmark_package[$keyPck],						
 						'total_basic_rate_package' => $total_basic_rate_package[$keyPck],
 					 
-						'anticipate_basic_rate_package' => $anticipate_basic_rate_package[$keyPck],
+						// 'anticipate_basic_rate_package' => $anticipate_basic_rate_package[$keyPck],
 						
-						'post_basic_rate_package' => $post_basic_rate_package[$keyPck],
-					 
-						'total_package' => $total_package[$keyPck],
-					
-						'expected_savings_package' => $expected_savings_package[$keyPck],
-					
-						'recomm_vendor_package' => $recomm_vendor_package[$keyPck],
-					   						                        
+						'post_basic_rate_package' => $post_basic_rate_package[$keyPck],					 
+						'total_package' => $total_package[$keyPck],	 						                        
 						'created_date' => date('Y-m-d H:i:s')
 						
 					);
@@ -590,7 +589,7 @@ class Award_procurement extends ListNfa
 							'type_work_id' => $type_work_id,
                             'subject' => $subject,
 							'scope_of_work'=>$scope_of_work,
-							'procurement_type'=>$procurement_type,	
+							// 'procurement_type'=>$procurement_type,	
 							'uom_label'=>$uom_label,	
 							'uom_value'=>$uom_value,	
 							'zone'=>$zone,
@@ -662,21 +661,16 @@ class Award_procurement extends ListNfa
 							'package_negot_value' => $package_negot_value[$keyPck],
 							
                             'finalized_award_value_package' => $finalized_award_value_package[$keyPck],
-                          
-							'awarded_benchmark_package' => $awarded_benchmark_package[$keyPck],
-							
-							'total_basic_rate_package' => $total_basic_rate_package[$keyPck],
-                         
-                            'anticipate_basic_rate_package' => $anticipate_basic_rate_package[$keyPck],
-							
-                            'post_basic_rate_package' => $post_basic_rate_package[$keyPck],
-                         
-							'total_package' => $total_package[$keyPck],
-                        
                             'expected_savings_package' => $expected_savings_package[$keyPck],
-						
-                            'recomm_vendor_package' => $recomm_vendor_package[$keyPck],
-                                                                            
+							'recomm_vendor_package' => $recomm_vendor_package[$keyPck],
+							'basis_award_package' => $basis_award_package[$keyPck],                            
+                            'deviation_approved_package' => $deviation_approved_package[$keyPck],							                       
+							'awarded_benchmark_package' => $awarded_benchmark_package[$keyPck],							
+							'total_basic_rate_package' => $total_basic_rate_package[$keyPck],                         
+                            // 'anticipate_basic_rate_package' => $anticipate_basic_rate_package[$keyPck],
+							
+                            'post_basic_rate_package' => $post_basic_rate_package[$keyPck],                         
+							'total_package' => $total_package[$keyPck],                        
                             'created_date' => date('Y-m-d H:i:s')
                             
                         );
@@ -1722,33 +1716,28 @@ class Award_procurement extends ListNfa
     }
 
 	public function getMaxLevelApprovers() {
-		$result  = array();
+		
 		
 		$ho_approval = $this->input->post('ho_approval');
+		$result  = array();
 		$package_value = $this->input->post('package_value');
-		$package_value = $package_value*10000000; 
-	
+		$package_value = $package_value*10000000; 	
 		$salient_id = $this->input->post('salient_id');
 		$pgType = $this->input->post('pgType');
-		
         if ($package_value) {
 			
 			$getConditions = $this->awardRecommProcurement->getApprover_conditions($ho_approval);
 			
             foreach ($getConditions as $key => $valConditions) {
 				$condition3 = $valConditions['condition3'];
-				
 				$condition1 = $valConditions['condition1'];
-				
 				$condition2 = $valConditions['condition2'];
 				if($valConditions['condition2']!='')
 				{
-					
 					$checkCond =  eval("return ($ho_approval==$condition3) && ($package_value.$condition2 && $package_value.$condition1) ;");
 					
 					if($checkCond)
 					{
-						
 						$level_max =  $valConditions['max_level'];
 						break;
 					} 
@@ -1770,9 +1759,6 @@ class Award_procurement extends ListNfa
                
             }
 			
-			
-		
-			
 			 $getLevels = $this->nfaAction->getAllLevelRole_approvers($level_max,'',"award_procurement");
 			
 			 $result_approvers = '';
@@ -1782,7 +1768,13 @@ class Award_procurement extends ListNfa
 				$role = $valLevel->role;
 				$approver_id = $valLevel->approver_id;
 				
-				$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
+				// $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
+
+				if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
+					$getUsers = $this->getRoleUsers_approval($role);
+				else
+					$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
+			
 				 
 				$result_approvers .='<div id="pm" class="col-md-3 mb-3">
 				<lable>'.$role.'</lable>

@@ -107,6 +107,10 @@
             color: red;
         }
 
+        .total-hide{
+            display: none;
+        }
+
     </style>
     <?php if($type_work_id==1)
             $uom_label = "Sqm";
@@ -140,18 +144,13 @@
 
                 <section class="content">
 
-                    <!-- Content Header (Page header) -->
+                    <!-- Content Header (Page header) -->                   
 
-                    <div class="content-header">
-                        <div class="row">
-                            <div class="col-lg-9">
-                                <h3 class="page-title br-0">Award Recommendation for Procurement | Create IOM</h3>
-                            </div>
-                            <div class="col-lg-3 text-right">
-                                <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
-                            </div>
-                        </div>
-                    </div>
+                <?php $this->load->view('nfa/award_procurement/common_iom_header.php'); ?>
+
+
+
+                    
                     <div class="box">
 
                         <div class="box-body">
@@ -178,9 +177,9 @@
 
                                 </div>
                                 
-                                <div class="row">
+                                <!-- <div class="row"> -->
 
-                                <div class="col-lg-12">
+                                <!-- <div class="col-lg-12">
                                     <div class='form-group'>
                                         <label class="font-weight-bold">Type of Procurement</label>
                                         <select id="procurement_type" name="procurement_type" required=""  style="width:25%;" class="form-control">
@@ -191,9 +190,9 @@
                                                         <option value="Others">Others</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> -->
 
-                                </div>
+                                <!-- </div> -->
 
                                 <div class="table-responsive mt-2">
                                     <table id="tables" class="table table-bordered mb-0">
@@ -201,9 +200,9 @@
                                             <tr class='text-center'>
                                                 <th class="synopsis-header" colspan="5"><label>Award Synopsis</label>
                                                     <input type='text' class="form-control" placeholder="" name="synopsis_label" id="synopsis_label" required>
-                                                    <label class="mt-4">How many Contractors Recommended?</label>
+                                                    <label class="mt-4">How many Vendors Recommended?</label>
                                                     <select id="package_count" name="package_count" required="" onchange="addPackage(this)" style="width:25%;" class="form-control">
-                                                        <option value="0">1</option>
+                                                        <option value="0" selected >1</option>
                                                         <option value="1">2</option>
                                                         <option value="2">3</option>
                                                     </select>
@@ -217,9 +216,9 @@
                                                 <th>Description</th>
                                                 <th scope="col" style="width:20%">
                                                     <label>Package name</label>
-                                                    <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders(this);">
+                                                    <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders_pro(this);">
                                                 </th>
-                                                <th style="width:20% ;">Total</th>
+                                                <th id="total-h" class="total-hide" style="width:20% ;">Total</th>
                                             </tr>
                                         </thead>
                                         <tbody id="bidderList">
@@ -227,18 +226,18 @@
 
                                                 <td>Budget incl Escalation</td>
                                                 <td>
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget();" class="form-control decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc1" required>
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc1" required>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>
+                                                <td  id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>                                           
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
                                                 <td>
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value1" required>
                                                 </td>
+                                                <td id="total-td2" class="total-hide"><input type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="" readonly></td>
 
-                                                <td><input type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
                                                 <td>Finalized Proposed Award Value (Excl Tax)</td>
@@ -246,9 +245,42 @@
                                                   
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package1" required onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value'); calculateSum1_v1(this.id);">
                                                 </td>
+                                                <td id="total-td3" class="total-hide"><input type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="" readonly></td>                                            </tr>
+                                            
+                                            <tr class='text-center'>
+                                                <td>Expected Savings w.r.t Budget incl.escalation:</td>
+                                                <td>
+                                                   
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package_v1" readonly>
+                                                </td>
 
-                                                <td><input type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="" readonly></td>
+                                                <td id="total-td4" class="total-hide"><input type='text' class="form-control" name="total_expected_savings" id="total_expected_savings" value="" readonly></td>
                                             </tr>
+                                            <tr class='text-center'>
+                                                <td>Recommended Vendors</td>
+                                                <td>
+                                                    <input type='text' class="form-control" name="recomm_vendor_package[]" id="recomm_vendor_package1" onblur="setRecommended_vendorName();" required> 
+                                                </td>
+
+                                                <td id="total-td5" class="total-hide"></td>
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <td>Basis of award</td>
+                                                <td>
+                                                    <input type='text' class="form-control" name="basis_award_package[]" id="basis_award_package1" readonly>
+                                                </td>
+
+                                                <td id="total-td6" class="total-hide" readonly></td>
+                                            </tr>
+                                            <tr class='text-center'>
+                                                <td>Deviation from Approved Contracting Strategy</td>
+                                                <td>
+                                                    <input type='text' class="form-control" name="deviation_approved_package[]" id="deviation_approved_package1" required>
+                                                </td>
+
+                                                <td id="total-td7" class="total-hide"></td>
+                                            </tr>
+											
                                             <tr class='text-center'>
                                                 <td>
                                                     <label>Last Awarded Benchmark with Date</label>
@@ -260,8 +292,8 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>
-                                            </tr>
+
+                                                <td id="total-td8" class="total-hide"><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>                                            </tr>
 									
 											
                                             <tr class='text-center'>
@@ -270,27 +302,10 @@
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package1" readonly>
                                                 </td>
 
-                                                <td><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
-                                            </tr>
+                                                <td id="total-td9" class="total-hide"><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
+                                           </tr>
 
-                                            <tr class='text-center'>
-                                                <td>Expected Savings w.r.t Budget incl.escalation:</td>
-                                                <td>
-                                                   
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package_v1" readonly>
-                                                </td>
-
-                                                <td><input type='text' class="form-control" name="total_expected_savings" id="total_expected_savings" value="" readonly></td>
-                                            </tr>
-                                            <tr class='text-center'>
-                                                <td>Recommended Vendors</td>
-                                                <td>
-                                                    <input type='text' class="form-control" name="recomm_vendor_package[]" id="recomm_vendor_package1" onblur="setRecommended_vendorName();" required> 
-                                                </td>
-
-                                                <td></td>
-                                            </tr>
-											
+                                           
 					
                                         </tbody>
                                     </table>
@@ -302,7 +317,7 @@
                                         <div class='form-group'>
                                             <label class="font-weight-bold"><?php echo $uom_label;?></label>
                                             <input type="hidden" name="uom_label" id="uom_label" value="<?php echo $uom_label;?>">
-                                            <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value">
+                                            <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value">
                                         </div>
                                     </div>
 
@@ -373,8 +388,7 @@
                                                     <input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score1" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" required>
                                                 </td>
                                             </tr>
-                                            <tr id="package_row1" class='text-center'>
-                                            </tr>
+                                            <tr id="package_row1" class='text-center'></tr>
                                             <tr id="package_row2" class='text-center'></tr>
                                             <tr id="package_row3" class='text-center'></tr>
                                             <tr class='text-center' id="totAmt_row">
@@ -474,7 +488,18 @@
                                                     <label for="term_label">Description</label>
                                                     <div style="display:flex ;">
                                                   
-                                                    <div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label>Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label>Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required>
+                                                    <!-- <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label>
+                                                        <input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required>
+                                                    </div> -->
+
+                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label>
+                                                        <input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required>
+                                                    </div>
+                                                    <div style="width: 100%;" class="sec1 mr-2" id="pckLabel2"><label>Package 2</label>
+                                                        <input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required>
+                                                    </div>
+                                                    <div style="width: 100%;" class="sec2 mr-2" id="pckLabel3"><label>Package 3</label>
+                                                        <input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required>
                                                     </div></div></th>
                                                     <th style="width:20%;">Action</th>
                                                 </tr>
@@ -659,9 +684,23 @@
         function addPackage(selectObj){
             
             contrSel = selectObj.value;
+
+            
             let pack1=document.getElementsByClassName("sec1");
             let pack2=document.getElementsByClassName("sec2");
-            
+
+            let total_col=document.getElementsByClassName("total-hide");
+            let total_h=document.getElementById("total-h");
+            let tr1=document.getElementById("total-td1");
+            let tr2=document.getElementById("total-td2");
+            let tr3=document.getElementById("total-td3");
+            let tr4=document.getElementById("total-td4");
+            let tr5=document.getElementById("total-td5");
+            let tr6=document.getElementById("total-td6");
+            let tr7=document.getElementById("total-td7");
+            let tr8=document.getElementById("total-td8");
+			let tr9=document.getElementById("total-td9");
+
             if(selectObj.value === "1"){
                 
                 for (i = 0; i < pack1.length; i++) {
@@ -680,8 +719,101 @@
                     pack1[i].style.display="none";
                     pack2[i].style.display="none";
                 }
+            }  
+            
+            
+           if(selectObj.value === "1" || selectObj.value === "2"){
+                total_h.classList.remove("total-hide");
+                tr1.classList.remove("total-hide");
+                tr2.classList.remove("total-hide");
+                tr3.classList.remove("total-hide");
+                tr4.classList.remove("total-hide");
+                tr5.classList.remove("total-hide");
+                tr6.classList.remove("total-hide");
+                tr7.classList.remove("total-hide");
+                tr8.classList.remove("total-hide");
+                tr9.classList.remove("total-hide");
+                
+            }else{
+                total_h.classList.add("total-hide");
+                tr1.classList.add("total-hide");
+                tr2.classList.add("total-hide");
+                tr3.classList.add("total-hide");
+                tr4.classList.add("total-hide");
+                tr5.classList.add("total-hide");
+                tr6.classList.add("total-hide");
+                tr7.classList.add("total-hide");
+                tr8.classList.add("total-hide");
+                tr9.classList.add("total-hide");
+               
             }
+
+           
+               
+                
         }
+
+
+      
+           //Getting package rows in final bidders
+function package_bidders_pro(label_obj) {
+	
+
+   
+
+
+    var label_id = label_obj.id;
+
+	var package_name,finalized_award_value;
+
+
+	var package_count = $('#package_count').find(":selected").text();
+	var bidder_count = parseInt($("#bidder_count").val())+1;
+	$('#package_row2').show();
+	$('#package_row3').show();
+	package_name = label_obj.value;
+	
+
+	if (label_id == "package_label1")
+	{
+		var url = base_url + 'nfa/Award_procurement/show_package_bidders1';
+				
+	}
+	else if (label_id == "package_label2")
+	{
+		var url = base_url + 'nfa/Award_procurement/show_package_bidders2';
+		
+	}
+	else if (label_id == "package_label3")
+	{
+		var url = base_url + 'nfa/Award_procurement/show_package_bidders3';
+		
+	}
+	$.post(url, {
+			bidder_count: bidder_count,
+			
+			package_name: package_name
+			
+		},
+		function(data, status) {
+			
+			if (label_id == "package_label1")
+				$('#package_row1').html(data);
+			else if (label_id == "package_label2")
+				$('#package_row2').html(data);
+			else if (label_id == "package_label3")
+				$('#package_row3').html(data);
+
+			setGpl_budget();
+			showBidders_finalized();
+			getBidders_total();
+            setMajorTerms_package();
+
+		});
+
+			
+		//showBidders_finalized();
+} 
 
         /* changing input value to cr */
 
@@ -702,42 +834,57 @@
         /* changing input value to cr */
 
         //Calculate Sum for the first package
-        function package_bidders(label_obj) {
+        // function package_bidders(label_obj) {
           
-            var base_url = $('#base').val();
-            var label_id = label_obj.id;
+        //     var base_url = $('#base').val();
+        //     var label_id = label_obj.id;
            
-            var package_name;
+        //     var package_name;
 
-            var package_count = $('#package_count').find(":selected").text();
+        //     var package_count = $('#package_count').find(":selected").text();
            
-            package_name = label_obj.value;
+        //     package_name = label_obj.value;
             
-            if (label_id == "package_label1")
-                var url = base_url + 'nfa/Award_procurement/show_package_bidders1';
-            else if (label_id == "package_label2")
-                var url = base_url + 'nfa/Award_procurement/show_package_bidders2';
-            else if (label_id == "package_label3")
-                var url = base_url + 'nfa/Award_procurement/show_package_bidders3';
+        //     if (label_id == "package_label1")
+        //         var url = base_url + 'nfa/Award_procurement/show_package_bidders1';
+        //     else if (label_id == "package_label2")
+        //         var url = base_url + 'nfa/Award_procurement/show_package_bidders2';
+        //     else if (label_id == "package_label3")
+        //         var url = base_url + 'nfa/Award_procurement/show_package_bidders3';
            
-            $.post(url, {
+        //     $.post(url, {
                    
-                    package_name: package_name
-                },
-                function(data, status) {
+        //             package_name: package_name
+        //         },
+        //         function(data, status) {
                    
-                    if (label_id == "package_label1")
-                        $('#package_row1').html(data);
-                    else if (label_id == "package_label2")
-                        $('#package_row2').html(data);
-                    else if (label_id == "package_label3")
-                        $('#package_row3').html(data);
+        //             if (label_id == "package_label1")
+        //                 $('#package_row1').html(data);
+        //             else if (label_id == "package_label2")
+        //                 $('#package_row2').html(data);
+        //             else if (label_id == "package_label3")
+        //                 $('#package_row3').html(data);
                    
 
-                });
+        //         });
 
 
-        }
+        // }
+
+
+function  setMajorTerms_package(){
+	
+	var package_count = $('#package_count').find(":selected").text();
+	for(i=1;i<=package_count;i++)
+	{
+		package_name= $("#package_label"+i).val(); 
+		
+		$("#pckLabel"+i).text(package_name); 
+		
+	}
+	
+
+}
 
         function package_bidders2(label_id) {
           
@@ -785,24 +932,23 @@
             $('#diffPercent_row').find('td:gt(1)').remove();
           
 
-            let _th = `<th style="width:20%"><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
+            let _th = `<th style="width:20%"><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_pro(this);"></th>`;
 
-            let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
+            let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
 
             let _negotiated_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value" required></td>`;
 
             let _finalized = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value'); calculateSum1_v1(this.id);" required></td>`;
-
+            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="" class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package_v" readonly></td>`;
+            let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();" required></td>`;
+            let _basis_awrd = `<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
+            let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
             let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
-
-          
-
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="" class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package_v" readonly></td>`;
 
-            let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();" required></td>`;
 
+          
 
 
             if ($(".cust_th").length <= e.target.value) {
@@ -827,6 +973,22 @@
                     finalized_val.find("input").attr("name", finalized_val.find("input").attr("name"))
                     finalized_val.find("input").attr("id", finalized_val.find("input").attr("id") + String(i + 2))
 
+                    let exp_saving = $(_exp_saving);
+                    exp_saving.find("input").attr("name", exp_saving.find("input").attr("name"))
+                    exp_saving.find("input").attr("id", exp_saving.find("input").attr("id") + String(i + 2))
+
+                    let rec_vendors = $(_rec_vendors);
+                    rec_vendors.find("input").attr("name", rec_vendors.find("input").attr("name"))
+                    rec_vendors.find("input").attr("id", rec_vendors.find("input").attr("id") + String(i + 2))
+
+                    let basis_awrd = $(_basis_awrd);
+                    basis_awrd.find("input").attr("name", basis_awrd.find("input").attr("name"))
+                    basis_awrd.find("input").attr("id", basis_awrd.find("input").attr("id") + String(i + 2))
+
+                    let deviation_contr = $(_deviation_contr);
+                    deviation_contr.find("input").attr("name", deviation_contr.find("input").attr("name"))
+                    deviation_contr.find("input").attr("id", deviation_contr.find("input").attr("id") + String(i + 2))
+
                     let last_awarded = $(_last_awarded);
                     last_awarded.find("input").attr("name", last_awarded.find("input").attr("name"))
                     last_awarded.find("input").attr("id", last_awarded.find("input").attr("id") + String(i + 2))
@@ -837,31 +999,31 @@
                     proposed_award_val.find("input").attr("name", proposed_award_val.find("input").attr("name"))
                     proposed_award_val.find("input").attr("id", proposed_award_val.find("input").attr("id") + String(i + 2))
 
-                    let exp_saving = $(_exp_saving);
-                    exp_saving.find("input").attr("name", exp_saving.find("input").attr("name"))
-                    exp_saving.find("input").attr("id", exp_saving.find("input").attr("id") + String(i + 2))
-
-                    let rec_vendors = $(_rec_vendors);
-                    rec_vendors.find("input").attr("name", rec_vendors.find("input").attr("name"))
-                    rec_vendors.find("input").attr("id", rec_vendors.find("input").attr("id") + String(i + 2))
-
+                    
+                    
+                    
+                 
                   
 
                     let elementlength = $("#dyntable").find("thead").find("tr").find(`th`).length
 
                     $($("#dyntable").find("thead").find("tr").find("th")[elementlength - 1]).before(th)
-                    console.log("asdsadsa");
+                  
                     
 
  
                     $($($("#dyntable").find("tbody").find("tr")[0]).find("td")[elementlength - 1]).before(budget_incl)
                     $($($("#dyntable").find("tbody").find("tr")[1]).find("td")[elementlength - 1]).before(negotiated_val)
                     $($($("#dyntable").find("tbody").find("tr")[2]).find("td")[elementlength - 1]).before(finalized_val)
-                    $($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength - 1]).before(last_awarded)
+                    $($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength - 1]).before($(exp_saving))
+                    $($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength - 1]).before(rec_vendors)
+                    $($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength - 1]).before(basis_awrd)
+                    $($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength - 1]).before(deviation_contr)
+                   
+                    $($($("#dyntable").find("tbody").find("tr")[7]).find("td")[elementlength - 1]).before(last_awarded)
                     
-                    $($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength - 1]).before(proposed_award_val)
-                    $($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength - 1]).before($(exp_saving))
-                    $($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength - 1]).before(rec_vendors)
+                    $($($("#dyntable").find("tbody").find("tr")[8]).find("td")[elementlength - 1]).before(proposed_award_val)
+                    
  
 
 
@@ -873,11 +1035,14 @@
                     $("._budget_incl_td").parent().last().remove()
                     $("._negotiated_val_td").parent().last().remove()
                     $("._finalized_td").parent().last().remove()
-                    $("._last_awarded_td").parent().last().remove()
-                   
-                    $("._proposed_awrd_val_td").parent().last().remove()
                     $("._exp_saving_td").parent().last().remove()
                     $("._rec_vendors_td").parent().last().remove()
+                    $("._basis_awrd_td").parent().last().remove()
+                    $("._deviation_contr_td").parent().last().remove()
+                    $("._last_awarded_td").parent().last().remove()                   
+                    $("._proposed_awrd_val_td").parent().last().remove()
+                    
+                   
                     
                 }
 
@@ -1053,7 +1218,8 @@
 			
 			setRecommended_vendorName();
 			setGpl_budget();
-			
+
+           
 
             $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
@@ -1322,89 +1488,163 @@
         })
 		
 	
-//function calculateSum1_v1(index){
-function calculateSum1_v1(ele_id)
-{
-	
-		var total_sum=0;
-		var total_expected_savings=0;
-		var sum=0;
-		var condition_l1;
-		var ho_approval;
-		var package_value;
-		var finalized_award_value_package;
-		var package_negot_value;
-		var package_budget_esc
-		
-		var package_count = $('#package_count').find(":selected").text();
-		var salient_id = $("#salient_id").val();
-		var index = ele_id[ele_id.length -1];
-		
-		for(i=1;i<=package_count;i++)
-		{ 
-			finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
-			sum= parseFloat(finalized_award_value_package);
-			
-			sum = parseFloat(sum) || 0;
-			$("#post_basic_rate_package"+i).val(sum+" Cr"); 
-			
-			package_budget_esc = $("#package_budget_esc"+i).val();  
-			expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
-			
-			
-			expected_savings_package = parseFloat(expected_savings_package) || 0;			
-			$("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
-			total_expected_savings += expected_savings_package; 
-			total_sum += sum; 
+        //function calculateSum1_v1(index){
+        function calculateSum1_v1(ele_id)
+        {
+            
+                var total_sum=0;
+                var total_expected_savings=0;
+                var sum=0;
+                var condition_l1;
+                var ho_approval;
+                var package_value;
+                var finalized_award_value_package;
+                var package_negot_value;
+                var package_budget_esc
+                
+                var package_count = $('#package_count').find(":selected").text();
+                var salient_id = $("#salient_id").val();
+                var index = ele_id[ele_id.length -1];
 
-		}
-	
-		total_sum = parseFloat(total_sum) || 0;
-		$("#total_post_basic_rate").val(total_sum+" Cr"); 
-		
-		total_expected_savings = parseFloat(total_expected_savings) || 0;
-		$("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
-		
-		package_value= total_sum;
-		
-		ho_approval = $("input[name='ho_approval']:checked").val(); 
-		
-		// Get max level of Approvers
-		
-		if(index==package_count)
-		{
-			var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
-			
-			$.post(url,
-						{
-							package_value: package_value, ho_approval: ho_approval,salient_id: salient_id
-						},
-						function (data, status) {
-						
-							$('#approvers_list_div').html(data);
-						
-						});
-		
-		}
-  	}
-	
-	
-	function validate_greater_appr_date(th){
-		let receipt_date = $("#receipt_date").val();
-		let bidder_approval_date = $("#bidder_approval_date").val();
-		$("#receipt_date_err").html("");
-		$("#bidder_approval_date_err").html("");
-		if(receipt_date){
-			if(bidder_approval_date >= receipt_date){ 
-				$("#bidder_approval_date_err").html("Receipt date greater than start date").css("color","red");
-				$("#bidder_approval_date").val("");
-			}
-		}else{
-			$("#receipt_date_err").html("This field Required").css("color","red");
-			$("#bidder_approval_date_err").html("Receipt date greater than start date").css("color","red");
-			$("#bidder_approval_date").val("");
-		}
-	}
+            
+                
+                for(i=1;i<=package_count;i++)
+                { 
+                    
+                    finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
+                    sum= parseFloat(finalized_award_value_package);
+                    
+                    sum = parseFloat(sum) || 0;
+                    $("#post_basic_rate_package"+i).val(sum+" Cr"); 
+                    
+                    package_budget_esc = $("#package_budget_esc"+i).val();  
+                    // expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
+
+                    expected_savings_package= (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc) )*100/parseFloat(package_budget_esc);
+                    
+                    expected_savings_package = parseFloat(expected_savings_package) || 0;	
+                    
+                    
+                    $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
+                    total_expected_savings += expected_savings_package; 
+                    total_sum += sum;
+
+                }
+            
+                total_sum = parseFloat(total_sum) || 0;
+                $("#total_post_basic_rate").val(total_sum+" Cr"); 
+                
+                total_expected_savings = parseFloat(total_expected_savings) || 0;
+                $("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
+                
+                package_value= total_sum;
+            
+                
+                ho_approval = $("input[name='ho_approval']:checked").val(); 
+            
+                
+                // Get max level of Approvers
+                
+                if(index==package_count)
+                {
+                
+                    var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
+                    
+                    $.post(url,
+                                {
+                                    'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                },
+                                function (data, status) {
+                                
+                                    $('#approvers_list_div').html(data);
+                                
+                                });
+                
+                }
+        }
+
+  
+      
+        // change approval list according to ho_approval
+        $('input[name=ho_approval]').change(function(){
+                var total_sum=0;
+                var total_expected_savings=0;
+                var sum=0;
+                var condition_l1;
+                var ho_approval;
+                var package_value;
+                var finalized_award_value_package;
+                var package_negot_value;
+                var package_budget_esc
+                
+                var package_count = $('#package_count').find(":selected").text();
+                var salient_id = $("#salient_id").val();
+                    
+            
+                        for(i=1;i<=package_count;i++)
+                        { 
+                            
+                            finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
+                            sum= parseFloat(finalized_award_value_package);
+                            
+                            sum = parseFloat(sum) || 0;
+                            $("#post_basic_rate_package"+i).val(sum+" Cr"); 
+                            
+                            package_budget_esc = $("#package_budget_esc"+i).val();  
+                            expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
+                            
+                            
+                            expected_savings_package = parseFloat(expected_savings_package) || 0;			
+                            $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
+                            total_expected_savings += expected_savings_package; 
+                            total_sum += sum; 
+
+                        }
+        
+                        total_sum = parseFloat(total_sum) || 0;
+                        $("#total_post_basic_rate").val(total_sum+" Cr"); 
+                        
+                        total_expected_savings = parseFloat(total_expected_savings) || 0;
+                        $("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
+                        
+                        package_value= total_sum;
+
+                            var ho_approval = $("input[name='ho_approval']:checked").val();    
+
+                            var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
+                            
+                                $.post(url,
+                                        {
+                                            'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                        },
+                                        function (data, status) {
+                                        
+                                            $('#approvers_list_div').html(data);
+                                        
+                                        });
+            
+            
+            });
+        
+        
+        
+        
+            function validate_greater_appr_date(th){
+            let receipt_date = $("#receipt_date").val();
+            let bidder_approval_date = $("#bidder_approval_date").val();
+            $("#receipt_date_err").html("");
+            $("#bidder_approval_date_err").html("");
+            if(receipt_date){
+                if(bidder_approval_date >= receipt_date){ 
+                    $("#bidder_approval_date_err").html("Receipt date greater than start date").css("color","red");
+                    $("#bidder_approval_date").val("");
+                }
+            }else{
+                $("#receipt_date_err").html("This field Required").css("color","red");
+                $("#bidder_approval_date_err").html("Receipt date greater than start date").css("color","red");
+                $("#bidder_approval_date").val("");
+            }
+        }
 
     function setInputFilter(textbox, inputFilter) {
             ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop"].forEach(function(event) {
@@ -1428,8 +1668,8 @@ function calculateSum1_v1(ele_id)
                 setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
                 return /^-?\d*[.,]?\d{0,2}$/.test(value); });
             }
-        }
-	
+        }              
+                        
     </script>
     <script src="../../assets/js/summernote-bs4.min.js"></script>
     <script src="../../assets/js/jquery.min.js"></script>

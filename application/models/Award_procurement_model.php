@@ -124,14 +124,15 @@ class Award_procurement_model extends CI_Model {
             return false;
         }
     }
-    public function getAllParent() {
+    
+	public function getAllParent() {
 		$mSessionKey = $this->session->userdata('session_id');
 		$tbl = "award_recomm_procurement_salient AWDContractSalient ";
 		
-		$data = "AWDContractSalient.*,AWDProjects.project_name as project_name,AWDPackages.package_name as package_name,AWDSynopsLbl.synopsis_label as synopsis_label";
+		$data = "AWDContractSalient.*,AWDProjects.project_name as project_name,AWDTypeofwork.name as package_name,AWDSynopsLbl.synopsis_label as synopsis_label";
 		
 		$joins[]=array("table"=>"award_recomm_procurement_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
-		$joins[]=array("table"=>"award_recomm_procurement_packages AWDPackages ","condition"=>"AWDPackages.salient_id = AWDContractSalient.id","type"=>'inner');
+		$this->db->join('typeofwork AWDTypeofwork', 'AWDTypeofwork.id = AWDContractSalient.type_work_id','inner');
 		$joins[]=array("table"=>"projects AWDProjects ","condition"=>"AWDProjects.project_id = AWDContractSalient.project_id","type"=>'inner');
 
 		$where = array('initiated_by'=>$mSessionKey,'status'=>'0','nfa_status!='=>'C');
@@ -363,7 +364,7 @@ class Award_procurement_model extends CI_Model {
 	public function getApprover_conditions($l1_vendor1=null) {
 		
         $this->db->select('ApproverCond.*');
-        $this->db->from('award_recomm_contractor_approvers_conditions ApproverCond');
+        $this->db->from('award_recomm_procurement_approvers_conditions ApproverCond');
 		$mSessionKey = $this->session->userdata('session_id');
 		
         $this->db->where('condition3', $l1_vendor1);

@@ -100,7 +100,13 @@ $this->load->view('buyer/partials/header'); ?>
         color: #fff;
     	}
 
+		.total-hide{
+            display: none;
+        }
+
+
     </style>
+	
 
     <div class="wrapper">
 
@@ -126,17 +132,9 @@ $this->load->view('buyer/partials/header'); ?>
                 <section class="content">
 
                     <!-- Content Header (Page header) -->
+					<?php $this->load->view('nfa/award_procurement/common_iom_header.php'); ?>
 
-					<div class="content-header">
-                        <div class="row">
-                            <div class="col-lg-9">
-								<h3 class="page-title br-0">Award Recommendation for Procurement | <?php echo ($updType=="RF") ? "Refloat" : "Edit" ?> IOM</h3>
-                            </div>
-                            <div class="col-lg-3 text-right">
-                                <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
-                            </div>
-                        </div>
-                    </div>
+					
 					<div class="d-block mb-4">
                         <h5 class="page-title br-0 font-weight-bold">ENFA No : <?php echo $mRecord['version_id'] ?></h5>
                     </div>
@@ -168,22 +166,22 @@ $this->load->view('buyer/partials/header'); ?>
 									</div>
 								</div>
 							</div>
-							<div class="row">
+							<!-- <div class="row">
 
 								<div class="col-lg-12">
 									<div class='form-group'>
 										<label class="font-weight-bold">Type of Procurement</label>
 										<select id="procurement_type" name="procurement_type" required=""  style="width:25%;" class="form-control">
 														<option value="">Select</option>
-														<option value="Cement" <?php echo ($mRecord['procurement_type']=="Cement") ? "selected" : "" ?>>Cement</option>
-														<option value="Aluminium" <?php echo ($mRecord['procurement_type']=="Aluminium") ? "selected" : "" ?>>Aluminium</option>
-														<option value="Steel" <?php echo ($mRecord['procurement_type']=="Steel") ? "selected" : "" ?>>Steel</option>
-														<option value="Others" <?php echo ($mRecord['procurement_type']=="Others") ? "selected" : "" ?>>Others</option>
+														<option value="Cement" <?php //echo ($mRecord['procurement_type']=="Cement") ? "selected" : "" ?>>Cement</option>
+														<option value="Aluminium" <?php //echo ($mRecord['procurement_type']=="Aluminium") ? "selected" : "" ?>>Aluminium</option>
+														<option value="Steel" <?php //echo ($mRecord['procurement_type']=="Steel") ? "selected" : "" ?>>Steel</option>
+														<option value="Others" <?php //echo ($mRecord['procurement_type']=="Others") ? "selected" : "" ?>>Others</option>
 										</select>
 									</div>
 								</div>
 
-								</div>
+							</div> -->
 
                             <div class="table-responsive mt-4">
                                 <table id="tables" class="table table-bordered mb-0">
@@ -191,7 +189,7 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <th class="synopsis-header" colspan="5"><label>Award Synopsis</label>
                                                 <input type='text' class="form-control" placeholder="" name="synopsis_label" id="synopsis_label" required value="<?php echo $mRecordAwdContract['synopsis_label'] ?>">
-                                                <label class="mt-4">How many Contractors Recommended?</label>
+                                                <label class="mt-4">How many Vendors Recommended?</label>
                                                 <select id="package_count" name="package_count" required="" onchange="addPackage(this)" style="width:25%;" class="form-control" >
                                                    
                                                     <option value="0" <?php echo ($mRecord['package_count']==1) ? "selected" : "" ?>>1</option>
@@ -203,24 +201,16 @@ $this->load->view('buyer/partials/header'); ?>
                                     </thead>
 									</table>
 									<table id="dyntable" class="table table-bordered mb-0">	
-                                    <thead class="bg-primary">
-                                        <tr class='text-center'>
-                                            <th>Description</th>
-										 <?php 
-										 
-										 foreach($mRecordPackage as $key=>$val)
-											{	
-											?>
-												<th scope="col" style="width:20%">
-													<label class="cust_th">Package name*</label>
-													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders_procurement(this);">
-												</th>
-											<?php 
-											}?> 
-											
-                                           <th  style="width:20% ;">Total</th>
-                                        </tr>
-                                    </thead>
+                                     <thead class="bg-primary">
+                                            <tr class='text-center'>
+                                                <th>Description</th>
+                                                <th scope="col" style="width:20%">
+                                                    <label>Package name</label>
+                                                    <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders_pro(this);">
+                                                </th>
+                                                <th id="total-h" class="total-hide" style="width:20% ;">Total</th>
+                                            </tr>
+                                        </thead>
                                     <tbody id="bidderList">
                                         <tr class='text-center'>
                                             <td>Budget incl Escalation</td>
@@ -232,16 +222,17 @@ $this->load->view('buyer/partials/header'); ?>
 											 	
 											 ?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
+                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1(this.id);" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
                                             </td> 
                                             <?php 
 											}
 											?>
-                                            <td> <input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="<?php echo $mRecord['total_budget_esc'] ?> Cr" readonly></td> 
+
+										<td  id="total-td1" class="total-hide"> <input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="<?php echo $mRecord['total_budget_esc'] ?> Cr" readonly></input></td> 
 										
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -252,7 +243,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <?php 
 											}?>
 										
-                                            <td>
+										<td id="total-td2" class="total-hide">
 												<input type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="<?php echo $mRecord['total_negot_value'] ?> Cr" readonly>
 											</td>
                                         </tr>
@@ -271,9 +262,74 @@ $this->load->view('buyer/partials/header'); ?>
                                            <?php 
 											}?> 
 										
-                                            <td> <input  type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="<?php echo $mRecord['total_finalized_award_value'] ?> Cr" readonly></td> 
+										<td id="total-td3" class="total-hide">
+											 <input  type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="<?php echo $mRecord['total_finalized_award_value'] ?> Cr" readonly></td> 
                                         </tr>
-                                        <tr class='text-center'>
+										<tr class='text-center'>
+                                            <td>Expected Savings w.r.t Budget incl.escalation:</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v<?php echo $id_index;?>" value="<?php echo $val['expected_savings_package'] ?> %" readonly>
+                                            </td>
+                                            <?php 
+											}?> 
+											
+											<td id="total-td4" class="total-hide">
+												<input type='text' class="form-control"  name="total_expected_savings" id="total_expected_savings" value="<?php echo $mRecord['total_expected_savings'] ?> %" readonly>
+											</td>
+
+											
+                                        </tr>
+										<tr class='text-center'>
+                                            <td>Recommended Vendors</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" onblur="setRecommended_vendorName();" id="recomm_vendor_package<?php echo $id_index;?>" value="<?php echo $val['recomm_vendor_package'] ?>">
+                                            </td>
+											<?php 
+											}?> 
+                                           
+										   <td id="total-td5" class="total-hide"></td>
+                                        </tr>
+
+										<tr class='text-center'>
+                                            <td>Basis of award</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" readonly onblur="setRecommended_vendorName();"
+						 id="basis_award_package1<?php echo $id_index;?>" value="<?php echo $val['basis_award_package'] ?>">
+                                            </td>
+											<?php 
+											}?> 
+                                           
+										   <td id="total-td6" class="total-hide" readonly></td>
+                                        </tr>
+
+										<tr class='text-center'>
+                                            <td>Deviation from Approved Contracting Strategy</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{
+												$id_index = $key+1;
+											?>
+                                            <td>
+                                                <input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" onblur="setRecommended_vendorName();" id="deviation_approved_package1<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
+                                            </td>
+											<?php 
+											}?> 
+                                           
+										   <td id="total-td7" class="total-hide"></td>
+                                        </tr>
+
+										<tr class='text-center'>
                                             <td>
                                                 <label>Last Awarded Benchmark with Date</label>
                                                 <div data-tip="Please enter project name and date of award">
@@ -290,7 +346,7 @@ $this->load->view('buyer/partials/header'); ?>
                                                <?php 
 											}?> 
 											
-                                            <td>
+											<td id="total-td8" class="total-hide">
 												<input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="<?php echo $mRecord['total_awarded_benchmark'] ?> Cr" readonly>
 											</td>
                                         </tr>
@@ -308,41 +364,13 @@ $this->load->view('buyer/partials/header'); ?>
                                             <?php 
 											}?> 
 											
-                                            <td>
+											<td id="total-td9" class="total-hide">
 												<input type='text' class="form-control"  name="total_post_basic_rate" id="total_post_basic_rate" value="<?php echo $mRecord['total_post_basic_rate'] ?> Cr"  readonly>
 											</td> 
                                         </tr>
                                       
-                                        <tr class='text-center'>
-                                            <td>Expected Savings w.r.t Budget incl.escalation:</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v<?php echo $id_index;?>" value="<?php echo $val['expected_savings_package'] ?> %" readonly>
-                                            </td>
-                                            <?php 
-											}?> 
-											
-                                            <td>
-												<input type='text' class="form-control"  name="total_expected_savings" id="total_expected_savings" value="<?php echo $mRecord['total_expected_savings'] ?> %" readonly>
-											</td>
-                                        </tr>
-                                        <tr class='text-center'>
-                                            <td>Recommended Vendors</td>
-											<?php foreach($mRecordPackage as $key=>$val)
-											{
-												$id_index = $key+1;
-											?>
-                                            <td>
-                                                <input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" onblur="setRecommended_vendorName();" id="recomm_vendor_package<?php echo $id_index;?>" value="<?php echo $val['recomm_vendor_package'] ?>">
-                                            </td>
-											<?php 
-											}?> 
-                                           
-                                            <td></td>
-                                        </tr>
+                                        
+                                        
 										
 							
                                     </tbody>
@@ -355,7 +383,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     <div class='form-group'>
                                         <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
 										<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
-										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur=" " class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
                                     </div>
                                 </div>
 
@@ -947,8 +975,7 @@ $this->load->view('buyer/partials/header'); ?>
 		function addPackage(selectObj){
             
             contrSel = selectObj.value;
-            
-			let pack1=document.getElementsByClassName("sec2");
+            let pack1=document.getElementsByClassName("sec2");
             let pack2=document.getElementsByClassName("sec3");
             
             if(selectObj.value === "1"){
@@ -957,6 +984,10 @@ $this->load->view('buyer/partials/header'); ?>
                     pack1[i].style.display="block";
                     pack2[i].style.display="none";
                 }
+
+				$("#dyntable th:last-child").show();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").show();
             }
             else if(selectObj.value === "2"){
                 
@@ -964,11 +995,19 @@ $this->load->view('buyer/partials/header'); ?>
                     pack1[i].style.display="block";
                     pack2[i].style.display="block";
                 }
+				//Hide last child i.e last header
+				$("#dyntable th:last-child").show();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").show();
             }else{
                 for (i = 0; i < pack1.length; i++) {
                     pack1[i].style.display="none";
                     pack2[i].style.display="none";
                 }
+				//Hide last child i.e last header
+				$("#dyntable th:last-child").hide();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").hide();
             }
         }
 
@@ -1050,21 +1089,25 @@ function package_bidders_procurement(label_obj){
 
 		let _th=`<th style="width:20%"><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_procurement(this);"></th>`;
 
-		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
+		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
 
 		let _negotiated_val=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value'); " class="form-control _negotiated_val_td onMouseOutClass" name="package_negot_value[]" id="package_negot_value"></td>`;
 
 		let _finalized=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1(this.id);" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" required></td>`;
 
+		let _exp_saving=`<td><input type='text' oninput="allowNumOnly(this)" onblur="" class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v" readonly></td>`;
+
+		let _rec_vendors=`<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();"></td>`;
+
+		let _basis_awrd = `<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
+        	let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
+           
 		let _last_awarded=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark')" class="form-control _last_awarded_td onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
 		
 		
 		let _proposed_awrd_val=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-		let _exp_saving=`<td><input type='text' oninput="allowNumOnly(this)" onblur="" class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v" readonly></td>`;
-
-		let _rec_vendors=`<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();"></td>`;
-
+		
 		
 		var pckCount_edit = $('input[name="package_label[]"]').length;
 		var ele_pckIndex=0;
@@ -1093,6 +1136,23 @@ function package_bidders_procurement(label_obj){
 		finalized_val.find("input").attr("name",finalized_val.find("input").attr("name"))
 		finalized_val.find("input").attr("id",finalized_val.find("input").attr("id")+String(i+1))
 
+		let exp_saving=$(_exp_saving);
+		exp_saving.find("input").attr("name",exp_saving.find("input").attr("name"))
+		exp_saving.find("input").attr("id",exp_saving.find("input").attr("id")+String(i+1))
+
+		let rec_vendors=$(_rec_vendors);
+		rec_vendors.find("input").attr("name",rec_vendors.find("input").attr("name"))
+		rec_vendors.find("input").attr("id",rec_vendors.find("input").attr("id")+String(i+1))
+
+		let basis_awrd = $(_basis_awrd);
+        basis_awrd.find("input").attr("name", basis_awrd.find("input").attr("name"))
+        basis_awrd.find("input").attr("id", basis_awrd.find("input").attr("id") + String(i + 2))
+
+		
+		let deviation_contr = $(_deviation_contr);
+        deviation_contr.find("input").attr("name", deviation_contr.find("input").attr("name"))
+        deviation_contr.find("input").attr("id", deviation_contr.find("input").attr("id") + String(i + 2))
+
 		let last_awarded=$(_last_awarded);
 		last_awarded.find("input").attr("name",last_awarded.find("input").attr("name"))
 		last_awarded.find("input").attr("id",last_awarded.find("input").attr("id")+String(i+1))
@@ -1102,29 +1162,26 @@ function package_bidders_procurement(label_obj){
 		proposed_award_val.find("input").attr("name",proposed_award_val.find("input").attr("name"))
 		proposed_award_val.find("input").attr("id",proposed_award_val.find("input").attr("id")+String(i+1))
 
-		let exp_saving=$(_exp_saving);
-		exp_saving.find("input").attr("name",exp_saving.find("input").attr("name"))
-		exp_saving.find("input").attr("id",exp_saving.find("input").attr("id")+String(i+1))
-
-		let rec_vendors=$(_rec_vendors);
-		rec_vendors.find("input").attr("name",rec_vendors.find("input").attr("name"))
-		rec_vendors.find("input").attr("id",rec_vendors.find("input").attr("id")+String(i+1))
-
+		
+		
 
 		let elementlength = $("#dyntable").find("thead").find("tr").find(`th`).length
 
 		$($("#dyntable").find("thead").find("tr").find("th")[elementlength-1]).before(th)
 			
 		
- 		$($($("#dyntable").find("tbody").find("tr")[0]).find("td")[elementlength-1]).before(budget_incl)
-		$($($("#dyntable").find("tbody").find("tr")[1]).find("td")[elementlength-1]).before(negotiated_val)
-		$($($("#dyntable").find("tbody").find("tr")[2]).find("td")[elementlength-1]).before(finalized_val)
-		$($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength-1]).before(last_awarded)
-
-		$($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength-1]).before(proposed_award_val)
-		$($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength-1]).before($(exp_saving))
-		$($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength-1]).before(rec_vendors)
-
+					$($($("#dyntable").find("tbody").find("tr")[0]).find("td")[elementlength - 1]).before(budget_incl)
+                    $($($("#dyntable").find("tbody").find("tr")[1]).find("td")[elementlength - 1]).before(negotiated_val)
+                    $($($("#dyntable").find("tbody").find("tr")[2]).find("td")[elementlength - 1]).before(finalized_val)
+                    $($($("#dyntable").find("tbody").find("tr")[3]).find("td")[elementlength - 1]).before($(exp_saving))
+                    $($($("#dyntable").find("tbody").find("tr")[4]).find("td")[elementlength - 1]).before(rec_vendors)
+                    $($($("#dyntable").find("tbody").find("tr")[5]).find("td")[elementlength - 1]).before(basis_awrd)
+                    $($($("#dyntable").find("tbody").find("tr")[6]).find("td")[elementlength - 1]).before(deviation_contr)
+                   
+                    $($($("#dyntable").find("tbody").find("tr")[7]).find("td")[elementlength - 1]).before(last_awarded)
+                    
+                    $($($("#dyntable").find("tbody").find("tr")[8]).find("td")[elementlength - 1]).before(proposed_award_val)
+                    
 
 		}
 		}else{
@@ -1134,16 +1191,15 @@ function package_bidders_procurement(label_obj){
 				ele_pckIndex=parseInt(i)+1;
 				
 				$(".cust_th").parent().last().remove()
-				$("._budget_incl_td").parent().last().remove()
-				$("._negotiated_val_td").parent().last().remove()
-				$("._finalized_td").parent().last().remove()
-				$("._last_awarded_td").parent().last().remove()
-				
-				$("._proposed_awrd_val_td").parent().last().remove()
-				$("._exp_saving_td").parent().last().remove()
-				$("._rec_vendors_td").parent().last().remove()
-			
-				$('#package_row'+ele_pckIndex).remove();
+                    $("._budget_incl_td").parent().last().remove()
+                    $("._negotiated_val_td").parent().last().remove()
+                    $("._finalized_td").parent().last().remove()
+                    $("._exp_saving_td").parent().last().remove()
+                    $("._rec_vendors_td").parent().last().remove()
+                    $("._basis_awrd_td").parent().last().remove()
+                    $("._deviation_contr_td").parent().last().remove()
+                    $("._last_awarded_td").parent().last().remove()                   
+                    $("._proposed_awrd_val_td").parent().last().remove()
 			}
 
 		}
@@ -1999,9 +2055,10 @@ function calculateSum1_v1(ele_id)
 			$("#post_basic_rate_package"+i).val(sum+" Cr"); 
 			
 			package_budget_esc = $("#package_budget_esc"+i).val();  
-			expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
+			// expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
 			
-			
+			expected_savings_package= (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc) )*100/parseFloat(package_budget_esc);
+
 			expected_savings_package = parseFloat(expected_savings_package) || 0;			
 			$("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
 			total_expected_savings += expected_savings_package; 
@@ -2043,6 +2100,15 @@ function calculateSum1_v1(ele_id)
 		
 		}
   	}
+
+
+	// change approval list according to ho_approval
+    $('input[name=ho_approval]').change(function(){
+            var ho_approval = $("input[name='ho_approval']:checked").val();
+
+            calculateSum1_v1(this);
+        });
+	
 
 	function validate_greater_appr_date(th){
 		let receipt_date = $("#receipt_date").val();
