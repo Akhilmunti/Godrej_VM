@@ -62,7 +62,7 @@
 
                                         <form id="register_form" action="<?php echo base_url('vendor/home/actionSendBidCapacity/' . $mRecord['eoi_id']); ?>" method="POST" class=" validation-wizard" enctype="multipart/form-data">
                                             <!-- step -->
-                                            <h6>Latest 4  Years turnover</h6>
+                                            <h6>Latest 4 Years turnover</h6>
                                             <section>
                                                 <div class="table-responsive">
                                                     <table  class="table table-striped table-bordered" style="width:100%">
@@ -82,74 +82,205 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    1
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-4 year")); ?>-<?php echo date("Y", strtotime("-3 year")); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_bs_1" required="" type="file" class="form-control form-control-sm" />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    2
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_bs_2" required="" type="file" class="form-control form-control-sm" />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    3
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_bs_3" required="" type="file" class="form-control form-control-sm" />
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    4
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_to_4" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_pat_4" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input name="bc_bs_4" required="" type="file" class="form-control form-control-sm" />
-                                                                </td>
-                                                            </tr>
+
+                                                            <?php
+                                                            //echo $difference;
+                                                            if ($difference >= "4") {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-4 year")); ?>-<?php echo date("Y", strtotime("-3 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_1" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_1" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_1" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        2
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_2" name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_2" name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_2" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        3
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_3" name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_3" name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_3" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        4
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_4" name="bc_to_4" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_4" name="bc_pat_4" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_4" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+
+                                                            <?php } ?>
+
+
+                                                            <?php
+                                                            //echo $difference;
+                                                            if ($difference == "3") {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-4 year")); ?>-<?php echo date("Y", strtotime("-3 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_1" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_1" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_1" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        2
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_2" name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_2" name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_2" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        3
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_3" name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_3" name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_3" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+
+                                                            <?php } ?>
+
+                                                            <?php
+                                                            //echo $difference;
+                                                            if ($difference == "2") {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_1" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_1" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_1" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        2
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_2" name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_2" name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_2" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+
+                                                            <?php } ?>
+
+                                                            <?php
+                                                            //echo $difference;
+                                                            if ($difference <= "1") {
+                                                                ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" max="999999" id="bc_to_1" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input min="0" id="bc_pat_1" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input name="bc_bs_1" required="" type="file" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                </tr>
+
+                                                            <?php } ?>
                                                         </tbody>
                                                     </table>
                                                 </div>  
@@ -176,7 +307,7 @@
                                                                 <th>
                                                                     Expected Cummlative Billed amount in Cr by <?php
                                                                     echo date("F Y", strtotime("+" . $mRecord['eoi_schedule'] . "months", strtotime($mRecord['eoi_start_date'])));
-                                                                    ?> (Expected completion date as per PCM input)
+                                                                    ?> (Expected completion date)
                                                                 </th>
                                                                 <th>
                                                                     Supporting Document 
@@ -185,16 +316,26 @@
                                                         </thead>
                                                         <tbody id="itemsTbody">
                                                             <tr>
-                                                                <td><a class="deleteRowCc"></a></td>
+                                                                <td>
+                                                                    <a class="deleteRowCc"></a>
+                                                                </td>
                                                                 <td>
                                                                     <input required="" value="" type="text" name="bc_ongoing_works[1][]" class="form-control site-value"/>
                                                                 </td>
-                                                                <td><input required="" value="" type="text" name="bc_ongoing_works[1][]"  class="form-control site-value-2"/></td>
-                                                                <td><input required="" value="" type="text" name="bc_ongoing_works[1][]"  class="form-control site-value-4"/></td>
-                                                                <td><input required="" value="" type="number" name="bc_ongoing_works[1][]"  class="form-control site-value-5"/></td>
-                                                                <td><input required="" value="" type="date" name="bc_ongoing_works[1][]" onchange="getOrderValue('1')" id="bc_ongoing_works_ov_1" class="form-control site-value-6"/></td>
                                                                 <td>
-                                                                    <input required="" value="" type="date" name="bc_ongoing_works[1][]" onchange="getDcwStartDate('1')" id="bc_ongoing_works_sd_1" class="form-control site-value-8"/>
+                                                                    <input required="" value="" type="text" name="bc_ongoing_works[1][]"  class="form-control site-value-2"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input required="" value="" type="text" name="bc_ongoing_works[1][]"  class="form-control site-value-4"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input required="" value="" type="number" name="bc_ongoing_works[1][]"  class="form-control site-value-5"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input min="<?php echo $vendor_doi; ?>" required="" value="" type="date" name="bc_ongoing_works[1][]" onchange="getOrderValue('1')" id="bc_ongoing_works_ov_1" class="form-control site-value-6"/>
+                                                                </td>
+                                                                <td>
+                                                                    <input min="<?php echo $vendor_doi; ?>" required="" value="" type="date" name="bc_ongoing_works[1][]" onchange="getDcwStartDate('1')" id="bc_ongoing_works_sd_1" class="form-control site-value-8"/>
                                                                 </td>
                                                                 <td>
                                                                     <input required="" value="" type="number" name="bc_ongoing_works[1][]" onchange="getDcwStartDate('1')" id="bc_ongoing_works_ed_1" class="form-control site-value-9"/>
@@ -341,6 +482,34 @@
                 var rowCount = $('#stc_bc_table tr').length;
                 $(this).closest("tr").remove();
                 counterdcw -= 1
+            });
+
+            $("#bc_to_1").on('change keyup paste', function () {
+                var value = $("#bc_to_1").val();
+                if (value) {
+                    $("#bc_pat_1").attr('max', value);
+                }
+            });
+
+            $("#bc_to_2").on('change keyup paste', function () {
+                var value = $("#bc_to_2").val();
+                if (value) {
+                    $("#bc_pat_2").attr('max', value);
+                }
+            });
+
+            $("#bc_to_3").on('change keyup paste', function () {
+                var value = $("#bc_to_3").val();
+                if (value) {
+                    $("#bc_pat_3").attr('max', value);
+                }
+            });
+
+            $("#bc_to_4").on('change keyup paste', function () {
+                var value = $("#bc_to_4").val();
+                if (value) {
+                    $("#bc_pat_4").attr('max', value);
+                }
             });
 
         </script>

@@ -1218,7 +1218,7 @@
                                                                         <th style="width: 150px">Contract Value Rs.(In Crores)</th>
                                                                         <th>Start  Date</th>
                                                                         <th>Completion Date</th>
-                                                                        <th>Upload Experience*</th>
+                                                                        <th>upload Documents*</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody id="itemsTbody">
@@ -1346,10 +1346,10 @@
                                                                             Start Date
                                                                         </th>
                                                                         <th>
-                                                                            Target Completion Date
+                                                                            Completion Date
                                                                         </th>
                                                                         <th>
-                                                                            Upload GOVERNEMENT DEPARTMENTS*
+                                                                            Upload Work Order*
                                                                         </th>
                                                                     </tr>
                                                                 </thead>

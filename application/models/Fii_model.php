@@ -128,7 +128,32 @@ class Fii_model extends CI_Model {
     public function getAllParentByTowKey($param) {
         $this->db->select('*');
         $this->db->from($this->table_parent);
-        $this->db->where('ii_tow', $param);
+        if ($param == 66) {
+            //Get All General Bri for Civil
+            $this->db->or_where('ii_tow', "23");
+            //$this->db->or_where('ii_tow', "62");
+        } else if ($param == 67) {
+            //Get All General Bri for MEP
+            $this->db->or_where('ii_tow', "32");
+            $this->db->or_where('ii_tow', "33");
+            $this->db->or_where('ii_tow', "41");
+            //$this->db->or_where('ii_tow', "62");
+        } else if ($param == 68) {
+            //Get All General Bri for Finishing
+            $this->db->or_where('ii_tow', "27");
+            $this->db->or_where('ii_tow', "30");
+            //$this->db->or_where('ii_tow', "62");
+        } else if ($param == 61 || $param == 63 || $param == 62) {
+            $this->db->or_where('ii_tow', "23");
+            $this->db->or_where('ii_tow', "32");
+            $this->db->or_where('ii_tow', "33");
+            $this->db->or_where('ii_tow', "41");
+            $this->db->or_where('ii_tow', "27");
+            $this->db->or_where('ii_tow', "30");
+        } else {
+            $this->db->where('ii_tow', $param);
+        }
+
         $data = array();
         $mQuery_Res = $this->db->get();
         if ($mQuery_Res->num_rows() > 0) {

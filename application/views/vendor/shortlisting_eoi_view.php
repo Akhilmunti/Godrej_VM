@@ -148,7 +148,11 @@
                                                             Basic Rate Items :
                                                         </td>
                                                         <td>
-                                                            <?php echo $mRecord['eoi_bri']; ?>
+                                                            <?php $mBasics = json_decode($mRecord['eoi_bri']); ?>
+
+                                                            <?php foreach ($mBasics as $key => $value) { ?>
+                                                                <span class="badge badge-primary"><?php echo $value; ?></span>
+                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -156,7 +160,11 @@
                                                             Free Issue Items:
                                                         </td>
                                                         <td>
-                                                            <?php echo $mRecord['eoi_fii']; ?>
+                                                            <?php $mFree = json_decode($mRecord['eoi_fii']); ?>
+
+                                                            <?php foreach ($mFree as $key => $value) { ?>
+                                                                <span class="badge badge-primary"><?php echo $value; ?></span>
+                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -225,7 +233,7 @@
                                             <a href="<?php echo base_url('vendor/home/actionChangeEoiStatus/' . $mRecord['eoi_id'] . "/" . $mRecordEv['ev_id'] . "/" . "1"); ?>" type="button" class="btn btn-primary">Accept</a>
                                             <a href="<?php echo base_url('vendor/home/actionChangeEoiStatus/' . $mRecord['eoi_id'] . "/" . $mRecordEv['ev_id'] . "/" . "2"); ?>" type="button" class="btn btn-danger" data-dismiss="modal">Reject</a>
                                         <?php } else if ($mRecordEv['ev_status'] == 10) { ?>
-<!--                                            <a href="<?php echo base_url('vendor/home/actionChangeEoiStatus/' . $mRecord['eoi_id'] . "/" . $mRecordEv['ev_id'] . "/" . "1"); ?>" type="button" class="btn btn-primary">Accept</a>-->
+    <!--                                            <a href="<?php echo base_url('vendor/home/actionChangeEoiStatus/' . $mRecord['eoi_id'] . "/" . $mRecordEv['ev_id'] . "/" . "1"); ?>" type="button" class="btn btn-primary">Accept</a>-->
                                         <?php } else if ($mRecordEv['ev_status'] == 1) { ?>
 
                                         <?php } ?>

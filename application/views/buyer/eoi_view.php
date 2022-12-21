@@ -53,6 +53,20 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
+                                                            Vendor Selected : 
+                                                        </td>
+                                                        <td>
+                                                            <?php $mVendors = json_decode($mRecord['eoi_vendors_selected']); ?>
+                                                            <?php 
+                                                            foreach ($mVendors as $key => $value) {
+                                                                $mVendor = $this->vendor->getParentByKey($value);
+                                                                ?>
+                                                                <span class="badge badge-primary"><?php echo $mVendor['company_name']; ?></span>
+                                                            <?php } ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
                                                             Project Name : 
                                                         </td>
                                                         <td>
@@ -148,7 +162,11 @@
                                                             Basic Rate Items :
                                                         </td>
                                                         <td>
-                                                            <?php echo $mRecord['eoi_bri']; ?>
+                                                            <?php $mBasics = json_decode($mRecord['eoi_bri']); ?>
+
+                                                            <?php foreach ($mBasics as $key => $value) { ?>
+                                                                <span class="badge badge-primary"><?php echo $value; ?></span>
+                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -156,7 +174,11 @@
                                                             Free Issue Items:
                                                         </td>
                                                         <td>
-                                                            <?php echo $mRecord['eoi_fii']; ?>
+                                                            <?php $mFree = json_decode($mRecord['eoi_fii']); ?>
+                                                            
+                                                            <?php foreach ($mFree as $key => $value) { ?>
+                                                                <span class="badge badge-primary"><?php echo $value; ?></span>
+                                                            <?php } ?>
                                                         </td>
                                                     </tr>
                                                     <tr>

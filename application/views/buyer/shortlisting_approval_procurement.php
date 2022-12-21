@@ -490,7 +490,7 @@
                                                                 <tr>
                                                                     <td>
                                                                         <b>
-                                                                            Planned date of Contractor appointment As per BI Logic.
+                                                                            Planned date of Contractor appointment As per PI Logic.
                                                                         </b>
                                                                     </td> 
                                                                     <td>
@@ -603,11 +603,11 @@
                                                             </select>
                                                         </div>
                                                         <div id="zonal" class="col-md-3 mb-3" style="display: none">
-                                                            <lable>Regional C&P</lable>
+                                                            <lable>Regional C&P Head</lable>
                                                             <select name="s_approvers[]" class="form-control">
                                                                 <option disabled="" selected="" value="">Select</option>
                                                                 <option value="">Not Applicable</option>
-                                                                <?php foreach ($zonals as $key => $record) { ?>
+                                                                <?php foreach ($RCH as $key => $record) { ?>
                                                                     <option value="<?php echo $record['buyer_id']; ?>"><?php echo $record['buyer_name']; ?></option>
                                                                 <?php } ?>
                                                             </select>
@@ -663,7 +663,7 @@
                                                             </select>
                                                         </div>
                                                         <div id="ho" class="col-md-3 mb-3" style="display: none">
-                                                            <lable>HO - C&P</lable>
+                                                            <lable>HO - C&P Head</lable>
                                                             <select name="s_approvers[]" class="form-control">
                                                                 <option disabled="" selected="" value="">Select</option>
                                                                 <option value="">Not Applicable</option>

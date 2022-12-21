@@ -115,11 +115,11 @@
                                                                             </span>
                                                                         <?php } ?>
                                                                     <?php } ?>
-                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 || !empty($mCheckBidCapacity))) { ?>
+                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 && !empty($mCheckBidCapacity))) { ?>
                                                                     <a href="<?php echo base_url('vendor/home/viewBidCapacity/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
                                                                         Bid Capacity Sent 
                                                                     </a>
-                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 || empty($mCheckBidCapacity))) { ?>
+                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 && empty($mCheckBidCapacity))) { ?>
                                                                     <a href="<?php echo base_url('vendor/home/sendShortlisting/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
                                                                         Enter 
                                                                     </a>
@@ -138,11 +138,11 @@
                                                                             </span>
                                                                         <?php } ?>
                                                                     <?php } ?>
-                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 || !empty($mCheckBidCapacity))) { ?>
+                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 && !empty($mCheckBidCapacity))) { ?>
                                                                     <a href="#" class="btn btn-xs btn-success">
                                                                         Accepted
                                                                     </a>
-                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 || empty($mCheckBidCapacity))) { ?>
+                                                                <?php } else if (in_array($mSessionKey, $mAccepted) && ($mCheckStatus['ev_status'] == 1 && empty($mCheckBidCapacity))) { ?>
                                                                     <a href="#" class="btn btn-xs btn-warning">
                                                                         Bid Capacity Pending 
                                                                     </a>

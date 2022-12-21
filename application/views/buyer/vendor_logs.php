@@ -65,7 +65,7 @@
                                                         <th>Issue reported date	</th>
                                                         <th>Issue Description</th>
                                                         <th>Current Status</th>
-                                                        <th>Pain For</th>
+                                                        <th>Reason Attributable To</th>
                                                         <th>
                                                             Last updated date
                                                         </th>
@@ -116,17 +116,17 @@
                                                             <td>
                                                                 <div class="dropdown">
                                                                     <button class="btn btn-xs btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-<?php echo $record['vl_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        <?php if ($record['vl_pain'] == "Pain to GPL") { ?>
-                                                                            Pain to GPL
-                                                                        <?php } else if ($record['vl_pain'] == "Pain to Contractor") { ?>
-                                                                            Pain to Contractor
+                                                                        <?php if ($record['vl_pain'] == "Company") { ?>
+                                                                            Company
+                                                                        <?php } else if ($record['vl_pain'] == "Contractor") { ?>
+                                                                            Contractor
                                                                         <?php } else { ?>
                                                                             Select
                                                                         <?php } ?>
                                                                     </button>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?php echo $record['vl_id']; ?>">
-                                                                        <a class="dropdown-item" href="<?php echo base_url('buyer/vendor/actionChangeLogPainStatus/' . $record['vl_id'] . "/1"); ?>">Pain to GPL</a>
-                                                                        <a class="dropdown-item" href="<?php echo base_url('buyer/vendor/actionChangeLogPainStatus/' . $record['vl_id'] . "/2"); ?>">Pain to Contractor</a>
+                                                                        <a class="dropdown-item" href="<?php echo base_url('buyer/vendor/actionChangeLogPainStatus/' . $record['vl_id'] . "/1"); ?>">Company</a>
+                                                                        <a class="dropdown-item" href="<?php echo base_url('buyer/vendor/actionChangeLogPainStatus/' . $record['vl_id'] . "/2"); ?>">Contractor</a>
                                                                     </div>
                                                                 </div>
                                                             </td>

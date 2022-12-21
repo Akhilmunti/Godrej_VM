@@ -128,7 +128,27 @@ class Bri_model extends CI_Model {
     public function getAllParentByTowKey($param) {
         $this->db->select('*');
         $this->db->from($this->table_parent);
-        $this->db->where('bi_tow', $param);
+        if ($param == 66) {
+            //Get All General Bri for Civil
+            $this->db->or_where('bi_tow', "23");
+        } else if ($param == 67) {
+            //Get All General Bri for MEP
+            $this->db->or_where('bi_tow', "32");
+            $this->db->or_where('bi_tow', "33");
+            $this->db->or_where('bi_tow', "41");
+        } else if ($param == 68) {
+            //Get All General Bri for Finishing
+            $this->db->or_where('bi_tow', "27");
+        } else if ($param == 61 || $param == 63 || $param == 62) {
+            //Get All General Bri for Finishing
+            $this->db->or_where('bi_tow', "23");
+            $this->db->or_where('bi_tow', "32");
+            $this->db->or_where('bi_tow', "33");
+            $this->db->or_where('bi_tow', "41");
+            $this->db->or_where('bi_tow', "27");
+        } else {
+            $this->db->where('bi_tow', $param);
+        }
         $data = array();
         $mQuery_Res = $this->db->get();
         if ($mQuery_Res->num_rows() > 0) {
@@ -137,6 +157,10 @@ class Bri_model extends CI_Model {
         } else {
             return false;
         }
+    }
+
+    public function getAllParentByTowAndVendorTypeKey($param, $param2) {
+        
     }
 
     public function updateParentByKey($param, $data) {

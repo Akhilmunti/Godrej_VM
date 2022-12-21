@@ -104,7 +104,7 @@ class Buyer_model extends CI_Model {
         $this->db->where('buyer_role', $mRole);
         //$this->db->join('categories', 'categories.category_key = article.category_key');
         //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
-        $this->db->where('buyer_id !=', $mSessionKey);
+        //$this->db->where('buyer_id !=', $mSessionKey);
         $this->db->order_by('buyer_id', 'DESC');
         $data = array();
         $mQuery_Res = $this->db->get();
@@ -125,8 +125,6 @@ class Buyer_model extends CI_Model {
         $this->db->order_by('buyer_id', 'DESC');
         $data = array();
         $mQuery_Res = $this->db->get();
-        echo $this->db->last_query();
-        exit;
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;
@@ -161,9 +159,7 @@ class Buyer_model extends CI_Model {
         //$this->db->join('categories', 'categories.category_key = article.category_key');
         //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
         //$this->db->where('buyer_status', 1);
-        $this->db->or_where('buyer_role', "Project Manager");
-        $this->db->or_where('buyer_role', "Project Director");
-        $this->db->or_where('buyer_role', "PCM");
+        $this->db->where('buyer_role', "Project Manager");
         $this->db->where('buyer_zone', $mSessionZone);
         $this->db->order_by('buyer_id', 'DESC');
         $data = array();
@@ -186,6 +182,48 @@ class Buyer_model extends CI_Model {
         $this->db->or_where('buyer_role', "Project Manager");
         $this->db->or_where('buyer_role', "Project Director");
         $this->db->or_where('buyer_role', "PCM");
+        $this->db->where('buyer_zone', $mSessionZone);
+        $this->db->order_by('buyer_id', 'DESC');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getAllParentForTransfer() {
+        $mSessionZone = $this->session->userdata('session_zone');
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        //$this->db->join('categories', 'categories.category_key = article.category_key');
+        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
+        //$this->db->where('buyer_status', 1);
+        $this->db->or_where('buyer_role', "Regional C&P Head");
+        $this->db->or_where('buyer_role', "Regional C&P Team");
+        $this->db->or_where('buyer_role', "PCM");
+        $this->db->where('buyer_zone', $mSessionZone);
+        $this->db->order_by('buyer_id', 'DESC');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getAllParentForTransferByRole($mRole) {
+        $mSessionZone = $this->session->userdata('session_zone');
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        //$this->db->join('categories', 'categories.category_key = article.category_key');
+        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
+        //$this->db->where('buyer_status', 1);
+        $this->db->or_where('buyer_role', $mRole);
         $this->db->where('buyer_zone', $mSessionZone);
         $this->db->order_by('buyer_id', 'DESC');
         $data = array();

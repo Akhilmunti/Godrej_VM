@@ -255,100 +255,7 @@
                                                                     <td>
                                                                         <?php echo $mRecord['company_name']; ?>
                                                                     </td>
-
-                                                                    <td>
-                                                                        <?php echo $mBidCapacity; ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php echo $mCheckBidCapacity['bc_to_4']; ?>
-                                                                    </td>
-                                                                    <td>
-
-                                                                        <?php if ($mRecord['is_small'] == 0) { ?>
-
-                                                                            <?php if ($mRecord['active'] == 2) { ?>
-                                                                                <?php
-                                                                                $mTows = json_decode($mRecord['consolidated_tows']);
-                                                                                $mTowsIds = json_decode($mRecord['consolidated_tows_ids']);
-                                                                                foreach ($mTows as $key => $value) {
-                                                                                    if ($mRecord['nature_of_business_id'] == 1) {
-                                                                                        $mPqScore = $this->pqv->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 3) {
-                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 2) {
-                                                                                        $mPqScore = array();
-                                                                                    }
-                                                                                    ?>
-                                                                                    <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
-
-                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
-                                                                                            <?php if (!empty($mPqScore)) { ?>
-                                                                                                <?php echo $mPqScore['pqv_total']; ?>
-                                                                                            <?php } ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
-                                                                                        <?php if (!empty($mPqScore)) { ?>
-                                                                                            <?php echo $mPqScore['pqc_total']; ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
-                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
-                                                                                            <?php if (!empty($mPqScore)) { ?>
-                                                                                                <?php echo $mPqScore['pqc_total']; ?>
-                                                                                            <?php } ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } ?>
-
-                                                                                <?php } ?>
-                                                                            <?php } ?>
-                                                                        <?php } else { ?>
-                                                                            <?php if ($mRecord['active'] == 2) { ?>
-                                                                                <?php
-                                                                                $mTows = json_decode($mRecord['consolidated_tows']);
-                                                                                $mTowsIds = json_decode($mRecord['consolidated_tows_ids']);
-                                                                                foreach ($mTows as $key => $value) {
-                                                                                    if ($mRecord['nature_of_business_id'] == 1) {
-                                                                                        $mPqScore = $this->pqv->getParentByVendorKey($mRecord['id']);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 3) {
-                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 2) {
-                                                                                        $mPqScore = array();
-                                                                                    }
-                                                                                    ?>
-                                                                                    <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
-
-                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
-                                                                                            <?php if (!empty($mPqScore)) { ?>
-                                                                                                <?php echo $mPqScore['pqv_total']; ?>
-                                                                                            <?php } ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
-                                                                                        <?php if (!empty($mPqScore)) { ?>
-                                                                                            <?php echo $mPqScore['pqc_total']; ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
-                                                                                        <?php if (!empty($mPqScore)) { ?>
-                                                                                            <?php echo $mPqScore['pqc_total']; ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } ?>
-
-                                                                                <?php } ?>
-                                                                            <?php } ?>
-                                                                        <?php } ?>
-
-                                                                    </td>
-                                                                    <td>
+<td>
                                                                         <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
                                                                             <?php if (empty($mStageTwo)) { ?>
 
@@ -503,6 +410,99 @@
                                                                             <?php } ?>
                                                                         <?php } ?>
                                                                     </td>
+                                                                    
+                                                                    <td>
+                                                                        <?php echo $mCheckBidCapacity['bc_to_4']; ?>
+                                                                    </td>
+                                                                    <td>
+
+                                                                        <?php if ($mRecord['is_small'] == 0) { ?>
+
+                                                                            <?php if ($mRecord['active'] == 2) { ?>
+                                                                                <?php
+                                                                                $mTows = json_decode($mRecord['consolidated_tows']);
+                                                                                $mTowsIds = json_decode($mRecord['consolidated_tows_ids']);
+                                                                                foreach ($mTows as $key => $value) {
+                                                                                    if ($mRecord['nature_of_business_id'] == 1) {
+                                                                                        $mPqScore = $this->pqv->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
+                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
+                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                    } else if ($mRecord['nature_of_business_id'] == 3) {
+                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
+                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
+                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                    } else if ($mRecord['nature_of_business_id'] == 2) {
+                                                                                        $mPqScore = array();
+                                                                                    }
+                                                                                    ?>
+                                                                                    <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
+
+                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
+                                                                                            <?php if (!empty($mPqScore)) { ?>
+                                                                                                <?php echo $mPqScore['pqv_total']; ?>
+                                                                                            <?php } ?>
+                                                                                        <?php } ?>
+                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
+                                                                                        <?php if (!empty($mPqScore)) { ?>
+                                                                                            <?php echo $mPqScore['pqc_total']; ?>
+                                                                                        <?php } ?>
+                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
+                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
+                                                                                            <?php if (!empty($mPqScore)) { ?>
+                                                                                                <?php echo $mPqScore['pqc_total']; ?>
+                                                                                            <?php } ?>
+                                                                                        <?php } ?>
+                                                                                    <?php } ?>
+
+                                                                                <?php } ?>
+                                                                            <?php } ?>
+                                                                        <?php } else { ?>
+                                                                            <?php if ($mRecord['active'] == 2) { ?>
+                                                                                <?php
+                                                                                $mTows = json_decode($mRecord['consolidated_tows']);
+                                                                                $mTowsIds = json_decode($mRecord['consolidated_tows_ids']);
+                                                                                foreach ($mTows as $key => $value) {
+                                                                                    if ($mRecord['nature_of_business_id'] == 1) {
+                                                                                        $mPqScore = $this->pqv->getParentByVendorKey($mRecord['id']);
+                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
+                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
+                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                    } else if ($mRecord['nature_of_business_id'] == 3) {
+                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
+                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
+                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mTowsIds[$key]);
+                                                                                    } else if ($mRecord['nature_of_business_id'] == 2) {
+                                                                                        $mPqScore = array();
+                                                                                    }
+                                                                                    ?>
+                                                                                    <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
+
+                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
+                                                                                            <?php if (!empty($mPqScore)) { ?>
+                                                                                                <?php echo $mPqScore['pqv_total']; ?>
+                                                                                            <?php } ?>
+                                                                                        <?php } ?>
+                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
+                                                                                        <?php if (!empty($mPqScore)) { ?>
+                                                                                            <?php echo $mPqScore['pqc_total']; ?>
+                                                                                        <?php } ?>
+                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
+                                                                                        <?php if (!empty($mPqScore)) { ?>
+                                                                                            <?php echo $mPqScore['pqc_total']; ?>
+                                                                                        <?php } ?>
+                                                                                    <?php } ?>
+
+                                                                                <?php } ?>
+                                                                            <?php } ?>
+                                                                        <?php } ?>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php echo $mBidCapacity; ?>
+                                                                    </td>
                                                                     <td>
                                                                         <?php
                                                                         $mWorks = json_decode($mCheckBidCapacity['bc_ongoing_works']);
@@ -623,7 +623,7 @@
                                                                 echo "Yes";
                                                             }
                                                             ?>
-                                                        </b> (As We are targeting the closure of the package by 15th June'22 i.e 30 days instead of 90 Days)
+                                                        </b>
                                                     </p>
 
                                                     <br>
