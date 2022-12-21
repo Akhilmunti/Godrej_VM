@@ -1204,6 +1204,11 @@ class Vendor extends CI_Controller {
             $mCountTow = 0;
             $mCuratedVendors = array();
             foreach ($mRecords as $key => $mRecord) {
+                
+//                echo "<pre>";
+//                print_r($mRecord);
+//                exit;
+                
                 $mCount++;
                 $mStageOneAdded = strtotime($mRecord['created_at']);
                 $mStageOneAdded = date("d-m-Y H:i:s", $mStageOneAdded);
@@ -1468,9 +1473,9 @@ class Vendor extends CI_Controller {
                     }
                 }
             }
-//            echo "<pre>";
-//            print_r($mCuratedVendors);
-//            exit;
+            //echo "<pre>";
+            //print_r($mCuratedVendors);
+            //exit;
             $data['mRecords'] = $mCuratedVendors;
             $this->load->view('buyer/filter_gpl', $data);
         } else {

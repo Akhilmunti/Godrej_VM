@@ -552,9 +552,33 @@ class Home extends CI_Controller {
 
     public function sendShortlisting($mEoiId) {
         $mSessionKey = $this->session->userdata('session_vendor_id');
+        $mSessionType = $this->session->userdata('session_vendor_type');
+        $mSessionSmall = $this->session->userdata('session_vendor_small');
         if ($mSessionKey && $mEoiId) {
             $data['home'] = "short";
             $data['mRecord'] = $this->eoi->getParentByKey($mEoiId);
+            if ($mSessionType == "1") {
+                $vendor = $this->vst->getParentByVendorKey($mSessionKey);
+                $data['vendor_doi'] = $vendor['stv_doi'];
+            } else if ($mSessionType == "2") {
+                $vendor = $this->const->getParentByVendorKey($mSessionKey);
+                $data['vendor_doi'] = $vendor['stcon_doi'];
+            } else if ($mSessionType == "3") {
+                if ($mSessionSmall == 1) {
+                    $vendor = $this->cst->getParentByVendorKey($mSessionKey);
+                } else {
+                    $vendor = $this->cst->getParentByVendorKey($mSessionKey);
+                }
+                $data['vendor_doi'] = $vendor['stc_doi'];
+            } else if ($mSessionType == "4") {
+                $data['vendor'] = array();
+            }
+            $date1 = date("Y-m-d H:i:s");
+            $date2 = $data['vendor_doi'];
+            //$date2 = "2021-12-27";
+            $diff = abs(strtotime($date2) - strtotime($date1));
+            $years = floor($diff / (365 * 60 * 60 * 24));
+            $data['difference'] = $years;
             $this->load->view('vendor/shortlisting_send', $data);
         } else {
             $this->load->view('index', $data);
@@ -1318,12 +1342,12 @@ class Home extends CI_Controller {
             $mOcaUpload = $this->single_File_Upload('stc_oca_attach', $mOca);
 
             $mWpcAttach = $this->input->post('stc_wpc_details');
-                        
+
             $mNewWpc = array();
             foreach ($mWpcAttach as $key => $value) {
                 //Get the temp file path
                 $tmpFilePath = $_FILES['stc_wpc_details']['tmp_name'][$key][0];
-                
+
                 //Make sure we have a file path
                 if ($tmpFilePath != "") {
                     //Setup our new file path
@@ -1390,75 +1414,75 @@ class Home extends CI_Controller {
                 $mIsSmall = 0;
             }
 
-            
+
             $mTotalAssets = array(
                 $this->input->post('stc_total_assets1'),
                 $this->input->post('stc_total_assets2'),
                 $this->input->post('stc_total_assets3'),
                 $this->input->post('stc_total_assets4'),
             );
-            
+
             $mCurrentAssets = array(
                 $this->input->post('stc_current_assets1'),
                 $this->input->post('stc_current_assets2'),
                 $this->input->post('stc_current_assets3'),
                 $this->input->post('stc_current_assets4'),
             );
-            
+
             $mTotalLia = array(
                 $this->input->post('stc_total_lia1'),
                 $this->input->post('stc_total_lia2'),
                 $this->input->post('stc_total_lia3'),
                 $this->input->post('stc_total_lia4'),
             );
-            
+
             $mCurrentLia = array(
                 $this->input->post('stc_current_lia1'),
                 $this->input->post('stc_current_lia2'),
                 $this->input->post('stc_current_lia3'),
                 $this->input->post('stc_current_lia4'),
             );
-            
+
             $mTurnOver = array(
                 $this->input->post('stc_turnover1'),
                 $this->input->post('stc_turnover2'),
                 $this->input->post('stc_turnover3'),
                 $this->input->post('stc_turnover4'),
             );
-            
+
             $mProfits = array(
                 $this->input->post('stc_profits1'),
                 $this->input->post('stc_profits2'),
                 $this->input->post('stc_profits3'),
                 $this->input->post('stc_profits4'),
             );
-            
+
             $mProfitsTax = array(
                 $this->input->post('stc_profits_tax1'),
                 $this->input->post('stc_profits_tax2'),
                 $this->input->post('stc_profits_tax3'),
                 $this->input->post('stc_profits_tax4'),
             );
-            
+
             $mFin1 = $this->input->post('stc_fin_uploads1');
             $mFin1Upload = $this->single_File_Upload('stc_fin_uploads1', $mFin1);
-            
+
             $mFin2 = $this->input->post('stc_fin_uploads2');
             $mFin2Upload = $this->single_File_Upload('stc_fin_uploads2', $mFin2);
-            
+
             $mFin3 = $this->input->post('stc_fin_uploads3');
             $mFin3Upload = $this->single_File_Upload('stc_fin_uploads3', $mFin3);
-            
+
             $mFin4 = $this->input->post('stc_fin_uploads4');
             $mFin4Upload = $this->single_File_Upload('stc_fin_uploads4', $mFin4);
-            
+
             $mFinUploads = array(
                 $mFin1Upload,
                 $mFin2Upload,
                 $mFin3Upload,
                 $mFin4Upload
             );
-                                    
+
             $vendorData = array(
                 'stc_user_id' => $mSessionKey,
                 'stc_company' => $this->input->post('stc_company'),

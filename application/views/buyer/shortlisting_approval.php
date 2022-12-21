@@ -193,10 +193,20 @@
                                                                         <?php echo $mRecord['company_name']; ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $mCheckBidCapacity['bc_to_4']; ?>
+                                                                        <?php
+                                                                        if ($mCheckBidCapacity['bc_to_1']) {
+                                                                            echo $mCheckBidCapacity['bc_to_1'];
+                                                                        } elseif ($mCheckBidCapacity['bc_to_2']) {
+                                                                            echo $mCheckBidCapacity['bc_to_2'];
+                                                                        } elseif ($mCheckBidCapacity['bc_to_3']) {
+                                                                            echo $mCheckBidCapacity['bc_to_3'];
+                                                                        } elseif ($mCheckBidCapacity['bc_to_4']) {
+                                                                            echo $mCheckBidCapacity['bc_to_4'];
+                                                                        }
+                                                                        ?>
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $mBidCapacity; ?>
+                                                                        <?php echo round($mCheckBidCapacity['bc_score'], 2); ?>
                                                                     </td>
                                                                     <td>
                                                                         <?php if ($mFeedbackScore != "-") { ?>

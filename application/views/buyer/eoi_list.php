@@ -76,6 +76,7 @@
                                                         $mCount++;
                                                         $mRejectedVendors = array();
                                                         $mApprovedVendors = array();
+                                                        $mSelVendors = array();
                                                         $mTow = $this->register->getWorkById($mRecord['eoi_tow']);
                                                         if ($mRecord['eoi_status'] == 10) {
                                                             $mRejected = json_decode($mRecord['eoi_rejected_by']);
@@ -88,6 +89,11 @@
                                                         foreach ($mAccepted as $key => $mAcc) {
                                                             $mVendor = $this->vendor->getParentByKey($mAcc);
                                                             $mApprovedVendors[] = $mVendor['user_name'];
+                                                        }
+                                                        $mSelectedVendors = json_decode($mRecord['eoi_vendors_selected']);
+                                                        foreach ($mSelectedVendors as $key => $mSel) {
+                                                            $mVendor = $this->vendor->getParentByKey($mSel);
+                                                            $mSelVendors[] = $mVendor['user_name'];
                                                         }
                                                         ?>
                                                         <tr>
@@ -102,48 +108,57 @@
                                                                     <span class="btn btn-xs btn-dark">
                                                                         EOI Sent
                                                                     </span>
-                                                                    <?php if (!empty($mApprovedVendors)) { ?>
-                                                                        <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Accepted By : <?php echo $value; ?>
-                                                                            </span>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                    <?php if (!empty($mRejectedVendors)) { ?>
-                                                                        <?php foreach ($mRejectedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Rejected By : <?php echo $value; ?>
-                                                                            </span>
+                                                                    <?php if (!empty($mSelVendors)) { ?>
+                                                                        <?php foreach ($mSelVendors as $key => $value) { ?>
+                                                                            <?php if (in_array($value, $mAccepted)) { ?>
+                                                                                <span class="btn btn-xs btn-success">
+                                                                                    Accepted By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } elseif (in_array($value, $mRejected)) { ?>
+                                                                                <span class="btn btn-xs btn-danger">
+                                                                                    Rejected By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } else { ?>
+                                                                                <span class="btn btn-xs btn-warning">
+                                                                                    Pending By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } else if ($mRecord['eoi_status'] == 1) { ?>
-                                                                    <?php if (!empty($mApprovedVendors)) { ?>
-                                                                        <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Accepted By : <?php echo $value; ?>
-                                                                            </span>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                    <?php if (!empty($mRejectedVendors)) { ?>
-                                                                        <?php foreach ($mRejectedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Rejected By : <?php echo $value; ?>
-                                                                            </span>
+                                                                    <?php if (!empty($mSelVendors)) { ?>
+                                                                        <?php foreach ($mSelVendors as $key => $value) { ?>
+                                                                            <?php if (in_array($value, $mAccepted)) { ?>
+                                                                                <span class="btn btn-xs btn-success">
+                                                                                    Accepted By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } elseif (in_array($value, $mRejected)) { ?>
+                                                                                <span class="btn btn-xs btn-danger">
+                                                                                    Rejected By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } else { ?>
+                                                                                <span class="btn btn-xs btn-warning">
+                                                                                    Pending By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } else if ($mRecord['eoi_status'] == 10) { ?>
-                                                                    <?php if (!empty($mRejectedVendors)) { ?>
-                                                                        <?php foreach ($mRejectedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Rejected By : <?php echo $value; ?>
-                                                                            </span>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                    <?php if (!empty($mApprovedVendors)) { ?>
-                                                                        <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Accepted By : <?php echo $value; ?>
-                                                                            </span>
+                                                                    <?php if (!empty($mSelVendors)) { ?>
+                                                                        <?php foreach ($mSelVendors as $key => $value) { ?>
+                                                                            <?php if (in_array($value, $mAccepted)) { ?>
+                                                                                <span class="btn btn-xs btn-success">
+                                                                                    Accepted By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } elseif (in_array($value, $mRejected)) { ?>
+                                                                                <span class="btn btn-xs btn-danger">
+                                                                                    Rejected By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } else { ?>
+                                                                                <span class="btn btn-xs btn-warning">
+                                                                                    Pending By : <?php echo $value; ?>
+                                                                                </span>
+                                                                            <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } else if ($mRecord['eoi_status'] == 2) { ?>

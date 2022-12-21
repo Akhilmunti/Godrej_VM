@@ -132,7 +132,7 @@
                                                                 <td>
                                                                     <?php if (!empty($mApprovedVendors)) { ?>
                                                                         <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
+                                                                            <span class="btn btn-xs btn-dark mb-1">
                                                                                 Accepted By : <?php echo $value; ?>
                                                                             </span>
                                                                         <?php } ?>
@@ -144,7 +144,7 @@
                                                                         foreach ($mAccepted as $key => $value) {
                                                                             $mBidData = $this->bc->getParentByVendorIdAndEoiId($value, $mRecord['eoi_id']);
                                                                             ?>
-                                                                            <a href="<?php echo base_url('buyer/vendor/viewBidCapacity/' . $value . "/" . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-dark">
+                                                                            <a href="<?php echo base_url('buyer/vendor/viewBidCapacity/' . $value . "/" . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-dark mb-1">
                                                                                 Sent By : <?php echo $mApprovedVendors[$key]; ?> | Bid Capacity : <?php echo round($mBidData['bc_score'], 2); ?>
                                                                             </a>
                                                                         <?php } ?>
@@ -153,48 +153,48 @@
                                                                 <td>
                                                                     <?php if (!empty($mCheckShorlisting)) { ?>
                                                                         <?php if (empty($mApprovedBy)) { ?>
-                                                                            <button title="<?php echo $mSentBtnTitle; ?>" class="btn btn-xs btn-success">
+                                                                            <button title="<?php echo $mSentBtnTitle; ?>" class="btn btn-xs btn-success mb-1">
                                                                                 Sent
                                                                             </button>
                                                                         <?php } else { ?>
                                                                             <?php foreach ($mAppBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-dark">
+                                                                                <span class="btn btn-xs btn-dark mb-1">
                                                                                     Approved By : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php foreach ($mRejBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-dark">
+                                                                                <span class="btn btn-xs btn-dark mb-1">
                                                                                     Rejected By : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
 
                                                                             <?php if ($mCheckShorlisting['s_returned_comment_to'] != "") { ?>
-                                                                                <span class="btn btn-xs btn-success">
+                                                                                <span class="btn btn-xs btn-success mb-1">
                                                                                     Re-Approved By : <?php echo $mReApprovedBy['buyer_name']; ?>
                                                                                     |
                                                                                     Comment : <?php echo $mCheckShorlisting['s_returned_comment_to']; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php foreach ($mPendingBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-warning">
+                                                                                <span class="btn btn-xs btn-warning mb-1">
                                                                                     Pending From : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($mRecord['eoi_status'] == 9) { ?>
-                                                                                <span class="btn btn-xs btn-success">
+                                                                                <span class="btn btn-xs btn-success mb-1">
                                                                                     Approved
                                                                                 </span>
                                                                             <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } else { ?>
                                                                         <?php if ($mRecord['eoi_status'] == 2) { ?>
-                                                                            <span class="btn btn-xs btn-warning">
+                                                                            <span class="btn btn-xs btn-warning mb-1">
                                                                                 Pending
                                                                             </span>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                     <?php if (!empty($mReturnedBy) && $mCheckShorlisting['s_returned_comment_to'] == "") { ?>
-                                                                        <span class="btn btn-xs btn-danger">
+                                                                        <span class="btn btn-xs btn-danger mb-1">
                                                                             Returned By : <?php echo $mReturnedBy['buyer_name']; ?>
                                                                             |
                                                                             Comment : <?php echo $mCheckShorlisting['s_returned_comment_from']; ?>
@@ -203,19 +203,19 @@
                                                                 </td>
                                                                 <td>
                                                                     <?php if (!empty($mAccepted) && $mRecord['eoi_status'] !== "2") { ?>
-                                                                        <a href="<?php echo base_url('buyer/vendor/approveShortlisting/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                        <a href="<?php echo base_url('buyer/vendor/approveShortlisting/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block mb-1">
                                                                             View
                                                                         </a>
                                                                     <?php } ?>
                                                                     <?php if (!empty($mRejBuyers)) { ?>
-                                                                        <a href="<?php echo base_url('buyer/vendor/refloatApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                        <a href="<?php echo base_url('buyer/vendor/refloatApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block mb-1">
                                                                             Refloat approval
                                                                         </a>
                                                                     <?php } ?>
                                                                     <?php if (!empty($mCheckBidCapacity)) { ?>
                                                                         <?php if ($mSessionKey == $mRecord['eoi_buyer_id']) { ?>
                                                                             <?php if (empty($mCheckShorlisting)) { ?>
-                                                                                <a href="<?php echo base_url('buyer/vendor/shortlistApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                <a href="<?php echo base_url('buyer/vendor/shortlistApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block mb-1">
                                                                                     Send for approval
                                                                                 </a>
                                                                             <?php } ?>

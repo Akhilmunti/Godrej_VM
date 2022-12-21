@@ -82,82 +82,99 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    1
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-4 year")); ?>-<?php echo date("Y", strtotime("-3 year")); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input disabled value="<?php echo $mRecord['bc_to_1']; ?>" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input disabled value="<?php echo $mRecord['bc_pat_1']; ?>" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_1']); ?>" class="btn btn-xs btn-primary">
-                                                                        Download
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    2
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input value="<?php echo $mRecord['bc_to_2']; ?>" disabled name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input value="<?php echo $mRecord['bc_pat_2']; ?>" disabled name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_2']); ?>" class="btn btn-xs btn-primary">
-                                                                        Download
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    3
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input value="<?php echo $mRecord['bc_to_3']; ?>" disabled name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input value="<?php echo $mRecord['bc_pat_3']; ?>" disabled name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_3']); ?>" class="btn btn-xs btn-primary">
-                                                                        Download
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    4
-                                                                </td>
-                                                                <td>
-                                                                    FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
-                                                                </td>
-                                                                <td>
-                                                                    <input value="<?php echo $mRecord['bc_to_4']; ?>" disabled name="bc_to_4" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <input value="<?php echo $mRecord['bc_pat_4']; ?>" disabled name="bc_pat_4" required="" type="number" class="form-control form-control-sm" />
-                                                                </td>
-                                                                <td>
-                                                                    <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_4']); ?>" class="btn btn-xs btn-primary">
-                                                                        Download
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                                            <?php if ($mRecord['bc_to_1']) { ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        1
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-4 year")); ?>-<?php echo date("Y", strtotime("-3 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input disabled value="<?php echo $mRecord['bc_to_1']; ?>" name="bc_to_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input disabled value="<?php echo $mRecord['bc_pat_1']; ?>" name="bc_pat_1" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php if ($mRecord['bc_bs_1']) { ?>
+                                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_1']); ?>" class="btn btn-xs btn-primary">
+                                                                                Download
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($mRecord['bc_to_2']) { ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        2
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-3 year")); ?>-<?php echo date("Y", strtotime("-2 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="<?php echo $mRecord['bc_to_2']; ?>" disabled name="bc_to_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="<?php echo $mRecord['bc_pat_2']; ?>" disabled name="bc_pat_2" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php if ($mRecord['bc_bs_2']) { ?>
+                                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_2']); ?>" class="btn btn-xs btn-primary">
+                                                                                Download
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($mRecord['bc_to_3']) { ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        3
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="<?php echo $mRecord['bc_to_3']; ?>" disabled name="bc_to_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="<?php echo $mRecord['bc_pat_3']; ?>" disabled name="bc_pat_3" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php if ($mRecord['bc_bs_2']) { ?>
+                                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_3']); ?>" class="btn btn-xs btn-primary">
+                                                                                Download
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+                                                            <?php if ($mRecord['bc_to_4']) { ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        4
+                                                                    </td>
+                                                                    <td>
+                                                                        FY <?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="<?php echo $mRecord['bc_to_4']; ?>" disabled name="bc_to_4" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="<?php echo $mRecord['bc_pat_4']; ?>" disabled name="bc_pat_4" required="" type="number" class="form-control form-control-sm" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <?php if ($mRecord['bc_bs_2']) { ?>
+                                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bs_4']); ?>" class="btn btn-xs btn-primary">
+                                                                                Download
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php } ?>
+
                                                         </tbody>
                                                     </table>
                                                 </div>  
@@ -210,9 +227,11 @@
                                                                         <input disabled required="" value="<?php echo $mWork[6]; ?>" type="number" name="bc_ongoing_works[1][]" onchange="getDcwStartDate('1')" id="bc_ongoing_works_ed_1" class="form-control site-value-9"/>
                                                                     </td>
                                                                     <td>
-                                                                        <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mWork[7]); ?>" class="btn btn-xs btn-primary">
-                                                                            Download
-                                                                        </a>
+                                                                        <?php if ($mWork[7]) { ?>
+                                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mWork[7]); ?>" class="btn btn-xs btn-primary">
+                                                                                Download
+                                                                            </a>
+                                                                        <?php } ?>
                                                                     </td>
                                                                 </tr>
                                                             <?php }
@@ -227,16 +246,22 @@
                                                     <div class="col-md-6">
                                                         <label>Solvency Certificate</label>
                                                         <br>
-                                                        <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_solvency_certificate']); ?>" class="btn btn-xs btn-primary">
-                                                            Download
-                                                        </a>
+
+                                                        <?php if ($mRecord['bc_solvency_certificate']) { ?>
+                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_solvency_certificate']); ?>" class="btn btn-xs btn-primary">
+                                                                Download
+                                                            </a>
+                                                        <?php } ?>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label>BG Limit Letter from your Bank</label>
                                                         <br>
-                                                        <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bg_certificate']); ?>" class="btn btn-xs btn-primary">
-                                                            Download
-                                                        </a>
+
+                                                        <?php if ($mRecord['bc_bg_certificate']) { ?>
+                                                            <a download="" target="_blank" href="<?php echo base_url('uploads/' . $mRecord['bc_bg_certificate']); ?>" class="btn btn-xs btn-primary">
+                                                                Download
+                                                            </a>
+                                                        <?php } ?>
                                                     </div>
                                                 </div>
                                             </section>
