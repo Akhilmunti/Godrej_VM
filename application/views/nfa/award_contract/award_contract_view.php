@@ -325,7 +325,7 @@
                                             <td><?php echo $mRecord['total_post_basic_rate'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Expected Savings w.r.t Budget incl. escalation(after accounting the anticipated basic rate adjustment)</td>
+                                            <td>Expected Savings w.r.t Budget incl. escalation</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 											

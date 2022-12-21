@@ -132,7 +132,7 @@ $this->load->view('buyer/partials/header'); ?>
                 <section class="content">
 
                     <!-- Content Header (Page header) -->
-					<?php $this->load->view('nfa/award_procurement/common_iom_header.php'); ?>
+					<?php $this->load->view('nfa/common_iom_header.php'); ?>
 
 					
 					<div class="d-block mb-4">
@@ -383,7 +383,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     <div class='form-group'>
                                         <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
 										<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
-										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur=" " class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur=" " class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
                                     </div>
                                 </div>
 
@@ -688,14 +688,12 @@ $this->load->view('buyer/partials/header'); ?>
                             </div>
 
 
-                          <div class="d-block mt-4">
-                             
-							 <div class="d-block mt-4">
+                         				 <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Major Terms and Conditions</h5>
                             </div>
-													
+
                             <div class="table-responsive mt-4">
-							<table class="table table-bordered mb-0" id="t1">
+                                <table class="table table-bordered mb-0" id="t1">
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th style="width:10%">Sl. No.</th>
@@ -704,16 +702,16 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<div style="width: 100%;" class="mr-2"><label>Package 1</label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label>Package 2</label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label>Package 3</label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
+											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="">
 										<?php
-									
+										
 										foreach($mRecordMajorTerms as $key=>$val)
 										{
 											$slNo  = $key+1;
@@ -731,14 +729,14 @@ $this->load->view('buyer/partials/header'); ?>
 												{
 													$package_id = $val['package_id'];
 													$salient_id = $val['salient_id'];	
-													$majorTerms_desc = $CI->awardRecommProcurement->getMajorTerms($salient_id,$package_id,$term);
+													$majorTerms_desc = $CI->awardRecommContract->getMajorTerms($salient_id,$package_id,$term);
 													
 													$term_label_value_arr[$key] = $majorTerms_desc->term_label_value;
 												}
 												
 												?>
 												<textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required><?php echo $term_label_value_arr[0]; ?></textarea><textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value2" ><?php echo $term_label_value_arr[1]; ?></textarea><textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec3 mr-2" rows="2"  id="term_label_value3" ><?php echo $term_label_value_arr[2]; ?></textarea>
-												
+												<?php /*<textarea rows="2" class="form-control mr-2" name="term_label_value[]" id="term_label_value<?php echo $slNo;?>"><?php echo $term_label_value; ?></textarea> <?php */?>
 											</td>
 										
 											<?php 
@@ -765,7 +763,6 @@ $this->load->view('buyer/partials/header'); ?>
                                         </tr>
                                     </tbody>
                                 </table>
-                            
                             </div>
 
                             <div class="row text-right mt-20">
@@ -777,6 +774,8 @@ $this->load->view('buyer/partials/header'); ?>
                                   
                                 </div>
                             </div>
+
+                           
 
 
                             <div class="row mt-4">
@@ -1087,9 +1086,9 @@ function package_bidders_procurement(label_obj){
 		$('#diffCrs_row').find('td:gt(1)').remove();
 		$('#diffPercent_row').find('td:gt(1)').remove();
 
-		let _th=`<th style="width:20%"><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_procurement(this);"></th>`;
+		let _th=`<th style="width:20%"><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_pro(this);"></th>`;
 
-		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
+		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1(this.id);" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
 
 		let _negotiated_val=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value'); " class="form-control _negotiated_val_td onMouseOutClass" name="package_negot_value[]" id="package_negot_value"></td>`;
 
@@ -1843,6 +1842,81 @@ function getLevelApprovers(){
 		}
 		
 	}
+	           //Getting package rows in final bidders
+	function package_bidders_pro(label_obj) {
+	
+
+   
+
+
+   			 var label_id = label_obj.id;
+
+			var package_name,finalized_award_value;
+
+
+			var package_count = $('#package_count').find(":selected").text();
+			var bidder_count = parseInt($("#bidder_count").val())+1;
+			$('#package_row2').show();
+			$('#package_row3').show();
+			package_name = label_obj.value;
+	
+
+	if (label_id == "package_label1")
+	{
+		var url = base_url + 'nfa/Award_procurement/show_package_bidders1';
+				
+	}
+	else if (label_id == "package_label2")
+	{
+		var url = base_url + 'nfa/Award_procurement/show_package_bidders2';
+		
+	}
+	else if (label_id == "package_label3")
+	{
+		var url = base_url + 'nfa/Award_procurement/show_package_bidders3';
+		
+	}
+	$.post(url, {
+			bidder_count: bidder_count,
+			
+			package_name: package_name
+			
+		},
+		function(data, status) {
+			
+			if (label_id == "package_label1")
+				$('#package_row1').html(data);
+			else if (label_id == "package_label2")
+				$('#package_row2').html(data);
+			else if (label_id == "package_label3")
+				$('#package_row3').html(data);
+
+			setGpl_budget();
+			showBidders_finalized();
+			getBidders_total();
+            setMajorTerms_package();
+
+		});
+
+			
+		//showBidders_finalized();
+	} 
+
+		
+		function  setMajorTerms_package(){
+	
+			var package_count = $('#package_count').find(":selected").text();
+			for(i=1;i<=package_count;i++)
+			{
+				package_name= $("#package_label"+i).val(); 
+		
+				$("#pckLabel"+i).text(package_name); 
+		
+			}
+	
+
+		}
+
 	
 	//Calculate Sum for the second package
 	function calculateSum2(){

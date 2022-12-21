@@ -43,8 +43,9 @@ class Award_procurement extends ListNfa
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
             $data['project_id'] = $project_id;
-			$data['zone'] = $zone;
-			$data['type_work_id'] = $type_work_id;
+	    $data['zone'] = $zone;
+	    $data['type_work_id'] = $type_work_id;
+	    $data['hd_awdType'] = "Procurement";
             $data['records'] = $this->awardRecommProcurement->getAllParent();
             $this->load->view('nfa/award_procurement/award_procurement_add', $data);
         } else {
@@ -75,6 +76,7 @@ class Award_procurement extends ListNfa
 				$data['mId'] = $mId; 				
 				$data['records'] = $this->awardRecommProcurement->getAllParent();
                 		$data['mRecord'] = $mRecord;
+				$data['hd_awdType'] = "Procurement";
 				$data['mRecordPackage'] = $mRecordPackage;
 				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
 				$data['mRecordAwdContract'] = $mRecordAwdContract;

@@ -348,7 +348,7 @@
 
                             <div class="paddingLine mt-4">
                                 <h5>
-                                    <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?> Cr</span>
+                                    <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?></span>
                                 </h5>
                                
                                 <hr class='hr-bold-line' />
