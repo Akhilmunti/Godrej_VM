@@ -382,8 +382,8 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-4">
                                     <div class='form-group'>
                                         <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
-										<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
-										<input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur=" " class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+						<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
+						<input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur=" " class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
                                     </div>
                                 </div>
 
@@ -2200,6 +2200,14 @@ function calculateSum1_v1(ele_id)
 			$("#bidder_approval_date").val("");
 		}
 	}
+
+ function noDecimalStrict(){
+            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            for(let k = 0;k<=noOfClasses;k++){
+                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                return /^\d*$/.test(value); });
+            }
+        }   
 		
     </script>
 	<script src="../../assets/js/summernote-bs4.min.js"></script>

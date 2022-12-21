@@ -125,14 +125,46 @@ class Award_recomm_contract_model extends CI_Model {
             return false;
         }
     }
+
+
+	public function getPackageNameCreate($type_work_id,$project_id){
+		
+		$sql = "SELECT typeofwork.name as package_name,projects.project_name as project_name FROM typeofwork , projects WHERE typeofwork.id = '$type_work_id' and projects.project_id='$project_id'" ;
+		$query = $this->db->query($sql);				
+        $data = $query->result();
+		return $data;
+    
+	}
+	public function getPackageName($param) {
+		$mSessionKey = $this->session->userdata('session_id');
+		$this->db->select('AWDContractSalient.*,AWDTypeofwork.name as package_name,AWDProjects.project_name as project_name');
+		$this->db->from('award_recomm_contract_salient AWDContractSalient');		
+		$this->db->join('typeofwork AWDTypeofwork', 'AWDTypeofwork.id = AWDContractSalient.type_work_id','inner');
+		$this->db->join('projects AWDProjects', 'AWDProjects.project_id = AWDContractSalient.project_id','inner');
+
+		$this->db->where(array('AWDContractSalient.id'=> $param));
+
+		$mQuery_Res = $this->db->get();
+		
+		if($mQuery_Res)	
+		{
+			if ($mQuery_Res->num_rows() > 0) {
+				$data = $mQuery_Res->result_array();
+				return $data;
+			} else {
+				return false;
+			}
+		}
+
+    }
     public function getAllParent() {
 		$mSessionKey = $this->session->userdata('session_id');
 		$tbl = "award_recomm_contract_salient AWDContractSalient ";
 		
-		$data = "AWDContractSalient.*,AWDProjects.project_name as project_name ,AWDPackages.package_name as package_name,AWDSynopsLbl.synopsis_label as synopsis_label";
+		$data = "AWDContractSalient.*,AWDProjects.project_name as project_name,AWDTypeofwork.name as package_name,AWDSynopsLbl.synopsis_label as synopsis_label";
 		
 		$joins[]=array("table"=>"award_recomm_contract_synopsis_label AWDSynopsLbl ","condition"=>"AWDSynopsLbl.salient_id = AWDContractSalient.id","type"=>'inner');
-		$joins[]=array("table"=>"award_recomm_contract_packages AWDPackages ","condition"=>"AWDPackages.salient_id = AWDContractSalient.id","type"=>'inner');
+		$this->db->join('typeofwork AWDTypeofwork', 'AWDTypeofwork.id = AWDContractSalient.type_work_id','inner');
 		$joins[]=array("table"=>"projects AWDProjects ","condition"=>"AWDProjects.project_id = AWDContractSalient.project_id","type"=>'inner');
 
 		$where = array('initiated_by'=>$mSessionKey,'status'=>'0','nfa_status!='=>'C');

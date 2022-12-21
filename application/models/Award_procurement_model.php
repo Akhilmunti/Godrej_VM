@@ -125,6 +125,42 @@ class Award_procurement_model extends CI_Model {
         }
     }
     
+
+
+	public function getPackageNameCreate($type_work_id,$project_id){
+		
+		$sql = "SELECT typeofwork.name as package_name,projects.project_name as project_name FROM typeofwork , projects WHERE typeofwork.id = '$type_work_id' and projects.project_id='$project_id'" ;
+		$query = $this->db->query($sql);				
+        $data = $query->result();
+		return $data;
+    
+	}
+	public function getPackageName($param) {
+		$mSessionKey = $this->session->userdata('session_id');
+		$this->db->select('AWDContractSalient.*,AWDTypeofwork.name as package_name,AWDProjects.project_name as project_name');
+		$this->db->from('award_recomm_procurement_salient AWDContractSalient');		
+		$this->db->join('typeofwork AWDTypeofwork', 'AWDTypeofwork.id = AWDContractSalient.type_work_id','inner');
+		$this->db->join('projects AWDProjects', 'AWDProjects.project_id = AWDContractSalient.project_id','inner');
+
+		$this->db->where(array('AWDContractSalient.id'=> $param));
+
+		$mQuery_Res = $this->db->get();
+		
+		if($mQuery_Res)	
+		{
+			if ($mQuery_Res->num_rows() > 0) {
+				$data = $mQuery_Res->result_array();
+				return $data;
+			} else {
+				return false;
+			}
+		}
+
+    }
+	
+
+
+
 	public function getAllParent() {
 		$mSessionKey = $this->session->userdata('session_id');
 		$tbl = "award_recomm_procurement_salient AWDContractSalient ";

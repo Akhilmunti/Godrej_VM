@@ -125,16 +125,8 @@
 
                     <!-- Content Header (Page header) -->
 
-                    <div class="content-header">
-                        <div class="row">
-                            <div class="col-lg-9">
-                                <h3>View IOM - Award Recommendation for Procurement</h3>
-                            </div>
-                            <div class="col-lg-3 text-right">
-                                <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
-                            </div>
-                        </div>
-                    </div>
+                     <?php $this->load->view('nfa/common_iom_view_header.php'); ?>
+
 
                     <div class="breadcrumb-bg">
 

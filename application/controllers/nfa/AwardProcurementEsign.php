@@ -465,7 +465,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						
                         <tr>
                             <td>' . 
-							$mRecord["uom_label"].' : '.$mRecord['uom_value'].' Cr<br>Is HO approval required ? : ' . $ho_approval;
+							$mRecord["uom_label"].' : '.$mRecord['uom_value']'<br>Is HO approval required ? : ' . $ho_approval;
 							 
 							$html .='
 							</td>                           

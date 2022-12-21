@@ -127,17 +127,9 @@ $this->load->view('buyer/partials/header'); ?>
 
                     <!-- Content Header (Page header) -->
 
-					<div class="content-header">
-                        <div class="row">
-                            <div class="col-lg-8">
-								<h3 class="page-title br-0">Award Recommendation for Contracts | <?php echo ($updType=="RF") ? "Refloat" : "Edit" ?> IOM</h3>
-                            </div>
-                            <div class="col-lg-4 text-right">
-                                <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
-                            </div>
-                        </div>
-                    </div>
-					<div class="d-block mb-4">
+		<?php $this->load->view('nfa/common_iom_header.php'); ?>
+
+			<div class="d-block mb-4">
                         <h5 class="page-title br-0 font-weight-bold">ENFA No : <?php echo $mRecord['version_id'] ?></h5>
                     </div>
 

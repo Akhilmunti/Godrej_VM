@@ -317,7 +317,7 @@
                                         <div class='form-group'>
                                             <label class="font-weight-bold"><?php echo $uom_label;?></label>
                                             <input type="hidden" name="uom_label" id="uom_label" value="<?php echo $uom_label;?>">
-                                            <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="" class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value">
+                                            <input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur="" class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value">
                                         </div>
                                     </div>
 
@@ -1475,7 +1475,13 @@ function  setMajorTerms_package(){
 
         })
 		
-	
+	 function noDecimalStrict(){
+            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            for(let k = 0;k<=noOfClasses;k++){
+                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                return /^\d*$/.test(value); });
+            }
+        }   
         //function calculateSum1_v1(index){
         function calculateSum1_v1(ele_id)
         {

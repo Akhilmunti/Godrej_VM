@@ -46,7 +46,7 @@ class Award_procurement extends ListNfa
 	    $data['zone'] = $zone;
 	    $data['type_work_id'] = $type_work_id;
 	    $data['hd_awdType'] = "Procurement";
-            $data['records'] = $this->awardRecommProcurement->getAllParent();
+            $data['records'] = $this->awardRecommProcurement->getPackageNameCreate($type_work_id,$project_id);
             $this->load->view('nfa/award_procurement/award_procurement_add', $data);
         } else {
             $this->load->view('index', $data);
@@ -74,7 +74,7 @@ class Award_procurement extends ListNfa
 				$mRecordApprovers = $this->awardRecommProcurement->get_level_approvers($mId); 
 				
 				$data['mId'] = $mId; 				
-				$data['records'] = $this->awardRecommProcurement->getAllParent();
+				$data['records'] = $this->awardRecommProcurement->getPackageName($mId);
                 		$data['mRecord'] = $mRecord;
 				$data['hd_awdType'] = "Procurement";
 				$data['mRecordPackage'] = $mRecordPackage;
@@ -901,6 +901,8 @@ class Award_procurement extends ListNfa
 					$data['preChkRecords']=1;
 				
 				$data['mRecord'] = $mRecord;
+				$data['hd_awdType'] = "Procurement";
+				$data['records'] = $this->awardRecommProcurement->getPackageName($mId);
 				$data['mRecordPackage'] = $mRecordPackage;
 				$data['mRecordAwdContract'] = $mRecordAwdContract;
 				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
