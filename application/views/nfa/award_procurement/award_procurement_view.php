@@ -64,6 +64,7 @@
         padding:.5em 1em;
     }
 
+
     .breadcrumb-right-tag .breadcrumb-item a, .breadcrumb-right-tag .breadcrumb-item  {
         color:#fff;
     }
@@ -128,19 +129,7 @@
                      <?php $this->load->view('nfa/common_iom_view_header.php'); ?>
 
 
-                    <div class="breadcrumb-bg">
-
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="#">IOM Management</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">IOM - Award Recommendation</a>
-                            </li>
-                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Procurement</li>
-                        </ol>
-
-                    </div>
+                    
 
                     <div class="box">
 

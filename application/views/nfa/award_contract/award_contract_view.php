@@ -31,6 +31,7 @@
         border: 1px solid gray;
     }
 
+
     .background-green{
         background-color: #28a745 !important;
         color: #fff;
@@ -136,19 +137,7 @@
                      <?php $this->load->view('nfa/common_iom_view_header.php'); ?>
 
 
-                    <div class="breadcrumb-bg">
-
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item">
-                                <a href="#">IOM Management</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">IOM - Award Recommendation</a>
-                            </li>
-                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Contracts</li>
-                        </ol>
-
-                    </div>
+                   
 
                     <div class="box">
 
