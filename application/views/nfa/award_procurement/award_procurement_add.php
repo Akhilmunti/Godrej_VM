@@ -146,7 +146,7 @@
 
                     <!-- Content Header (Page header) -->                   
 
-                <?php $this->load->view('nfa/award_procurement/common_iom_header.php'); ?>
+                <?php $this->load->view('nfa/common_iom_header.php'); ?>
 
 
 
@@ -226,7 +226,7 @@
 
                                                 <td>Budget incl Escalation</td>
                                                 <td>
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc1" required>
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1(this.id);;" class="form-control decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc1" required>
                                                 </td>
 
                                                 <td  id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>                                           
@@ -317,7 +317,7 @@
                                         <div class='form-group'>
                                             <label class="font-weight-bold"><?php echo $uom_label;?></label>
                                             <input type="hidden" name="uom_label" id="uom_label" value="<?php echo $uom_label;?>">
-                                            <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="" class="form-control decimalStrictClass onMouseOutClass" placeholder="" name="uom_value" id="uom_value">
+                                            <input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur="" class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value">
                                         </div>
                                     </div>
 
@@ -470,11 +470,7 @@
                                     </table>
 
                                 </div>
-                                <div class="d-block mt-4">
-								
-								
-
-                                    <div class="d-block mt-4">
+                                                     <div class="d-block mt-4">
                                         <h5 class="page-title br-0 font-weight-bold">Major Terms and Conditions</h5>
                                     </div>
 
@@ -484,36 +480,21 @@
                                                 <tr class='text-center'>
                                                     <th style="width:10%">Sl. No.</th>
                                                     <th style="width:25%">Terms</th>
-                                                    <th style="width:45%">
-                                                    <label for="term_label">Description</label>
+                                                    <th style="width:55%"><label for="term_label">Description</label>
                                                     <div style="display:flex ;">
-                                                  
-                                                    <!-- <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label>
-                                                        <input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required>
-                                                    </div> -->
-
-                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label>
-                                                        <input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required>
-                                                    </div>
-                                                    <div style="width: 100%;" class="sec1 mr-2" id="pckLabel2"><label>Package 2</label>
-                                                        <input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required>
-                                                    </div>
-                                                    <div style="width: 100%;" class="sec2 mr-2" id="pckLabel3"><label>Package 3</label>
-                                                        <input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required>
-                                                    </div></div></th>
-                                                    <th style="width:20%;">Action</th>
+                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2">Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3">Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required></div></div></th>
+                                                    <th style="width:10%;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="">
                                                 <tr class='text-center'>
                                                     <td>1</td>
                                                     <td><input type='text' class="form-control" name="term[]" placeholder="" required></td>
-                                                    <td><div style="display:flex ;">
-                                                    <textarea name="term_label_value[1][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required></textarea><textarea name="term_label_value[1][]"  class="form-control sec1 mr-2" rows="2"  id="term_label_value2" ></textarea><textarea name="term_label_value[1][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value3" ></textarea>
-                                                </div></td>
+                                                    <td><div style="display:flex ;"><textarea name="term_label_value[1][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required></textarea><textarea name="term_label_value[1][]"  class="form-control sec1 mr-2" rows="2"  id="term_label_value2" ></textarea><textarea name="term_label_value[1][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value3" ></textarea></div></td>
                                                     <td></td>
                                                 </tr>
                                                 <tr>
+
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -526,7 +507,14 @@
                                                 Add row
                                             </button>
                                         </div>
-                                    </div>
+                                    </div>	
+								
+
+                                    
+
+                                    
+
+                                  
 
 
                                     <div class="row mt-4">
@@ -934,7 +922,7 @@ function  setMajorTerms_package(){
 
             let _th = `<th style="width:20%"><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_pro(this);"></th>`;
 
-            let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
+            let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1(this.id);" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
 
             let _negotiated_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value" required></td>`;
 
@@ -1487,7 +1475,13 @@ function  setMajorTerms_package(){
 
         })
 		
-	
+	 function noDecimalStrict(){
+            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            for(let k = 0;k<=noOfClasses;k++){
+                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                return /^\d*$/.test(value); });
+            }
+        }   
         //function calculateSum1_v1(index){
         function calculateSum1_v1(ele_id)
         {

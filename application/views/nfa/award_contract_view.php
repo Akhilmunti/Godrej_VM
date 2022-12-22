@@ -39,6 +39,7 @@
         background-color: #dc3545 !important;
         color: #fff;
     }
+
     .breadcrumb-dot .breadcrumb-item+.breadcrumb-item::before {
         content: "•";
     }
@@ -119,14 +120,29 @@
 
                 <?php $this->load->view('buyer/partials/sidebar'); ?>
 
+                <style>
+                    .primary-gradient {
+                        background-color: #2a2a72;
+                        background-image: linear-gradient(315deg, #2a2a72 0%, #009ffd 74%);
+                    }
+                </style>
+
                 <!-- Main content -->
 
                 <section class="content">
 
                     <!-- Content Header (Page header) -->
 
-                     <?php $this->load->view('nfa/common_iom_view_header.php'); ?>
-
+                    <div class="content-headerModification">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <h3>View IOM - Award Recommendation for Contracts</h3>
+                            </div>
+                            <div class="col-lg-3 text-right">
+                                <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="breadcrumb-bg">
 
@@ -137,7 +153,7 @@
                             <li class="breadcrumb-item">
                                 <a href="#">IOM - Award Recommendation</a>
                             </li>
-                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Procurement</li>
+                            <li class="breadcrumb-item active">View IOM - Award Recommendation for Contracts</li>
                         </ol>
 
                     </div>
@@ -146,16 +162,12 @@
 
                         <div class="box-body">
 
-                         
-
-                           
-                                <?php
-                                    $mSessionRole = $this->session->userdata('session_role');
-                                    $upload_path = $this->config->item('upload_path'); 
-                                ?>                                                 
-
-                           
-                            <div class="paddingLine">
+                            <?php
+                            $mSessionRole = $this->session->userdata('session_role');
+                            $upload_path = $this->config->item('upload_path'); 
+                            ?>
+							
+                            <div class="paddingLine mt-4">
                                 
                                 <h5>
                                     <span class="font-weight-bold">ENFA NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
@@ -172,15 +184,13 @@
                                 <h5 style="margin-bottom: -2px;">
                                     <span class="font-weight-bold">Subject</span> : <span class="font-size-14"><?php echo strip_tags($mRecord['subject']); ?></span>
                                 </h5>
+
                                 <hr class='hr-bold-line' />
                                 
                                 <h5 style="margin-bottom: -2px;">
                                     <span class="font-weight-bold">Scope of Work</span> : <span class="font-size-14"><?php echo strip_tags($mRecord['scope_of_work']); ?></span>
                                 </h5>
-                                <!-- <hr class='hr-bold-line' />
-                                <h5 style="margin-bottom: -2px;">
-                                    <span class="font-weight-bold">Type of Procurement</span> : <span class="font-size-14"><?php echo ($mRecord['procurement_type']); ?></span>
-                                </h5> -->
+
 
                             </div>
 
@@ -234,7 +244,7 @@
                                             </td>
                                              <?php 
 											}?> 
-                                            <td><?php echo $mRecord['total_negot_value'] ?>  Cr</td>
+                                            <td><?php echo $mRecord['total_negot_value'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
                                             <td>Finalized Proposed Award Value (Excl Tax)</td>
@@ -249,19 +259,18 @@
 											}?> 
                                             <td><?php echo $mRecord['total_finalized_award_value'] ?> Cr</td>
                                         </tr>
-
                                         <tr class='text-center'>
-                                            <td>Expected Savings w.r.t Budget incl. escalation</td>
+                                            <td>Expected Savings w.r.t Budget incl. escalation(after accounting the anticipated basic rate adjustment)</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 											
 											?>
                                             <td>
-                                                <?php echo $val['expected_savings_package'] ?> %
+                                                <?php echo $val['expected_savings_package'] ?>%
                                             </td>
                                             <?php 
 											}?> 
-                                            <td><?php echo $mRecord['total_expected_savings'] ?> %</td>
+                                            <td><?php echo $mRecord['total_expected_savings'] ?>%</td>
                                         </tr>
                                         <tr class='text-center'>
                                             <td>Recommended Vendors based on L1 position ( Package-wise)</td>
@@ -270,18 +279,17 @@
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <?php echo $val['recomm_vendor_package'] ?>
+                                                <?php echo $val['recomm_vendor_package'] ?> 
                                             </td>
                                             <?php 
 											}?> 
                                             <td></td>
                                         </tr>
-
                                         <tr class='text-center'>
                                             <td>Basis of award</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
-												$id_index = $key+1;
+												
 											?>
                                             <td>
                                                 <?php echo $val['basis_award_package'] ?>
@@ -294,19 +302,17 @@
                                             <td>Deviation from Approved Contracting Strategy</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
-												$id_index = $key+1;
+												
 											?>
                                             <td>
-                                                <?php echo $val['deviation_approved_package'] ?>
+                                              <?php echo $val['deviation_approved_package'] ?>
                                             </td>
-                                            <?php 
+                                             <?php 
 											}?> 
                                             <td></td>
                                         </tr>
-									
-									
                                         <tr class='text-center'>
-                                            <td>Last Awarded Benchmark with Date<?php echo $mRecordAwdContract['benchmark_label'] ?></td>
+                                            <td>Last Awarded Benchmark with Date <?php echo $mRecordAwdContract['benchmark_label'] ?></td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												
@@ -318,9 +324,47 @@
 											}?> 
                                             <td><?php echo $mRecord['total_awarded_benchmark'] ?> Cr</td>
                                         </tr>
-								
                                         <tr class='text-center'>
-                                            <td>Proposed Award Value (Excl Tax) - Adjusted Awarded Value(Post Basic Rate Adjustment): <span class=" font-weight-bold">SAP WO VALUE TO BE CREATED</span></td>
+                                            <td>Is there any basic rate item in tender</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												
+											?>
+                                            <td>
+                                                <?php echo ($val['is_basic_rate_package']=="yes")? "Yes" : "No" ?>
+                                            </td>
+                                            <?php 
+											}?> 
+                                            <td></td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Total Amount of Basic Rate Items in Tender</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												
+											?>
+                                            <td>
+                                              <?php echo $val['total_basic_rate_package'] ?> Cr
+                                            </td>
+                                           <?php 
+											}?> 
+                                            <td><?php echo $mRecord['total_basic_rate'] ?> Cr</td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												
+											?>
+                                            <td>
+                                             <?php echo $val['anticipate_basic_rate_package'] ?> Cr
+                                            </td>
+                                           <?php 
+											}?> 
+                                            <td><?php echo $mRecord['total_anticipated_rate'] ?> Cr</td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>Proposed Award Value (Excl Tax) - Adjusted Awarded Value(Post Basic Rate Adjustment):<span class=" font-weight-bold"> SAP WO VALUE TO BE CREATED</span></td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												
@@ -332,23 +376,25 @@
 											}?> 
                                             <td><?php echo $mRecord['total_post_basic_rate'] ?> Cr</td>
                                         </tr>
-                                       
                                         
+                                        <tr class='text-center'>
+                                            <td>Base Rate Consideration Month in Award</td>
+											<?php foreach($mRecordPackage as $key=>$val)
+											{	
+												
+											?>
+                                            <td>
+                                              
+											   <?php echo date("d-M-y", strtotime($val['basic_rate_month_package']));?>
+                                            </td>
+                                           <?php 
+											}?> 
+                                            <td></td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="paddingLine mt-4">
-                                <h5>
-                                    <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?></span>
-                                </h5>
-                               
-                                <hr class='hr-bold-line' />
-                                
-                                <h5>
-                                    <span class="font-weight-bold">Is HO approval required ?</span> : <span class="font-size-14"><?php echo ($mRecord['ho_approval'] == "Y") ? "Yes" : "No"; ?></span>
-                                </h5>
-                            </div>							
 
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Final Bid Scenario</h5>
@@ -393,7 +439,9 @@
 													$score_class = " background-feedback";
 																				
 											?>
-										
+											
+                                         
+                                          
                                               <td class="<?php echo $score_class;?>"><div style="width: 120px !important;"><?php echo ($score_type); ?><br><?php echo $score; ?></div></td>
 											    <?php 
 											 }
@@ -407,8 +455,9 @@
 											
 											
 											$CI=&get_instance();
-
+                                           
 											$finalBidData = $CI->getFinalBidData($salient_id,$package_id);
+                                          
 											$package_gpl_budget_value =  $finalBidData->package_gpl_budget;
 											$min_bidder =  $CI->package_min_bidder_data($salient_id,$package_id);
 											$minBidValue = $min_bidder[0]->package_bidder; 
@@ -481,8 +530,8 @@
 												
 												if($diff_budget_crs>0)
 												{
-													
 													$budget_class = 'background-red';
+													
 												}
 												else
 												{
@@ -503,8 +552,8 @@
 												$diff_budget_percentage = $valBid->diff_budget_percentage;
 												if($diff_budget_percentage>0)
 												{
-													
 													$budget_class = 'background-red';
+													
 												}
 												else
 												{
@@ -513,7 +562,7 @@
 												}
                                                 
 											?>
-                                            <td class="<?php echo $budget_class; ?>"><?php echo $diff_budget_percentage ?> %</td>
+                                            <td class="<?php echo $budget_class; ?>"><?php echo $diff_budget_percentage ?>%</td>
                                             <?php 
 											 }
 											?>
@@ -522,7 +571,112 @@
                                 </table>
 
                             </div>
-																		
+
+						<?php if($mRecord['total_finalized_award_value']>3)
+							{	
+						?>
+                            <div class="d-block mt-4">
+                                <h5 class="page-title br-0 font-weight-bold">Contractor Appointment Dates</h5>
+                            </div>
+
+                            <div class="table-responsive">
+
+                                <table class="table rs-table-bordered mb-0">
+                                    <thead class="bg-primary">
+                                        <tr class='text-center'>
+                                            <th>Sl No.</th>
+                                            <th colspan="2" style="width: 60%;">Contract Package – <?php echo $mRecordAppointment['contract_package_works_label'] ?></th>
+                                            <th>Remarks</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="bidderList">
+                                        <tr class='text-center'>
+                                            <td></td>
+                                            <td>Milestone on which contractor should be appointed <?php echo $mRecordAppointment['milestone_label'] ?></td>
+                                            <td style="width: 15%;"><?php echo $mRecordAppointment['contract_package_works_value'] ?></td>
+                                            <td><?php echo $mRecordAppointment['contract_package_works_remarks'] ?></td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td></td>
+                                            <td class="page-title font-weight-bold">Activity</td>
+                                            <td class="page-title font-weight-bold">Dates</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>A</td>
+                                            <td>Planned date of Contractor appointment As per PI Logic</td>
+                                            <td>
+                                               
+												<?php echo date("d-M-y", strtotime($mRecordAppointment['activity_planned_date']));?>
+                                            </td>
+                                            <td>
+                                                <?php echo $mRecordAppointment['activity_planned_remarks'] ?>
+                                            </td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>B</td>
+                                            <td>Actual date as per current site progress</td>
+                                            <td>
+                                               
+												<?php echo date("d-M-y", strtotime($mRecordAppointment['activity_actual_date']));?>
+                                            </td>
+                                            <td>
+                                                <?php echo $mRecordAppointment['activity_actual_remarks'] ?>
+                                            </td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>C</td>
+                                            <td>CBE of contractor Appointment</td>
+                                            <td>
+                                              
+												<?php echo date("d-M-y", strtotime($mRecordAppointment['activity_cbe_date']));?>
+                                            </td>
+                                            <td>
+                                                <?php echo $mRecordAppointment['activity_cbe_remarks'] ?>
+                                            </td>
+                                        </tr>
+                                        <tr class='text-center'>
+                                            <td>D</td>
+                                            <td>Delay in Appointment(C-A)</td>
+                                            <td>
+                                                <?php echo $mRecordAppointment['activity_delay'] ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $mRecordAppointment['activity_delay_remarks'] ?>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+							<?php 
+							}
+							?>
+
+                            <div class="paddingLine mt-4">
+
+                                <h5>
+                                    <span class="font-weight-bold">Front Idling</span> : <span class="font-size-14"><?php echo ($mRecord['front_idling'] == "yes") ? "Yes" : "No" ?></span>
+                                </h5>
+
+                                <hr class='hr-bold-line' />
+
+								<?php if($mRecord['front_idling'] == "yes")
+								{
+									?>
+                                <h5>
+                                    <span class="font-weight-bold">Reasons for Delay</span> : <span class="font-size-14"><?php echo strip_tags($mRecord['reasons_delay']) ?></span>
+                                </h5>
+
+                                <hr class='hr-bold-line' />
+
+								<?php 
+								}
+									?>
+                                <h5>
+                                    <span class="font-weight-bold">Current Status of Work at Site</span> : <span class="font-size-14"><?php echo strip_tags($mRecord['current_status_work']); ?></span>
+                                </h5>
+                            </div>     
 
                             <div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Award Efficiency</h5>
@@ -544,11 +698,11 @@
                                         <tr class='text-center'>
                                             <td>Date</td>
                                             <td>
-                                             
+                                               
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['receipt_date']));?>
                                             </td>
                                             <td>
-                                              
+                                                
 												<?php echo date("d-M-y", strtotime($mRecordAwdContract['bidder_approval_date']));?>
                                             </td>
                                             <td>
@@ -557,7 +711,6 @@
                                             </td>
                                             <td>
                                                 <?php echo $mRecordAwdContract['remarks_date'] ?>
-											
                                             </td>
                                         </tr>
                                         <tr class='text-center'>
@@ -590,27 +743,18 @@
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th style="width:10%">Sl. No.</th>
-                                            <th style="width:35%">Terms</th>
-                                          
-                                            <th colspan="3">Description</th>
-                                           
-                                        </tr>
-                                    </thead>
-                                    <tbody id="">
-                                        <tr>
-                                            <td class="bg-primary"></td>
-                                            <td class="bg-primary"></td>
+                                            <th style="width:25%">Terms</th>
                                             <?php
 												foreach($mRecordPackage as $key=>$val)
 												{
                                             ?>
-                                        <td class='text-center bg-primary'>Package <?php echo  $key+1;?><br>
-                                        <?php echo $val['major_term_label'] ?>  
-                                        </td>
-                                        <?php }?>
-                                       
+                                                    <th>Description<br><?php echo $val['major_term_label'] ?></th>
+                                            <?php }?>
+                                         
                                         </tr>
-								       	<?php
+                                    </thead>
+                                    <tbody id="">
+									<?php
 										
 										foreach($mRecordMajorTerms as $key=>$val)
 										{
@@ -627,7 +771,7 @@
 												{
 													$package_id = $val['package_id'];
 													$salient_id = $val['salient_id'];	
-													$majorTerms_desc = $CI->awardRecommProcurement->getMajorTerms($salient_id,$package_id,$term);
+													$majorTerms_desc = $CI->awardRecommContract->getMajorTerms($salient_id,$package_id,$term);
 													
 													$term_label_value = $majorTerms_desc->term_label_value;
 												?>
@@ -679,9 +823,7 @@
                                                     ?>
                                                 </td>
                                             </tr>
-                                            
-											
-											 <tr>
+                                            <tr>
                                                 <td class="font-weight-bold" style="width: 40%;">
                                                     PCM
                                                 </td>
@@ -692,35 +834,20 @@
 											 <?php
 											 if($mSessionRole!='PCM')
 											 {
-												$this->load->view('nfa/award_procurement/approvers_details');
+												$this->load->view('nfa/award_contract/approvers_details');
 											 }
 
                                             ?>
-											
-											
                                   
                                         </tbody>
                                     </table>
-
-                                    <div class="row mt-4">
-                                    <?php 
-                               if ($mSessionRole != "PCM" && $pgType != 'A' && $pgType != 'C' && $pgType != 'E' && $preChkRecords == 1) {
-												
-                                    $data['mId']=$mRecord['id'];
-                                    $data['title']="Award Recommendation for Procurement";
-                                    $data['url']="nfa/award_procurement";
-                                    
-                                    $this->load->view('nfa/nfa_actions',$data); 
-                                                
-                               }?>
-                                    </div>        
 
                                     <?php if ($pgType == 'E') {
                                     ?>
                                         <div class="row mt-4">
                                             <div class="col-lg-12 text-center">
-                                                <a href="<?php echo base_url('nfa/AwardProcurementEsign/esignedPdf/' . $mId . "/E"); ?>" target="_blank">
-                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print IOM</button>
+                                                <a href="<?php echo base_url('nfa/AwardContractEsign/esignedPdf/' . $mId . "/E"); ?>" target="_blank">
+                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print NFA</button>
                                                 </a>
                                             </div>
                                         </div>
@@ -731,7 +858,30 @@
 
                             </div>
 
+                            <div class="row mt-4">
+                           
+                            <?php 
+                               if ($mSessionRole != "PCM" && $pgType != 'A' && $pgType != 'C' && $pgType != 'E' && $preChkRecords == 1) {
+												
+                                    $data['mId']=$mRecord['id'];
+                                    $data['title']="Award Recommendation for Contracts";
+                                    $data['url']="nfa/Award_contract";
+                                    
+                                    $this->load->view('nfa/nfa_actions',$data); 
+                                                
+                               }?>
+                             
+                            </div>
 
+							<div class="modal modal-right fade" id="modal-right" tabindex="-1">
+												<!-- <?php 
+												
+							$data['mId']=$mRecord['id'];
+							$data['title']="Award Recommendation for Contracts";
+							$data['url']="nfa/Award_contract";
+							
+							$this->load->view('nfa/nfa_actions',$data); ?> -->
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -41,7 +41,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-md-12">
-                                <h3 class="page-title br-0">NFA Logs - Award Recommendation for Procurement</h3>
+                                <h3 class="page-title br-0">IOM Logs - Award Recommendation for Procurement</h3>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
 									<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
                                              
                                             </div>
@@ -72,7 +72,7 @@
 													<th>ENFA No.</th>
                                                     <th>Subject</th>
                                                     <th>Award Synopsis </th>
-                                                    <th>NFA Status</th>
+                                                    <th>IOM Status</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
