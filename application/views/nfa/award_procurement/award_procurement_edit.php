@@ -204,10 +204,15 @@ $this->load->view('buyer/partials/header'); ?>
                                      <thead class="bg-primary">
                                             <tr class='text-center'>
                                                 <th>Description</th>
-                                                <th scope="col" style="width:20%">
-                                                    <label>Package name</label>
-                                                    <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders_pro(this);">
-                                                </th>
+                                                <?php foreach($mRecordPackage as $key=>$val)
+											{	
+											?>
+												<th scope="col">
+													<label class="cust_th">Package name*</label>
+													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders(this);">
+												</th>
+											<?php 
+											}?> 
                                                 <th id="total-h" class="total-hide" style="width:20% ;">Total</th>
                                             </tr>
                                         </thead>
