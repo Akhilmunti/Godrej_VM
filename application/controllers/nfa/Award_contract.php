@@ -46,9 +46,10 @@ class Award_contract extends ListNfa
         if ($mSessionKey) {
 			$data['project_id'] = $project_id;
 			$data['zone'] = $zone;
+			$data['hd_awdType'] = "Contracts";
 			$data['type_work_id'] = $type_work_id;
             $data['home'] = "award_recommendation";
-            $data['records'] = $this->awardRecommContract->getAllParent();
+            $data['records'] = $this->awardRecommContract->getPackageNameCreate($type_work_id,$project_id);
             $this->load->view('nfa/award_contract/award_contract_add', $data);
         } else {
             $this->load->view('index', $data);
@@ -76,7 +77,10 @@ class Award_contract extends ListNfa
 				
 				$mRecordApprovers = $this->awardRecommContract->get_level_approvers($mId); 
 				
-                $data['mRecord'] = $mRecord;
+                		$data['mRecord'] = $mRecord;
+				$data['mId'] = $mId;
+				$data['hd_awdType'] = "Contracts";
+				$data['records'] = $this->awardRecommContract->getAllParent();
 				$data['mRecordPackage'] = $mRecordPackage;
 				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
 				$data['mRecordAwdContract'] = $mRecordAwdContract;
@@ -1028,6 +1032,8 @@ class Award_contract extends ListNfa
 					$data['preChkRecords']=1;
 				
 				$data['mRecord'] = $mRecord;
+				$data['hd_awdType'] = "Contracts";
+				$data['records'] = $this->awardRecommContract->getPackageName($mId);
 				$data['mRecordPackage'] = $mRecordPackage;
 				$data['mRecordAwdContract'] = $mRecordAwdContract;
 				$data['mRecordFinalBidders'] = $mRecordFinalBidders;
