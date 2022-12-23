@@ -1467,7 +1467,7 @@ $this->load->view('buyer/partials/header'); ?>
 
         let _th=`<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
 
-        let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
+        let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color();"></td>`;
 		
 		let _package_bidder=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();calculateSum1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1"></td>`;
 

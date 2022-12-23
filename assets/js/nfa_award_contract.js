@@ -401,6 +401,7 @@ function score_color(){
 	{
 		score_type = $("#score_type"+bid_index).val();
 		score_value = parseFloat($("#score"+bid_index).val());
+		
 		if(score_type=="PQ")
 		{
 			$("#score"+bid_index).removeClass('background-feedback');
@@ -408,6 +409,7 @@ function score_color(){
 			if(score_value<50)
 			{
 				
+				$("#score"+bid_index).removeClass('background-pq');
 				$("#score"+bid_index).addClass('background-red'); 
 			}
 			else
@@ -422,7 +424,7 @@ function score_color(){
 			$("#score"+bid_index).addClass('background-feedback');
 			if(score_value<60)
 			{
-				
+				$("#score"+bid_index).removeClass('background-feedback');
 				$("#score"+bid_index).addClass('background-red'); 
 			}
 			else
