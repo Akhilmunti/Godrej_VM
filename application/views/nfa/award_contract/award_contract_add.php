@@ -23,6 +23,7 @@
             display: none;
         }
 
+
         .sec1{
             display: none;
         }

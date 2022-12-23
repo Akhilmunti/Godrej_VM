@@ -26,6 +26,7 @@ $this->load->view('buyer/partials/header'); ?>
             display: none;
         }
 
+
         .package-sec1{
             display: none;
         }

@@ -21,6 +21,7 @@
 
         .idling-hide {
             display: none;
+
         }
 
         .sec1{
@@ -120,7 +121,7 @@
             $uom_label = "Bags";
     ?>
 
-
+	
     <div class="wrapper">
 
         <div class="art-bg">
@@ -232,7 +233,7 @@
                                                 <td  id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>                                           
                                             </tr>
                                             <tr class='text-center'>
-                                                <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                                <td>Negotiated Value (Excl. Tax) - Pre Final Round</td>
                                                 <td>
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value1" required>
                                                 </td>
@@ -317,7 +318,7 @@
                                         <div class='form-group'>
                                             <label class="font-weight-bold"><?php echo $uom_label;?></label>
                                             <input type="hidden" name="uom_label" id="uom_label" value="<?php echo $uom_label;?>">
-                                            <input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur="" class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value">
+                                            <input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur="" class="form-control nodecimalStrictClass " placeholder="" name="uom_value" id="uom_value">
                                         </div>
                                     </div>
 
@@ -470,7 +471,8 @@
                                     </table>
 
                                 </div>
-                                                     <div class="d-block mt-4">
+				<div class="d-block mt-4">
+                                    <div class="d-block mt-4">
                                         <h5 class="page-title br-0 font-weight-bold">Major Terms and Conditions</h5>
                                     </div>
 
@@ -1476,9 +1478,9 @@ function  setMajorTerms_package(){
         })
 		
 	 function noDecimalStrict(){
-            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            let noOfClasses=document.getElementsByClassName("nodecimalStrictClass").length;
             for(let k = 0;k<=noOfClasses;k++){
-                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                setInputFilter(document.getElementsByClassName("nodecimalStrictClass")[k], function(value) {
                 return /^\d*$/.test(value); });
             }
         }   

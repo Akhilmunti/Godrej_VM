@@ -213,7 +213,7 @@
                                             <td><?php echo $mRecord['total_budget_esc'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) - Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
