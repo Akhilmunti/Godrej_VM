@@ -312,7 +312,7 @@
                                             <tr class='text-center'>
                                                 <td>Base Rate Consideration Month in Award</td>
                                                 <td>
-                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" required>
+                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
                                                 </td>
 
                                                 <td id="total-td13" class="total-hide"></td>
@@ -574,7 +574,7 @@
                                                     <th style="width:25%">Terms</th>
                                                     <th style="width:55%"><label for="term_label">Description</label>
                                                     <div style="display:flex ;">
-                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2">Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3">Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required></div></div></th>
+                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1"></label><input type='text'class="form-control" placeholder="" name="term_label[]" id="term_label1" required readonly></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label2" required readonly></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label3" required readonly></div></div></th>
                                                     <th style="width:10%;">Action</th>
                                                 </tr>
                                             </thead>
@@ -846,7 +846,7 @@
 
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" required></td>`;
+            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
 
             if ($(".cust_th").length <= e.target.value) {
 

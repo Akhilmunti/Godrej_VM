@@ -410,7 +410,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" required>
+                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
                                             </td>
 											<?php 
 											}?> 
@@ -861,9 +861,9 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
+											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php //echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required readonly ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php //echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" readonly></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php //echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" readonly></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>
@@ -1239,7 +1239,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		let _proposed_awrd_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package"></td>`;
+		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
 		
 		
 		var pckCount_edit = $('input[name="package_label[]"]').length;

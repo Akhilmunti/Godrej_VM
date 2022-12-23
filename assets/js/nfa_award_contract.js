@@ -329,7 +329,9 @@ function  setMajorTerms_package(){
 	{
 		package_name= $("#package_label"+i).val(); 
 		
-		$("#pckLabel"+i).text("Package "+package_name); 
+		//$("#pckLabel"+i).text("Package "+package_name); 
+		$("#term_label"+i).val("Package "+package_name); 
+		
 		
 	}
 	

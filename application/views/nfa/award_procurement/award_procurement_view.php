@@ -593,8 +593,8 @@
 												foreach($mRecordPackage as $key=>$val)
 												{
                                             ?>
-                                        <td class='text-center bg-primary'>Package <?php echo  $key+1;?><br>
-                                        <?php echo $val['major_term_label'] ?>  
+                                        <td class='text-center bg-primary'>Package <?php echo $val['package_name'];?>
+                                        <?php //echo $val['major_term_label'] ?>  
                                         </td>
                                         <?php }?>
                                        

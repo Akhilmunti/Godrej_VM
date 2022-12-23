@@ -756,7 +756,7 @@
 												{
                                             ?>
                                         <td class='text-center bg-primary'>Package <?php echo $val['package_name'];?><br>
-                                        <?php echo $val['major_term_label'] ?>  
+                                        <?php //echo $val['major_term_label'] ?>  
                                         </td>
                                         <?php }?>
                                         </tr>
