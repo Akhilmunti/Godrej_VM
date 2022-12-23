@@ -653,7 +653,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						foreach($mRecordPackage as $key=>$val)
 						{
 					
-							$html .='<th>Description'.$mRecord['term_label'].'</th>';
+							$html .='<th>Package '.$val['package_name']."<br>".$val['major_term_label'].'</th>';
 						}
 						$html .='</tr>
                 </thead>

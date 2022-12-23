@@ -477,9 +477,24 @@ $this->load->view('buyer/partials/header'); ?>
 												$score = $valBid->score;
 												$score_class="";
 												if($score_type=="PQ")
+												{
 													$score_class = " background-pq";
+													if($score<50)
+													{
+														
+														$score_class ='background-red'; 
+													}
+													
+												}
 												else if($score_type=="FB")
+												{
 													$score_class = " background-feedback";
+													if($score<60)
+													{
+														
+														$score_class ='background-red'; 
+													}
+												}
 												
 												
 											?>
@@ -489,7 +504,7 @@ $this->load->view('buyer/partials/header'); ?>
                                                     <option value="PQ" <?php echo ($score_type=="PQ") ? "selected": ""?>>PQ</option>
                                                     <option value="FB" <?php echo ($score_type=="FB") ? "selected": ""?>>FB</option>
                                                 </select>
-                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>">
+                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>" onblur="score_color();">
                                             </td>
 											  <?php 
 											}
@@ -847,8 +862,8 @@ $this->load->view('buyer/partials/header'); ?>
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
 											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>

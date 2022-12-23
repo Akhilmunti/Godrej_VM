@@ -827,7 +827,7 @@
 
             let _finalized = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="finalized_val(this);finalized_total();showBidders_finalized();calculateSum1();" required></td>`;
 
-            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package" readonly></td>`;
+            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package" onblur="packageSynopsis_total('expected_savings_package','total_expected_savings');getExpectedSavings();calculateSum1();" readonly></td>`;
 
             let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" required onblur="setRecommended_vendorName();"></td>`;
 
