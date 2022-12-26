@@ -294,14 +294,15 @@
                                                                                 </a>
                                                                             <?php } ?>
                                                                         <?php } else { ?>
-                                                                            -
+                                                                            
                                                                         <?php } ?>
                                                                     </td>
                                                                     <td>
                                                                         <?php if ($mRecord['fb_score'] == "-") { ?>
                                                                             
+                                                                            
                                                                         <?php } else { ?>
-                                                                            <a href="#" class="btn btn-success btn-block btn-sm" data-toggle="modal" data-target="#vendor_details_<?php echo $mRecord['vendor_id']; ?>">
+                                                                            <a href="#" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#vendor_details_<?php echo $mRecord['vendor_id']; ?>">
                                                                                 View : <?php echo $mRecord['tow_name']; ?> </br> <?php echo $mRecord['fb_score']; ?>
                                                                             </a>
                                                                             <div class="modal fade vendor_details_<?php echo $mRecord['vendor_id']; ?>" data-backdrop="false" id="vendor_details_<?php echo $mRecord['vendor_id']; ?>" tabindex="-1">
