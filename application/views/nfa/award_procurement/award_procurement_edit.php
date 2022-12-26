@@ -1918,7 +1918,7 @@ function getLevelApprovers(){
 			setGpl_budget();
 			showBidders_finalized();
 			getBidders_total();
-            setMajorTerms_package();
+            setMajorTerms_package1();
 
 		});
 
@@ -1927,14 +1927,14 @@ function getLevelApprovers(){
 	} 
 
 		
-		function  setMajorTerms_package(){
+		function  setMajorTerms_package1(){
 	
 			var package_count = $('#package_count').find(":selected").text();
 			for(i=1;i<=package_count;i++)
 			{
 				package_name= $("#package_label"+i).val(); 
 		
-				$("#pckLabel"+i).text(package_name); 
+				$("#term_label"+i).val("Package "+package_name); 
 		
 			}
 	
@@ -2198,7 +2198,7 @@ function score_color1(){
                     sum = parseFloat(sum) || 0;
                     
                     package_budget_esc = $("#package_budget_esc"+i).val();  
-                    sum_proposed+= parseFloat(finalized_award_value_package)+parseFloat(anticipated_rate);
+                    sum_proposed+= parseFloat(finalized_award_value_package);
                     
                     if(!isNaN(sum_proposed)) {
                         console.log("sum calculatetesting"+sum_proposed);
