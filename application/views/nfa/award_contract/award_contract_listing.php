@@ -91,14 +91,14 @@
                                             <thead>
                                                 <tr class='text-center'>
                                                     <th>Sl. No</th>
-                                                    <th>ENFA No.</th>
-                                                    <th>Zone</th>
-                                                    <th>Scope of Work</th>
-                                                    <th>Package Name</th>
+                                                    <th>EIOM No.</th>
                                                     <th>Project Name</th>
-
-                                                    <th>IOM Status</th>
+                                                    <th>Package Name</th>
                                                     <th>Actions</th>
+                                                    <th>Scope of Work</th>
+                                                    <th>IOM Status</th>
+                                                    <th>Zone</th>                                             
+                                                        
                                                 </tr>
                                             </thead>
                                             <tbody class='text-center'>
@@ -122,57 +122,26 @@
                                                                 <p><?php echo $record['version_id']; ?></p>
                                                             </td>
                                                             <td>
-                                                            <p><?php echo $record['zone']; ?></p>
-                                                            </td>
-                                                            <td>
-                                                            <p><?php echo $record['scope_of_work']; ?></p>
+                                                            <p>
+                                                                <?php echo $record['project_name']; ?>
+                                                            </p>
                                                             </td>
                                                             <td>
                                                             <p><?php echo $record['package_name']; ?></p>
                                                             </td>
+                                                            
                                                             <td>
-                                                            <p><?php echo $record['project_name']; ?></p>
-                                                            </td>
-
-
-                                                            <td>
-                                                                <p class="badge badge-primary">
+                                                                <!--  -->
+                                                            <?php if( $record['status']==1 && $record['nfa_status']=='SA') { ?>
                                                                   
-                                                                    <?php 
-                                                                      
-                                                                        foreach ($mRecordLevels as $keyLevel => $valLevel) {
-                                                                            $approver_name = $valLevel['approver_name'];
-                                                                            $level = $valLevel['level'];
-                                                                            $role = $valLevel['role'];
-                                                                            $approver_id = $valLevel['approver_id'];
-                                                                           
-                                                                            if($approver_id==0)
-                                                                            {
-                                                                                $approver_name = "Not Applicable"; 
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                $getUser = $CI->getRoleUsers_approval($role,$mSessionZone,$approver_id);
-                                                                               
-                                                                                $approver_name = $getUser[0]->buyer_name;
-                                                                            }
-                                                                           
-                                                                            echo $approver_name; ?> - <?php 
-                                                                            if($approver_id!=0)
-                                                                                echo ($valLevel['approved_status']==0 ) ? "Pending" : "Approved"; 
-                                                                            echo "(Level - ".$level.")<br>";
-                                                                        }
-
-                                                                    ?>			
-                                                                </p>
-                                                            </td>
-                                                          
-
-                                                          
-                                                            <td>
                                                                 <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
+                                                                    <button type="button" class="btn btn-primary rounded buttonPadding"> Approve IOM</button>
+                                                                </a>
+                                                                <?php } else {?>
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
                                                                     <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
                                                                 </a>
+                                                                    <?php } ?>
                                                                 <?php if($mSessionRole=="PCM" && $record['status']==0)
                                                                  { 
                                                                     if($record['nfa_status']=='AMD')
@@ -228,17 +197,60 @@
                                                                 <?php 
                                                                 }
                                                                 
-                                                                if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
-                                                                ?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
-                                                                        <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Esign</button>
-                                                                    </a>
-                                                                <?php 
-                                                                }?>
+                                                                // if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
+                                                                // ?>
+                                                                     <!-- <a href="<?php //echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
+                                                                //         <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Esign</button>
+                                                                //     </a> -->
+                                                                 <?php 
+                                                                // }?>
                                                                 <a href="<?php echo base_url('nfa/Award_contract/view_logs/'. $record['id']); ?>">
                                                                     <button type="button" class="btn btn-primary rounded buttonPadding ml-2">IOM Logs</button>
                                                                 </a>
                                                             </td>
+
+                                                            <td>
+                                                            <p><?php echo $record['scope_of_work']; ?></p>
+                                                            </td>
+
+                                                            <td>
+                                                                <p class="badge badge-primary">
+                                                                  
+                                                                    <?php 
+                                                                      
+                                                                        foreach ($mRecordLevels as $keyLevel => $valLevel) {
+                                                                            $approver_name = $valLevel['approver_name'];
+                                                                            $level = $valLevel['level'];
+                                                                            $role = $valLevel['role'];
+                                                                            $approver_id = $valLevel['approver_id'];
+                                                                           
+                                                                            if($approver_id==0)
+                                                                            {
+                                                                                $approver_name = "Not Applicable"; 
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                $getUser = $CI->getRoleUsers_approval($role,$mSessionZone,$approver_id);
+                                                                               
+                                                                                $approver_name = $getUser[0]->buyer_name;
+                                                                            }
+                                                                           
+                                                                            echo $approver_name; ?> - <?php 
+                                                                            if($approver_id!=0)
+                                                                                echo ($valLevel['approved_status']==0 ) ? "Pending" : "Approved"; 
+                                                                            echo "(Level - ".$level.")<br>";
+                                                                        }
+
+                                                                    ?>			
+                                                                </p>
+                                                            </td> 
+                                                            <td>
+                                                            <p><?php echo $record['zone']; ?></p>
+                                                            </td> 
+                                                           
+                                                                                                               
+                                                            
+                                                           
                                                         </tr>
 
                                                     <?php } ?>

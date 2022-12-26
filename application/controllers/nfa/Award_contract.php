@@ -115,7 +115,7 @@ class Award_contract extends ListNfa
 			if($mId=='')
 			{
 				$version_dt =  date("Ymdhis");
-				$version_id =  "arc".$version_dt."_00";
+				$version_id =  "IOMC".$version_dt."_00";
 				
 			}
 			else if($updType=="RF")

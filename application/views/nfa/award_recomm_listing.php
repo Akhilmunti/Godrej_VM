@@ -62,66 +62,83 @@ if ($hd_project_id == null && $hd_type_work_id == null){
                 </select>
             </div>
         </div>
-
+    <?php
+     } if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" )
+     {
+    ?>
+    <div class="col-lg-3">
+        <div class='form-group'>
+            <label>Zone</label>
+            <select id="zone" name="zone" class="form-control">
+                <option value="">All</option>
+                <option value="NCR" <?php echo ($zone=="NCR") ? "selected": ""?>>NCR</option>
+                <option value="Mumbai" <?php echo ($zone=="Mumbai") ? "selected": ""?>>Mumbai</option>
+                <option value="Pune" <?php echo ($zone=="Pune") ? "selected": ""?>>Pune</option>
+                <option value="South" <?php echo ($zone=="South") ? "selected": ""?>>South</option>
+                <option value="Kolkata" <?php echo ($zone=="Kolkata") ? "selected": ""?>>Kolkata</option>
+                <option value="PAN India" <?php echo ($zone=="PAN India") ? "selected": ""?>>PAN India</option>
+            </select>
+        </div>
+    </div>
+<?php 
+    }
+      if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" || $mSessionRole=="Zonal CEO"|| $mSessionRole=="RH"|| $mSessionRole=="OH"|| $mSessionRole=="Project Director"|| $mSessionRole=="CH"|| $mSessionRole=="Regional C&P Head"|| $mSessionRole=="Regional C&P Team")
+    {
+    ?>
         <div class="col-lg-3">
             <div class='form-group'>
                 <label>Project Name</label>
                 <select id="project_id" name="project_id" class="form-control">
                     <option value="">All</option>
-                    <?php foreach ($projects as $key => $pro) { ?>
+                    <?php foreach ($projects as $key => $pro) {
+                        //  show project list according to zone
+                       if ($zone == $pro['project_zone']){  ?>
                     <option <?php
                     if ($project_id == $pro['project_id'] ) {
                         echo "selected";
                     }
                     ?> value="<?php echo $pro['project_id']; ?>"><?php echo $pro['project_name']; ?></option>
-                    <?php } ?>
+                    <?php }if ($zone == null){  ?>
+                    <option <?php
+                    if ($project_id == $pro['project_id'] ) {
+                        echo "selected";
+                    }
+                    ?> value="<?php echo $pro['project_id']; ?>"><?php echo $pro['project_name']; ?></option>
+                    <?php }?>
+                
+                
+                <?php } ?>
                 </select>
             </div>
         </div>
         <?php 
-    }
-}
+        }?>
+
+
+        
+       
+<?php }
 ?>
-    <div class="col-lg-3">
-        <div class='form-group'>
-            <label>Status</label>
-            <select id="nfaStatus" name="nfaStatus" class="form-control">
-                <option value="">All</option>
-                <option value="Pending" <?php echo ($nfaStatus=="Pending") ? "selected": ""?>>Pending</option>
-                <option value="Approved" <?php echo ($nfaStatus=="Approved") ? "selected": ""?>>Approved</option>
-                <?php if($mSessionRole=="PCM")
-                 { ?>
-                <option value="Draft" <?php echo ($nfaStatus=="Draft") ? "selected": ""?>>Draft</option>
-                <option value="Returned" <?php echo ($nfaStatus=="Returned") ? "selected": ""?>>Returned</option>
-                <option value="Cancelled" <?php echo ($nfaStatus=="Cancelled") ? "selected": ""?>>Cancelled</option>
-                <option value="Amended" <?php echo ($nfaStatus=="Amended") ? "selected": ""?>>Amended</option>
-               <?php }?>
-            </select>
-        </div>
-    </div>
-    <?php 
-if ($hd_project_id == null && $hd_type_work_id == null){
-    if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" )
-    {
-    ?>
-        <div class="col-lg-3">
-            <div class='form-group'>
-                <label>Zone</label>
-                <select id="zone" name="zone" class="form-control">
-                    <option value="">All</option>
-                    <option value="NCR" <?php echo ($zone=="NCR") ? "selected": ""?>>NCR</option>
-                    <option value="Mumbai" <?php echo ($zone=="Mumbai") ? "selected": ""?>>Mumbai</option>
-                    <option value="Pune" <?php echo ($zone=="Pune") ? "selected": ""?>>Pune</option>
-                    <option value="South" <?php echo ($zone=="South") ? "selected": ""?>>South</option>
-                    <option value="Kolkata" <?php echo ($zone=="Kolkata") ? "selected": ""?>>Kolkata</option>
-                    <option value="PAN India" <?php echo ($zone=="PAN India") ? "selected": ""?>>PAN India</option>
-                </select>
+
+<div class="col-lg-3">
+                <div class='form-group'>
+                    <label>Status</label>
+                    <select id="nfaStatus" name="nfaStatus" class="form-control">
+                        <option value="">All</option>
+                        <option value="Pending" <?php echo ($nfaStatus=="Pending") ? "selected": ""?> selected>Pending</option>
+                        <option value="Approved" <?php echo ($nfaStatus=="Approved") ? "selected": ""?>>Approved</option>
+                        <?php if($mSessionRole=="PCM")
+                        { ?>
+                        <option value="Draft" <?php echo ($nfaStatus=="Draft") ? "selected": ""?>>Draft</option>
+                        <option value="Returned" <?php echo ($nfaStatus=="Returned") ? "selected": ""?>>Returned</option>
+                        <option value="Cancelled" <?php echo ($nfaStatus=="Cancelled") ? "selected": ""?>>Cancelled</option>
+                        <option value="Amended" <?php echo ($nfaStatus=="Amended") ? "selected": ""?>>Amended</option>
+                    <?php }?>
+                    </select>
+                </div>
             </div>
-        </div>
-<?php 
-    }
-}
-?>
+    
+    
 </div>
 <div class="row ">
     <div class="col-lg-12 text-right">
