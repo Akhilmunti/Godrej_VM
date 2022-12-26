@@ -300,6 +300,7 @@
                                                                     <td>
                                                                         <?php if ($mRecord['fb_score'] == "-") { ?>
                                                                             
+                                                                            
                                                                         <?php } else { ?>
                                                                             <a href="#" class="btn btn-success btn-sm btn-block" data-toggle="modal" data-target="#vendor_details_<?php echo $mRecord['vendor_id']; ?>">
                                                                                 View : <?php echo $mRecord['tow_name']; ?> </br> <?php echo $mRecord['fb_score']; ?>
