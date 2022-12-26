@@ -134,7 +134,10 @@
 
                     <!-- Content Header (Page header) -->
 
-                     <?php $this->load->view('nfa/common_iom_view_header.php'); ?>
+                     <?php $this->load->view('nfa/common_iom_view_header.php');
+                     
+                     $package_count = sizeof($mRecordPackage);
+                     ?>
 
 
                    
@@ -176,7 +179,7 @@
                             </div>
 
                             <div class="table-responsive mt-4">
-                                <table class="table rs-table-bordered mb-0">
+                                <table class="table rs-table-bordered mb-0" id="dyntable">
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th colspan="5">Award Synopsis | <?php echo $mRecordAwdContract['synopsis_label'] ?></th>
@@ -241,7 +244,7 @@
                                             <td><?php echo $mRecord['total_finalized_award_value'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Expected Savings w.r.t Budget incl. escalation(after accounting the anticipated basic rate adjustment)</td>
+                                            <td>Expected Savings w.r.t Budget incl. escalation</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 											
@@ -415,9 +418,24 @@
 												$score = $valBid->score;
 												$score_class="";
 												if($score_type=="PQ")
+                                                {
 													$score_class = " background-pq";
+                                                    if($score<50)
+													{
+														
+														$score_class ='background-red'; 
+													}
+													
+                                                }
 												else if($score_type=="FB")
+                                                {
 													$score_class = " background-feedback";
+                                                    if($score<60)
+													{
+														
+														$score_class ='background-red'; 
+													}
+                                                }
 																				
 											?>
 											
@@ -721,20 +739,27 @@
 
                             <div class="table-responsive">
                                 <table class="table rs-table-bordered mb-0" id="t1">
-                                    <thead class="bg-primary">
+                                <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th style="width:10%">Sl. No.</th>
                                             <th style="width:25%">Terms</th>
+                                            <th colspan="3">Description</th>
+                                        
+                                        </tr>
+                                    </thead>
+                                    <tbody id="">
+                                    <tr>
+                                            <td class="bg-primary"></td>
+                                            <td class="bg-primary"></td>
                                             <?php
 												foreach($mRecordPackage as $key=>$val)
 												{
                                             ?>
-                                                    <th>Description<br><?php echo $val['major_term_label'] ?></th>
-                                            <?php }?>
-                                         
+                                        <td class='text-center bg-primary'>Package <?php echo $val['package_name'];?><br>
+                                        <?php //echo $val['major_term_label'] ?>  
+                                        </td>
+                                        <?php }?>
                                         </tr>
-                                    </thead>
-                                    <tbody id="">
 									<?php
 										
 										foreach($mRecordMajorTerms as $key=>$val)
@@ -895,3 +920,31 @@
 </body>
 
 </html>
+<script>
+    $( document ).ready(function() {
+	
+	    showTotal('<?php echo $package_count?>');
+	});
+    function showTotal(package_count){
+                                  
+            if(package_count === "1"){
+                               
+				$("#dyntable th:last-child").show();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").show();
+            }
+            else if(package_count === "2"){
+                
+              	//Hide last child i.e last header
+				$("#dyntable th:last-child").show();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").show();
+            }else{
+               
+				//Hide last child i.e last header
+				$("#dyntable th:last-child").hide();
+				//Hide last child i.e last column
+				$("#dyntable td:last-child").hide();
+            }
+        }
+</script>

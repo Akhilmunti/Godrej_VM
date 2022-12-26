@@ -26,6 +26,7 @@ $this->load->view('buyer/partials/header'); ?>
             display: none;
         }
 
+
         .package-sec1{
             display: none;
         }
@@ -409,7 +410,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" required>
+                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
                                             </td>
 											<?php 
 											}?> 
@@ -476,9 +477,24 @@ $this->load->view('buyer/partials/header'); ?>
 												$score = $valBid->score;
 												$score_class="";
 												if($score_type=="PQ")
+												{
 													$score_class = " background-pq";
+													if($score<50)
+													{
+														
+														$score_class ='background-red'; 
+													}
+													
+												}
 												else if($score_type=="FB")
+												{
 													$score_class = " background-feedback";
+													if($score<60)
+													{
+														
+														$score_class ='background-red'; 
+													}
+												}
 												
 												
 											?>
@@ -488,7 +504,7 @@ $this->load->view('buyer/partials/header'); ?>
                                                     <option value="PQ" <?php echo ($score_type=="PQ") ? "selected": ""?>>PQ</option>
                                                     <option value="FB" <?php echo ($score_type=="FB") ? "selected": ""?>>FB</option>
                                                 </select>
-                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>">
+                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>" onblur="score_color();">
                                             </td>
 											  <?php 
 											}
@@ -845,9 +861,9 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
+											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php //echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required readonly ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php //echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" readonly></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php //echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" readonly></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>
@@ -1223,7 +1239,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		let _proposed_awrd_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package"></td>`;
+		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
 		
 		
 		var pckCount_edit = $('input[name="package_label[]"]').length;
@@ -1451,7 +1467,7 @@ $this->load->view('buyer/partials/header'); ?>
 
         let _th=`<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
 
-        let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
+        let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color();"></td>`;
 		
 		let _package_bidder=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();calculateSum1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1"></td>`;
 

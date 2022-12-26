@@ -87,6 +87,7 @@ function packageSynopsis_total(inpField,outputField){
 	
 	var sum_fields=0;
 	var radio_grp;
+	var total_finalized,total_budget,total_expected;
 	
 	var package_count = $('#package_count').find(":selected").text();
 	
@@ -111,7 +112,13 @@ function packageSynopsis_total(inpField,outputField){
 			if(!isNaN(sum_fields)) {
 			
 				if(outputField=="total_expected_savings")
-					$("#"+outputField).val(sum_fields.toFixed(2)+" %"); 
+				{
+					total_finalized = $("#total_finalized_award_value").val();
+					total_budget = $("#total_budget_esc").val();
+					total_expected = ((total_finalized-total_budget)*100)/total_budget;
+					$("#"+outputField).val(total_expected.toFixed(2)+" %"); 
+					//$("#"+outputField).val(sum_fields.toFixed(2)+" %"); 
+				}
 				else if(outputField=="total_basic_rate")
 				{
 					
@@ -125,7 +132,13 @@ function packageSynopsis_total(inpField,outputField){
 		
 		if(!isNaN(sum_fields)) {
 			if(outputField=="total_expected_savings")
-				$("#"+outputField).val(sum_fields.toFixed(2)+" %"); 
+			{
+				total_finalized = $("#total_finalized_award_value").val();
+				total_budget = $("#total_budget_esc").val();
+				total_expected = ((total_finalized-total_budget)*100)/total_budget;
+				$("#"+outputField).val(total_expected.toFixed(2)+" %"); 
+				//$("#"+outputField).val(sum_fields.toFixed(2)+" %"); 
+			}
 			else if(outputField=="total_basic_rate")
 			{
 				
@@ -153,8 +166,9 @@ function calculateSum1(){
 	var package_value;
 	var finalized_award_value_package;
 	var anticipated_rate;
-	var package_budget_esc
-	
+	var package_budget_esc;
+	var total_finalized,total_budget,total_expected;
+
 	var package_count = $('#package_count').find(":selected").text();
 	var salient_id = $("#salient_id").val();
 	
@@ -190,7 +204,7 @@ function calculateSum1(){
 		else
 			$("#expected_savings_package"+i).val('0%'); 	
 		total_sum += sum_proposed; 
-		total_expected_savings += expected_savings_package; 
+		//total_expected_savings += expected_savings_package; 
 		
 	}
 	
@@ -199,8 +213,15 @@ function calculateSum1(){
 	}
 	else
 		$("#total_post_basic_rate").val(0); 
-	if(!isNaN(total_expected_savings)) {	
-		$("#total_expected_savings").val(total_expected_savings.toFixed(2)+"%"); 
+	if(!isNaN(total_expected_savings)) {
+		console.log("calculate sum percentage");
+		total_finalized = $("#total_finalized_award_value").val();
+		console.log("total_finalized"+total_finalized);
+		total_budget = $("#total_budget_esc").val();
+		console.log("total_budget_esc"+total_budget);
+		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
+		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
+		//$("#total_expected_savings").val(total_expected_savings.toFixed(2)+"%"); 
 	}
 	else
 		$("#total_expected_savings").val('0%'); 
@@ -286,7 +307,6 @@ function package_bidders(label_obj) {
 		//showBidders_finalized();
 }
 
-
 //Function for setting recommended vendor
 function  setRecommended_vendorName(){
 	var package_count = $('#package_count').find(":selected").text();
@@ -309,7 +329,9 @@ function  setMajorTerms_package(){
 	{
 		package_name= $("#package_label"+i).val(); 
 		
-		$("#pckLabel"+i).text(package_name); 
+		//$("#pckLabel"+i).text("Package "+package_name); 
+		$("#term_label"+i).val("Package "+package_name); 
+		
 		
 	}
 	
@@ -374,21 +396,44 @@ function getGplBudget_total(){
 //schange score color PQ/Feedback
 function score_color(){
 	
-	var score_type,bid_index,bid_text;
+	var score_type,bid_index,score_value;
 	var bidder_count = parseInt($("#bidder_count").val())+1;	
 	sum_gpl=0;
 	for(bid_index=1;bid_index<=bidder_count;bid_index++)
 	{
 		score_type = $("#score_type"+bid_index).val();
+		score_value = parseFloat($("#score"+bid_index).val());
+		
 		if(score_type=="PQ")
 		{
 			$("#score"+bid_index).removeClass('background-feedback');
 			$("#score"+bid_index).addClass('background-pq');
+			if(score_value<50)
+			{
+				
+				$("#score"+bid_index).removeClass('background-pq');
+				$("#score"+bid_index).addClass('background-red'); 
+			}
+			else
+			{
+				$("#score"+bid_index).removeClass('background-red');
+				$("#score"+bid_index).addClass('background-pq');
+			}
 		}
 		else if(score_type=="FB")
 		{
 			$("#score"+bid_index).removeClass('background-pq');
 			$("#score"+bid_index).addClass('background-feedback');
+			if(score_value<60)
+			{
+				$("#score"+bid_index).removeClass('background-feedback');
+				$("#score"+bid_index).addClass('background-red'); 
+			}
+			else
+			{
+				$("#score"+bid_index).removeClass('background-red');
+				$("#score"+bid_index).addClass('background-feedback');
+			}
 		}
 		
 	}

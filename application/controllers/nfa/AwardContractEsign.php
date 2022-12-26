@@ -239,6 +239,56 @@ $pdf->writeHTML($text, true, 0, true, 0);
                            
                              $html .='<td>'.$mRecord['total_negot_value'].' Cr</td>
                         </tr>
+						<tr >
+						<td>Expected Savings w.r.t Budget incl. escalation</td>';
+						foreach($mRecordPackage as $key=>$val)
+						{
+											 
+							$html .= '
+							<td>
+							   '.$val['expected_savings_package'].'
+							%</td>';
+						}
+					   
+						 $html .='<td>'.$mRecord['total_expected_savings'].'%</td>
+						</tr>
+						<tr>
+						<td>Recommended Vendors based on L1 position ( Package-wise)</td>';
+						foreach($mRecordPackage as $key=>$val)
+						{
+											
+							$html .= '
+							<td>
+							'.$val['recomm_vendor_package'].'
+							</td>';
+						}
+						$html .='<td></td>
+						</tr>
+						<tr>
+						<td>Basis of award</td>';
+						foreach($mRecordPackage as $key=>$val)
+						{
+											 
+							$html .= '
+							<td>
+							   '.$val['basis_award_package'].'
+							</td>';
+						}
+						$html .='<td></td>
+						</tr>
+						
+                        <tr>
+                            <td>Deviation from Approved Contracting Strategy</td>';
+							foreach($mRecordPackage as $key=>$val)
+							{
+											 	
+								$html .= '
+								<td>
+								   '.$val['deviation_approved_package'].'
+								</td>';
+							}
+                            $html .='<td></td>
+                        </tr>
                         <tr>
                             <td>Last Awarded Benchmark with Date</td>';
 							foreach($mRecordPackage as $key=>$val)
@@ -305,55 +355,9 @@ $pdf->writeHTML($text, true, 0, true, 0);
                            
                              $html .='<td>'.$mRecord['total_post_basic_rate'].' Cr</td>
                         </tr>
-                        <tr >
-                            <td>Expected Savings w.r.t Budget incl. escalation(after accounting the anticipated basic rate adjustment)</td>';
-							foreach($mRecordPackage as $key=>$val)
-							{
-											 	
-								$html .= '
-								<td>
-								   '.$val['expected_savings_package'].'
-								%</td>';
-							}
-                           
-                             $html .='<td>'.$mRecord['total_expected_savings'].'%</td>
-                        </tr>
-                        <tr>
-                            <td>Recommended Vendors based on L1 position ( Package-wise)</td>';
-							foreach($mRecordPackage as $key=>$val)
-							{
-											 	
-								$html .= '
-								<td>
-								   '.$val['recomm_vendor_package'].'
-								</td>';
-							}
-                            $html .='<td></td>
-                        </tr>
-                        <tr>
-                            <td>Basis of award</td>';
-							foreach($mRecordPackage as $key=>$val)
-							{
-											 	
-								$html .= '
-								<td>
-								   '.$val['basis_award_package'].'
-								</td>';
-							}
-                            $html .='<td></td>
-                        </tr>
-                        <tr>
-                            <td>Deviation from Approved Contracting Strategy</td>';
-							foreach($mRecordPackage as $key=>$val)
-							{
-											 	
-								$html .= '
-								<td>
-								   '.$val['deviation_approved_package'].'
-								</td>';
-							}
-                            $html .='<td></td>
-                        </tr>
+                      
+                      
+                       
                         <tr>
                             <td>Base Rate Consideration Month</td>';
 							foreach($mRecordPackage as $key=>$val)
@@ -649,7 +653,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						foreach($mRecordPackage as $key=>$val)
 						{
 					
-							$html .='<th>Description'.$mRecord['term_label'].'</th>';
+							$html .='<th>Package '.$val['package_name']."<br>".$val['major_term_label'].'</th>';
 						}
 						$html .='</tr>
                 </thead>

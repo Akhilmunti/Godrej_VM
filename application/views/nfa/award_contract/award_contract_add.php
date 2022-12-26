@@ -23,6 +23,7 @@
             display: none;
         }
 
+
         .sec1{
             display: none;
         }
@@ -311,7 +312,7 @@
                                             <tr class='text-center'>
                                                 <td>Base Rate Consideration Month in Award</td>
                                                 <td>
-                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" required>
+                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
                                                 </td>
 
                                                 <td id="total-td13" class="total-hide"></td>
@@ -364,7 +365,7 @@
                                                         <option value="PQ">PQ</option>
                                                         <option value="FB">FB</option>
                                                     </select>
-                                                    <input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score1" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" required>
+                                                    <input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score1" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color();" required>
                                                 </td>
                                             </tr>
                                             <tr id="package_row1" class='text-center'>
@@ -573,7 +574,7 @@
                                                     <th style="width:25%">Terms</th>
                                                     <th style="width:55%"><label for="term_label">Description</label>
                                                     <div style="display:flex ;">
-                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1">Package 1</label><input type='text'class="form-control" placeholder="Package 1" name="term_label[]" id="term_label1" required></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2">Package 2</label><input type='text' class="form-control mr-2" placeholder="Package 2" name="term_label[]" id="term_labe2" required></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3">Package 3</label><input type='text' class="form-control mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" required></div></div></th>
+                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1"></label><input type='text'class="form-control" placeholder="" name="term_label[]" id="term_label1" required readonly></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label2" required readonly></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label3" required readonly></div></div></th>
                                                     <th style="width:10%;">Action</th>
                                                 </tr>
                                             </thead>
@@ -826,7 +827,7 @@
 
             let _finalized = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="finalized_val(this);finalized_total();showBidders_finalized();calculateSum1();" required></td>`;
 
-            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package" readonly></td>`;
+            let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package" onblur="packageSynopsis_total('expected_savings_package','total_expected_savings');getExpectedSavings();calculateSum1();" readonly></td>`;
 
             let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" required onblur="setRecommended_vendorName();"></td>`;
 
@@ -845,7 +846,7 @@
 
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" required></td>`;
+            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
 
             if ($(".cust_th").length <= e.target.value) {
 
@@ -1052,7 +1053,7 @@
 
             let _th = `<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
 
-            let _pqfb = `<td><select id="score_type" style="width: 120px !important;" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onchange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
+            let _pqfb = `<td><select id="score_type" style="width: 120px !important;" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onchange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color();"></td>`;
 
             let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);getBidders_total();calculateSum1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1" required></td>`;
 

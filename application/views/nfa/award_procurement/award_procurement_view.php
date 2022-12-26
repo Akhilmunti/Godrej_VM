@@ -213,7 +213,7 @@
                                             <td><?php echo $mRecord['total_budget_esc'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) - Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -593,8 +593,8 @@
 												foreach($mRecordPackage as $key=>$val)
 												{
                                             ?>
-                                        <td class='text-center bg-primary'>Package <?php echo  $key+1;?><br>
-                                        <?php echo $val['major_term_label'] ?>  
+                                        <td class='text-center bg-primary'>Package <?php echo $val['package_name'];?>
+                                        <?php //echo $val['major_term_label'] ?>  
                                         </td>
                                         <?php }?>
                                        

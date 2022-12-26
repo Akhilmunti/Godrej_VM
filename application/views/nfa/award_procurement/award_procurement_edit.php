@@ -237,7 +237,7 @@ $this->load->view('buyer/partials/header'); ?>
 										
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) - Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -388,7 +388,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     <div class='form-group'>
                                         <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
 						<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
-						<input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur=" " class="form-control decimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+						<input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur=" " class="form-control nodecimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
                                     </div>
                                 </div>
 
@@ -467,20 +467,37 @@ $this->load->view('buyer/partials/header'); ?>
 												$score = $valBid->score;
 												$score_class="";
 												if($score_type=="PQ")
+												{
 													$score_class = " background-pq";
+													if($score<50)
+													{
+														
+														$score_class ='background-red'; 
+													}
+													
+												}
 												else if($score_type=="FB")
+												{
 													$score_class = " background-feedback";
+													if($score<60)
+													{
+														
+														$score_class ='background-red'; 
+													}
+												}
 												
 												
 											?>
                                             <td>
-                                                <select id="score_type<?php echo $id_index;?>" name="score_type[]" required="" class="form-control pq_fb_score_custom_td"  style="width: 120px !important;" onChange="score_color();">
+                                                <select id="score_type<?php echo $id_index;?>" name="score_type[]" required="" class="form-control pq_fb_score_custom_td"  style="width: 120px !important;" onChange="score_color1();">
                                                     <option value="">Select</option>
                                                     <option value="PQ" <?php echo ($score_type=="PQ") ? "selected": ""?>>PQ</option>
                                                     <option value="FB" <?php echo ($score_type=="FB") ? "selected": ""?>>FB</option>
                                                 </select>
-                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>">
-                                            </td>
+                                            
+                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>" onblur="score_color1();">
+
+											</td>
 											  <?php 
 											}
 											  ?>
@@ -693,7 +710,7 @@ $this->load->view('buyer/partials/header'); ?>
                             </div>
 
 
-                         				 <div class="d-block mt-4">
+                         	<div class="d-block mt-4">
                                 <h5 class="page-title br-0 font-weight-bold">Major Terms and Conditions</h5>
                             </div>
 
@@ -707,9 +724,9 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="Package 2" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" ></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="Package 3" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" ></div> 
+											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php //echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required readonly ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php //echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" readonly></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php //echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" readonly></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>
@@ -858,8 +875,10 @@ $this->load->view('buyer/partials/header'); ?>
 								 $role = $valLevel->role;
 								 $approver_id = $valLevel->approver_id;
 								
-								 $getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);
-									
+								if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
+									$getUsers = $CI->getRoleUsers_approval($role);
+								else
+								 	$getUsers = $CI->getRoleUsers_approval($role,$mSessionZone);									
 								
                             ?>
 
@@ -1286,7 +1305,7 @@ function package_bidders_procurement(label_obj){
 
         let _th=`<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
 
-        let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
+        let _pqfb=`<td><select id="score_type" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onChange="score_color1();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');"></td>`;
 		
 		let _package_bidder=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);getBidders_total();" class="form-control package_common_tower_label_custom_td onMouseOutClass" required name="package_bidder[1][1]" id="package_bidder_1_1"></td>`;
 
@@ -1899,7 +1918,7 @@ function getLevelApprovers(){
 			setGpl_budget();
 			showBidders_finalized();
 			getBidders_total();
-            setMajorTerms_package();
+            setMajorTerms_package1();
 
 		});
 
@@ -1908,14 +1927,14 @@ function getLevelApprovers(){
 	} 
 
 		
-		function  setMajorTerms_package(){
+		function  setMajorTerms_package1(){
 	
 			var package_count = $('#package_count').find(":selected").text();
 			for(i=1;i<=package_count;i++)
 			{
 				package_name= $("#package_label"+i).val(); 
 		
-				$("#pckLabel"+i).text(package_name); 
+				$("#term_label"+i).val("Package "+package_name); 
 		
 			}
 	
@@ -2108,85 +2127,239 @@ $('#save, #submit').on('click', () => {
 	
 })			
 
-function calculateSum1_v1(ele_id)
-{
+function score_color1(){
 	
-		var total_sum=0;
-		var total_expected_savings=0;
-		var sum=0;
-		var condition_l1;
-		var ho_approval;
-		var package_value;
-		var finalized_award_value_package;
-		var package_negot_value;
-		var package_budget_esc
+	var score_type,bid_index,score_value;
+	var bidder_count = parseInt($("#bidder_count").val())+1;	
+	sum_gpl=0;
+	for(bid_index=1;bid_index<=bidder_count;bid_index++)
+	{
+		score_type = $("#score_type"+bid_index).val();
+		score_value = parseFloat($("#score"+bid_index).val());
 		
-		var package_count = $('#package_count').find(":selected").text();
-		var salient_id = $("#salient_id").val();
-		var index = ele_id[ele_id.length -1];
-		
-		for(i=1;i<=package_count;i++)
-		{ 
-			finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
-			sum= parseFloat(finalized_award_value_package);
-			
-			sum = parseFloat(sum) || 0;
-			$("#post_basic_rate_package"+i).val(sum+" Cr"); 
-			
-			package_budget_esc = $("#package_budget_esc"+i).val();  
-			// expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
-			
-			expected_savings_package= (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc) )*100/parseFloat(package_budget_esc);
-
-			expected_savings_package = parseFloat(expected_savings_package) || 0;			
-			$("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
-			total_expected_savings += expected_savings_package; 
-			total_sum += sum; 
-
-	
-			
-		}
-	
-		total_sum = parseFloat(total_sum) || 0;
-		$("#total_post_basic_rate").val(total_sum+" Cr"); 
-		
-		total_expected_savings = parseFloat(total_expected_savings) || 0;
-		$("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
-		
-		console.log("pro"+total_sum);
-
-		
-		package_value= total_sum;
-	
-		ho_approval = $("input[name='ho_approval']:checked").val(); 
-	
-		// Get max level of Approvers
-		
-		if(index==package_count)
+		if(score_type=="PQ")
 		{
-			var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
-			
-			$.post(url,
-						{
-							package_value: package_value, ho_approval: ho_approval,salient_id: salient_id
-						},
-						function (data, status) {
-						
-							$('#approvers_list_div').html(data);
-						
-							
-						});
-		
+			$("#score"+bid_index).removeClass('background-feedback');
+			$("#score"+bid_index).addClass('background-pq');
+			if(score_value<50)
+			{
+				
+				$("#score"+bid_index).removeClass('background-pq');
+				$("#score"+bid_index).addClass('background-red'); 
+			}
+			else
+			{
+				$("#score"+bid_index).removeClass('background-red');
+				$("#score"+bid_index).addClass('background-pq');
+			}
 		}
-  	}
+		else if(score_type=="FB")
+		{
+			$("#score"+bid_index).removeClass('background-pq');
+			$("#score"+bid_index).addClass('background-feedback');
+			if(score_value<60)
+			{
+				$("#score"+bid_index).removeClass('background-feedback');
+				$("#score"+bid_index).addClass('background-red'); 
+			}
+			else
+			{
+				$("#score"+bid_index).removeClass('background-red');
+				$("#score"+bid_index).addClass('background-feedback');
+			}
+		}
+		
+	}
+	
+}
+
+		function calculateSum1_v1(ele_id)
+        {
+            
+                            
+                var total_sum=0;
+                var total_expected_savings=0;
+                var sum=0;
+                var sum_proposed=0;
+                var condition_l1;
+                var l1_vendor1;
+                var package_value;
+                var finalized_award_value_package;
+                var anticipated_rate;
+                var package_budget_esc
+                var index = ele_id[ele_id.length -1];
+                var package_count = $('#package_count').find(":selected").text();
+                var salient_id = $("#salient_id").val();
+                
+                for(i=1;i<=package_count;i++)
+                {
+                    finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
+                    sum= parseFloat(finalized_award_value_package);
+                    sum = parseFloat(sum) || 0;
+                    
+                    package_budget_esc = $("#package_budget_esc"+i).val();  
+                    sum_proposed+= parseFloat(finalized_award_value_package);
+                    
+                    if(!isNaN(sum_proposed)) {
+                        console.log("sum calculatetesting"+sum_proposed);
+                        $("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
+                    }
+                    else
+                        $("#post_basic_rate_package"+i).val(0+" Cr");
+                    
+                    //expected_savings_package = (parseFloat(sum_proposed)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+                    expected_savings_package = (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+                    expected_savings_package = parseFloat(expected_savings_package) || 0;			
+
+                    if(!isNaN(expected_savings_package)) {
+
+                        $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
+                    }
+                    else
+                    {
+                        $("#expected_savings_package_v1"+i).val('0%'); 	
+
+                    }
+                
+                    
+                    total_sum = parseFloat(sum) || 0;
+
+                    
+                }
+
+                if(!isNaN(total_sum)) {
+                    $("#total_post_basic_rate").val(total_sum.toFixed(2)+" Cr"); 
+                }
+                else
+                    $("#total_post_basic_rate").val(0); 
+                if(!isNaN(total_expected_savings)) {
+                    total_finalized = $("#total_finalized_award_value").val();
+                    total_budget = $("#total_budget_esc").val();
+                    total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
+                    total_expected = parseFloat(total_expected) || 0;
+  
+                    $("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 
+	
+                    //$("#total_expected_savings").val(total_expected_savings.toFixed(2)+"%"); 
+                }
+                else
+                    $("#total_expected_savings").val('0%'); 
+
+	
+                
+                package_value= total_sum;
+            
+                
+                ho_approval = $("input[name='ho_approval']:checked").val(); 
+            
+                
+                // Get max level of Approvers
+                
+                if(index==package_count)
+                {
+                
+                    var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
+                    
+                    $.post(url,
+                                {
+                                    'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                },
+                                function (data, status) {
+                                
+                                    $('#approvers_list_div').html(data);
+                                
+                                });
+                
+                }
+
+                //Expected Savings -Percentage
+                getExpectedSavings();
+                //showBidposition();
+                finalized_total();
+        }
 
 
-	// change approval list according to ho_approval
-    $('input[name=ho_approval]').change(function(){
-            var ho_approval = $("input[name='ho_approval']:checked").val();
+	  // change approval list according to ho_approval
+        $('input[name=ho_approval]').change(function(){
+                var total_sum=0;
+                var total_expected_savings=0;
+                var sum=0;
+                var condition_l1;
+                var ho_approval;
+                var package_value;
+                var finalized_award_value_package;
+                var package_negot_value;
+                var package_budget_esc
+                
+                var package_count = $('#package_count').find(":selected").text();
+                var salient_id = $("#salient_id").val();
+                    
+            
+                        for(i=1;i<=package_count;i++)
+                        { 
+                            
+                            finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
+                            sum= parseFloat(finalized_award_value_package);
+                            
+                            sum = parseFloat(sum) || 0;
+                            $("#post_basic_rate_package"+i).val(sum+" Cr"); 
+                            
+                            package_budget_esc = $("#package_budget_esc"+i).val();  
+                            expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
+                            
+                            
+                            expected_savings_package = parseFloat(expected_savings_package) || 0;			
+                            $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
+                            total_expected_savings += expected_savings_package; 
+                            total_sum += sum; 
 
-            calculateSum1_v1(this);
-        });
+                        }
+        
+                        total_sum = parseFloat(total_sum) || 0;
+                        $("#total_post_basic_rate").val(total_sum+" Cr"); 
+                        
+                        total_expected_savings = parseFloat(total_expected_savings) || 0;
+                        $("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
+                        
+                        package_value= total_sum;
+
+                            var ho_approval = $("input[name='ho_approval']:checked").val();    
+
+                            var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
+                            
+                                $.post(url,
+                                        {
+                                            'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                        },
+                                        function (data, status) {
+                                        
+                                            $('#approvers_list_div').html(data);
+                                        
+                                        });
+            
+            
+            });
+        
+        
+        
+        
+            function validate_greater_appr_date(th){
+            let receipt_date = $("#receipt_date").val();
+            let bidder_approval_date = $("#bidder_approval_date").val();
+            $("#receipt_date_err").html("");
+            $("#bidder_approval_date_err").html("");
+            if(receipt_date){
+                if(bidder_approval_date >= receipt_date){ 
+                    $("#bidder_approval_date_err").html("Receipt date greater than start date").css("color","red");
+                    $("#bidder_approval_date").val("");
+                }
+            }else{
+                $("#receipt_date_err").html("This field Required").css("color","red");
+                $("#bidder_approval_date_err").html("Receipt date greater than start date").css("color","red");
+                $("#bidder_approval_date").val("");
+            }
+        }
+    
 	
 
 	function validate_greater_appr_date(th){
@@ -2207,9 +2380,9 @@ function calculateSum1_v1(ele_id)
 	}
 
  function noDecimalStrict(){
-            let noOfClasses=document.getElementsByClassName("decimalStrictClass").length;
+            let noOfClasses=document.getElementsByClassName("nodecimalStrictClass").length;
             for(let k = 0;k<=noOfClasses;k++){
-                setInputFilter(document.getElementsByClassName("decimalStrictClass")[k], function(value) {
+                setInputFilter(document.getElementsByClassName("nodecimalStrictClass")[k], function(value) {
                 return /^\d*$/.test(value); });
             }
         }   
