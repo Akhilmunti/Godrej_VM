@@ -309,10 +309,10 @@
                                                 <td id="total-td12" class="total-hide"><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
                                             </tr>
 
-                                            <tr class='text-center'>
+                                            <tr class='text-center' id="baseRate_row">
                                                 <td>Base Rate Consideration Month in Award</td>
                                                 <td>
-                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
+                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" max="<?php echo date("Y-m-d" , strtotime("-1 day") ) ?>" style="display:none ;">
                                                 </td>
 
                                                 <td id="total-td13" class="total-hide"></td>
@@ -708,7 +708,8 @@
 
 
         $(document).ready (function () {  
-        $("#nfaForm").validate();  
+            $("#nfaForm").validate();
+            
         });  
 
         let contrSel ;
@@ -844,9 +845,9 @@
 
             let _anti_basic_rate = `<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required style="display:none ;" ></td>`;
 
-            let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
+            let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package"  readonly></td>`;
 
-            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
+            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" max="<?php echo date("Y-m-d" , strtotime("-1 day") ) ?>" style="display:none ;" ></td>`;
 
             if ($(".cust_th").length <= e.target.value) {
 
@@ -972,12 +973,15 @@
 
             let basic2 = document.getElementById("basic_rate2");
             let anticipated2 = document.getElementById("anticipated_rate2");
+            let basic_rate_month_package2 = document.getElementById("basic_rate_month_package2");
             let basic3 = document.getElementById("basic_rate3");
             let anticipated3 = document.getElementById("anticipated_rate3");
+            let basic_rate_month_package3 = document.getElementById("basic_rate_month_package3");
             $('#group_1_1').click(function() {
 
                 basic2.style.display = "block";
                 anticipated2.style.display = "block";
+                basic_rate_month_package2.style.display = "block";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -986,6 +990,7 @@
               
                 basic2.style.display = "none";
                 anticipated2.style.display = "none";
+                basic_rate_month_package2.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -993,6 +998,7 @@
 
                 basic2.style.display = "block";
                 anticipated2.style.display = "block";
+                basic_rate_month_package2.style.display = "block";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -1001,6 +1007,7 @@
 
                 basic2.style.display = "none";
                 anticipated2.style.display = "none";
+                basic_rate_month_package2.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -1009,6 +1016,7 @@
 			
 			   basic3.style.display = "block";
 			   anticipated3.style.display = "block";
+               basic_rate_month_package3.style.display = "block";
 			   packageSynopsis_total('basic_rate','total_basic_rate');
 			   packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 				 });  
@@ -1017,6 +1025,7 @@
 					
 				basic3.style.display = "none";
 				anticipated3.style.display = "none";
+                basic_rate_month_package3.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 			});    
@@ -1192,15 +1201,21 @@
 
         let basic1 = document.getElementById("basic_rate1");
         let anticipated1 = document.getElementById("anticipated_rate1");
+        let basic_rate_month_package1 = document.getElementById("basic_rate_month_package1");
         let basic2 = document.getElementById("basic_rate2");
         let anticipated2 = document.getElementById("anticipated_rate2");
+        let basic_rate_month_package2 = document.getElementById("basic_rate_month_package2");
         let basic3 = document.getElementById("basic_rate3");
         let anticipated3 = document.getElementById("anticipated_rate3");
+        let basic_rate_month_package3 = document.getElementById("basic_rate_month_package3");
         radio1.addEventListener('click', function handleClick() {
 
             if (radio1.checked) {
                 basic1.style.display = "block";
                 anticipated1.style.display = "block";
+                basic_rate_month_package1.style.display = "block";
+                //$('#baseRate_row').show();
+
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             }
@@ -1209,6 +1224,8 @@
             if (radio2.checked) {
                 basic1.style.display = "none";
                 anticipated1.style.display = "none";
+                basic_rate_month_package1.style.display = "none";
+                //$('#baseRate_row').hide();
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             }

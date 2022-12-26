@@ -403,14 +403,14 @@ $this->load->view('buyer/partials/header'); ?>
 												<input type='text' class="form-control"  name="total_post_basic_rate" id="total_post_basic_rate" value="<?php echo $mRecord['total_post_basic_rate'] ?> Cr"  readonly>
 											</td> 
                                         </tr>
-                                        <tr class='text-center'>
+                                        <tr class='text-center' >
                                             <td>Base Rate Consideration Month in Award</td> 
 											<?php foreach($mRecordPackage as $key=>$val)
 											{
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
+                                                <input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package<?php echo $id_index;?>" value="<?php echo $val['basic_rate_month_package'] ?>" max="<?php echo date("Y-m-d" , strtotime("-1 day") ) ?>" <?php echo ($val['is_basic_rate_package']=="no")? "style='display:none ;'" : "" ?>  >
                                             </td>
 											<?php 
 											}?> 
@@ -688,12 +688,12 @@ $this->load->view('buyer/partials/header'); ?>
                                            <td>
                                                 <label>Milestone on which contractor should be appointed</label>
                                                 <div data-tip="Please mention the milestone as per applicable PI">
-                                                <input type='text' class="form-control" name="milestone_label" id="milestone_label" autocomplete="off"  value="<?php echo $mRecordAppointment['milestone_label'] ?>" required>
+                                                <input type='text' class="form-control" name="milestone_label" id="milestone_label" autocomplete="off"  value="<?php echo $mRecordAppointment['milestone_label'] ?>" >
                                                 </div>
                                             </td>
                                             <td>
                                               
-											     <select id="contract_package_works_value" name="contract_package_works_value"   class="form-control" required >
+											     <select id="contract_package_works_value" name="contract_package_works_value"   class="form-control"  >
                                                     <option value="">Select</option>
 													<?php 
 													for($i=1;$i<=5;$i++)
@@ -723,7 +723,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>A</td>
                                             <td>Planned date of Contractor appointment As per PI Logic</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100% " name="activity_planned_date" id="activity_planned_date"  value="<?php echo $mRecordAppointment['activity_planned_date'] ?>" required>
+                                                <input type='date' class="form-control" style="width: 100% " name="activity_planned_date" id="activity_planned_date"  value="<?php echo $mRecordAppointment['activity_planned_date'] ?>" >
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_planned_remarks" id="activity_planned_remarks"><?php echo $mRecordAppointment['activity_planned_remarks'] ?></textarea>
@@ -733,7 +733,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>B</td>
                                             <td>Actual date as per current site progress</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_actual_date" id="activity_actual_date" value="<?php echo $mRecordAppointment['activity_actual_date'] ?>" required>
+                                                <input type='date' class="form-control" style="width: 100%;" name="activity_actual_date" id="activity_actual_date" value="<?php echo $mRecordAppointment['activity_actual_date'] ?>" >
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_actual_remarks" id="activity_actual_remarks"><?php echo $mRecordAppointment['activity_actual_remarks'] ?></textarea>
@@ -743,7 +743,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>C</td>
                                             <td>CBE of contractor Appointment</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();" onchange="validate_receipt_date();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>" required>
+                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();" onchange="validate_receipt_date();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>" >
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_cbe_remarks" id="activity_cbe_remarks"><?php echo $mRecordAppointment['activity_cbe_remarks'] ?></textarea>
@@ -1105,9 +1105,9 @@ $this->load->view('buyer/partials/header'); ?>
 	let total_finalized_val = parseFloat(document.getElementById("total_finalized_award_value").value);
 	
 	if (total_finalized_val > 3) {
-		console.log("greater"+total_finalized_val)	
-	document.getElementById("appointment-date").classList.remove("date-hide");
-	document.getElementById("date1").classList.remove("date-hide");
+		
+		document.getElementById("appointment-date").classList.remove("date-hide");
+		document.getElementById("date1").classList.remove("date-hide");
 	} else 
 	{
 	document.getElementById("appointment-date").classList.add("date-hide");
@@ -1124,12 +1124,17 @@ $this->load->view('buyer/partials/header'); ?>
 	if (checkBox.checked == true){
 		document.getElementById("delayReason").classList.add("idling-hide");
 	} 
-	console.log("ready doc");
+	
 	showBidders_finalized();
 	getBidders_total();
 	
 	var pCount_obj = document.getElementById("package_count");
 	addPackage(pCount_obj);
+	var is_basic = $('#packageYesRadios1').val();
+	/*if(is_basic=='no')
+		$('#baseRate_row').hide();  
+	else
+		$('#baseRate_row').show();  */
 	});
 
 	let contrSel ;
@@ -1239,7 +1244,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		let _proposed_awrd_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
-		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
+		let _base_rate_mnth=` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" max="<?php echo date("Y-m-d" , strtotime("-1 day") ) ?>" style="display:none ;" ></td>`;
 		
 		
 		var pckCount_edit = $('input[name="package_label[]"]').length;
@@ -1378,12 +1383,15 @@ $this->load->view('buyer/partials/header'); ?>
 		
 		let basic2 = document.getElementById("basic_rate2");
 		let anticipated2 = document.getElementById("anticipated_rate2");
+		let basic_rate_month_package2 = document.getElementById("basic_rate_month_package2");
 		let basic3 = document.getElementById("basic_rate3");
 		let anticipated3 = document.getElementById("anticipated_rate3");
+		let basic_rate_month_package3 = document.getElementById("basic_rate_month_package3");
 		$('#group_1_1').click(function () {  
 	
 		   basic2.style.display = "block";
 		   anticipated2.style.display = "block";
+		   basic_rate_month_package2.style.display = "block";
 		   packageSynopsis_total('basic_rate','total_basic_rate');
 		   packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 		 });  
@@ -1392,6 +1400,7 @@ $this->load->view('buyer/partials/header'); ?>
 			
 			basic2.style.display = "none";
 			anticipated2.style.display = "none";
+			basic_rate_month_package2.style.display = "none";
 			packageSynopsis_total('basic_rate','total_basic_rate');
 			packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 		 });
@@ -1399,6 +1408,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 			basic2.style.display = "block";
 			anticipated2.style.display = "block";
+			basic_rate_month_package2.style.display = "block";
 			packageSynopsis_total('basic_rate','total_basic_rate');
 			packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 		});
@@ -1407,6 +1417,7 @@ $this->load->view('buyer/partials/header'); ?>
 			console.log("group 2 anticip");
 			basic2.style.display = "none";
 			anticipated2.style.display = "none";
+			basic_rate_month_package2.style.display = "none";
 			packageSynopsis_total('basic_rate','total_basic_rate');
 			packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 		});
@@ -1415,6 +1426,7 @@ $this->load->view('buyer/partials/header'); ?>
 			
 		   basic3.style.display = "block";
 		   anticipated3.style.display = "block";
+		   basic_rate_month_package3.style.display = "block";
 		   packageSynopsis_total('basic_rate','total_basic_rate');
 		   packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 		   
@@ -1424,6 +1436,7 @@ $this->load->view('buyer/partials/header'); ?>
 			
 			basic3.style.display = "none";
 			anticipated3.style.display = "none";
+			basic_rate_month_package3.style.display = "none";
 			packageSynopsis_total('basic_rate','total_basic_rate');
 			packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 		 });   
@@ -1644,12 +1657,14 @@ $this->load->view('buyer/partials/header'); ?>
 
         let basic<?php echo $id_index;?> = document.getElementById("basic_rate<?php echo $id_index;?>");
         let anticipated<?php echo $id_index;?> = document.getElementById("anticipated_rate<?php echo $id_index;?>");
+		let basic_rate_month_package<?php echo $id_index;?> = document.getElementById("basic_rate_month_package<?php echo $id_index;?>");
        
         radioYes<?php echo $id_index;?>.addEventListener('click', function handleClick() {
             if (radioYes<?php echo $id_index;?>.checked) {
 				
                 basic<?php echo $id_index;?>.style.display = "block";
                 anticipated<?php echo $id_index;?>.style.display = "block";
+				basic_rate_month_package<?php echo $id_index;?>.style.display = "block";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             }
@@ -1658,6 +1673,7 @@ $this->load->view('buyer/partials/header'); ?>
             if (radioNo<?php echo $id_index;?>.checked) {
                 basic<?php echo $id_index;?>.style.display = "none";
                 anticipated<?php echo $id_index;?>.style.display = "none";
+				basic_rate_month_package<?php echo $id_index;?>.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             }
