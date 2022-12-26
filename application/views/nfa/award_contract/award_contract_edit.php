@@ -100,6 +100,53 @@ $this->load->view('buyer/partials/header'); ?>
         background-color: #dc3545 !important;
         color: #fff;
     	}
+        [tool-tip] {
+            position: relative;
+        }
+
+        [tool-tip]:before {
+            content: '';
+            /* hides the tooltip when not hovered */
+            display: none;
+            content: '';
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #1a1a1a;
+            position: absolute;
+            top: 30px;
+            left: 35px;
+            z-index: 8;
+            font-size: 0;
+            line-height: 0;
+            width: 0;
+            height: 0;
+        }
+
+        [tool-tip]:after {
+            display: none;
+            content: attr(tool-tip);
+            position: absolute;
+            top: 35px;
+            /* left: 0px; */
+            right: -10px;
+            padding: 5px 8px;
+            background: #1a1a1a;
+            color: #fff;
+            z-index: 9;
+            font-size: 0.8em;
+            height: 30px;
+            line-height: 18px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            white-space: nowrap;
+            word-wrap: normal;
+        }
+
+        [tool-tip]:hover:before,
+        [tool-tip]:hover:after {
+            display: block;
+        }
 
     </style>
 
@@ -188,7 +235,7 @@ $this->load->view('buyer/partials/header'); ?>
 										 foreach($mRecordPackage as $key=>$val)
 											{	
 											?>
-												<th scope="col">
+												<th style="width:180px;" scope="col">
 													<label class="cust_th">Package name*</label>
 													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders(this);">
 												</th>
@@ -1217,7 +1264,7 @@ $this->load->view('buyer/partials/header'); ?>
 		$('#diffCrs_row').find('td:gt(1)').remove();
 		$('#diffPercent_row').find('td:gt(1)').remove();
 
-		let _th=`<th><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
+		let _th=`<th style="width:180px;"><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
 
 		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();calculateSum1();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
 

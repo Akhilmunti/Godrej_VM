@@ -110,6 +110,53 @@
         .total-hide{
             display: none;
         }
+        [tool-tip] {
+            position: relative;
+        }
+
+        [tool-tip]:before {
+            content: '';
+            /* hides the tooltip when not hovered */
+            display: none;
+            content: '';
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #1a1a1a;
+            position: absolute;
+            top: 30px;
+            left: 35px;
+            z-index: 8;
+            font-size: 0;
+            line-height: 0;
+            width: 0;
+            height: 0;
+        }
+
+        [tool-tip]:after {
+            display: none;
+            content: attr(tool-tip);
+            position: absolute;
+            top: 35px;
+            /* left: 0px; */
+            right: -10px;
+            padding: 5px 8px;
+            background: #1a1a1a;
+            color: #fff;
+            z-index: 9;
+            font-size: 0.8em;
+            height: 30px;
+            line-height: 18px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            white-space: nowrap;
+            word-wrap: normal;
+        }
+
+        [tool-tip]:hover:before,
+        [tool-tip]:hover:after {
+            display: block;
+        }
 
     </style>
 
@@ -189,7 +236,7 @@
                                         <thead class="bg-primary">
                                             <tr class='text-center'>
                                                 <th>Description</th>
-                                                <th scope="col">
+                                                <th style="width:180px;" scope="col">
                                                     <label>Package name</label>
                                                     <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders(this);">
                                                 </th>
@@ -295,7 +342,9 @@
                                             <tr class='text-center'>
                                                 <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
                                                 <td>
-                                                    <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();" required>
+                                                    <div tool-tip="Please enter difference of today's base rate vs tender base rate">
+                                                        <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();" required>
+                                                    </div>
                                                 </td>
 
                                                 <td id="total-td11" class="total-hide"><input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="" readonly></td>
@@ -820,7 +869,7 @@
             $('#diffCrs_row').find('td:gt(1)').remove();
             $('#diffPercent_row').find('td:gt(1)').remove();
             
-            let _th = `<th><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
+            let _th = `<th style="width:180px;"><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
 
             let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict();decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
 
@@ -843,7 +892,7 @@
 
             let _amnt_basic_rate = `<td><input type='text' class="form-control _amnt_basic_rate_td decimalStrictThreeClass onMouseOutClass" name="total_basic_rate_package[]" id="basic_rate" oninput="allowNumOnly(this);decimalStrictThree()" onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');"  value="" style="display:none ;" ></td>`;
 
-            let _anti_basic_rate = `<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required style="display:none ;" ></td>`;
+            let _anti_basic_rate = `<td><div class="_anti_basic_rate_td" tool-tip="Please enter difference of today's base rate vs tender base rate"><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control  decimalStrictClass onMouseOutClass" required style="display:none ;" ></div></td>`;
 
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package"  readonly></td>`;
 

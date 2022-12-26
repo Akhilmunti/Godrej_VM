@@ -42,7 +42,7 @@
     }
 
     .breadcrumb-dot .breadcrumb-item+.breadcrumb-item::before {
-        content: "â€¢";
+        content: "•";
     }
 
     .breadcrumb-bar .breadcrumb-item+.breadcrumb-item::before {
@@ -50,7 +50,7 @@
     }
 
     .breadcrumb-right-arrow .breadcrumb-item+.breadcrumb-item::before {
-        content: "â€º";
+        content: "›";
         vertical-align:top;
         font-size:40px;
         line-height:15px;
@@ -154,7 +154,7 @@
                             <div class="paddingLine mt-4">
                                 
                                 <h5>
-                                    <span class="font-weight-bold">ENFA NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
+                                    <span class="font-weight-bold">EIOM NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
                                 </h5>
                                
                                 <hr class='hr-bold-line' />
@@ -218,7 +218,7 @@
                                             <td><?php echo $mRecord['total_budget_esc'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -584,7 +584,7 @@
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th>Sl No.</th>
-                                            <th colspan="2" style="width: 60%;">Contract Package â€“ <?php echo $mRecordAppointment['contract_package_works_label'] ?></th>
+                                            <th colspan="2" style="width: 60%;">Contract Package – <?php echo $mRecordAppointment['contract_package_works_label'] ?></th>
                                             <th>Remarks</th>
                                         </tr>
                                     </thead>
@@ -853,7 +853,7 @@
                                         <div class="row mt-4">
                                             <div class="col-lg-12 text-center">
                                                 <a href="<?php echo base_url('nfa/AwardContractEsign/esignedPdf/' . $mId . "/E"); ?>" target="_blank">
-                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print NFA</button>
+                                                    <button type="button" class="btn btn-primary border-secondary rounded font-weight-bold w-300">Print IOM</button>
                                                 </a>
                                             </div>
                                         </div>
