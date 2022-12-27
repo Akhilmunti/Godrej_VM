@@ -185,7 +185,7 @@ class Award_contract extends ListNfa
 			$total_expected_savings  = $this->input->post('total_expected_savings');
 			$total_finalized_award_value = (float)$total_finalized_award_value;
 			//Apointment Data
-			$contract_package_works_label = $this->input->post('contract_package_works_label');
+			//$contract_package_works_label = $this->input->post('contract_package_works_label');
 			$milestone_label = $this->input->post('milestone_label');
             $contract_package_works_value = $this->input->post('contract_package_works_value');
             $contract_package_works_remarks = $this->input->post('contract_package_works_remarks');
@@ -460,7 +460,7 @@ class Award_contract extends ListNfa
 					//Appointment Data
 					$nfaAppointmentData = array(
 						'salient_id' => $mId,
-						'contract_package_works_label' => $contract_package_works_label,
+						//'contract_package_works_label' => $contract_package_works_label,
 						'milestone_label' => $milestone_label,
 						'contract_package_works_value' => $contract_package_works_value,
 						'contract_package_works_remarks' => $contract_package_works_remarks,
@@ -796,7 +796,7 @@ class Award_contract extends ListNfa
 						{
 							$nfaAppointmentData = array(
 								'salient_id' => $mInsert,
-								'contract_package_works_label' => $contract_package_works_label,
+								//'contract_package_works_label' => $contract_package_works_label,
 								'milestone_label' => $milestone_label,
 								'contract_package_works_value' => $contract_package_works_value,
 								'contract_package_works_remarks' => $contract_package_works_remarks,

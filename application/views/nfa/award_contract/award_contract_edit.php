@@ -265,7 +265,7 @@ $this->load->view('buyer/partials/header'); ?>
 										
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -723,8 +723,8 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <th>Sr No.</th>
                                            <th style="width:60%" colspan="2">
-                                                <label>Contract Package</label>
-                                                <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label"  value="<?php echo $mRecordAppointment['contract_package_works_label'] ?>" >
+                                                <label>Description</label>
+                                                <!-- <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label"  value="<?php echo $mRecordAppointment['contract_package_works_label'] ?>" > -->
                                             </th>
                                             <th>Remarks</th>
                                         </tr>

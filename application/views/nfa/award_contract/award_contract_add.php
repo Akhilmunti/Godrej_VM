@@ -254,7 +254,7 @@
                                                 <td id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
-                                                <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                                <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
                                                 <td>
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value1" required>
                                                 </td>
@@ -306,7 +306,7 @@
                                                 <td>
                                                     <label>Last Awarded Benchmark with Date</label>
                                                     <div data-tip="Please enter project name and date of award">
-                                                        <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" required>
+                                                        <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" onblur="show_bidders();" required>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -454,8 +454,8 @@
                                             <tr class='text-center'>
                                                 <th>Sr No.</th>
                                                 <th style="width:60%" colspan="2">
-                                                    <label>Contract Package</label>
-                                                    <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label">
+                                                    <label>Description</label>
+                                                    <!-- <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label"> -->
                                                 </th>
                                                 <th>Remarks</th>
                                             </tr>
@@ -1627,6 +1627,7 @@
                 tr12.classList.add("total-hide");
                 tr13.classList.add("total-hide");
             }
+            
         }
         
     </script>

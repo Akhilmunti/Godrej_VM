@@ -42,7 +42,7 @@
     }
 
     .breadcrumb-dot .breadcrumb-item+.breadcrumb-item::before {
-        content: "•";
+        content: "â€¢";
     }
 
     .breadcrumb-bar .breadcrumb-item+.breadcrumb-item::before {
@@ -50,7 +50,7 @@
     }
 
     .breadcrumb-right-arrow .breadcrumb-item+.breadcrumb-item::before {
-        content: "›";
+        content: "â€º";
         vertical-align:top;
         font-size:40px;
         line-height:15px;
@@ -218,7 +218,7 @@
                                             <td><?php echo $mRecord['total_budget_esc'] ?> Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -584,7 +584,8 @@
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th>Sl No.</th>
-                                            <th colspan="2" style="width: 60%;">Contract Package – <?php echo $mRecordAppointment['contract_package_works_label'] ?></th>
+                                            <!-- <th colspan="2" style="width: 60%;">Contract Package â€“ <?php echo $mRecordAppointment['contract_package_works_label'] ?></th> -->
+                                            <th colspan="2" style="width: 60%;">Description</th>
                                             <th>Remarks</th>
                                         </tr>
                                     </thead>
