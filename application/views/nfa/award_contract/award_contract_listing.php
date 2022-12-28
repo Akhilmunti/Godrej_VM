@@ -8,6 +8,10 @@
         padding: 7px;
         font-size: 13px;
     }
+
+    .word {
+        width: 350px;
+    }
 </style>
 
 
@@ -87,17 +91,24 @@
                                     </div>
 
                                     <div class="table-responsive">
-                                        <table id="example" class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
+                                        <table id="example" class="table table-bordered table-hover display margin-top-10 w-p100">
                                             <thead>
                                                 <tr class='text-center'>
                                                     <th>Sl. No</th>
                                                     <th>EIOM No.</th>
+                                                    <?php if($mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="Head of Contracts & Procurement" || $mSessionRole=="Managing Director")
+                                                    {
+                                                    
+                                                    ?>
+                                                        <th>Zone</th>  
+                                                    <?php 
+                                                    }
+                                                    ?>                                           
                                                     <th>Project Name</th>
                                                     <th>Package Name</th>
-                                                    <th>Actions</th>
-                                                    <th>Scope of Work</th>
-                                                    <th>IOM Status</th>
-                                                    <th>Zone</th>                                             
+                                                    <th style="white-space: nowrap;">Actions</th>
+                                                    <th style="white-space: nowrap;">Scope of Work</th>
+                                                    <th style="white-space: nowrap;">IOM Status</th>
                                                         
                                                 </tr>
                                             </thead>
@@ -121,6 +132,14 @@
                                                             <td>
                                                                 <p><?php echo $record['version_id']; ?></p>
                                                             </td>
+                                                            <?php if($mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="Head of Contracts & Procurement" || $mSessionRole=="Managing Director" )
+                                                            {                                                            
+                                                            ?>
+                                                                <td>                                                            
+                                                                <p><?php echo $record['zone']; ?></p>
+                                                                </td> 
+                                                            <?php 
+                                                            }?>
                                                             <td>
                                                             <p>
                                                                 <?php echo $record['project_name']; ?>
@@ -130,87 +149,94 @@
                                                             <p><?php echo $record['package_name']; ?></p>
                                                             </td>
                                                             
-                                                            <td>
-                                                                <!--  -->
-                                                            <?php if( $record['status']==1 && $record['nfa_status']=='SA') { ?>
-                                                                  
-                                                                <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
-                                                                    <button type="button" class="btn btn-primary rounded buttonPadding"> Approve IOM</button>
-                                                                </a>
-                                                                <?php } else {?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
-                                                                    <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
-                                                                </a>
-                                                                    <?php } ?>
-                                                                <?php if($mSessionRole=="PCM" && $record['status']==0)
-                                                                 { 
-                                                                    if($record['nfa_status']=='AMD')
+                                                              <td style="white-space: nowrap;">
+                                                               
+                                                                        <?php if( $record['status']==1 && $record['nfa_status'] =='SA' && $mSessionRole =="PCM")
                                                                     { ?>
-                                                                       <a href="<?php echo base_url('nfa/Award_contract/actionEdit/'. $record['id']."/AMD"); ?>">
-                                                                       <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Edit</button>
-                                                                       </a>
-                                                                    <?php 
-                                                                    }
-                                                                    else if($record['nfa_status']!='C')
-                                                                    {
-                                                                    ?>
-                                                                        <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
-                                                                            <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
-                                                                        </a>
-                                                                   
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/cancel/' . $record['id']); ?>">
-                                                                        <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Cancel</button>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
+                                                                                    <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                                </a>
+                                                                    <?php }?>
+                                                                    <?php if( $record['status']==1 && $record['nfa_status']=='SA' && $record['approved_status']== 0 && $mSessionRole !=="PCM")
+                                                                    { ?>
+                                                                        
+                                                                    <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
+                                                                        <button type="button" class="btn btn-primary rounded buttonPadding"> Approve IOM</button>
                                                                     </a>
+                                                                        <?php } else {?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
+                                                                            <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
+                                                                        </a>
+                                                                            <?php } ?>
+                                                                        <?php if($mSessionRole=="PCM" && $record['status']==0)
+                                                                        {                                                                    
+                                                                            if($record['nfa_status']=='AMD')
+                                                                            { ?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/actionEdit/'. $record['id']."/AMD"); ?>">
+                                                                            <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Edit</button>
+                                                                        </a>
+                                                                        <?php 
+                                                                        }
+                                                                        else if($record['nfa_status']!='C')
+                                                                        {
+                                                                        ?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
+                                                                                <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                            </a>
+                                                                    
+                                                                        <a href="<?php echo base_url('nfa/Award_contract/cancel/' . $record['id']); ?>">
+                                                                            <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Cancel</button>
+                                                                        </a>
                                                                
                                                                 
-                                                                <?php 
-                                                                    }
-                                                                }
-                                                                if($mSessionRole == "PCM" && $record['status']==1 && $record['nfa_status']=='AMD')
-                                                                { 
-                                                                ?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/actionEdit/'. $record['id']."/AMD"); ?>">
-                                                                    <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Edit</button>
-                                                                    </a>
-                                                                <?php 
-                                                                }
-                                                                if($mSessionRole == "PCM" && $record['status']!=0 && $record['nfa_status']=='R')
-                                                                { 
-                                                                ?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']."/RF"); ?>">
-                                                                    <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Refloat</button>
-                                                                    </a>
-                                                                <?php 
-                                                                }
-                                                                if($mSessionRole == "PCM" && $record['status']==1 && $record['nfa_status']=='RT')
-                                                                { 
-                                                                ?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
-                                                                    <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
-                                                                    </a>
-                                                                <?php 
-                                                                }
-                                                                if ($mSessionRole == "PCM" && $record['nfa_status']=='A') { ?>
-                                                                    <a href="<?php echo base_url('nfa/Award_contract/amend_nfa/'. $record['id']); ?>">
-                                                                        <button type="button" class="btn btn-danger rounded ml-2 buttonPadding">Ammend</button>
-                                                                    </a>
-                                                                <?php 
-                                                                }
-                                                                
-                                                                // if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
-                                                                // ?>
-                                                                     <!-- <a href="<?php //echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
-                                                                //         <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Esign</button>
-                                                                //     </a> -->
-                                                                 <?php 
-                                                                // }?>
-                                                                <a href="<?php echo base_url('nfa/Award_contract/view_logs/'. $record['id']); ?>">
-                                                                    <button type="button" class="btn btn-primary rounded buttonPadding ml-2">IOM Logs</button>
-                                                                </a>
+                                                                        <?php 
+                                                                            }
+                                                                        }
+                                                                        if($mSessionRole == "PCM" && $record['status']==1 && $record['nfa_status']=='AMD')
+                                                                        { 
+                                                                        ?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/actionEdit/'. $record['id']."/AMD"); ?>">
+                                                                            <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Edit</button>
+                                                                            </a>
+                                                                        <?php 
+                                                                        }
+                                                                        if($mSessionRole == "PCM" && $record['status']!=0 && $record['nfa_status']=='R')
+                                                                        { 
+                                                                        ?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']."/RF"); ?>">
+                                                                            <button type="button" class="btn btn-danger rounded buttonPadding ml-2">Refloat</button>
+                                                                            </a>
+                                                                        <?php 
+                                                                        }
+                                                                        if($mSessionRole == "PCM" && $record['status']==1 && $record['nfa_status']=='RT')
+                                                                        { 
+                                                                        ?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/actionEdit/' . $record['id']); ?>">
+                                                                            <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                            </a>
+                                                                        <?php 
+                                                                        }
+                                                                        if ($mSessionRole == "PCM" && $record['nfa_status']=='A') { ?>
+                                                                            <a href="<?php echo base_url('nfa/Award_contract/amend_nfa/'. $record['id']); ?>">
+                                                                                <button type="button" class="btn btn-danger rounded ml-2 buttonPadding">Ammend</button>
+                                                                            </a>
+                                                                        <?php 
+                                                                        }
+                                                                        
+                                                                        // if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
+                                                                        // ?>
+                                                                            <!-- <a href="<?php //echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
+                                                                        //         <button type="button" class="btn btn-success rounded ml-2 buttonPadding">Esign</button>
+                                                                        //     </a> -->
+                                                                        <?php 
+                                                                        // }?>
+                                                                        <a href="<?php echo base_url('nfa/Award_contract/view_logs/'. $record['id']); ?>">
+                                                                            <button type="button" class="btn btn-primary rounded buttonPadding ml-2">IOM Logs</button>
+                                                                        </a>
                                                             </td>
 
                                                             <td>
-                                                            <p><?php echo $record['scope_of_work']; ?></p>
+                                                            <p class="word"><?php echo $record['scope_of_work']; ?></p>
                                                             </td>
 
                                                             <td>
@@ -243,13 +269,7 @@
 
                                                                     ?>			
                                                                 </p>
-                                                            </td> 
-                                                            <td>
-                                                            <p><?php echo $record['zone']; ?></p>
-                                                            </td> 
-                                                           
-                                                                                                               
-                                                            
+                                                            </td>                                                           
                                                            
                                                         </tr>
 

@@ -136,7 +136,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 					
 					<div class="d-block mb-4">
-                        <h5 class="page-title br-0 font-weight-bold">ENFA No : <?php echo $mRecord['version_id'] ?></h5>
+                        <h5 class="page-title br-0 font-weight-bold">EIOM No : <?php echo $mRecord['version_id'] ?></h5>
                     </div>
 
                     <div class="box">
@@ -162,7 +162,7 @@ $this->load->view('buyer/partials/header'); ?>
 									<div class='form-group'>
 										<label class="font-weight-bold">Scope of Work</label>
 										<input type='text' class="form-control" placeholder="" 
-										name="scope_of_work" id="scope_of_work" value="<?php echo  $mRecord['scope_of_work'] ?>">
+										name="scope_of_work" id="scope_of_work" value="<?php echo  $mRecord['scope_of_work'] ?>" maxlength="200">
 									</div>
 								</div>
 							</div>
@@ -207,7 +207,7 @@ $this->load->view('buyer/partials/header'); ?>
                                                 <?php foreach($mRecordPackage as $key=>$val)
 											{	
 											?>
-												<th scope="col">
+												<th style="min-width: 150px;" scope="col">
 													<label class="cust_th">Package name*</label>
 													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders(this);">
 												</th>
@@ -227,7 +227,7 @@ $this->load->view('buyer/partials/header'); ?>
 											 	
 											 ?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1(this.id);" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
+                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
                                             </td> 
                                             <?php 
 											}
@@ -253,7 +253,7 @@ $this->load->view('buyer/partials/header'); ?>
 											</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Finalized Proposed Award Value (Excl Tax)</td>
+                                            <td><span class="font-weight-bold">Finalized Proposed Award Value (Excl Tax)</span></td>
 										 <?php foreach($mRecordPackage as $key=>$val)
 											{
 												$id_index = $key+1;
@@ -262,7 +262,7 @@ $this->load->view('buyer/partials/header'); ?>
 																						
 											?>
                                             <td>
-                                                <input oninput="allowNumOnly(this)"   type='text' onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1(this.id);" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package<?php echo $id_index;?>" value="<?php echo $val['finalized_award_value_package'] ?> Cr"  >
+                                                <input oninput="allowNumOnly(this)"   type='text' onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1();" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package<?php echo $id_index;?>" value="<?php echo $val['finalized_award_value_package'] ?> Cr"  >
                                             </td>
                                            <?php 
 											}?> 
@@ -289,7 +289,7 @@ $this->load->view('buyer/partials/header'); ?>
 											
                                         </tr>
 										<tr class='text-center'>
-                                            <td>Recommended Vendors</td>
+                                            <td><span class="font-weight-bold">Recommended Vendors</span></td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{
 												$id_index = $key+1;
@@ -381,6 +381,8 @@ $this->load->view('buyer/partials/header'); ?>
                                     </tbody>
                                 </table>
                             </div>
+			<?php  if($type_work_id == 1 ||  $type_work_id == 3 || $type_work_id == 4)
+                                {?>
 
                             <div class="row mt-4">
 
@@ -393,6 +395,7 @@ $this->load->view('buyer/partials/header'); ?>
                                 </div>
 
                             </div>
+			<?php }?>
 								
 							
 							<div class="row mt-30">
@@ -679,7 +682,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 											</td>
                                             <td>
-                                                <input type='date' class="form-control" name="bidder_approval_date" id="bidder_approval_date"  onchange="validate_greater_appr_date(this)"  value="<?php echo $mRecordAwdContract['bidder_approval_date'] ?>" >
+                                                <input type='date' class="form-control" name="bidder_approval_date" id="bidder_approval_date"   value="<?php echo $mRecordAwdContract['bidder_approval_date'] ?>" >
 												<span id="bidder_approval_date_err"></span>
 											</td>
                                             <td>
@@ -751,7 +754,7 @@ $this->load->view('buyer/partials/header'); ?>
 												{
 													$package_id = $val['package_id'];
 													$salient_id = $val['salient_id'];	
-													$majorTerms_desc = $CI->awardRecommContract->getMajorTerms($salient_id,$package_id,$term);
+													$majorTerms_desc = $CI->awardRecommProcurement->getMajorTerms($salient_id,$package_id,$term);
 													
 													$term_label_value_arr[$key] = $majorTerms_desc->term_label_value;
 												}
@@ -874,6 +877,8 @@ $this->load->view('buyer/partials/header'); ?>
 							 foreach ($getLevels as $key => $valLevel) {
 								 $role = $valLevel->role;
 								 $approver_id = $valLevel->approver_id;
+								$approved_status = $valLevel->approved_status;
+
 								
 								if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
 									$getUsers = $CI->getRoleUsers_approval($role);
@@ -884,7 +889,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 								<div id="pm" class="col-md-3 mb-3">
 									<lable><?php echo $role;?></lable>
-									<select name="approver_id[]"   class="form-control" required >
+									<select name="approver_id[]"   class="form-control" required <?php echo ($approved_status==1) ? "disabled": "";?> >
 										<option disabled="" selected="" value="">Select</option>
 										<option value="0" <?php echo ($approver_id==0) ? "selected": "";?>>Not Applicable</option>
 										<?php  
@@ -1110,13 +1115,13 @@ function package_bidders_procurement(label_obj){
 		$('#diffCrs_row').find('td:gt(1)').remove();
 		$('#diffPercent_row').find('td:gt(1)').remove();
 
-		let _th=`<th style="width:20%"><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_pro(this);"></th>`;
+		let _th=`<th style="min-width: 150px;"><label class='cust_th'>Package name*</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders_pro(this);"></th>`;
 
-		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1(this.id);" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
+		let _budget_incl=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc"></td>`;
 
 		let _negotiated_val=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value'); " class="form-control _negotiated_val_td onMouseOutClass" name="package_negot_value[]" id="package_negot_value"></td>`;
 
-		let _finalized=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1(this.id);" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" required></td>`;
+		let _finalized=`<td><input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1();" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" required></td>`;
 
 		let _exp_saving=`<td><input type='text' oninput="allowNumOnly(this)" onblur="" class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v" readonly></td>`;
 
@@ -1918,7 +1923,7 @@ function getLevelApprovers(){
 			setGpl_budget();
 			showBidders_finalized();
 			getBidders_total();
-            setMajorTerms_package1();
+            setMajorTerms_package();
 
 		});
 
@@ -1927,14 +1932,14 @@ function getLevelApprovers(){
 	} 
 
 		
-		function  setMajorTerms_package1(){
+		function  setMajorTerms_package(){
 	
 			var package_count = $('#package_count').find(":selected").text();
 			for(i=1;i<=package_count;i++)
 			{
 				package_name= $("#package_label"+i).val(); 
 		
-				$("#term_label"+i).val("Package "+package_name); 
+				$("#pckLabel"+i).text(package_name); 
 		
 			}
 	
@@ -2173,9 +2178,10 @@ function score_color1(){
 	
 }
 
-		function calculateSum1_v1(ele_id)
+				 function calculateSum1_v1()
         {
             
+          
                             
                 var total_sum=0;
                 var total_expected_savings=0;
@@ -2187,7 +2193,7 @@ function score_color1(){
                 var finalized_award_value_package;
                 var anticipated_rate;
                 var package_budget_esc
-                var index = ele_id[ele_id.length -1];
+                // var index = ele_id[ele_id.length -1];
                 var package_count = $('#package_count').find(":selected").text();
                 var salient_id = $("#salient_id").val();
                 
@@ -2205,9 +2211,10 @@ function score_color1(){
                         $("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
                     }
                     else
-                        $("#post_basic_rate_package"+i).val(0+" Cr");
-                    
-                    //expected_savings_package = (parseFloat(sum_proposed)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+                            {   
+                                $("#post_basic_rate_package"+i).val(0+" Cr");
+                            }                    
+                                                //expected_savings_package = (parseFloat(sum_proposed)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
                     expected_savings_package = (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
                     expected_savings_package = parseFloat(expected_savings_package) || 0;			
 
@@ -2228,6 +2235,8 @@ function score_color1(){
                 }
 
                 if(!isNaN(total_sum)) {
+                    total_expected_savings = parseFloat(total_expected_savings) || 0;
+
                     $("#total_post_basic_rate").val(total_sum.toFixed(2)+" Cr"); 
                 }
                 else
@@ -2237,7 +2246,8 @@ function score_color1(){
                     total_budget = $("#total_budget_esc").val();
                     total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
                     total_expected = parseFloat(total_expected) || 0;
-  
+
+                    total_expected_savings = parseFloat(total_expected_savings) || 0;
                     $("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 
 	
                     //$("#total_expected_savings").val(total_expected_savings.toFixed(2)+"%"); 
@@ -2255,8 +2265,7 @@ function score_color1(){
                 
                 // Get max level of Approvers
                 
-                if(index==package_count)
-                {
+                
                 
                     var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
                     
@@ -2270,13 +2279,14 @@ function score_color1(){
                                 
                                 });
                 
-                }
+                
 
                 //Expected Savings -Percentage
                 getExpectedSavings();
                 //showBidposition();
                 finalized_total();
         }
+
 
 
 	  // change approval list according to ho_approval

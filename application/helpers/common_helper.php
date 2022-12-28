@@ -59,7 +59,8 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 		
 		// send email
 		
-		 $to = $approver_mail;
+		 //$to = $approver_mail;
+		 $to = "labour.app@godrejproperties.com";
 		
 		 $subject = "IOM for Approval: $mSubject: $package_value_mail ";
 		 
@@ -168,13 +169,14 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 		 
 		 
 		 $retval = mail ($to,$subject,$message,$header);
+		 //$retval = wSendMail($to, $subject, $message);
 		 
 		 if( $retval == true ) {
 			echo "Message sent successfully...";
 		 }else {
 			echo "Message could not be sent...";
 		 }
-        
+      
     }
 	
 	//Send mail to all below levels while approve NFA
@@ -182,7 +184,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 		
 	
 		$mSubject=strip_tags($mSubject);
-
+		$receiver_arr=array("gpl.contractsprocurement"=>"gpl.contractsprocurement@godrejproperties.com","labour.app"=>"labour.app@godrejproperties.com");
 		 foreach($receiver_arr as $key=>$val)
 		 {
 			 $to = $val;
@@ -335,6 +337,8 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 
 			 
 			 $retval = mail ($to,$subject,$message,$header);
+			 //$retval = wSendMail($to, $subject, $message);
+			
 			
 			 if( $retval == true ) {
 				echo "Message sent successfully...";
@@ -349,6 +353,43 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
         
     }
 	
+	//SMTP Mail
+	function wSendMail($mTo, $mSubject, $mMessage) {
+
+        //$this->load->library('email');
+		$ci =& get_instance();
+		$ci->load->library('email');
+        $config['protocol'] = 'smtp';
+        $config['smtp_host'] = '10.21.48.220';
+        $config['smtp_port'] = 25;
+        $config['smtp_timeout'] = '60';
+        $config['smtp_crypto'] = 'tsl';
+        $config['smtp_user'] = EMAIL;
+        $config['smtp_pass'] = EMAIL_PASSWORD;
+        $config['charset'] = 'utf-8';
+        $config['newline'] = "\r\n";
+        $config['mailtype'] = 'html';
+        $config['validation'] = FALSE;
+        /*$this->email->initialize($config);
+        $this->email->from(EMAIL, EMAIL_FROM_TEXT);
+        $this->email->to($mTo);
+        $this->email->subject($mSubject);
+        $this->email->message($mMessage);*/
+		$ci->email->initialize($config);
+        $ci->email->from(EMAIL, EMAIL_FROM_TEXT);
+        $ci->email->to($mTo);
+        $ci->email->subject($mSubject);
+        $ci->email->message($mMessage);
+        $send = $ci->email->send();
+        if ($send) {
+            return 1;
+        } else {
+            //$error = $ci->email->print_debugger(array('headers'));
+            //return json_encode($error);
+			return 0;
+        }
+    }
+ 
 	
 	function approverDetails($mRecordApprovers)
 	{

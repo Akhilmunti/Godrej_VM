@@ -147,7 +147,7 @@
                             <div class="paddingLine">
                                 
                                 <h5>
-                                    <span class="font-weight-bold">ENFA NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
+                                    <span class="font-weight-bold">EIOM NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
                                 </h5>
                                
                                 <hr class='hr-bold-line' />
@@ -182,13 +182,13 @@
                                     </thead>
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
-                                            <th style="width:34%">Description</th>
+                                            <th style="width:24%">Description</th>
 											 <?php 
 										 
 										 foreach($mRecordPackage as $key=>$val)
 											{	
 											?>
-                                            <th scope="col" ><?php echo  $val['package_name']; ?></th>
+                                            <th scope="col" style="min-width: 150px;" ><?php echo  $val['package_name']; ?></th>
                                            <?php 
 											}?> 
                                             <th scope="col" style="width:18%">Total</th>
@@ -328,9 +328,12 @@
                             </div>
 
                             <div class="paddingLine mt-4">
+				<?php  if($type_work_id == 1 ||  $type_work_id == 3 || $type_work_id == 4)
+                                {?>
                                 <h5>
                                     <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?></span>
                                 </h5>
+				<?php }?>
                                
                                 <hr class='hr-bold-line' />
                                 

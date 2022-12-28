@@ -110,7 +110,7 @@ class Award_procurement extends ListNfa
 			if($mId=='')
 			{
 				$version_dt =  date("Ymdhis");
-				$version_id =  "arp".$version_dt."_00";
+				$version_id =  "IOMP".$version_dt."_00";
 				
 			}
 			else if($updType=="RF")
@@ -858,6 +858,8 @@ class Award_procurement extends ListNfa
 			$data['projects'] = $this->projects->getAllParent();
 			$awdType = "Procurement";
 			$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$type_work_id,'',$zone);
+			
+			
 			
 			
             $this->load->view('nfa/award_procurement/award_recomm_procurement_list', $data);

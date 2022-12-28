@@ -209,7 +209,7 @@
                                     <div class="col-lg-12">
                                         <div class='form-group'>
                                             <label class="font-weight-bold">Scope of Work</label>
-                                            <input type='text' class="form-control" placeholder="" name="scope_of_work" id="scope_of_work">
+                                            <input type='text' class="form-control" placeholder="" name="scope_of_work" id="scope_of_work" maxlength="200">
                                         </div>
                                     </div>
 
@@ -254,7 +254,7 @@
                                                 <td id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
-                                                <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
+                                                <td>Negotiated Value (Excl. Tax)-Pre Final Round</td>
                                                 <td>
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value1" required>
                                                 </td>
@@ -1489,19 +1489,22 @@
             return Math.round(days1);
         }
       
-        $('#receipt_date').blur(function() {
+        $('#receipt_date').change(function() {
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
             calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
 
         });
-        $('#bidder_approval_date').blur(function() {
+        $('#bidder_approval_date').change(function() {
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
             calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
+	    var bidder_approval_date = $("#bidder_approval_date").val();
+            calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
+
 
         });
-        $('#award_recomm_date').blur(function() {
+        $('#award_recomm_date').change(function() {
             var bidder_approval_date = $("#bidder_approval_date").val();
             var award_recomm_date = $("#award_recomm_date").val();
             calculateDays_betDates(bidder_approval_date, award_recomm_date, "award_recomm_days");

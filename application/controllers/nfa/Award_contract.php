@@ -989,6 +989,7 @@ class Award_contract extends ListNfa
 			$awdType = "Contract";
 			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,'',$zone);
 			
+			
             $this->load->view('nfa/award_contract/award_contract_listing', $data);
         } else {
             $this->load->view('index', $data);

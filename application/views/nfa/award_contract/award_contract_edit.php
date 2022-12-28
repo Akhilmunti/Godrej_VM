@@ -265,7 +265,7 @@ $this->load->view('buyer/partials/header'); ?>
 										
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Negotiated Value (Excl. Tax) â€“ Pre Final Round</td>
+                                            <td>Negotiated Value (Excl. Tax) - Pre Final Round</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -359,7 +359,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>
                                                 <label>Last Awarded Benchmark with Date</label>
                                                 <div data-tip="Please enter project name and date of award">
-                                                <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" required value="<?php echo $mRecordAwdContract['benchmark_label'] ?>">
+                                                <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" required value="<?php echo $mRecordAwdContract['benchmark_label'] ?>" onblur="show_bidders();">
                                                 </div>
                                             </td>
 										 <?php foreach($mRecordPackage as $key=>$val)
@@ -476,7 +476,9 @@ $this->load->view('buyer/partials/header'); ?>
 							<div class="mt-4">
                                 <h5>How many Bidders participated?</h5>
                                 <select id="bidder_count" name="bidder_count" required="" style="width:25%;" class="form-control" > 
-									<?php for($bcount=0;$bcount<9;$bcount++)
+									<?php //for($bcount=0;$bcount<9;$bcount++)
+									$bcount_start =  $mRecord['bidder_count'];
+									for($bcount =$bcount_start-1;$bcount<9;$bcount++)
 									{
 										$bidVal = $bcount+1;
 										?>	
@@ -790,7 +792,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>C</td>
                                             <td>CBE of contractor Appointment</td>
                                             <td>
-                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();" onchange="validate_receipt_date();"  value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>" >
+                                                <input type='date' class="form-control" style="width: 100%;" name="activity_cbe_date" id="activity_cbe_date" onblur="calculateDays();"   value="<?php echo $mRecordAppointment['activity_cbe_date'] ?>" >
                                             </td>
                                             <td>
                                                 <textarea class="form-control" rows="2" name="activity_cbe_remarks" id="activity_cbe_remarks"><?php echo $mRecordAppointment['activity_cbe_remarks'] ?></textarea>
@@ -856,7 +858,7 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <td>Date</td>
                                             <td>
-                                                <input type='date' class="form-control" name="receipt_date" id="receipt_date" value="<?php echo $mRecordAwdContract['receipt_date'] ?>" onchange="validate_receipt_date();"><span id="date_cmp_err"></span>
+                                                <input type='date' class="form-control" name="receipt_date" id="receipt_date" value="<?php echo $mRecordAwdContract['receipt_date'] ?>" >
                                             </td>
                                             <td>
                                                 <input type='date' class="form-control" name="bidder_approval_date" id="bidder_approval_date" value="<?php echo $mRecordAwdContract['bidder_approval_date'] ?>" >
@@ -1056,6 +1058,7 @@ $this->load->view('buyer/partials/header'); ?>
 							 foreach ($getLevels as $key => $valLevel) {
 								$role = $valLevel->role;
 								$approver_id = $valLevel->approver_id;
+ 								$approved_status = $valLevel->approved_status;
 								
 								if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
 									$getUsers = $CI->getRoleUsers_approval($role);
@@ -1068,7 +1071,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 								<div id="pm" class="col-md-3 mb-3">
 									<lable><?php echo $role;?></lable>
-									<select name="approver_id[]"   class="form-control" required >
+									<select name="approver_id[]"   class="form-control" required   >
 										<option disabled="" selected="" value="">Select</option>
 										<option value="0" <?php echo ($approver_id==0) ? "selected": "";?>>Not Applicable</option>
 										<?php 
@@ -2018,19 +2021,21 @@ $this->load->view('buyer/partials/header'); ?>
 		return Math.round(days);  		
 	}  
 
-$('#receipt_date').blur(function(){
+$('#receipt_date').change(function(){
 	var receipt_date= $("#receipt_date").val(); 
 	var bidder_approval_date = $("#bidder_approval_date").val();
 	calculateDays_betDates(receipt_date,bidder_approval_date,"bidder_approval_days");
   
 });
-$('#bidder_approval_date').blur(function(){
+$('#bidder_approval_date').change(function(){
 	var receipt_date= $("#receipt_date").val(); 
 	var bidder_approval_date = $("#bidder_approval_date").val();
 	calculateDays_betDates(receipt_date,bidder_approval_date,"bidder_approval_days");
+	var award_recomm_date = $("#award_recomm_date").val();
+	calculateDays_betDates(bidder_approval_date,award_recomm_date,"award_recomm_days");
   
 });
-$('#award_recomm_date').blur(function(){
+$('#award_recomm_date').change(function(){
 	var bidder_approval_date = $("#bidder_approval_date").val();
 	var award_recomm_date = $("#award_recomm_date").val();
 	calculateDays_betDates(bidder_approval_date,award_recomm_date,"award_recomm_days");
