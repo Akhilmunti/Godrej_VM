@@ -499,6 +499,11 @@ class Vendor extends CI_Controller {
                 $data['getVendor'] = $this->register->getVendor();
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
+                $awdType = "Contract";
+                $projects = $data['projects'];
+                $mProjectId = $projects[0]['project_id'];
+                $data['pending_iom'] = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                $data['pending_iom_count']= sizeof($data['pending_iom']);
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
@@ -668,6 +673,14 @@ class Vendor extends CI_Controller {
                 $data['getVendor'] = $this->register->getVendor();
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $mProject);
+                $projects = $data['projects'];
+                $project = $data['project'];
+                if ($project['project_id']) {
+                    $mProjectId= $project['project_id'];
+                } else {
+                    $mProjectId= $projects[0]['project_name'];
+                }
+                
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
