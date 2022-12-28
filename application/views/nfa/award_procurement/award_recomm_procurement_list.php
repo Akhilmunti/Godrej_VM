@@ -127,7 +127,7 @@
                                                                <?php if( $record['status']==1 && $record['nfa_status'] =='SA' && $mSessionRole =="PCM")
                                                                    { ?>
                                                                            <a href="<?php echo base_url('nfa/Award_procurement/actionEdit/' . $record['id']); ?>">
-                                                                                   <button type="button" class="btn btn-success rounded buttonPadding ml-2">Edit</button>
+                                                                                   <button type="button" class="btn btn-success rounded buttonPadding mr-2">Edit</button>
                                                                                </a>
                                                                    <?php }?>
                                                                    <?php if( $record['status']==1 && $record['nfa_status']=='SA' && $record['approved_status']== 0 && $mSessionRole !=="PCM")

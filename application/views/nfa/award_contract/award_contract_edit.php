@@ -178,7 +178,7 @@ $this->load->view('buyer/partials/header'); ?>
 		<?php $this->load->view('nfa/common_iom_header.php'); ?>
 
 			<div class="d-block mb-4">
-                        <h5 class="page-title br-0 font-weight-bold">ENFA No : <?php echo $mRecord['version_id'] ?></h5>
+                        <h5 class="page-title br-0 font-weight-bold">EIOM No : <?php echo $mRecord['version_id'] ?></h5>
                     </div>
 
                     <div class="box">
