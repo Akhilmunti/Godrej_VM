@@ -286,7 +286,7 @@
                                                 <td>
                                                     <label>Last Awarded Benchmark with Date</label>
                                                     <div data-tip="Please enter project name and date of award">
-                                                        <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" required>
+                                                        <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" onblur="show_bidders_procurement();" required>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -475,7 +475,8 @@
                                 </div>
 			    	<div class="d-block mt-4">
                                    					
-                                    <div class="d-block mt-4">
+                                    	
+					<div class="d-block mt-4">
                                         <h5 class="page-title br-0 font-weight-bold">Major Terms and Conditions</h5>
                                     </div>
 
@@ -487,8 +488,7 @@
                                                     <th style="width:25%">Terms</th>
                                                     <th style="width:55%"><label for="term_label">Description</label>
                                                     <div style="display:flex ;">
-                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1"></label>
-                                                    <input type='text'class="form-control" placeholder="" name="term_label[]" id="term_label1" required readonly></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label2" required readonly></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label3" required readonly></div></div></th>
+                                                    <div style="width: 100%;" class="mr-2"><label id="pckLabel1"></label><input type='text'class="form-control" placeholder="" name="term_label[]" id="term_label1" required readonly></div><div style="width: 100%;" class="sec1 mr-2"><label id="pckLabel2"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label2" required readonly></div><div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel3"></label><input type='text' class="form-control mr-2" placeholder="" name="term_label[]" id="term_label3" required readonly></div></div></th>
                                                     <th style="width:10%;">Action</th>
                                                 </tr>
                                             </thead>
@@ -514,6 +514,8 @@
                                             </button>
                                         </div>
                                     </div>
+
+                                   
 
                                     
 
@@ -824,49 +826,10 @@ function package_bidders_pro(label_obj) {
             }
         }
 
-        /* changing input value to cr */
-
-        //Calculate Sum for the first package
-        // function package_bidders(label_obj) {
-          
-        //     var base_url = $('#base').val();
-        //     var label_id = label_obj.id;
-           
-        //     var package_name;
-
-        //     var package_count = $('#package_count').find(":selected").text();
-           
-        //     package_name = label_obj.value;
-            
-        //     if (label_id == "package_label1")
-        //         var url = base_url + 'nfa/Award_procurement/show_package_bidders1';
-        //     else if (label_id == "package_label2")
-        //         var url = base_url + 'nfa/Award_procurement/show_package_bidders2';
-        //     else if (label_id == "package_label3")
-        //         var url = base_url + 'nfa/Award_procurement/show_package_bidders3';
-           
-        //     $.post(url, {
-                   
-        //             package_name: package_name
-        //         },
-        //         function(data, status) {
-                   
-        //             if (label_id == "package_label1")
-        //                 $('#package_row1').html(data);
-        //             else if (label_id == "package_label2")
-        //                 $('#package_row2').html(data);
-        //             else if (label_id == "package_label3")
-        //                 $('#package_row3').html(data);
-                   
-
-        //         });
-
-
-        // }
 
 
         function  setMajorTerms_package1(){
-            console.log("fdsfdsf major terms");
+           
             var package_count = $('#package_count').find(":selected").text();
             for(i=1;i<=package_count;i++)
             {
@@ -1463,6 +1426,7 @@ function package_bidders_pro(label_obj) {
 	var award_recomm_date = $("#award_recomm_date").val();
 	calculateDays_betDates(bidder_approval_date,award_recomm_date,"award_recomm_days");
         });
+
         $('#award_recomm_date').change(function() {
             var bidder_approval_date = $("#bidder_approval_date").val();
             var award_recomm_date = $("#award_recomm_date").val();
@@ -1494,79 +1458,64 @@ function package_bidders_pro(label_obj) {
         function calculateSum1_v1()
         {
             
-                            
-                var total_sum=0;
-                var total_expected_savings=0;
-                var sum=0;
-                var sum_proposed=0;
-                var condition_l1;
-                var l1_vendor1;
-                var package_value;
-                var finalized_award_value_package;
-                var anticipated_rate;
-                var package_budget_esc
-                
-                var package_count = $('#package_count').find(":selected").text();
-                var salient_id = $("#salient_id").val();
-                
-                for(i=1;i<=package_count;i++)
-                {
-                    finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
-                    sum= parseFloat(finalized_award_value_package);
-                    sum = parseFloat(sum) || 0;
-                    
-                    package_budget_esc = $("#package_budget_esc"+i).val();  
-                    sum_proposed+= parseFloat(finalized_award_value_package);
-                    
-                    if(!isNaN(sum_proposed)) {
-                        
-                        $("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
-                    }
-                    else
-                        $("#post_basic_rate_package"+i).val(0+" Cr");
-                    
-                    //expected_savings_package = (parseFloat(sum_proposed)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
-                    expected_savings_package = (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
-                    expected_savings_package = parseFloat(expected_savings_package) || 0;			
+       	var total_sum=0;
+	var total_expected_savings=0;
+	var sum=0;
+	var sum_proposed=0;
+	var condition_l1;
+	var l1_vendor1;
+	var package_value;
+	var finalized_award_value_package;
+	var anticipated_rate;
+	var package_budget_esc;
+	var total_finalized,total_budget,total_expected;
 
-                    if(!isNaN(expected_savings_package)) {
-
-                        $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
-                    }
-                    else
-                    {
-                        $("#expected_savings_package_v1"+i).val('0%'); 	
-
-                    }
-                
-                    
-                    total_sum = parseFloat(sum) || 0;
-
-                    
-                }
-
-                if(!isNaN(total_sum)) {
-                    total_expected_savings = parseFloat(total_expected_savings) || 0;
-
-                    $("#total_post_basic_rate").val(total_sum.toFixed(2)+" Cr"); 
-                }
-                else
-                    $("#total_post_basic_rate").val(0); 
-                if(!isNaN(total_expected_savings)) {
-                    total_finalized = $("#total_finalized_award_value").val();
-                    total_budget = $("#total_budget_esc").val();
-                    total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
-                    total_expected = parseFloat(total_expected) || 0;
-
-                    total_expected_savings = parseFloat(total_expected_savings) || 0;
-                    $("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 
+	var package_count = $('#package_count').find(":selected").text();
+	var salient_id = $("#salient_id").val();
 	
-                    //$("#total_expected_savings").val(total_expected_savings.toFixed(2)+"%"); 
-                }
-                else
-                    $("#total_expected_savings").val('0%'); 
+	for(i=1;i<=package_count;i++)
+	{
+		sum_proposed=0;
+		finalized_award_value_package= $("#finalized_award_value_package"+i).val(); 		 
+		package_budget_esc = $("#package_budget_esc"+i).val();  
+		sum_proposed+= parseFloat(finalized_award_value_package);
+		
+		if(!isNaN(sum_proposed)) {
+			console.log("sum calculatetesting"+sum_proposed);
+			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
+		}
+		else
+			$("#post_basic_rate_package"+i).val(0+" Cr");
+		
+		expected_savings_package =  (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+        expected_savings_package = parseFloat(expected_savings_package) || 0;			
 
+        
+        
+        $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
+			total_expected_savings += expected_savings_package; 
+		    total_sum += sum_proposed; 
+
+
+		
+	}
 	
+	if(!isNaN(total_sum)) {
+		$("#total_post_basic_rate").val(total_sum.toFixed(2)+" Cr"); 
+	}
+	else
+		$("#total_post_basic_rate").val(0); 
+	if(!isNaN(total_expected_savings)) {
+		console.log("calculate sum percentage");
+		total_finalized = $("#total_finalized_award_value").val();
+		console.log("total_finalized"+total_finalized);
+		total_budget = $("#total_budget_esc").val();
+		console.log("total_budget_esc"+total_budget);
+		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
+		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
+	}
+	else
+		$("#total_expected_savings").val('0%'); 	
                 
                 package_value= total_sum;
             
@@ -1628,45 +1577,66 @@ function getExpectedSavings1(){
       
         // change approval list according to ho_approval
         $('input[name=ho_approval]').change(function(){
-                var total_sum=0;
-                var total_expected_savings=0;
-                var sum=0;
-                var condition_l1;
-                var ho_approval;
-                var package_value;
-                var finalized_award_value_package;
-                var package_negot_value;
-                var package_budget_esc
-                
-                var package_count = $('#package_count').find(":selected").text();
-                var salient_id = $("#salient_id").val();
-                    
+               
             
-                        for(i=1;i<=package_count;i++)
-                        { 
-                            
-                            finalized_award_value_package = $("#finalized_award_value_package"+i).val();  
-                            sum= parseFloat(finalized_award_value_package);
-                            
-                            sum = parseFloat(sum) || 0;
-                            $("#post_basic_rate_package"+i).val(sum+" Cr"); 
-                            
-                            package_budget_esc = $("#package_budget_esc"+i).val();  
-                            expected_savings_package = (parseFloat(sum)-parseFloat(package_budget_esc) * 100)/parseFloat(package_budget_esc);
-                            
-                            
-                            expected_savings_package = parseFloat(expected_savings_package) || 0;			
-                            $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
-                            total_expected_savings += expected_savings_package; 
-                            total_sum += sum; 
+                 	var total_sum=0;
+	var total_expected_savings=0;
+	var sum=0;
+	var sum_proposed=0;
+	var condition_l1;
+	var l1_vendor1;
+	var package_value;
+	var finalized_award_value_package;
+	var anticipated_rate;
+	var package_budget_esc;
+	var total_finalized,total_budget,total_expected;
 
-                        }
+	var package_count = $('#package_count').find(":selected").text();
+	var salient_id = $("#salient_id").val();
+	
+	for(i=1;i<=package_count;i++)
+	{
+		sum_proposed=0;
+		finalized_award_value_package= $("#finalized_award_value_package"+i).val(); 		 
+		package_budget_esc = $("#package_budget_esc"+i).val();  
+		sum_proposed+= parseFloat(finalized_award_value_package);
+		
+		if(!isNaN(sum_proposed)) {
+			console.log("sum calculatetesting"+sum_proposed);
+			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
+		}
+		else
+			$("#post_basic_rate_package"+i).val(0+" Cr");
+		
+		expected_savings_package =  (parseFloat(finalized_award_value_package)-parseFloat(package_budget_esc))*100/parseFloat(package_budget_esc);
+        expected_savings_package = parseFloat(expected_savings_package) || 0;			
+
         
-                        total_sum = parseFloat(total_sum) || 0;
-                        $("#total_post_basic_rate").val(total_sum+" Cr"); 
-                        
-                        total_expected_savings = parseFloat(total_expected_savings) || 0;
-                        $("#total_expected_savings").val(total_expected_savings.toFixed(2) + " %"); 
+        
+        $("#expected_savings_package_v"+i).val(expected_savings_package.toFixed(2) + " %"); 
+			total_expected_savings += expected_savings_package; 
+		    total_sum += sum_proposed; 
+
+
+		
+	}
+	
+	if(!isNaN(total_sum)) {
+		$("#total_post_basic_rate").val(total_sum.toFixed(2)+" Cr"); 
+	}
+	else
+		$("#total_post_basic_rate").val(0); 
+	if(!isNaN(total_expected_savings)) {
+		console.log("calculate sum percentage");
+		total_finalized = $("#total_finalized_award_value").val();
+		console.log("total_finalized"+total_finalized);
+		total_budget = $("#total_budget_esc").val();
+		console.log("total_budget_esc"+total_budget);
+		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
+		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
+	}
+	else
+		$("#total_expected_savings").val('0%'); 
                         
                         package_value= total_sum;
 

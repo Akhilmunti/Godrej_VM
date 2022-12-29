@@ -226,7 +226,7 @@
                                             <td><?php echo $mRecord['total_negot_value'] ?>  Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Finalized Proposed Award Value (Excl Tax)</td>
+                                            <td class="font-weight-bold">Finalized Proposed Award Value (Excl Tax)</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -253,7 +253,7 @@
                                             <td><?php echo $mRecord['total_expected_savings'] ?> %</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Recommended Vendors based on L1 position ( Package-wise)</td>
+                                            <td class="font-weight-bold">Recommended Vendors</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -328,7 +328,7 @@
                             </div>
 
                             <div class="paddingLine mt-4">
-				<?php  if($type_work_id == 1 ||  $type_work_id == 3 || $type_work_id == 4)
+				<?php  if($mRecord['type_work_id'] == 1 ||  $mRecord['type_work_id'] == 3 || $mRecord['type_work_id'] == 4)
                                 {?>
                                 <h5>
                                     <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?></span>

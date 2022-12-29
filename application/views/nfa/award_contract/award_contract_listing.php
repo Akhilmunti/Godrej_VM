@@ -114,8 +114,7 @@
                                             </thead>
                                             <tbody class='text-center'>
                                                 <?php if (!empty($records)) {
-
-                                                   //print_r($records);
+                                                   
                                                     $CI=&get_instance();
                                                     foreach ($records as $key => $record) {
                                                         $mCount++;
@@ -163,11 +162,24 @@
                                                                     <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
                                                                         <button type="button" class="btn btn-primary rounded buttonPadding"> Approve IOM</button>
                                                                     </a>
-                                                                        <?php } else {?>
-                                                                            <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
-                                                                            <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
-                                                                        </a>
-                                                                            <?php } ?>
+                                                                        <?php } else {
+
+                                                                                    if ($mSessionRole != "PCM" && $record['nfa_status']=='A' ) { 
+                                                                                         ?>
+                                                                                        <a href="<?php echo base_url('nfa/Award_contract/view_nfa/'. $record['id']."/E"); ?>">
+                                                                                            <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
+                                                                                        </a> 
+                                                                                    <?php 
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                    ?>
+                                                                                        <a href="<?php echo base_url('nfa/Award_contract/view_nfa/' . $record['id']); ?>">
+                                                                                            <button type="button" class="btn btn-primary rounded buttonPadding">View</button>
+                                                                                        </a>
+                                                                            <?php 
+                                                                                    }
+                                                                            } ?>
                                                                         <?php if($mSessionRole=="PCM" && $record['status']==0)
                                                                         {                                                                    
                                                                             if($record['nfa_status']=='AMD')

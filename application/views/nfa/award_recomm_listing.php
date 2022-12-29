@@ -8,7 +8,7 @@ $mSessionRole = $this->session->userdata('session_role');
     <?php if($hd_awdType =="Contract"){?>
 
         <div class="col-lg-12">
-        <?php if($mSessionRole=="PCM")
+        <?php if($mSessionRole=="PCM" )
         { ?>
             <a href="<?php echo base_url('nfa/Award_contract/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id" ); ?>">
             <button type="button" class="btn btn-primary border-secondary rounded mr-10" style="width:25%;">Create IOM</button>
@@ -26,7 +26,7 @@ $mSessionRole = $this->session->userdata('session_role');
    <?php if($hd_awdType =="Procurement"){?>
 
         <div class="col-lg-12">
-        <?php if($mSessionRole=="PCM")
+        <?php if($mSessionRole=="PCM" )
         { ?>
             <a href="<?php echo base_url('nfa/Award_procurement/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id" ); ?>">
             <button type="button" class="btn btn-primary border-secondary rounded mr-10" style="width:25%;">Create IOM</button>
@@ -48,7 +48,7 @@ $mSessionRole = $this->session->userdata('session_role');
 <?php 
 if ($hd_project_id == null && $hd_type_work_id == null){
 
-    if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" || $mSessionRole=="Zonal CEO"|| $mSessionRole=="RH"|| $mSessionRole=="OH"|| $mSessionRole=="Project Director"|| $mSessionRole=="CH"|| $mSessionRole=="Regional C&P Head"|| $mSessionRole=="Regional C&P Team")
+    if($mSessionRole=="Managing Director" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO Operations" || $mSessionRole=="Zonal CEO"|| $mSessionRole=="Regional Head"|| $mSessionRole=="Operations Head"|| $mSessionRole=="Project Director"|| $mSessionRole=="Construction Head"|| $mSessionRole=="Regional C&P Head"|| $mSessionRole=="Regional C&P Team")
     {
     ?>
         <div class="col-lg-3">
@@ -63,7 +63,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
             </div>
         </div>
     <?php
-     } if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" )
+     } if($mSessionRole=="Managing Director" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO Operations")
      {
     ?>
     <div class="col-lg-3">
@@ -82,7 +82,8 @@ if ($hd_project_id == null && $hd_type_work_id == null){
     </div>
 <?php 
     }
-      if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" || $mSessionRole=="Zonal CEO"|| $mSessionRole=="RH"|| $mSessionRole=="OH"|| $mSessionRole=="Project Director"|| $mSessionRole=="CH"|| $mSessionRole=="Regional C&P Head"|| $mSessionRole=="Regional C&P Team")
+      //if($mSessionRole=="MD" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO" || $mSessionRole=="Zonal CEO"|| $mSessionRole=="RH"|| $mSessionRole=="OH"|| $mSessionRole=="Project Director"|| $mSessionRole=="CH"|| $mSessionRole=="Regional C&P Head"|| $mSessionRole=="Regional C&P Team")
+    if($mSessionRole=="Managing Director" || $mSessionRole=="COO" || $mSessionRole=="HO - C&P" || $mSessionRole=="HO Operations" || $mSessionRole=="Zonal CEO"|| $mSessionRole=="Regional Head"|| $mSessionRole=="Operations Head" || $mSessionRole=="Project Director"|| $mSessionRole=="Construction Head" || $mSessionRole=="Regional C&P Head"|| $mSessionRole=="Regional C&P Team")
     {
     ?>
         <div class="col-lg-3">
@@ -124,9 +125,11 @@ if ($hd_project_id == null && $hd_type_work_id == null){
                 <div class='form-group'>
                     <label>Status</label>
                     <select id="nfaStatus" name="nfaStatus" class="form-control">
-                        <option value="">All</option>
-                        <option value="Pending" <?php echo ($nfaStatus=="Pending") ? "selected": ""?> selected>Pending</option>
-                        <option value="Approved" <?php echo ($nfaStatus=="Approved") ? "selected": ""?>>Approved</option>
+			<option value="All" >All</option>
+                        <option <?php if($nfaStatus==""){?>selected="selected" <?php }?> value="Pending" <?php echo ($nfaStatus=="Pending") ? "selected": ""?> >Pending</option>
+                       
+                        
+			<option value="Approved" <?php echo ($nfaStatus=="Approved") ? "selected": ""?>>Approved</option>
                         <?php if($mSessionRole=="PCM")
                         { ?>
                         <option value="Draft" <?php echo ($nfaStatus=="Draft") ? "selected": ""?>>Draft</option>

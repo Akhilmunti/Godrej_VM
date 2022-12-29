@@ -226,34 +226,34 @@ class ListNfa extends CI_Controller {
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
             
-			$awdType = $this->input->post('awdType');
+				$awdType = $this->input->post('awdType');
 			
-			$project_id = $this->input->post('project_id');
+			 $project_id = $this->input->post('project_id');
 			
-			$nfaStatus = $this->input->post('nfaStatus');
+			 $nfaStatus = $this->input->post('nfaStatus');
 			
 			$zone = $this->input->post('zone');
-            $hd_awdType = $this->input->post('hd_awdType');
+            		$hd_awdType = $this->input->post('hd_awdType');
 			$hd_project_id = $this->input->post('hd_project_id');
-            if($project_id=='')
-                $project_id= $hd_project_id;
+            		if($project_id=='')
+                		$project_id= $hd_project_id;
 			
-            $hd_type_work_id = $this->input->post('hd_type_work_id');
+            		$hd_type_work_id = $this->input->post('hd_type_work_id');
            			
 			$hd_zone = $this->input->post('hd_zone');
-            if($zone=='')
-                $zone= $hd_zone;
+            		if($zone=='')
+               		 $zone= $hd_zone;
 
 
 
 			$data['awdType'] = $awdType;
 			$data['project_id'] = $project_id;
 			$data['nfaStatus'] = $nfaStatus;
-          	$data['zone'] = $zone;
-            $data['hd_awdType'] = $hd_awdType;
-            $data['hd_project_id'] = $hd_project_id;
+          		$data['zone'] = $zone;
+            		$data['hd_awdType'] = $hd_awdType;
+            		$data['hd_project_id'] = $hd_project_id;
 			$data['hd_zone'] = $hd_zone;
-            $data['hd_type_work_id'] = $hd_type_work_id;
+           		 $data['hd_type_work_id'] = $hd_type_work_id;
 			$data['projects'] = $this->projects->getAllParent();
            
 			if($awdType=="Procurement" || $hd_awdType=="Procurement")

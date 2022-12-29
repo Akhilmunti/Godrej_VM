@@ -425,8 +425,9 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
 												<td>
+											<div tool-tip="Please enter difference of today's base rate vs tender base rate">
 											  <input  oninput="decimalStrict()" onblur="changeToCr(this);calculateSum1('<?php echo $id_index;?>');packageSynopsis_total('anticipated_rate','total_anticipated_rate');" id="anticipated_rate<?php echo $id_index;?>" name="anticipate_basic_rate_package[]" <?php echo ($val['is_basic_rate_package']=="no")? "style='display:none ;'" : "" ?> type='text' class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required value="<?php echo $val['anticipate_basic_rate_package'] ?> Cr">
-												</td>
+												</div></td>
 											<?php 
 											}?> 
                                         	
@@ -1290,7 +1291,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		 let _amnt_basic_rate=`<td><input type='text' class="form-control _amnt_basic_rate_td decimalStrictThreeClass onMouseOutClass" name="total_basic_rate[]" id="basic_rate" oninput="allowNumOnly(this);decimalStrictThree()"  onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');"  value="" style="display:none ;" ></td>`;
 
-		let _anti_basic_rate=`<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]" style="display:none ;"  type='text' oninput="decimalStrict(this)" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1(this.id);" class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required></td>`;
+		let _anti_basic_rate=`<td><div class="_anti_basic_rate_td" tool-tip="Please enter difference of today's base rate vs tender base rate"><input id="anticipated_rate" name="anticipate_basic_rate_package[]" style="display:none ;"  type='text' oninput="decimalStrict(this)" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1(this.id);" class="form-control decimalStrictClass onMouseOutClass" required></div></td>`;
 
 		let _proposed_awrd_val=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
