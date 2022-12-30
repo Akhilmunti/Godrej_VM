@@ -44,7 +44,7 @@ class Award_procurement_model extends CI_Model {
     }
 	function addSynopsisPackage($data) {
 		$query = $this->db->insert("award_recomm_procurement_synopsis_packages", $data);
-		print_r($this->db->last_query()); 
+		//print_r($this->db->last_query()); 
         if ($this->db->affected_rows() > 0) {
             return $this->db->insert_id();
         } else {
@@ -405,11 +405,13 @@ class Award_procurement_model extends CI_Model {
 		
         $this->db->where('condition3', $l1_vendor1);
 		
-        $this->db->order_by('id', 'asc');
+        //$this->db->order_by('id', 'asc');
+		$this->db->order_by('id', 'desc');
+		//$this->db->order_by('condition4', 'asc nulls last');IS NULL, name ASC
        
         $data = array();
         $mQuery_Res = $this->db->get();
-		
+		//print_r($this->db->last_query()); 
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;

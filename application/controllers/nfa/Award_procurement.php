@@ -38,13 +38,14 @@ class Award_procurement extends ListNfa
         }
     }
 
-    public function actionAdd($project_id='',$zone='',$type_work_id='')
+    public function actionAdd($project_id='',$zone='',$type_work_id='',$protype ='')
     {
         $mSessionKey = $this->session->userdata('session_id');
         if ($mSessionKey) {
             $data['project_id'] = $project_id;
 	    $data['zone'] = $zone;
 	    $data['type_work_id'] = $type_work_id;
+	    $data['protype'] = $protype;
 	    $data['hd_awdType'] = "Procurement";
             $data['records'] = $this->awardRecommProcurement->getPackageNameCreate($type_work_id,$project_id);
             $this->load->view('nfa/award_procurement/award_procurement_add', $data);
@@ -124,6 +125,10 @@ class Award_procurement extends ListNfa
 			}
 			$project_id = $this->input->post('project_id');
 			$type_work_id = $this->input->post('type_work_id');
+
+			// if protype =1 then free issue.. protype = 2 base rate approval
+			$protype = $this->input->post('protype');
+
 			$subject = $this->input->post('subject_hd');
 			$scope_of_work = $this->input->post('scope_of_work');
 			// $procurement_type = $this->input->post('procurement_type');
@@ -576,7 +581,7 @@ class Award_procurement extends ListNfa
 						else
 							$this->session->set_flashdata('success', 'IOM submitted for approval.');
 						
-						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+						redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id/$protype");
 						
                     } else {
 						
@@ -817,7 +822,7 @@ class Award_procurement extends ListNfa
 									'status' => 2);
 								$mUpdate = $this->awardRecommProcurement->updateParentByKey($mId, $nfadata);
 								$this->session->set_flashdata('success', 'IOM refloated successfully.');
-								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id/$protype");
 							}
 							else
 							{
@@ -826,7 +831,7 @@ class Award_procurement extends ListNfa
 								else if($mSavingStatus==1)
 									$this->session->set_flashdata('success', 'IOM submitted for approval.');
 								
-								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+								redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id/$protype");
 							}
                         } else {
                             $this->session->set_flashdata('error', 'Something went wrong, Please try again.');
@@ -842,11 +847,13 @@ class Award_procurement extends ListNfa
 		
     }
 		
-	public function award_recomm_procurement_list($project_id='',$zone='',$type_work_id='')
+	public function award_recomm_procurement_list($project_id='',$zone='',$type_work_id='',$protype='')
     {
 		
         $mSessionKey = $this->session->userdata('session_id');
 		$this->session->set_userdata('previous_url_proc', current_url());
+		$mSessionRole = $this->session->userdata('session_role');
+
 		$pr_id = $this->uri->segment(4);
         if ($mSessionKey) {
 			
@@ -854,10 +861,20 @@ class Award_procurement extends ListNfa
 			$data['hd_project_id'] = $project_id;
 			$data['hd_zone'] = $zone;
 			$data['hd_type_work_id'] = $type_work_id;
+			$data['hd_protype'] = $protype;
+			
+			if($mSessionRole=="PCM"){
+				$nfaStatus = '';
+			}else{
+				$nfaStatus = 'Pending';
+			}
+
+						
+
 			$this->session->set_userdata('sess_project_id_proc',$pr_id);
 			$data['projects'] = $this->projects->getAllParent();
 			$awdType = "Procurement";
-			$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$type_work_id,'',$zone);
+			$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$type_work_id,$nfaStatus,$zone);
 			
 			
 			
@@ -1628,7 +1645,7 @@ class Award_procurement extends ListNfa
 				 $package_row.="
 								<td>".$package_name."</td>
 								<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getGplBudget_total();' class='form-control' name='package_gpl_budget[]' id='package_gpl_budget".$package_index."'></td>
-								<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
+								<td><input type='text' oninput='allowNumOnly(this)' onblur='changeToCr(this);getBidders_total();calculateSum1_v1();' class='form-control package_common_tower_label_custom_td' name='package_bidder[".$package_index."][1]' id='package_bidder_".$package_index."_1'></td>
 								
 								";
 			
@@ -1655,7 +1672,7 @@ class Award_procurement extends ListNfa
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
 				
-					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+					$package_row.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1_v1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";
 			}
             
@@ -1682,7 +1699,7 @@ class Award_procurement extends ListNfa
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
 				
-					$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+					$package_row2.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1_v1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";
 				
 				
@@ -1709,7 +1726,7 @@ class Award_procurement extends ListNfa
 			for($bid_index=1;$bid_index<=$bidder_count;$bid_index++)
 			{
 				
-					$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
+					$package_row3.="<td><input type='text' oninput='allowNumOnly(this);decimalStrict();' onblur='changeToCr(this);getBidders_total();calculateSum1_v1();' class='form-control decimalStrictClass' name='package_bidder[".$pck_index."][".$bid_index."]' id='package_bidder_".$pck_index."_".$bid_index."' required></td>	
 				";	
 				
 			}
@@ -1729,6 +1746,7 @@ class Award_procurement extends ListNfa
 		$package_value = $this->input->post('package_value');
 		$package_value = $package_value*10000000; 	
 		$salient_id = $this->input->post('salient_id');
+		$l1_vendor1 = $this->input->post('l1_vendor1');
 		$pgType = $this->input->post('pgType');
         if ($package_value) {
 			
@@ -1738,7 +1756,18 @@ class Award_procurement extends ListNfa
 				$condition3 = $valConditions['condition3'];
 				$condition1 = $valConditions['condition1'];
 				$condition2 = $valConditions['condition2'];
-				if($valConditions['condition2']!='')
+				$condition4 = $valConditions['condition4'];
+				if($valConditions['condition4']!='')
+				{
+					$checkCond =  eval("return ($l1_vendor1==$condition4) && ($ho_approval==$condition3) && ($package_value.$condition1) ;");
+					
+					if($checkCond)
+					{
+						$level_max =  $valConditions['max_level'];
+						break;
+					} 
+				}
+				else if($valConditions['condition2']!='')
 				{
 					$checkCond =  eval("return ($ho_approval==$condition3) && ($package_value.$condition2 && $package_value.$condition1) ;");
 					

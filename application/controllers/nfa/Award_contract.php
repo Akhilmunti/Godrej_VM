@@ -103,10 +103,73 @@ class Award_contract extends ListNfa
         $mSessionKey = $this->session->userdata('session_id');
 		$reasonLabel = array ("Delay due to Contractor","Delay due to Company","Delay due to other reasons (beyond the control of Contractors/Company)","Impact on OC/Handover Timelines" );
 		
+		//For updating approvers only
+		$nfa_status = $this->input->post('nfa_status');
+		$save_status = $this->input->post('save');
+
+
+		if($nfa_status=="SA"){
+
+			$project_id = $this->input->post('project_id');
+			$type_work_id = $this->input->post('type_work_id');
+			$zone = $this->input->post('zone');
+			$newApprover_id = $this->input->post('approver_id');  
+
+		
+			if($save_status=="save")
+			{
+				  $mSavingStatus = 1;
+				  $mNfaStatus = "SA"; 
+			}
+
+			
+			$getNfaData = $this->awardRecommContract->geteNfaStatus($mId);
+
+			
+			
+			$approver_level_arr = array();
+			$approver_id_arr = array();
+			$approved_id_list = array();
+
+			for ($i=0 ;$i<= count($getNfaData); $i++){
+
+				if ($getNfaData[$i]->approved_status ==1){
+					$approved_status =$getNfaData[$i]->approved_status ;
+					$approver_id1= $getNfaData[$i]->approver_id;
+					 $approved_id_list []=$approver_id1;
+
+					$mNfaInsert = $this->awardRecommContract->updateNfaStatus($mId,$approved_status,$approver_id1);
+
+
+				}
+			}
+			
+
+
+			$finalList= array_diff($newApprover_id,$approved_id_list);		
+
+			
+			for ($i=0 ;$i<= count($finalList); $i++){				
+					
+						$approver_level = $i +1;
+						$approver_id3 =$finalList[$i];
+						
+						
+					$mNfaInsert = $this->awardRecommContract->updateNfaStatusfor($mId,0,$approver_id3, $approver_level);
+				}
+	
+			
+			if($mSavingStatus==1)
+			$this->session->set_flashdata('success', 'IOM updated for approval.');
+		
+			redirect("nfa/Award_contract/award_recomm_contract_list/$project_id/$zone/$type_work_id");
+
+
+		}	      else{ //existing code for doing the action for the whole IOM
 		$updType = $this->input->post('updType');
 		
-        if ($mSessionKey) {
-            $data['home'] = "users";
+        	if ($mSessionKey) {
+          	  $data['home'] = "users";
 			
 			$this->load->helper('string');
 			$project_id = $this->input->post('project_id');
@@ -133,24 +196,24 @@ class Award_contract extends ListNfa
 			$zone = $this->input->post('zone');
 			
 			$l1_vendor = $this->input->post('l1_vendor');
-            $front_idling = $this->input->post('front_idling');
+            		$front_idling = $this->input->post('front_idling');
            
-            $detailed_note = $this->input->post('detailed_note');
+           		 $detailed_note = $this->input->post('detailed_note');
 			$current_status_work = $this->input->post('current_status_work_hd');
-            $reasons_delay = $this->input->post('reasons_delay_hd');   
+           		 $reasons_delay = $this->input->post('reasons_delay_hd');   
 			//Synopsis Label
 			$synopsis_label = $this->input->post('synopsis_label');
 			
-            $package_label = $this->input->post('package_label');
+            		$package_label = $this->input->post('package_label');
 						
-            $benchmark_label = $this->input->post('benchmark_label');
+           		 $benchmark_label = $this->input->post('benchmark_label');
 			
-            $package_budget_esc = $this->input->post('package_budget_esc');
+           		 $package_budget_esc = $this->input->post('package_budget_esc');
            
-            $package_negot_value = $this->input->post('package_negot_value');
+            		$package_negot_value = $this->input->post('package_negot_value');
 			
 			
-            $finalized_award_value_package = $this->input->post('finalized_award_value_package');
+           		 $finalized_award_value_package = $this->input->post('finalized_award_value_package');
            			
 			$awarded_benchmark_package = $this->input->post('awarded_benchmark_package');
 			
@@ -961,10 +1024,11 @@ class Award_contract extends ListNfa
                    
                 }
         
-        } else {
+        	} else {
 			
-            $this->load->view('index', $data);
-        }
+           	 $this->load->view('index', $data);
+        	}
+	}
 	
     }
 	
@@ -972,6 +1036,8 @@ class Award_contract extends ListNfa
     public function award_recomm_contract_list($project_id='',$zone='',$type_work_id='')
     {
         $mSessionKey = $this->session->userdata('session_id');
+	$mSessionRole = $this->session->userdata('session_role');
+
 		$this->session->set_userdata('previous_url', current_url());
 		$pr_id = $this->uri->segment(4);
 		
@@ -982,12 +1048,16 @@ class Award_contract extends ListNfa
 			$data['hd_zone'] = $zone;
 			$data['hd_type_work_id'] = $type_work_id;
 			$data['hd_type_work_id'] = $type_work_id;
-		
+			if($mSessionRole=="PCM"){
+				$nfaStatus = '';
+			}else{
+				$nfaStatus = 'Pending';
+			}		
 			$this->session->set_userdata('sess_project_id',$pr_id);
 			$data['projects'] = $this->projects->getAllParent();
            
 			$awdType = "Contract";
-			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,'',$zone);
+			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,$nfaStatus,$zone);
 			
 			
             $this->load->view('nfa/award_contract/award_contract_listing', $data);

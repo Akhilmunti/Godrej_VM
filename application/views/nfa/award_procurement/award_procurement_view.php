@@ -333,9 +333,10 @@
                                 <h5>
                                     <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?></span>
                                 </h5>
+				<hr class='hr-bold-line' />
 				<?php }?>
                                
-                                <hr class='hr-bold-line' />
+                                
                                 
                                 <h5>
                                     <span class="font-weight-bold">Is HO approval required ?</span> : <span class="font-size-14"><?php echo ($mRecord['ho_approval'] == "Y") ? "Yes" : "No"; ?></span>
@@ -526,8 +527,15 @@
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th style="width: 15%;">Actitivity</th>
+	
+					<?php if( $protype == 1){?>
                                             <th style="width: 20%;">Receipt of Tender Document</th>
                                             <th style="width: 20%;">Start date of Bidder List approval</th>
+					<?php } else { ?>
+                                                <th style="width:20%">Receipt of CQS</th>
+                                                <th style="width:20%">Start Date</th>
+                                        <?php } ?>
+
                                             <th style="width: 20%;">Finish date Approval of Award Recommendation</th>
                                             <th style="width: 25%;">Remarks (If any)</th>
                                         </tr>

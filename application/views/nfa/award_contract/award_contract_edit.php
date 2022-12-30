@@ -1055,11 +1055,24 @@ $this->load->view('buyer/partials/header'); ?>
 							
 							 $result_maxLevel = '';
 							 $mSessionZone = $this->session->userdata('session_zone');
+							 $approvalLevel =array();
+
+							  foreach ($getLevels as $key => $valLevel) {
+								  $approved_status = $valLevel->approved_status;
+								  $approver_level = $valLevel->approver_level;
+								    if($approved_status == 1){
+									 $approvalLevel[]= $approver_level;
+									}
+
+								}
+							$lastApprovalValue= $approvalLevel[count($approvalLevel)-1];
+
 							
 							 foreach ($getLevels as $key => $valLevel) {
 								$role = $valLevel->role;
 								$approver_id = $valLevel->approver_id;
  								$approved_status = $valLevel->approved_status;
+							        $approver_level = $valLevel->approver_level;
 								
 								if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
 									$getUsers = $CI->getRoleUsers_approval($role);
@@ -1072,7 +1085,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 								<div id="pm" class="col-md-3 mb-3">
 									<lable><?php echo $role;?></lable>
-									<select name="approver_id[]"   class="form-control" required   >
+									<select name="approver_id[]"   class="form-control" required  <?php echo ($lastApprovalValue >= $approver_level ) ? "readonly": "";?> >
 										<option disabled="" selected="" value="">Select</option>
 										<option value="0" <?php echo ($approver_id==0) ? "selected": "";?>>Not Applicable</option>
 										<?php 

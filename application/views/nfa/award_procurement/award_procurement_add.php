@@ -430,8 +430,15 @@
                                         <thead class="bg-primary">
                                             <tr class='text-center'>
                                                 <th style="width:15%">Actitivity</th>
+
+						<?php if( $protype == 1){?>
                                                 <th style="width:20%">Receipt of Tender Document</th>
                                                 <th style="width:20%">Start date of Bidder List approval</th>
+						<?php } else { ?>
+                                                <th style="width:20%">Receipt of CQS</th>
+                                                <th style="width:20%">Start Date</th>
+                                                <?php } ?>
+
                                                 <th style="width:20%">Finish date Approval of Award Recommendation</th>
                                                 <th style="width:25%">Remarks (If any)</th>
                                             </tr>
@@ -573,6 +580,7 @@
                                     <input type="hidden" name="project_id" id="project_id" value="<?php echo $project_id ?>">
                                     <input type="hidden" name="type_work_id" id="type_work_id" value="<?php echo $type_work_id ?>">
                                     <input type="hidden" name="zone" id="zone" value="<?php echo $zone ?>">
+			            <input type="hidden" name="protype" id="protype" value="<?php echo $protype ?>">
                                     <input type="hidden" name="subject_hd" id="subject_hd">
                                     <input type="hidden" id="base" value="<?php echo base_url(); ?>">
                                     <div class="col-lg-12">
@@ -1071,7 +1079,7 @@ function package_bidders_pro(label_obj) {
 
             let _pqfb = `<td><select id="score_type" style="width: 120px !important;" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onchange="score_color1();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color1();"></td>`;
 
-            let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" required id="package_bidder_1_1" required></td>`;
+            let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();calculateSum1_v1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" required id="package_bidder_1_1" required></td>`;
 
          
 
@@ -1455,8 +1463,8 @@ function package_bidders_pro(label_obj) {
         
         
 
-        function calculateSum1_v1()
-        {
+    function calculateSum1_v1()
+    {
             
        	var total_sum=0;
 	var total_expected_savings=0;
@@ -1508,9 +1516,9 @@ function package_bidders_pro(label_obj) {
 	if(!isNaN(total_expected_savings)) {
 		console.log("calculate sum percentage");
 		total_finalized = $("#total_finalized_award_value").val();
-		console.log("total_finalized"+total_finalized);
+		//console.log("total_finalized"+total_finalized);
 		total_budget = $("#total_budget_esc").val();
-		console.log("total_budget_esc"+total_budget);
+		//console.log("total_budget_esc"+total_budget);
 		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
 		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
 	}
@@ -1522,7 +1530,8 @@ function package_bidders_pro(label_obj) {
                 
                 ho_approval = $("input[name='ho_approval']:checked").val(); 
             
-                
+                l1_vendor1 = checkL1_vendor();	
+                console.log("l1_vendor procurement"+l1_vendor1);
                 // Get max level of Approvers
                 
                 
@@ -1531,10 +1540,10 @@ function package_bidders_pro(label_obj) {
                     
                     $.post(url,
                                 {
-                                    'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                    'package_value': package_value, 'ho_approval': ho_approval,'l1_vendor1': l1_vendor1,'salient_id': salient_id
                                 },
                                 function (data, status) {
-                                
+                                    console.log(data);
                                     $('#approvers_list_div').html(data);
                                 
                                 });

@@ -209,7 +209,7 @@ $this->load->view('buyer/partials/header'); ?>
 											?>
 												<th style="min-width: 150px;" scope="col">
 													<label class="cust_th">Package name*</label>
-													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders_pro(this);">
+													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders(this);">
 												</th>
 											<?php 
 											}?> 
@@ -424,12 +424,19 @@ $this->load->view('buyer/partials/header'); ?>
                                 <select id="bidder_count" name="bidder_count" required="" style="width:25%;" class="form-control" > 
 									<?php 
 									//for($bcount=0;$bcount<9;$bcount++)
-									$bcount_start =  $mRecord['bidder_count'];
+									
+                                                                   $bcount_start =  $mRecord['bidder_count'];
+								    
+									
 									for($bcount =$bcount_start-1;$bcount<9;$bcount++)
+									//for($bcount =0 ;$bcount<9;$bcount++)
 									{
+
 										$bidVal = $bcount+1;
+
+
 										?>	
-										<option value="<?php echo $bcount; ?>" <?php echo ($mRecord['bidder_count']==$bidVal) ? "selected" : "" ?>><?php echo $bidVal; ?></option> 
+										<option value="<?php echo $bcount; ?>"   <?php echo ($mRecord['bidder_count']==$bidVal) ? "selected" : "" ?>><?php echo $bidVal; ?></option> 
 									<?php 
 									}?>
                                   
@@ -670,8 +677,15 @@ $this->load->view('buyer/partials/header'); ?>
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th style="width:15%">Actitivity</th>
-                                            <th style="width:20%">Receipt of Tender Document</th>
-                                            <th style="width:20%">Start date of Bidder List approval</th>
+						
+					<?php if( $protype == 1){?>
+                                            	<th style="width:20%">Receipt of Tender Document</th>
+                                            	<th style="width:20%">Start date of Bidder List approval</th>
+					<?php } else { ?>
+                                                <th style="width:20%">Receipt of CQS</th>
+                                                <th style="width:20%">Start Date</th>
+                                         <?php } ?>
+
                                             <th style="width:20%">Finish date Approval of Award Recommendation</th>
                                             <th style="width:25%">Remarks (If any)</th>
                                         </tr>
@@ -917,6 +931,7 @@ $this->load->view('buyer/partials/header'); ?>
 							<input type="hidden" name="project_id" id="project_id" value="<?php echo $mRecord['project_id'] ?>">
                             				<input type="hidden" name="type_work_id" id="type_work_id" value="<?php echo $mRecord['type_work_id']; ?>">
 							<input type="hidden" name="zone" id="zone" value="<?php echo $mRecord['zone']; ?>">
+				                        <input type="hidden" name="protype" id="protype" value="<?php echo $protype ?>">
 							<input type="hidden" name="subject_hd" id="subject_hd">
 							<input type="hidden" class="form-control" placeholder="" name="nfa_status"  value="<?php echo $mRecord['nfa_status'] ?>">
 							<input type="hidden" class="form-control" placeholder="" name="updType"  value="<?php echo $updType; ?>">
@@ -1879,6 +1894,10 @@ function getLevelApprovers(){
 	           //Getting package rows in final bidders
 	function package_bidders_pro(label_obj) {
 	
+
+   
+
+
    			 var label_id = label_obj.id;
 
 			var package_name,finalized_award_value;
@@ -2229,9 +2248,9 @@ function score_color1(){
                 
                 		package_value= total_sum;         
                 
-               			 ho_approval = $("input[name='ho_approval']:checked").val(); 
+               			ho_approval = $("input[name='ho_approval']:checked").val(); 
             
-                
+						l1_vendor1 = checkL1_vendor();
                 		// Get max level of Approvers
                 
                 
@@ -2240,7 +2259,7 @@ function score_color1(){
                     
                     $.post(url,
                                 {
-                                    'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                    'package_value': package_value, 'ho_approval': ho_approval,'l1_vendor1': l1_vendor1,'salient_id': salient_id
                                 },
                                 function (data, status) {
                                 

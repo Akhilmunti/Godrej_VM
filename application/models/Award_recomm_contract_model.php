@@ -127,6 +127,50 @@ class Award_recomm_contract_model extends CI_Model {
     }
 
 
+       function geteNfaStatus($mId) {
+		$sql = "SELECT * FROM `award_recomm_contractor_status` WHERE `salient_id` = '$mId'" ;
+		$query = $this->db->query($sql);				
+        $data = $query->result();
+
+		
+		return $data;
+	
+	}
+		
+
+	function updateNfaStatus($mId,$approved_status,$approver_id) {
+		
+		
+		$sql = "UPDATE `award_recomm_contractor_status` SET `approved_status`= '$approved_status' WHERE `salient_id` = '$mId' and `approver_id`= '$approver_id' " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }		
+        
+		
+    }
+
+	function updateNfaStatusfor($mId,$approved_status,$approver_id,$approver_level) {
+					
+
+		$sql = "UPDATE `award_recomm_contractor_status` SET `approver_id`= '$approver_id',`approved_status`= '$approved_status'  WHERE `salient_id` = '$mId' and `approver_level`= '$approver_level' and `approved_status`!= 1 " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+		return TRUE;
+        } else {
+            return FALSE;
+        }		
+        
+		
+    }
+
+
+
+	
+
+
 	public function getPackageNameCreate($type_work_id,$project_id){
 		
 		$sql = "SELECT typeofwork.name as package_name,projects.project_name as project_name FROM typeofwork , projects WHERE typeofwork.id = '$type_work_id' and projects.project_id='$project_id'" ;
