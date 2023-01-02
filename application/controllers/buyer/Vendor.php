@@ -40,6 +40,7 @@ class Vendor extends CI_Controller {
         $this->load->model('pre_model');
         $this->load->model('purchase_model');
         $this->load->model('Award_recomm_contract_model', 'awardRecommContract');
+        $this->load->model('Award_procurement_model', 'awardRecommProcurement');
         $this->load->model('iom_model', 'iom');
         date_default_timezone_set("Asia/Kolkata");
         $this->load->helper('date');
@@ -504,6 +505,9 @@ class Vendor extends CI_Controller {
                 $mProjectId = $projects[0]['project_id'];
                 $data['pending_iom'] = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
                 $data['pending_iom_count']= sizeof($data['pending_iom']);
+                $awdType = "Procurement";
+                $data['pending_proc_iom'] = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                $data['pending_proc_iom_count']= sizeof($data['pending_proc_iom']);
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
@@ -680,7 +684,11 @@ class Vendor extends CI_Controller {
                 } else {
                     $mProjectId= $projects[0]['project_name'];
                 }
-                
+                $data['pending_iom'] = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                $data['pending_iom_count']= sizeof($data['pending_iom']);
+                $awdType = "Procurement";
+                $data['pending_proc_iom'] = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                $data['pending_proc_iom_count']= sizeof($data['pending_proc_iom']);
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
