@@ -244,7 +244,7 @@
                                                 <td><span class="font-weight-bold">Finalized Proposed Award Value (Excl Tax)</span></td>
                                                 <td>
                                                   
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package1" required onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value'); calculateSum1_v1();">
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package1" required onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1();">
                                                 </td>
                                                 <td id="total-td3" class="total-hide"><input type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="" readonly></td>                                            </tr>
                                             
@@ -290,7 +290,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders_procurement();" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
                                                 </td>
 
 
@@ -567,7 +567,9 @@
 
                                     <div class="row mt-4">
                                         <div class="col-md-3 mb-3">
-                                            <lable>PCM</lable>
+                                             <?php $mSessionRole = $this->session->userdata('session_role'); ?>
+                                            <lable> <?php  echo  $mSessionRole ; ?></lable>
+
                                             <input readonly="" value="<?php echo $this->session->userdata('session_name'); ?>" class="form-control" />
                                         </div>
                                     </div>
@@ -901,12 +903,12 @@ function package_bidders_pro(label_obj) {
 
             let _negotiated_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value" required></td>`;
 
-            let _finalized = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value'); calculateSum1_v1();" required></td>`;
+            let _finalized = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" class="form-control _finalized_td decimalStrictClass onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package" onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1();" required></td>`;
             let _exp_saving = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="" class="form-control _exp_saving_td decimalStrictClass" name="expected_savings_package[]" id="expected_savings_package_v" readonly></td>`;
             let _rec_vendors = `<td><input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" id="recomm_vendor_package" onblur="setRecommended_vendorName();" required></td>`;
             let _basis_awrd = `<td><input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" id="basis_award_package" readonly></td>`;
             let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
-            let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
+            let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders_procurement();" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
             let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
 
 
@@ -1531,7 +1533,7 @@ function package_bidders_pro(label_obj) {
                 ho_approval = $("input[name='ho_approval']:checked").val(); 
             
                 l1_vendor1 = checkL1_vendor();	
-                console.log("l1_vendor procurement"+l1_vendor1);
+                //console.log("l1_vendor procurement"+l1_vendor1);
                 // Get max level of Approvers
                 
                 
@@ -1543,7 +1545,7 @@ function package_bidders_pro(label_obj) {
                                     'package_value': package_value, 'ho_approval': ho_approval,'l1_vendor1': l1_vendor1,'salient_id': salient_id
                                 },
                                 function (data, status) {
-                                    console.log(data);
+                                    //console.log(data);
                                     $('#approvers_list_div').html(data);
                                 
                                 });
@@ -1650,12 +1652,12 @@ function getExpectedSavings1(){
                         package_value= total_sum;
 
                             var ho_approval = $("input[name='ho_approval']:checked").val();    
-
+                            l1_vendor1 = checkL1_vendor();	
                             var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
                             
                                 $.post(url,
                                         {
-                                            'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                            'package_value': package_value, 'ho_approval': ho_approval,'l1_vendor1': l1_vendor1,'salient_id': salient_id
                                         },
                                         function (data, status) {
                                         

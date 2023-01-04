@@ -832,7 +832,7 @@
                                             </tr>
                                             <tr>
                                                 <td class="font-weight-bold" style="width: 40%;">
-                                                    PCM
+                                                    <?php echo $mSessionRole ?>
                                                 </td>
                                                 <td>
 													<?php echo $mRecord['buyer_name']; ?>

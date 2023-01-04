@@ -219,26 +219,89 @@ class ListNfa extends CI_Controller {
         } 
 		
     }
+
+
+
+
+	
+	public function award_iom_list(){
+
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            
+			$project_id = $this->input->post('project_id');			
+			$zone = $this->input->post('zone');
+            		$hd_type_work_id = $this->input->post('hd_type_work_id'); 
+
+
+            
+
+			$hd_project_id = $this->input->post('hd_project_id');
+
+            		   if($project_id=='')
+                		$project_id= $hd_project_id;
+			
+                      			
+			$hd_zone = $this->input->post('hd_zone');
+
+            		if($zone=='')
+               		 $zone= $hd_zone;
+
+                        if($mSessionRole !="PCM"){
+                            if( $nfaStatus == '')
+                           { $nfaStatus ='Pending' ;}
+                           else{
+                            $nfaStatus = $this->input->post('nfaStatus');			
+
+                           }
+                        }
+                        if($mSessionRole =="PCM"){
+                            $nfaStatus ='All' ;
+                        }
+
+           	$awdType = "All";
+                $data['hd_awdType'] = "All";
+        	$data['project_id'] = $project_id;
+		$data['nfaStatus'] = $nfaStatus;
+          	$data['zone'] = $zone;
+            	$data['hd_awdType'] = $hd_awdType;
+           	$data['hd_project_id'] = $hd_project_id;
+		$data['hd_zone'] = $hd_zone;
+           	$data['hd_type_work_id'] = $hd_type_work_id;
+		$data['projects'] = $this->projects->getAllParent();
+
+            
+                $data1['Contract'] = $this->awardRecommContract->getContractData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+                $data2['Procurement'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+                
+                $data['records']=array_merge($data1,$data2);
+                // print_r($data);die;
+               
+				
+				$this->load->view('nfa/award_iom_listing', $data);
+			}
+
+    }
 	
 	
 	public function award_recomm_list()
     {
         $mSessionKey = $this->session->userdata('session_id');
+	$mSessionRole = $this->session->userdata('session_role');
+
         if ($mSessionKey) {
             
-				$awdType = $this->input->post('awdType');
-			
-			 $project_id = $this->input->post('project_id');
-			
-			 $nfaStatus = $this->input->post('nfaStatus');
-			
-			$zone = $this->input->post('zone');
-            		$hd_awdType = $this->input->post('hd_awdType');
+			 $awdType = $this->input->post('awdType');			
+			 $project_id = $this->input->post('project_id');			
+			 $nfaStatus = $this->input->post('nfaStatus');			
+			 $zone = $this->input->post('zone');
+            		 $hd_type_work_id = $this->input->post('hd_type_work_id');
+			 $hd_awdType = $awdType;
+
 			$hd_project_id = $this->input->post('hd_project_id');
             		if($project_id=='')
                 		$project_id= $hd_project_id;
 			
-            		$hd_type_work_id = $this->input->post('hd_type_work_id');
            			
 			$hd_zone = $this->input->post('hd_zone');
             		if($zone=='')
@@ -255,13 +318,23 @@ class ListNfa extends CI_Controller {
 			$data['hd_zone'] = $hd_zone;
            		 $data['hd_type_work_id'] = $hd_type_work_id;
 			$data['projects'] = $this->projects->getAllParent();
+
+
+			 if($awdType=="All"  )
+			{
+               			 $data1['Contract'] = $this->awardRecommContract->getContractData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+                		 $data2['Procurement'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+                
+                                 $data['records']=array_merge($data1,$data2);            
+               
+				
+				$this->load->view('nfa/award_iom_listing', $data);
+			} 
            
-			if($awdType=="Procurement" || $hd_awdType=="Procurement")
+			else if($awdType=="Procurement" || $hd_awdType=="Procurement")
 			{
 				$data['records'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
-				$nfa_select = nfa_dropdown_draft("award_procurement");
-				$data['nfa_select'] = $nfa_select;
-
+				
 				$this->load->view('nfa/award_procurement/award_recomm_procurement_list', $data);
 			}
 			else if($awdType=="Contract" || $hd_awdType=="Contract")
@@ -279,3 +352,6 @@ class ListNfa extends CI_Controller {
 	
 
 }
+
+
+

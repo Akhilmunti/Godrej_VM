@@ -528,7 +528,7 @@
                                         <tr class='text-center'>
                                             <th style="width: 15%;">Actitivity</th>
 	
-					<?php if( $protype == 1){?>
+					<?php if( $mRecord['protype']  == 1){?>
                                             <th style="width: 20%;">Receipt of Tender Document</th>
                                             <th style="width: 20%;">Start date of Bidder List approval</th>
 					<?php } else { ?>
@@ -683,7 +683,7 @@
 											
 											 <tr>
                                                 <td class="font-weight-bold" style="width: 40%;">
-                                                    PCM
+                                                    <?php echo $mSessionRole ?>
                                                 </td>
                                                 <td>
 													<?php echo $mRecord['buyer_name']; ?>
@@ -715,7 +715,7 @@
                                }?>
                                     </div>        
 
-                                    <?php if ($pgType == 'E') {
+                                    <?php if ($pgType == 'E' && $mRecord['nfa_status']=="A")  {
                                     ?>
                                         <div class="row mt-4">
                                             <div class="col-lg-12 text-center">

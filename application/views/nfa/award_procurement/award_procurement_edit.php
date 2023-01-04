@@ -149,7 +149,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     <div class='form-group'>
                                         <label  class="font-weight-bold">Subject</label>
                                       
-										<div id="subject" class="form-control" name="subject"><?php echo $mRecord['subject'] ?></div>
+								<div <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  id="subject" class="form-control" name="subject"><?php echo $mRecord['subject'] ?></div>
 										
                                     </div>
                                 </div>
@@ -161,40 +161,33 @@ $this->load->view('buyer/partials/header'); ?>
 								<div class="col-lg-12">
 									<div class='form-group'>
 										<label class="font-weight-bold">Scope of Work</label>
-										<input type='text' class="form-control" placeholder="" 
+										<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" placeholder="" 
 										name="scope_of_work" id="scope_of_work" value="<?php echo  $mRecord['scope_of_work'] ?>" maxlength="200">
 									</div>
 								</div>
 							</div>
-							<!-- <div class="row">
-
-								<div class="col-lg-12">
-									<div class='form-group'>
-										<label class="font-weight-bold">Type of Procurement</label>
-										<select id="procurement_type" name="procurement_type" required=""  style="width:25%;" class="form-control">
-														<option value="">Select</option>
-														<option value="Cement" <?php //echo ($mRecord['procurement_type']=="Cement") ? "selected" : "" ?>>Cement</option>
-														<option value="Aluminium" <?php //echo ($mRecord['procurement_type']=="Aluminium") ? "selected" : "" ?>>Aluminium</option>
-														<option value="Steel" <?php //echo ($mRecord['procurement_type']=="Steel") ? "selected" : "" ?>>Steel</option>
-														<option value="Others" <?php //echo ($mRecord['procurement_type']=="Others") ? "selected" : "" ?>>Others</option>
-										</select>
-									</div>
-								</div>
-
-							</div> -->
+			
 
                             <div class="table-responsive mt-4">
                                 <table id="tables" class="table table-bordered mb-0">
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th class="synopsis-header" colspan="5"><label>Award Synopsis</label>
-                                                <input type='text' class="form-control" placeholder="" name="synopsis_label" id="synopsis_label" required value="<?php echo $mRecordAwdContract['synopsis_label'] ?>">
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" placeholder="" name="synopsis_label" id="synopsis_label" required value="<?php echo $mRecordAwdContract['synopsis_label'] ?>">
                                                 <label class="mt-4">How many Vendors Recommended?</label>
-                                                <select id="package_count" name="package_count" required="" onchange="addPackage(this)" style="width:25%;" class="form-control" >
-                                                   
-                                                    <option value="0" <?php echo ($mRecord['package_count']==1) ? "selected" : "" ?>>1</option>
-                                                    <option value="1" <?php echo ($mRecord['package_count']==2) ? "selected" : "" ?>>2</option>
-                                                    <option value="2" <?php echo ($mRecord['package_count']==3) ? "selected" : "" ?>>3</option>
+                                                <select <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  id="package_count" name="package_count" required="" onchange="addPackage(this)" style="width:25%;" class="form-control" >
+												  <?php $pack_count_start =  $mRecord['package_count'];
+												 for($pack_count =$pack_count_start;$pack_count<=3;$pack_count++)
+												 {
+			 
+													 $packVal = $pack_count-1; 
+												  ?>
+                                                    <option value="<?php echo $packVal;?>" <?php echo ($mRecord['package_count']==$pack_count) ? "selected" : "" ?>><?php echo $pack_count;?></option>
+													<?php
+												 }
+													?>
+                                                    <?php /*<option value="1" <?php echo ($mRecord['package_count']==2) ? "selected" : "" ?>>2</option>
+                                                    <option value="2" <?php echo ($mRecord['package_count']==3) ? "selected" : "" ?>>3</option> <?php */?>
                                                 </select>
                                             </th>
                                         </tr>
@@ -209,7 +202,7 @@ $this->load->view('buyer/partials/header'); ?>
 											?>
 												<th style="min-width: 150px;" scope="col">
 													<label class="cust_th">Package name*</label>
-													<input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders(this);">
+													<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" placeholder="" name="package_label[]" id="package_label<?php echo $key+1;?>" value="<?php echo $val['package_name'] ?>" required onblur="package_bidders(this);">
 												</th>
 											<?php 
 											}?> 
@@ -227,13 +220,14 @@ $this->load->view('buyer/partials/header'); ?>
 											 	
 											 ?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
+                                                <input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc'); setGpl_budget(); calculateSum1_v1();" class="form-control _budget_incl_td onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc<?php echo $id_index;?>" value="<?php echo $val['package_budget_esc'] ?> Cr">
                                             </td> 
                                             <?php 
 											}
 											?>
 
-										<td  id="total-td1" class="total-hide"> <input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="<?php echo $mRecord['total_budget_esc'] ?> Cr" readonly></input></td> 
+										<td  id="total-td1" class="total-hide">
+					 <input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="<?php echo $mRecord['total_budget_esc'] ?> Cr" readonly></input></td> 
 										
                                         </tr>
                                         <tr class='text-center'>
@@ -243,13 +237,13 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td onMouseOutClass" name="package_negot_value[]" id="package_negot_value<?php echo $id_index;?>" value="<?php echo $val['package_negot_value'] ?> Cr">
+                                                <input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control _negotiated_val_td onMouseOutClass" name="package_negot_value[]" id="package_negot_value<?php echo $id_index;?>" value="<?php echo $val['package_negot_value'] ?> Cr">
                                             </td>
                                             <?php 
 											}?>
 										
 										<td id="total-td2" class="total-hide">
-												<input type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="<?php echo $mRecord['total_negot_value'] ?> Cr" readonly>
+												<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" name="total_negot_value" id="total_negot_value" value="<?php echo $mRecord['total_negot_value'] ?> Cr" readonly>
 											</td>
                                         </tr>
                                         <tr class='text-center'>
@@ -262,13 +256,13 @@ $this->load->view('buyer/partials/header'); ?>
 																						
 											?>
                                             <td>
-                                                <input oninput="allowNumOnly(this)"   type='text' onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1();" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package<?php echo $id_index;?>" value="<?php echo $val['finalized_award_value_package'] ?> Cr"  >
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  oninput="allowNumOnly(this)"   type='text' onblur="changeToCr(this);packageSynopsis_total('finalized_award_value_package','total_finalized_award_value');showBidders_finalized();calculateSum1_v1();" class="form-control _finalized_td onMouseOutClass" name="finalized_award_value_package[]" id="finalized_award_value_package<?php echo $id_index;?>" value="<?php echo $val['finalized_award_value_package'] ?> Cr"  >
                                             </td>
                                            <?php 
 											}?> 
 										
 										<td id="total-td3" class="total-hide">
-											 <input  type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="<?php echo $mRecord['total_finalized_award_value'] ?> Cr" readonly></td> 
+											 <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" name="total_finalized_award_value" id="total_finalized_award_value" value="<?php echo $mRecord['total_finalized_award_value'] ?> Cr" readonly></td> 
                                         </tr>
 										<tr class='text-center'>
                                             <td>Expected Savings w.r.t Budget incl.escalation:</td>
@@ -277,13 +271,13 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text' class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v<?php echo $id_index;?>" value="<?php echo $val['expected_savings_package'] ?> %" readonly>
+                                                <input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control _exp_saving_td" name="expected_savings_package[]" id="expected_savings_package_v<?php echo $id_index;?>" value="<?php echo $val['expected_savings_package'] ?> %" readonly>
                                             </td>
                                             <?php 
 											}?> 
 											
 											<td id="total-td4" class="total-hide">
-												<input type='text' class="form-control"  name="total_expected_savings" id="total_expected_savings" value="<?php echo $mRecord['total_expected_savings'] ?> %" readonly>
+												<input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control"  name="total_expected_savings" id="total_expected_savings" value="<?php echo $mRecord['total_expected_savings'] ?> %" readonly>
 											</td>
 
 											
@@ -295,7 +289,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" onblur="setRecommended_vendorName();" id="recomm_vendor_package<?php echo $id_index;?>" value="<?php echo $val['recomm_vendor_package'] ?>">
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control _rec_vendors_td" name="recomm_vendor_package[]" onblur="setRecommended_vendorName();" id="recomm_vendor_package<?php echo $id_index;?>" value="<?php echo $val['recomm_vendor_package'] ?>">
                                             </td>
 											<?php 
 											}?> 
@@ -310,7 +304,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" readonly onblur="setRecommended_vendorName();"
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control _basis_awrd_td" name="basis_award_package[]" readonly onblur="setRecommended_vendorName();"
 						 id="basis_award_package1<?php echo $id_index;?>" value="<?php echo $val['basis_award_package'] ?>">
                                             </td>
 											<?php 
@@ -326,7 +320,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" onblur="setRecommended_vendorName();" id="deviation_approved_package1<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" onblur="setRecommended_vendorName();" id="deviation_approved_package1<?php echo $id_index;?>" value="<?php echo $val['deviation_approved_package'] ?>">
                                             </td>
 											<?php 
 											}?> 
@@ -338,7 +332,7 @@ $this->load->view('buyer/partials/header'); ?>
                                             <td>
                                                 <label>Last Awarded Benchmark with Date</label>
                                                 <div data-tip="Please enter project name and date of award">
-                                                <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" onblur="show_bidders_procurement();" required value="<?php echo $mRecordAwdContract['benchmark_label'] ?>">
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" onblur="show_bidders_procurement();" required value="<?php echo $mRecordAwdContract['benchmark_label'] ?>">
                                                 </div>
                                             </td>
 										 <?php foreach($mRecordPackage as $key=>$val)
@@ -346,13 +340,13 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders_procurement();" class="form-control _last_awarded_td onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package<?php echo $id_index;?>" value="<?php echo $val['awarded_benchmark_package'] ?> Cr" required>
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text'  oninput="allowNumOnly(this)" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders_procurement();" class="form-control _last_awarded_td onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package<?php echo $id_index;?>" value="<?php echo $val['awarded_benchmark_package'] ?> Cr" required>
                                             </td>
                                                <?php 
 											}?> 
 											
 											<td id="total-td8" class="total-hide">
-												<input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="<?php echo $mRecord['total_awarded_benchmark'] ?> Cr" readonly>
+												<input  type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="<?php echo $mRecord['total_awarded_benchmark'] ?> Cr" readonly>
 											</td>
                                         </tr>
 										
@@ -364,13 +358,13 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text' class="form-control _proposed_awrd_val_td" name="post_basic_rate_package[]" id="post_basic_rate_package<?php echo $id_index;?>" readonly value="<?php echo $val['post_basic_rate_package'] ?> Cr" >	
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control _proposed_awrd_val_td" name="post_basic_rate_package[]" id="post_basic_rate_package<?php echo $id_index;?>" readonly value="<?php echo $val['post_basic_rate_package'] ?> Cr" >	
                                             </td>
                                             <?php 
 											}?> 
 											
 											<td id="total-td9" class="total-hide">
-												<input type='text' class="form-control"  name="total_post_basic_rate" id="total_post_basic_rate" value="<?php echo $mRecord['total_post_basic_rate'] ?> Cr"  readonly>
+												<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='text' class="form-control"  name="total_post_basic_rate" id="total_post_basic_rate" value="<?php echo $mRecord['total_post_basic_rate'] ?> Cr"  readonly>
 											</td> 
                                         </tr>
                                       
@@ -389,8 +383,8 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-4">
                                     <div class='form-group'>
                                         <label class="font-weight-bold"><?php echo $mRecord['uom_label']?></label>
-						<input type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
-						<input type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur=" " class="form-control nodecimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
+						<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="hidden" name="uom_label" id="uom_label" value="<?php echo $mRecord['uom_label'];?>">
+						<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this);noDecimalStrict()" onblur=" " class="form-control nodecimalStrictClass " placeholder="" name="uom_value" id="uom_value" value="<?php echo  $mRecord['uom_value'] ?>">
                                     </div>
                                 </div>
 
@@ -402,11 +396,11 @@ $this->load->view('buyer/partials/header'); ?>
 
                                 <div class="col-lg-12">
                                     <label class="page-title br-0 font-weight-bold mr-4">Is HO approval required *</label>
-                                    <input class="form-check-input" type="radio" name="ho_approval" id="ho_approval1" value="Y" <?php echo ($mRecord['ho_approval']=="Y")? "checked" : "" ?> required >
+                                    <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> class="form-check-input" type="radio" name="ho_approval" id="ho_approval1" value="Y" <?php echo ($mRecord['ho_approval']=="Y")? "checked" : "" ?> required >
                                     <label class="form-check-label font-weight-bold" for="ho_approval1">
                                         Yes
                                     </label>
-                                    <input class="form-check-input" type="radio" name="ho_approval" id="ho_approval2" value="N" <?php echo ($mRecord['ho_approval']=="N")? "checked" : "" ?> required >
+                                    <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> class="form-check-input" type="radio" name="ho_approval" id="ho_approval2" value="N" <?php echo ($mRecord['ho_approval']=="N")? "checked" : "" ?> required >
                                     <label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="ho_approval2">
                                         No
                                     </label>
@@ -421,11 +415,11 @@ $this->load->view('buyer/partials/header'); ?>
 
 							<div class="mt-4">
                                 <h5>How many Bidders participated?</h5>
-                                <select id="bidder_count" name="bidder_count" required="" style="width:25%;" class="form-control" > 
+                                <select <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> id="bidder_count" name="bidder_count" required="" style="width:25%;" class="form-control" > 
 									<?php 
 									//for($bcount=0;$bcount<9;$bcount++)
 									
-                                                                   $bcount_start =  $mRecord['bidder_count'];
+                                    $bcount_start =  $mRecord['bidder_count'];
 								    
 									
 									for($bcount =$bcount_start-1;$bcount<9;$bcount++)
@@ -458,7 +452,8 @@ $this->load->view('buyer/partials/header'); ?>
 												
 												
 											?>
-												<th style="width: 120px !important;" scope="col"><input type='text' class="form-control custom_th" name="final_bidder_name[]" id="final_bidder_name<?php echo $id_index;?>" required value="<?php echo $final_bidder_name ?>"></th>
+												<th style="width: 120px !important;" scope="col">
+												<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control custom_th" name="final_bidder_name[]" id="final_bidder_name<?php echo $id_index;?>" required value="<?php echo $final_bidder_name ?>"></th>
 											  <?php 
 											}
 											  ?>
@@ -502,13 +497,13 @@ $this->load->view('buyer/partials/header'); ?>
 												
 											?>
                                             <td>
-                                                <select id="score_type<?php echo $id_index;?>" name="score_type[]" required="" class="form-control pq_fb_score_custom_td"  style="width: 120px !important;" onChange="score_color1();">
+                                                <select <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  id="score_type<?php echo $id_index;?>" name="score_type[]" required="" class="form-control pq_fb_score_custom_td"  style="width: 120px !important;" onChange="score_color1();">
                                                     <option value="">Select</option>
                                                     <option value="PQ" <?php echo ($score_type=="PQ") ? "selected": ""?>>PQ</option>
                                                     <option value="FB" <?php echo ($score_type=="FB") ? "selected": ""?>>FB</option>
                                                 </select>
                                             
-                                                <input type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>" onblur="score_color1();">
+                                                <input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='number'  style="width: 120px !important;" min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" class="form-control  mt-3 <?php echo $score_class;?>" name="score[]" id="score<?php echo $id_index;?>" value="<?php echo $score ?>" onblur="score_color1();">
 
 											</td>
 											  <?php 
@@ -534,7 +529,7 @@ $this->load->view('buyer/partials/header'); ?>
 												<td><?php echo $val['package_name'] ?><input type="hidden" name="package_name_bid_hd" id="package_name_bid_hd<?php echo $id_index;?>" value="<?php echo $val['package_name'] ?>"></td>
 												
 												<td>
-													<input type="text" oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control onMouseOutClass" name="package_gpl_budget[]"  id="package_gpl_budget<?php echo $id_index;?>" value="<?php echo $package_gpl_budget_value ?> Cr" <?php echo $script_text; ?> readonly></td>
+													<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="text" oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control onMouseOutClass" name="package_gpl_budget[]"  id="package_gpl_budget<?php echo $id_index;?>" value="<?php echo $package_gpl_budget_value ?> Cr" <?php echo $script_text; ?> readonly></td>
 												<?php 
 												//Bidders Record
 												$bidders_count = sizeof($mRecordFinalBidders);
@@ -556,7 +551,7 @@ $this->load->view('buyer/partials/header'); ?>
 														$script_text = ' onblur="getBidders_total();changeToCr(this)"';
 													
 												?>
-													<td><input type='text' oninput="allowNumOnly(this)"  class="form-control package_common_tower_label_custom_td" name="package_bidder[<?php echo $id_index;?>][<?php echo $bid_index;?>]" id="package_bidder_<?php echo $id_index;?>_<?php echo $bid_index;?>" value="<?php echo $package_bidder_value; ?> Cr" <?php echo $script_text; ?>></td>
+													<td><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this)"  class="form-control package_common_tower_label_custom_td" name="package_bidder[<?php echo $id_index;?>][<?php echo $bid_index;?>]" id="package_bidder_<?php echo $id_index;?>_<?php echo $bid_index;?>" value="<?php echo $package_bidder_value; ?> Cr" <?php echo $script_text; ?>></td>
 												<?php 
 												}?>
 											</tr>
@@ -580,13 +575,13 @@ $this->load->view('buyer/partials/header'); ?>
 										
                                         <tr class='text-center' id="totAmt_row">
                                             <td class="page-title font-weight-bold">Total Amount</td>
-											 <td><input type='text' class="form-control" name="total_amt_gpl" id="total_amt_gpl" value="<?php echo $total_amt_gpl; ?>" readonly></td>
+											 <td><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control" name="total_amt_gpl" id="total_amt_gpl" value="<?php echo $total_amt_gpl; ?>" readonly></td>
 											<?php foreach($mRecordFinalBidders as $keyBid=>$valBid)
 											{
 												$id_index = $keyBid+1;
 												$total_amt_bidder = $valBid->total_amt_bidder;
 											?>
-												<td><input type='text' class="form-control total_amt_label_custom_td " name="total_amt_bidder[]" id="total_amt_bidder<?php echo $id_index;?>" value="<?php echo $total_amt_bidder ?> Cr" readonly></td>
+												<td><input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control total_amt_label_custom_td " name="total_amt_bidder[]" id="total_amt_bidder<?php echo $id_index;?>" value="<?php echo $total_amt_bidder ?> Cr" readonly></td>
 											<?php 
 											}
 											?>
@@ -605,7 +600,7 @@ $this->load->view('buyer/partials/header'); ?>
 																									
 												?>
 													
-													<td><input type='text' class="form-control bid_position_label_custom_td" name="bid_position[]" id="bid_position<?php echo $id_index;?>" value="<?php echo $bid_position; ?>" readonly  ></td>
+													<td><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control bid_position_label_custom_td" name="bid_position[]" id="bid_position<?php echo $id_index;?>" value="<?php echo $bid_position; ?>" readonly  ></td>
 												<?php 
 												}
 												?>
@@ -632,7 +627,7 @@ $this->load->view('buyer/partials/header'); ?>
 												
 												
 											?>  <td>
-												<input type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control <?php echo $budget_class?> bid_position_gp_custom_td onMouseOutClass" name="diff_budget_crs[]" id="diff_budget_crs<?php echo $id_index;?>" value="<?php echo $diff_budget_crs; ?> Cr"></td>
+												<input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this)" onblur="changeToCr(this)" class="form-control <?php echo $budget_class?> bid_position_gp_custom_td onMouseOutClass" name="diff_budget_crs[]" id="diff_budget_crs<?php echo $id_index;?>" value="<?php echo $diff_budget_crs; ?> Cr"></td>
 											<?php 
 											}?>
                                            
@@ -655,7 +650,7 @@ $this->load->view('buyer/partials/header'); ?>
 												}
 											?> 
 											
-												<td><input type='text' oninput="allowNumOnly(this)" class="form-control <?php echo $budget_class?> diff_age_gp_custom_td" name="diff_budget_percentage[]" id="diff_budget_percentage<?php echo $id_index;?>" value="<?php echo $diff_budget_percentage ?> %"></td>
+												<td><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this)" class="form-control <?php echo $budget_class?> diff_age_gp_custom_td" name="diff_budget_percentage[]" id="diff_budget_percentage<?php echo $id_index;?>" value="<?php echo $diff_budget_percentage ?> %"></td>
                                            <?php 
 											}?>
                                            
@@ -678,7 +673,7 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <th style="width:15%">Actitivity</th>
 						
-					<?php if( $protype == 1){?>
+					<?php if( $mRecord['protype'] == 1){?>
                                             	<th style="width:20%">Receipt of Tender Document</th>
                                             	<th style="width:20%">Start date of Bidder List approval</th>
 					<?php } else { ?>
@@ -694,34 +689,34 @@ $this->load->view('buyer/partials/header'); ?>
                                         <tr class='text-center'>
                                             <td>Date</td>
                                             <td>
-                                                <input type='date' class="form-control" name="receipt_date" id="receipt_date" value="<?php echo $mRecordAwdContract['receipt_date'] ?>">
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='date' class="form-control" name="receipt_date" id="receipt_date" value="<?php echo $mRecordAwdContract['receipt_date'] ?>">
 												<span id="receipt_date_err"></span>
 
 											</td>
                                             <td>
-                                                <input type='date' class="form-control" name="bidder_approval_date" id="bidder_approval_date"   value="<?php echo $mRecordAwdContract['bidder_approval_date'] ?>" >
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='date' class="form-control" name="bidder_approval_date" id="bidder_approval_date"   value="<?php echo $mRecordAwdContract['bidder_approval_date'] ?>" >
 												<span id="bidder_approval_date_err"></span>
 											</td>
                                             <td>
-                                                <input type='date' class="form-control" name="award_recomm_date" id="award_recomm_date" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" value="<?php echo $mRecordAwdContract['award_recomm_date'] ?>">
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type='date' class="form-control" name="award_recomm_date" id="award_recomm_date" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" value="<?php echo $mRecordAwdContract['award_recomm_date'] ?>">
                                             </td>
                                             <td>
-                                                <textarea class="form-control" rows="2" name="remarks_date" id="remarks_date"><?php echo $mRecordAwdContract['remarks_date'] ?></textarea>
+                                                <textarea <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  class="form-control" rows="2" name="remarks_date" id="remarks_date"><?php echo $mRecordAwdContract['remarks_date'] ?></textarea>
                                             </td>
                                         </tr>
                                         <tr class='text-center'>
                                             <td>No of Days</td>
                                             <td>
-                                                <input type='text' oninput="allowNumOnly(this)" class="form-control" name="receipt_days" id="receipt_days" value="NA" readonly>
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this)" class="form-control" name="receipt_days" id="receipt_days" value="NA" readonly>
                                             </td>
                                             <td>
-                                                <input type='text' oninput="allowNumOnly(this)" class="form-control" name="bidder_approval_days" id="bidder_approval_days" value="<?php echo $mRecordAwdContract['bidder_approval_days'] ?>" readonly>
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this)" class="form-control" name="bidder_approval_days" id="bidder_approval_days" value="<?php echo $mRecordAwdContract['bidder_approval_days'] ?>" readonly>
                                             </td>
                                             <td>
-                                                <input type='text' oninput="allowNumOnly(this)" class="form-control" name="award_recomm_days" id="award_recomm_days" value="<?php echo $mRecordAwdContract['award_recomm_days'] ?>" readonly>
+                                                <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' oninput="allowNumOnly(this)" class="form-control" name="award_recomm_days" id="award_recomm_days" value="<?php echo $mRecordAwdContract['award_recomm_days'] ?>" readonly>
                                             </td>
                                             <td>
-                                                <textarea class="form-control" rows="2" name="remarks_days" id="remarks_days"><?php echo $mRecordAwdContract['remarks_days'] ?></textarea>
+                                                <textarea <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  class="form-control" rows="2" name="remarks_days" id="remarks_days"><?php echo $mRecordAwdContract['remarks_days'] ?></textarea>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -744,9 +739,9 @@ $this->load->view('buyer/partials/header'); ?>
 											
 											<label for="term_label">Description</label>
 											<div style="display:flex ;">
-											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php //echo $mRecordPackage[0]['package_name'] ?></label><input type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required readonly ></div>
-											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php //echo $mRecordPackage[1]['package_name'] ?></label><input type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" readonly></div>
-											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php //echo $mRecordPackage[2]['package_name'] ?></label><input type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" readonly></div> 
+											<div style="width: 100%;" class="mr-2"><label id="pckLabel1"><?php //echo $mRecordPackage[0]['package_name'] ?></label><input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control"  placeholder="" id="term_label<?php echo $key+1;?>" value="<?php echo $mRecordPackage[0]['major_term_label'] ?>" name="term_label[]" required readonly ></div>
+											<div style="width: 100%;" class="sec2 mr-2"><label id="pckLabel2"><?php //echo $mRecordPackage[1]['package_name'] ?></label><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control sec2 mr-2" placeholder="" name="term_label[]" id="term_label2" value="<?php echo $mRecordPackage[1]['major_term_label'] ?>" readonly></div>
+											<div style="width: 100%;" class="sec3 mr-2"><label id="pckLabel3"><?php //echo $mRecordPackage[2]['package_name'] ?></label><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type='text' class="form-control sec3 mr-2" placeholder="" name="term_label[]" id="term_label3" value="<?php echo $mRecordPackage[2]['major_term_label'] ?>" readonly></div> 
 											</div></th>
                                             <th style="width:20%;">Action</th>
                                         </tr>
@@ -761,7 +756,7 @@ $this->load->view('buyer/partials/header'); ?>
 											$required_attr = ($slNo==1) ? "required" : '' ;
 										?>
 											<tr class="text-center"><td><?php echo $slNo ?></td>
-											<td><input type="text" class="form-control" name="term[]"  value="<?php echo $term; ?>" <?php echo $required_attr; ?>></td>
+											<td><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="text" class="form-control" name="term[]"  value="<?php echo $term; ?>" <?php echo $required_attr; ?>></td>
 											<td>
 												<div style="display:flex ;">
 												<?php
@@ -777,7 +772,9 @@ $this->load->view('buyer/partials/header'); ?>
 												}
 												
 												?>
-												<textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required><?php echo $term_label_value_arr[0]; ?></textarea><textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value2" ><?php echo $term_label_value_arr[1]; ?></textarea><textarea name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec3 mr-2" rows="2"  id="term_label_value3" ><?php echo $term_label_value_arr[2]; ?></textarea>
+												<textarea <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  name="term_label_value[<?php echo $slNo?>][]"  class="form-control mr-2" rows="2"  id="term_label_value1" required><?php echo $term_label_value_arr[0]; ?></textarea>
+												<textarea  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec2 mr-2" rows="2"  id="term_label_value2" ><?php echo $term_label_value_arr[1]; ?></textarea>
+												<textarea <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> name="term_label_value[<?php echo $slNo?>][]"  class="form-control sec3 mr-2" rows="2"  id="term_label_value3" ><?php echo $term_label_value_arr[2]; ?></textarea>
 												<?php /*<textarea rows="2" class="form-control mr-2" name="term_label_value[]" id="term_label_value<?php echo $slNo;?>"><?php echo $term_label_value; ?></textarea> <?php */?>
 											</td>
 										
@@ -786,7 +783,7 @@ $this->load->view('buyer/partials/header'); ?>
 											if($slNo>=2)
 											{										
 											?>
-													<td><input type="button" value="Delete" class="btn ibtnDelDcw2 btn-sm btn-danger rounded" onclick="deleteRow(this)">
+													<td><input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> type="button" value="Delete" class="btn ibtnDelDcw2 btn-sm btn-danger rounded" onclick="deleteRow(this)">
 													</td>
 											<?php 
 											}
@@ -828,7 +825,7 @@ $this->load->view('buyer/partials/header'); ?>
                                     <div class='form-group'>
                                         <label class="font-weight-bold">Background / Detailed Note</label>
                                       
-                               <textarea class="form-control" rows="3" name="detailed_note" id="detailed_note"><?php echo $mRecord['detailed_note'] ?></textarea>
+                               <textarea <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?> class="form-control" rows="3" name="detailed_note" id="detailed_note"><?php echo $mRecord['detailed_note'] ?></textarea>
                                     </div>
                                 </div>
 
@@ -838,8 +835,8 @@ $this->load->view('buyer/partials/header'); ?>
                                 <div class="col-lg-4">
                                     <div class='form-group'>
                                         <label>Upload Comparitive</label>
-                                       <input type="file" class="form-control" placeholder="" name="upload_comparitive"  value="<?php echo $mRecord['upload_comparitive_path'] ?>">
-									   <input type="hidden" class="form-control" placeholder="" name="file1_upload_hd" value="<?php echo $mRecord['upload_comparitive_name'] ?>">
+                                       <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="file" class="form-control" placeholder="" name="upload_comparitive"  value="<?php echo $mRecord['upload_comparitive_path'] ?>">
+									   <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="hidden" class="form-control" placeholder="" name="file1_upload_hd" value="<?php echo $mRecord['upload_comparitive_name'] ?>">
 											<?php if($mRecord['upload_comparitive_name']!='')
 											{
 											?>
@@ -849,13 +846,13 @@ $this->load->view('buyer/partials/header'); ?>
 											else
 												echo "&nbsp;";
 											?>
-                                        <input type="text" class="form-control mt-2" placeholder="Please enter file name" name="upload_comparitive_disp_name"  value="<?php echo $mRecord['upload_comparitive_disp_name'] ?>">
+                                        <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="text" class="form-control mt-2" placeholder="Please enter file name" name="upload_comparitive_disp_name"  value="<?php echo $mRecord['upload_comparitive_disp_name'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class='form-group'>
                                         <label>Upload Detailed IOM</label>
-                                      <input type="file" class="form-control" placeholder="" name="upload_detailed" value="<?php echo $mRecord['upload_detailed_path'] ?>">
+                                      <input <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="file" class="form-control" placeholder="" name="upload_detailed" value="<?php echo $mRecord['upload_detailed_path'] ?>">
 									  <?php if($mRecord['upload_detailed_name']!='')
 											{
 											?>
@@ -865,7 +862,7 @@ $this->load->view('buyer/partials/header'); ?>
 											else
 												echo "&nbsp;";
 									 ?>
-                                        <input type="text" class="form-control mt-2" placeholder="Please enter file name" name="upload_detailed_disp_name" value="<?php echo $mRecord['upload_detailed_disp_name'] ?>">
+                                        <input  <?php echo ($mRecord['nfa_status']== "SA" ) ? "readonly": "";?>  type="text" class="form-control mt-2" placeholder="Please enter file name" name="upload_detailed_disp_name" value="<?php echo $mRecord['upload_detailed_disp_name'] ?>">
                                     </div>
                                 </div>
                             </div>
@@ -876,8 +873,11 @@ $this->load->view('buyer/partials/header'); ?>
 
 							<div class="row mt-4">
                                 <div class="col-md-3 mb-3">
-                                    <lable>PCM</lable>
-                                    <input readonly="" value="<?php echo $this->session->userdata('session_name'); ?>" class="form-control" />
+
+                                    <?php $mSessionRole = $this->session->userdata('session_role'); ?>
+				      <lable><?php echo  $mSessionRole ?></lable>
+
+                                      <input readonly="" value="<?php echo $this->session->userdata('session_name'); ?>" class="form-control" />
                                 </div>
                             </div>	
 							
@@ -892,11 +892,28 @@ $this->load->view('buyer/partials/header'); ?>
 							
 							 $result_maxLevel = '';
 							 $mSessionZone = $this->session->userdata('session_zone');
+		
+							$approvalLevel =array();
+
+							  foreach ($getLevels as $key => $valLevel) {
+
+								  	$approved_status = $valLevel->approved_status;
+								  	$approver_level = $valLevel->approver_level;
+
+								    	if($approved_status == 1){
+									 $approvalLevel[]= $approver_level;
+									}
+								}
+
+							$lastApprovalValue= $approvalLevel[count($approvalLevel)-1];
+
 							
 							 foreach ($getLevels as $key => $valLevel) {
 								 $role = $valLevel->role;
 								 $approver_id = $valLevel->approver_id;
 								$approved_status = $valLevel->approved_status;
+								$approver_level = $valLevel->approver_level;
+
 
 								
 								if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
@@ -908,7 +925,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 								<div id="pm" class="col-md-3 mb-3">
 									<lable><?php echo $role;?></lable>
-									<select name="approver_id[]"   class="form-control" required <?php echo ($approved_status==1) ? "disabled": "";?> >
+									<select name="approver_id[]"   class="form-control" required  <?php echo ($lastApprovalValue >= $approver_level ) ? "readonly": "";?>  >
 										<option disabled="" selected="" value="">Select</option>
 										<option value="0" <?php echo ($approver_id==0) ? "selected": "";?>>Not Applicable</option>
 										<?php  
@@ -931,7 +948,7 @@ $this->load->view('buyer/partials/header'); ?>
 							<input type="hidden" name="project_id" id="project_id" value="<?php echo $mRecord['project_id'] ?>">
                             				<input type="hidden" name="type_work_id" id="type_work_id" value="<?php echo $mRecord['type_work_id']; ?>">
 							<input type="hidden" name="zone" id="zone" value="<?php echo $mRecord['zone']; ?>">
-				                        <input type="hidden" name="protype" id="protype" value="<?php echo $protype ?>">
+				                        <input type="hidden" name="protype" id="protype" value="<?php echo $mRecord['protype']?>">
 							<input type="hidden" name="subject_hd" id="subject_hd">
 							<input type="hidden" class="form-control" placeholder="" name="nfa_status"  value="<?php echo $mRecord['nfa_status'] ?>">
 							<input type="hidden" class="form-control" placeholder="" name="updType"  value="<?php echo $updType; ?>">
@@ -1296,7 +1313,7 @@ function package_bidders_procurement(label_obj){
 		 
 		 $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+           
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1348,7 +1365,7 @@ function package_bidders_procurement(label_obj){
 	
 		var pckIndex,bidIndex,ele_bidIndex;
 		var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
-		      
+		console.log('edit page'+bidCount_disp+" <="+ bid_count) ;   
 		if(bidCount_disp <= bid_count){
 			
 			for(pckIndex=1;pckIndex<=package_count;pckIndex++)
@@ -1446,7 +1463,7 @@ function package_bidders_procurement(label_obj){
 
 		$('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+            
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1894,17 +1911,15 @@ function getLevelApprovers(){
 	           //Getting package rows in final bidders
 	function package_bidders_pro(label_obj) {
 	
-
-   
-
-
-   			 var label_id = label_obj.id;
+   			var label_id = label_obj.id;
 
 			var package_name,finalized_award_value;
 
-
 			var package_count = $('#package_count').find(":selected").text();
 			var bidder_count = parseInt($("#bidder_count").val())+1;
+			if(isNaN(bidder_count)) {
+				bidder_count=1;
+			}
 			$('#package_row2').show();
 			$('#package_row3').show();
 			package_name = label_obj.value;
@@ -2065,6 +2080,11 @@ function getLevelApprovers(){
 			<?php 
 		}
 		?>
+		if(!isNaN(sum_bidder)) {
+			showPackage_L1();
+			//showBidposition_bidders();
+			
+		}
 	
 	}
 
@@ -2179,12 +2199,9 @@ function score_color1(){
 	
 }
 
-				 function calculateSum1_v1()
-        {
-            
-          
-                            
-                	                        
+function calculateSum1_v1()
+{
+         	                        
     var total_sum=0;
 	var total_expected_savings=0;
 	var sum=0;
@@ -2278,12 +2295,8 @@ function score_color1(){
 
 
 	  // change approval list according to ho_approval
-        $('input[name=ho_approval]').change(function(){
-                
-                    
-        
-		
-					                        
+$('input[name=ho_approval]').change(function(){
+ 					                        
     var total_sum=0;
 	var total_expected_savings=0;
 	var sum=0;
@@ -2346,12 +2359,12 @@ function score_color1(){
                         package_value= total_sum;
 
                             var ho_approval = $("input[name='ho_approval']:checked").val();    
-
+							l1_vendor1 = checkL1_vendor();
                             var url = base_url+'nfa/Award_procurement/getMaxLevelApprovers';
                             
                                 $.post(url,
                                         {
-                                            'package_value': package_value, 'ho_approval': ho_approval,'salient_id': salient_id
+                                            'package_value': package_value, 'ho_approval': ho_approval,'l1_vendor1': l1_vendor1,'salient_id': salient_id
                                         },
                                         function (data, status) {
                                         

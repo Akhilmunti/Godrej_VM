@@ -98,13 +98,77 @@ class Award_procurement extends ListNfa
 	
 	public function actionSave($mId = null) {
 		
-        $mSessionKey = $this->session->userdata('session_id');
+       		 $mSessionKey = $this->session->userdata('session_id');
 		$reasonLabel = array ("Delay due to Contractor","Delay due to Company","Delay due to other reasons (beyond the control of Contractors/Company)","Impact on OC/Handover Timelines" );
+		
+		//For updating approvers only
+		$nfa_status = $this->input->post('nfa_status');
+		$save_status = $this->input->post('save');
+
+		if($nfa_status=="SA"){
+
+			$project_id = $this->input->post('project_id');
+			$type_work_id = $this->input->post('type_work_id');
+			$zone = $this->input->post('zone');
+			$newApprover_id = $this->input->post('approver_id');  
+
+		
+			if($save_status=="save")
+			{
+				  $mSavingStatus = 1;
+				  $mNfaStatus = "SA"; 
+			}
+
+			
+			$getNfaData = $this->awardRecommProcurement->geteNfaStatus($mId);
+
+			
+			
+			$approver_level_arr = array();
+			$approver_id_arr = array();
+			$approved_id_list = array();
+
+			for ($i=0 ;$i<= count($getNfaData); $i++){
+
+				if ($getNfaData[$i]->approved_status ==1){
+					$approved_status =$getNfaData[$i]->approved_status ;
+					$approver_id1= $getNfaData[$i]->approver_id;
+					 $approved_id_list []=$approver_id1;
+
+					$mNfaInsert = $this->awardRecommProcurement->updateNfaStatus($mId,$approved_status,$approver_id1);
+
+
+				}
+			}
+			
+
+
+			$finalList= array_diff($newApprover_id,$approved_id_list);		
+
+			
+			for ($i=0 ;$i<= count($finalList); $i++){				
+					
+						$approver_level = $i +1;
+						$approver_id3 =$finalList[$i];
+						
+						
+					$mNfaInsert = $this->awardRecommProcurement->updateNfaStatusfor($mId,0,$approver_id3, $approver_level);
+				}
 	
+			
+			if($mSavingStatus==1)
+			$this->session->set_flashdata('success', 'IOM updated for approval.');
+		
+			redirect("nfa/Award_procurement/award_recomm_procurement_list/$project_id/$zone/$type_work_id");
+
+
+		}	
+	else{ 
+		//existing code for doing the action for the whole IOM
 		$updType = $this->input->post('updType');
 		
-        if ($mSessionKey) {
-            $data['home'] = "users";
+        	if ($mSessionKey) {
+           	 $data['home'] = "users";
 			
 			$this->load->helper('string');
 			
@@ -321,6 +385,7 @@ class Award_procurement extends ListNfa
 							
 						'project_id' => $project_id,
 						'type_work_id' => $type_work_id,
+						'protype'=>$protype,
 						'subject' => $subject,
 						'scope_of_work'=>$scope_of_work,
 						// 'procurement_type'=>$procurement_type,	
@@ -594,7 +659,8 @@ class Award_procurement extends ListNfa
 							'version_id' => $version_id,
 							'project_id' => $project_id,
 							'type_work_id' => $type_work_id,
-                            'subject' => $subject,
+							'protype'=>$protype,
+                            				'subject' => $subject,
 							'scope_of_work'=>$scope_of_work,
 							// 'procurement_type'=>$procurement_type,	
 							'uom_label'=>$uom_label,	
@@ -844,6 +910,7 @@ class Award_procurement extends ListNfa
 			
             $this->load->view('index', $data);
         }
+	}
 		
     }
 		
@@ -1712,8 +1779,9 @@ class Award_procurement extends ListNfa
     }
 	public function show_package_bidders3() {
 		
+		echo "show_package_bidders3";
 		$package_name = $this->input->post('package_name');
-		$bidder_count = $this->input->post('bidder_count');
+		echo $bidder_count = $this->input->post('bidder_count');
 		$finalized_award_value = $this->input->post('finalized_award_value');
 		$package_row3 ="";
 		

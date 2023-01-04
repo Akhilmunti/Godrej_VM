@@ -461,17 +461,20 @@ $pdf->writeHTML($text, true, 0, true, 0);
 		$ho_approval = ($mRecord['ho_approval'] == "Y") ? "Yes" : "No";
 		$html .='<div class="max-width">
                 <table class="p2" border="1">
-                    <tbody>
+                    <tbody>';
+			if($mRecord['type_work_id'] == 1 ||  $mRecord['type_work_id'] == 3 || $mRecord['type_work_id'] == 4){
+
 						
-                        <tr>
-                            <td>' . 
-							$mRecord["uom_label"].' : '.$mRecord['uom_value']'<br>Is HO approval required ? : ' . $ho_approval;
-							 
-							$html .='
-							</td>                           
+						$html .=' <tr>
+                            <td>'. $mRecord['uom_label'].': '.$mRecord['uom_value'].'</td>                           
+                        </tr>';
+						} ;
+				$html .='	<tr>
+                            <td>
+							Is HO approval required ? :'.$ho_approval .'</td>                           
                         </tr> 
                     </tbody>
-                </table>
+                </table>                
             </div>';
 		 
 
@@ -481,16 +484,20 @@ $pdf->writeHTML($text, true, 0, true, 0);
 
         <div>
             <table class="p2" border="1">
-                <thead>
+               <thead>
                     <tr class="bg-primary">
-                        <th>Actitivity</th>
-                        <th>Receipt of Tender Document</th>
-                        <th>Start date of Bidder List approval</th>
-                        <th>Finish date Approval of Award Recommendation</th>
+                        <th>Actitivity</th>';
+						 if( $mRecord['protype'] == 1){
+							$html .=' <th>Receipt of Tender Document</th>
+                        <th>Start date of Bidder List approval</th>';
+						 }else{
+							$html .='<th style="width:20%">Receipt of CQS</th>
+							<th style="width:20%">Start Date</th>';
+						 }
+						 $html .=' <th>Finish date Approval of Award Recommendation</th>
                         <th>Remarks (If any)</th>
                     </tr>
-                </thead>
-                <tbody>
+                </thead>                <tbody>
                     <tr>
                         <td>Date</td>
                         <td>'.date("d-M-y", strtotime($mRecordAwdContract['receipt_date'])).'

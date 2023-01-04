@@ -217,10 +217,21 @@ $this->load->view('buyer/partials/header'); ?>
                                                 <input type='text' class="form-control" placeholder="" name="synopsis_label" id="synopsis_label" required value="<?php echo $mRecordAwdContract['synopsis_label'] ?>">
                                                 <label class="mt-4">How many Contractors Recommended?</label>
                                                 <select id="package_count" name="package_count" required="" onchange="addPackage(this)" style="width:25%;" class="form-control" >
-                                                   
+												<?php $pack_count_start =  $mRecord['package_count'];
+												 for($pack_count =$pack_count_start;$pack_count<=3;$pack_count++)
+												 {
+			 
+													 $packVal = $pack_count-1; 
+												  ?>
+                                                    <option value="<?php echo $packVal;?>" <?php echo ($mRecord['package_count']==$pack_count) ? "selected" : "" ?>><?php echo $pack_count;?></option>
+													<?php
+												 }
+													?>
+													<?php /*
                                                     <option value="0" <?php echo ($mRecord['package_count']==1) ? "selected" : "" ?>>1</option>
                                                     <option value="1" <?php echo ($mRecord['package_count']==2) ? "selected" : "" ?>>2</option>
                                                     <option value="2" <?php echo ($mRecord['package_count']==3) ? "selected" : "" ?>>3</option>
+													*/?>
                                                 </select>
                                             </th>
                                         </tr>
@@ -367,7 +378,7 @@ $this->load->view('buyer/partials/header'); ?>
 												$id_index = $key+1;
 											?>
                                             <td>
-                                                <input type='text'  oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark')" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package<?php echo $id_index;?>" value="<?php echo $val['awarded_benchmark_package'] ?> Cr" required>
+                                                <input type='text'  oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders();" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package<?php echo $id_index;?>" value="<?php echo $val['awarded_benchmark_package'] ?> Cr" required>
                                             </td>
                                                <?php 
 											}?> 
@@ -1039,7 +1050,8 @@ $this->load->view('buyer/partials/header'); ?>
 
 							<div class="row mt-4">
                                 <div class="col-md-3 mb-3">
-                                    <lable>PCM</lable>
+				    <?php $mSessionRole = $this->session->userdata('session_role'); ?>
+                                    <lable> <?php  echo  $mSessionRole ; ?></lable>
                                     <input readonly="" value="<?php echo $this->session->userdata('session_name'); ?>" class="form-control" />
                                 </div>
                             </div>	
@@ -1297,7 +1309,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		let _deviation_contr=`<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package"></td>`;
 
-		let _last_awarded=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
+		let _last_awarded=`<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders();" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
 		
 		let _is_basic_rate=`<td><input class="form-check-input _is_basic_rate_td" type="radio" id="group_" name="group" value="yes"><label class="form-check-label font-weight-bold" for="one_">Yes</label><input class="form-check-input" type="radio" id="group_" name="group"
             value="no" checked><label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="two_">No</label></td>`;

@@ -124,6 +124,42 @@ class Award_procurement_model extends CI_Model {
             return false;
         }
     }
+	 function geteNfaStatus($mId) {
+		$sql = "SELECT * FROM `award_recomm_procurement_status` WHERE `salient_id` = '$mId'" ;
+		$query = $this->db->query($sql);				
+        $data = $query->result();
+
+		
+		return $data;
+	
+	}
+	
+	function updateNfaStatus($mId,$approved_status,$approver_id) {
+		
+		
+		$sql = "UPDATE `award_recomm_procurement_status` SET `approved_status`= '$approved_status' WHERE `salient_id` = '$mId' and `approver_id`= '$approver_id' " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+           		 return TRUE;
+        	} else {
+           		 return FALSE;
+        	}		
+        
+	}
+
+	function updateNfaStatusfor($mId,$approved_status,$approver_id,$approver_level) {
+					
+
+		$sql = "UPDATE `award_recomm_procurement_status` SET `approver_id`= '$approver_id',`approved_status`= '$approved_status'  WHERE `salient_id` = '$mId' and `approver_level`= '$approver_level' and `approved_status`!= 1 " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+			return TRUE;
+        	} else {
+            		return FALSE;
+       		 }		
+        
+	}
+
     
 
 

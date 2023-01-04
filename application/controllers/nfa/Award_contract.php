@@ -850,7 +850,7 @@ class Award_contract extends ListNfa
                         );
 						
                         $mInsertSynopsis = $this->awardRecommContract->addSynopsisPackage($nfaSynopsisData);
-												
+										
 							
 						}					
 					
@@ -895,8 +895,7 @@ class Award_contract extends ListNfa
                         );
 						
                         $mInsertAward = $this->awardRecommContract->addAwardEfficiency($nfaAwardData);
-						
-							
+													
 						//Final Bid
 						foreach($final_bidder_name as $keyBid=>$valBid)
 						{

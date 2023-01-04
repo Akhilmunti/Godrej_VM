@@ -310,7 +310,7 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders();" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
                                                 </td>
 
                                                 <td id="total-td8" class="total-hide"><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>
@@ -687,7 +687,10 @@
 
                                     <div class="row mt-4">
                                         <div class="col-md-3 mb-3">
-                                            <lable>PCM</lable>
+					    <?php $mSessionRole = $this->session->userdata('session_role'); ?>
+
+                                             <!-- <lable>PCM</lable> -->
+					    <lable> <?php  echo  $mSessionRole ; ?></lable>
                                             <input readonly="" value="<?php echo $this->session->userdata('session_name'); ?>" class="form-control" />
                                         </div>
                                     </div>
@@ -858,12 +861,12 @@
             $('#bidHead_row').find('th:gt(2)').remove();
             $('#pqFb_row').find('td:gt(2)').remove();
             $('#package_row1').find('td:gt(2)').remove();
-           // $('#package_row2').find('td:gt(2)').remove();
-            //$('#package_row3').find('td:gt(2)').remove();
+            $('#package_row2').find('td:gt(2)').remove();
+            $('#package_row3').find('td:gt(2)').remove();
             //$('#package_row2').find('td:gt(0)').remove();
             //$('#package_row3').find('td:gt(0)').remove();
-            $('#package_row2').hide();
-            $('#package_row3').hide();
+            //$('#package_row2').hide();
+            //$('#package_row3').hide();
             $('#totAmt_row').find('td:gt(2)').remove();
             $('#bidPos_row').find('td:gt(1)').remove();
             $('#diffCrs_row').find('td:gt(1)').remove();
@@ -885,7 +888,7 @@
 
             let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
 
-            let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
+            let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders();" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
 
             let _is_basic_rate = `<td><input class="form-check-input _is_basic_rate_td" type="radio" id="group_" name="group" value="yes"><label class="form-check-label font-weight-bold" for="one_">Yes</label><input class="form-check-input" type="radio" id="group_" name="group"
             value="no" checked><label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="two_">No</label></td>`;
@@ -1499,8 +1502,9 @@
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
             calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
-	    var bidder_approval_date = $("#bidder_approval_date").val();
-            calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
+
+	    var award_recomm_date = $("#award_recomm_date").val();
+            calculateDays_betDates(bidder_approval_date, award_recomm_date, "award_recomm_days");
 
 
         });
