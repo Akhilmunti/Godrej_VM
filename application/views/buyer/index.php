@@ -288,9 +288,9 @@
                                                 </a>
                                             </div>
                                             <div class="col-lg-6 text-center mb-2">
-                                                <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
+                                                <a href="<?php echo base_url('nfa/ListNfa/award_iom_list/'); ?>" class="btn btn-block btn-primary">
                                                     <span>
-                                                        Award IOM
+                                                        Award IOM <br><span style="height: 22px;width:26px;border-radius:5px" class="badge bg-danger "><?php echo $pending_sum_count; ?></span>
                                                     </span>
                                                 </a>
                                             </div>

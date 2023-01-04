@@ -161,15 +161,12 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 		 $header = "From:".NFA_FROM_EMAIL." \r\n";
 		 $headers .= "Reply-To: ".NFA_REPLYTO_EMAIL."\r\n";
 		 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
-
-
 		
 		 $header .= "MIME-Version: 1.0\r\n";
 		 $header .= "Content-type: text/html\r\n";
-		 
-		 
-		 $retval = mail ($to,$subject,$message,$header);
-		 //$retval = wSendMail($to, $subject, $message);
+				 
+		 //$retval = mail ($to,$subject,$message,$header);
+		 $retval = wSendMail($to, $subject, $message);
 		 
 		 if( $retval == true ) {
 			echo "Message sent successfully...";
@@ -334,17 +331,15 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
 			 $header .= "MIME-Version: 1.0\r\n";
 			 $header .= "Content-type: text/html\r\n";
-			 
-			 
-			 $retval = mail ($to,$subject,$message,$header);
-			 //$retval = wSendMail($to, $subject, $message);
-			
-			
+						 
+			 //$retval = mail ($to,$subject,$message,$header);
+			 $retval = wSendMail($to, $subject, $message);
+						
 			 if( $retval == true ) {
 				echo "Message sent successfully...";
 			 }else {
 				echo "Message could not be sent...";
-			 }
+			}
 			 
 		 }
 
