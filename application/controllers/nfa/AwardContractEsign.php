@@ -167,7 +167,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
                 <table class="p2" border="1">
                     <tbody>
                         <tr>
-                            <td>ENFA NO : ' . $mRecord['version_id'] . '
+                            <td>EIOM NO : ' . $mRecord['version_id'] . '
 							<br>Initiator : '.$mRecord['buyer_name'].'
 							<br>Subject : ' . strip_tags($mRecord['subject']) . '
 							<br>Scope of Work : ' . strip_tags($mRecord['scope_of_work']) . '					
@@ -652,8 +652,8 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						
 						foreach($mRecordPackage as $key=>$val)
 						{
-					
-							$html .='<th>Package '.$val['package_name']."<br>".$val['major_term_label'].'</th>';
+												
+							$html .='<th>Package '.$val['package_name'].'</th>';
 						}
 						$html .='</tr>
                 </thead>
