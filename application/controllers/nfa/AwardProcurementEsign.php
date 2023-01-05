@@ -42,9 +42,9 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 
-$pdf->setTitle('NFA - Award Recommendation for Procurement');
-$pdf->setSubject('Esigned NFA');
-$pdf->setKeywords('NFA, PDF, Award Recommendation for Procurement');
+$pdf->setTitle('IOM - Award Recommendation for Procurement');
+$pdf->setSubject('Esigned IOM');
+$pdf->setKeywords('IOM, PDF, Award Recommendation for Procurement');
 
 // set default header data
 $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Award Recommendation for Procurement", PDF_HEADER_STRING);
@@ -163,7 +163,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
                 <table class="p2" border="1">
                     <tbody>
                         <tr>
-                            <td>ENFA NO : ' . $mRecord['version_id'] . '
+                            <td>EIOM NO : ' . $mRecord['version_id'] . '
 							<br>Initiator : '.$mRecord['buyer_name'].'
 							<br>Subject : ' . strip_tags($mRecord['subject']) . '
 							<br>Scope of Work : ' . strip_tags($mRecord['scope_of_work']) . '	
@@ -547,19 +547,12 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						foreach($mRecordPackage as $key=>$val)
 						{
 					
-							$html .='<th>Description'.$mRecord['term_label'].'</th>';
+							$html .='<td>Package  '.$val['major_term_label']."</td>";
 						}
 						$html .='</tr>
                 </thead>
-                <tbody>
-				<tr>
-                    <td></td>
-                    <td></td>';
-					foreach($mRecordPackage as $key=>$val)
-					{
-						$html .='<td>Package  '.($key+1).'<br>'.$val['major_term_label']."</td>";
-					}
-					$html .='</tr>';
+                <tbody>';
+				
 				foreach($mRecordMajorTerms as $key=>$val)
 				{
 					$slNo  = $key+1;
@@ -686,7 +679,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 											$html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">'."Returned NFA" .'</span>
+												<span class="font-weight-bold">'."Returned IOM" .'</span>
 											</div>
 
 											<div>
@@ -705,7 +698,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 											$html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">'."Amended NFA".'</span>
+												<span class="font-weight-bold">'."Amended IOM".'</span>
 											</div>
 
 											<div>
