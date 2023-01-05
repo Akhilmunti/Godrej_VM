@@ -108,7 +108,7 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
                                 </tr>
                                 <tr>
                                     <td style="padding:0 35px;">
-                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA for Approval: '.$mSubject.':' .$package_value_mail.' </h1>
+                                        <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: IOM for Approval: '.$mSubject.':' .$package_value_mail.' </h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
                                         </span>
@@ -121,7 +121,7 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
                                         </p>
 
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-                                            Please click the below link to View & perform actions (viz. Approve / Return) on the NFA.
+                                            Please click the below link to View & perform actions (viz. Approve / Return) on the IOM.
                                         </p>
 
                                         <p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">'.
@@ -161,10 +161,13 @@ function sendEmailToApprover($mSubject=null,$package_value_mail=null,$version_id
 		 $header = "From:".NFA_FROM_EMAIL." \r\n";
 		 $headers .= "Reply-To: ".NFA_REPLYTO_EMAIL."\r\n";
 		 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
+
+
 		
 		 $header .= "MIME-Version: 1.0\r\n";
 		 $header .= "Content-type: text/html\r\n";
-				 
+		 
+		 
 		 //$retval = mail ($to,$subject,$message,$header);
 		 $retval = wSendMail($to, $subject, $message);
 		 
@@ -191,7 +194,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 if($mail_type=="LowLevels")
 			 {
 				$subject = "IOM Approved: $mSubject: $package_value_mail ";
-				$content = '   <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA Approved: '.$mSubject.':' .$package_value_mail.'</h1>
+				$content = '   <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: IOM Approved: '.$mSubject.':' .$package_value_mail.'</h1>
 				<span
 					style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
 				</span>
@@ -210,7 +213,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 else if($mail_type=="returnLowLevels")
 			 {
 				$subject = "IOM Returned: $mSubject: $package_value_mail ";
-				$content = '    <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA Returned: '.$mSubject.':' .$package_value_mail.'</h1>
+				$content = '    <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: IOM Returned: '.$mSubject.':' .$package_value_mail.'</h1>
 				<span
 					style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
 				</span>
@@ -219,18 +222,18 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 				</p>
 
 				<p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-					Note for Approval (NFA) submitted for '."$mSubject vide $version_id".'  has been Returned with the following remarks:<br>
+					Note for Approval (IOM) submitted for '."$mSubject vide $version_id".'  has been Returned with the following remarks:<br>
 					"'.$returned_remarks.'"
 				</p>
 
 				<p style="color:#455056; font-size:15px;line-height:24px; margin:0; text-align: start; margin-top: 20px;">
-					Please click the below link to View the NFA.
+					Please click the below link to View the IOM.
 				</p>';
 			 }
 			 else if($mail_type=="approver_123")
 			 {
 				$subject = "IOM for Approval: $mSubject: $package_value_mail ";
-				$content = '   <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: NFA for Approval: '.$mSubject.':' .$package_value_mail.' </h1>
+				$content = '   <h1 style="color:#1e1e2d; font-weight:500; margin:0;font-size:20px;font-family:\'Rubik\',sans-serif; text-align: start;">Subject: IOM for Approval: '.$mSubject.':' .$package_value_mail.' </h1>
                                         <span
                                             style="display:inline-block; vertical-align:middle; margin:29px 0 10px;">
                                         </span>
@@ -331,15 +334,17 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 			 $headers .= "Return-Path: ".NFA_RETURN_PATH."\r\n";
 			 $header .= "MIME-Version: 1.0\r\n";
 			 $header .= "Content-type: text/html\r\n";
-						 
+			 
+			 
 			 //$retval = mail ($to,$subject,$message,$header);
 			 $retval = wSendMail($to, $subject, $message);
-						
+			
+			
 			 if( $retval == true ) {
 				echo "Message sent successfully...";
 			 }else {
 				echo "Message could not be sent...";
-			}
+			 }
 			 
 		 }
 
@@ -427,7 +432,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 		$selOption = "selected";
 				
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/bidder_contract_list').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/bidder_supplier_list').'"'.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/award_recomm_contract_list').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
@@ -447,7 +452,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/initiated_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/initiated_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/initiated_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
@@ -468,7 +473,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/approved_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/approved_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/approved_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
@@ -489,7 +494,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/returned_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/returned_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/returned_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
@@ -509,7 +514,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/amended_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/amended_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/amended_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
@@ -529,7 +534,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/cancelled_nfa').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/cancelled_nfa').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/cancelled_nfa').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
@@ -548,7 +553,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select =   '<select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							
 							<option value="'. base_url('nfa/Award_contract/reports').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
 							<option value="'. base_url('nfa/Award_procurement/reports').'" '.(($nfaType=="award_procurement") ? $selOption : "").'>Award Recommendation for Procurement</option>                                                   
@@ -582,7 +587,7 @@ function sendEmailToUsers($mSubject=null,$package_value_mail=null,$version_id=nu
 	{
 		$selOption = "selected";
 		$nfa_select = ' <select id="nfaType" name="nfaType" required="" class="form-control">
-							<option value="">Select NFA Type</option>
+							<option value="">Select IOM Type</option>
 							<option value="'. base_url('nfa/BidderListContractor/nfa_logs').'" '.(($nfaType=="bidder_contract") ? $selOption : "").'>Short Listing Approval For Contractor</option>
 							<option value="'. base_url('nfa/BidderListSupplier/nfa_logs').'" '.(($nfaType=="bidder_supplier") ? $selOption : "").'>Short Listing Approval For Supplier</option>
 							<option value="'. base_url('nfa/Award_contract/nfa_logs').'" '.(($nfaType=="award_contract") ? $selOption : "").'>Award Recommendation for Contracts</option>
