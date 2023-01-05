@@ -39,9 +39,9 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 
-$pdf->setTitle('NFA - Award Recommendation for Contracts');
-$pdf->setSubject('Esigned NFA');
-$pdf->setKeywords('NFA, PDF, Award Recommendation for Contracts');
+$pdf->setTitle('IOM - Award Recommendation for Contracts');
+$pdf->setSubject('Esigned IOM');
+$pdf->setKeywords('IOM, PDF, Award Recommendation for Contracts');
 
 //echo PDF_HEADER_LOGO;
 // set default header data
@@ -783,7 +783,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 											$html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">'."Returned NFA" .'</span>
+												<span class="font-weight-bold">'."Returned IOM" .'</span>
 											</div>
 
 											<div>
@@ -802,7 +802,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 											$html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">'."Amended NFA".'</span>
+												<span class="font-weight-bold">'."Amended IOM".'</span>
 											</div>
 
 											<div>

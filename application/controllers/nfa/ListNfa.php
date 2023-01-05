@@ -296,6 +296,10 @@ class ListNfa extends CI_Controller {
 			 $nfaStatus = $this->input->post('nfaStatus');			
 			 $zone = $this->input->post('zone');
             		 $hd_type_work_id = $this->input->post('hd_type_work_id');
+
+			 $hd_awdType = $this->input->post('hd_awdType');
+             			if($awdType=='')
+                		$awdType= $hd_awdType;
 			 $hd_awdType = $awdType;
 
 			$hd_project_id = $this->input->post('hd_project_id');
