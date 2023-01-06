@@ -1211,12 +1211,14 @@ function package_bidders_procurement(label_obj){
 
 		let basis_awrd = $(_basis_awrd);
         basis_awrd.find("input").attr("name", basis_awrd.find("input").attr("name"))
-        basis_awrd.find("input").attr("id", basis_awrd.find("input").attr("id") + String(i + 2))
+		basis_awrd.find("input").attr("id", basis_awrd.find("input").attr("id") + String(i+1))
+        //basis_awrd.find("input").attr("id", basis_awrd.find("input").attr("id") + String(i + 2))
 
 		
 		let deviation_contr = $(_deviation_contr);
         deviation_contr.find("input").attr("name", deviation_contr.find("input").attr("name"))
-        deviation_contr.find("input").attr("id", deviation_contr.find("input").attr("id") + String(i + 2))
+		deviation_contr.find("input").attr("id", deviation_contr.find("input").attr("id") + String(i+1))
+        //deviation_contr.find("input").attr("id", deviation_contr.find("input").attr("id") + String(i + 2))
 
 		let last_awarded=$(_last_awarded);
 		last_awarded.find("input").attr("name",last_awarded.find("input").attr("name"))

@@ -489,6 +489,22 @@ class Vendor extends CI_Controller {
                 $data['getVendors'] = $this->register->getAllActiveVendors();
                 $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYear();
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, "");
+                $awdType = "Contract";
+                $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,'','','Pending','');
+                if(is_array($pending_iom_arr))
+                    $pending_iom_count = sizeof($pending_iom_arr);
+                else
+                    $pending_iom_count = 0;
+                
+                $awdType = "Procurement";
+               
+                $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,'','','Pending','');
+                
+                if(is_array($pending_proc_iom_arr))
+                    $pending_proc_iom_count = sizeof($pending_proc_iom_arr);
+                else
+                    $pending_proc_iom_count = 0;
+                $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
                 $this->load->view('buyer/index', $data);
             } else if ($mSessionRole == "Project Manager") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
@@ -505,14 +521,21 @@ class Vendor extends CI_Controller {
                 $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
-                $awdType = "Contract";
+                $awdType = "Contract";               
                 $projects = $data['projects'];
-                $mProjectId = $projects[0]['project_id'];
-                $data['pending_iom'] = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
-                $data['pending_iom_count']= sizeof($data['pending_iom']);
+                $mProjectId = $projects[0]['project_id'];                
+                $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                if(is_array($pending_iom_arr))
+                    $data['pending_iom_count']= sizeof($pending_iom_arr);
+                else
+                    $data['pending_iom_count']=0;               
                 $awdType = "Procurement";
-                $data['pending_proc_iom'] = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
-                $data['pending_proc_iom_count']= sizeof($data['pending_proc_iom']);
+                $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                if(is_array($pending_proc_iom_arr))
+                    $pending_proc_iom_count = sizeof($pending_proc_iom_arr);
+                else
+                    $pending_proc_iom_count = 0;
+                $data['pending_proc_iom_count']= $pending_proc_iom_count;
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "Project Execution Team") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
@@ -551,12 +574,44 @@ class Vendor extends CI_Controller {
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['project'] = "All";
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, "");
+                $awdType = "Contract";
+                $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,'','','Pending','');
+                if(is_array($pending_iom_arr))
+                    $pending_iom_count = sizeof($pending_iom_arr);
+                else
+                    $pending_iom_count = 0;
+                
+                $awdType = "Procurement";
+              
+                $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,'','','Pending','');
+                
+                if(is_array($pending_proc_iom_arr))
+                    $pending_proc_iom_count = sizeof($pending_proc_iom_arr);
+                else
+                    $pending_proc_iom_count = 0;
+                $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
                 $this->load->view('buyer/index_zonal', $data);
             } else {
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $this->load->view('buyer/index_update', $data);
             }
         } else {
+            $awdType = "Contract";
+                 
+            $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,'','','Pending','');
+            if(is_array($pending_iom_arr))
+                $pending_iom_count = sizeof($pending_iom_arr);
+            else
+                $pending_iom_count = 0;
+            $awdType = "Procurement";
+            $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,'','','Pending','');
+                
+            if(is_array($pending_proc_iom_arr))
+                $pending_proc_iom_count = sizeof($pending_proc_iom_arr);
+            else
+                $pending_proc_iom_count = 0;
+           
+            $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
             $this->load->view('index', $data);
         }
     }
@@ -710,6 +765,7 @@ class Vendor extends CI_Controller {
                 } else {
                     $mProjectId= $projects[0]['project_name'];
                 }
+                $awdType = "Contract";
                 $data['pending_iom'] = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
                 $data['pending_iom_count']= sizeof($data['pending_iom']);
                 $awdType = "Procurement";
@@ -736,12 +792,49 @@ class Vendor extends CI_Controller {
                 $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $mProject);
+                $awdType = "Contract";
+                if($mProjectId=="A")
+                    $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,'','','Pending','');
+                else
+                    $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                if(is_array($pending_iom_arr))
+                    $pending_iom_count= sizeof($pending_iom_arr);
+                else
+                    $pending_iom_count=0;
+                $data['pending_iom_count'] = $pending_iom_count;
+                $awdType = "Procurement";
+                if($mProjectId=="A")
+                    $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,'','','Pending','');
+                else
+                    $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                if(is_array($pending_proc_iom_arr))
+                    $pending_proc_iom_count= sizeof($pending_proc_iom_arr);
+                else
+                    $pending_proc_iom_count=0;
+                $data['pending_proc_iom_count'] = $pending_proc_iom_count;   
+                $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
                 $this->load->view('buyer/index_zonal', $data);
             } else {
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $this->load->view('buyer/index_update', $data);
             }
         } else {
+            $awdType = "Contract";
+            $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,'','','Pending','');
+            if(is_array($pending_iom_arr))
+                $pending_iom_count = sizeof($pending_iom_arr);
+            else
+                $pending_iom_count = 0;
+            
+            $awdType = "Procurement";
+           
+            $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,'','','Pending','');
+            
+            if(is_array($pending_proc_iom_arr))
+                $pending_proc_iom_count = sizeof($pending_proc_iom_arr);
+            else
+                $pending_proc_iom_count = 0;
+            $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
             $this->load->view('index', $data);
         }
     }

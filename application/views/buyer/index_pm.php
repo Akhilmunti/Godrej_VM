@@ -414,16 +414,14 @@
                                                 ?>
 
                                                 <div class="col-lg-6 text-center mb-2">
-                                                    <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "3" . "/" . "Contracts"); ?>" class="btn btn-block btn-primary position-relative">
-                                                        
-                                                        Contracts<span style="height: 22px;width:22px;border-radius:22px;top: -9px !important;" class="position-absolute badge bg-danger "><?php echo $pending_iom_count; ?></span>
-                                                       
+                                                    <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "3" . "/" . "Contracts"); ?>" class="btn btn-block btn-primary">                                                       
+                                                        Contracts <span style="height: 22px;width:27px;border-radius:5px" class="badge bg-danger "><?php echo $pending_iom_count; ?></span>                                                       
                                                     </a>
                                                     <br>
                                                 </div>
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "1" . "/" . "Procurement"); ?>" class="btn btn-block btn-primary">
-                                                        Procurement<span style="height: 22px;width:22px;border-radius:22px;top: -9px !important;left: 106px;" class="position-absolute badge bg-danger "><?php echo $pending_proc_iom_count; ?></span>
+                                                        Procurement<span style="height: 22px;width:27px;border-radius:5px" class="badge bg-danger "><?php echo $pending_proc_iom_count; ?></span>
                                                     </a>
                                                     <br>
                                                 </div>
@@ -459,7 +457,7 @@
                                                 </div>
 
                                                 <div class="col-lg-6 text-center mb-2">
-                                                    <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
+                                                    <a href="<?php echo base_url('nfa/ListNfa/award_iom_list/'); ?>" class="btn btn-block btn-primary">
                                                         <span>
                                                             Award IOM
                                                             <span class="badge badge-danger ml-2">
