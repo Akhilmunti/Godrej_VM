@@ -837,7 +837,7 @@
 
         $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+           
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1086,7 +1086,7 @@
 
             $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+           
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1221,7 +1221,7 @@
 
             $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+            
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);

@@ -1188,7 +1188,7 @@ function package_bidders_pro(label_obj) {
 
             $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+           
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1491,7 +1491,7 @@ function package_bidders_pro(label_obj) {
 		sum_proposed+= parseFloat(finalized_award_value_package);
 		
 		if(!isNaN(sum_proposed)) {
-			console.log("sum calculatetesting"+sum_proposed);
+			
 			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
 		}
 		else
@@ -1516,11 +1516,11 @@ function package_bidders_pro(label_obj) {
 	else
 		$("#total_post_basic_rate").val(0); 
 	if(!isNaN(total_expected_savings)) {
-		console.log("calculate sum percentage");
+		
 		total_finalized = $("#total_finalized_award_value").val();
-		//console.log("total_finalized"+total_finalized);
+		
 		total_budget = $("#total_budget_esc").val();
-		//console.log("total_budget_esc"+total_budget);
+		
 		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
 		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
 	}
@@ -1533,7 +1533,7 @@ function package_bidders_pro(label_obj) {
                 ho_approval = $("input[name='ho_approval']:checked").val(); 
             
                 l1_vendor1 = checkL1_vendor();	
-                //console.log("l1_vendor procurement"+l1_vendor1);
+               
                 // Get max level of Approvers
                 
                 
@@ -1545,7 +1545,7 @@ function package_bidders_pro(label_obj) {
                                     'package_value': package_value, 'ho_approval': ho_approval,'l1_vendor1': l1_vendor1,'salient_id': salient_id
                                 },
                                 function (data, status) {
-                                    //console.log(data);
+                                   
                                     $('#approvers_list_div').html(data);
                                 
                                 });
@@ -1613,7 +1613,7 @@ function getExpectedSavings1(){
 		sum_proposed+= parseFloat(finalized_award_value_package);
 		
 		if(!isNaN(sum_proposed)) {
-			console.log("sum calculatetesting"+sum_proposed);
+			
 			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
 		}
 		else
@@ -1638,11 +1638,11 @@ function getExpectedSavings1(){
 	else
 		$("#total_post_basic_rate").val(0); 
 	if(!isNaN(total_expected_savings)) {
-		console.log("calculate sum percentage");
+		
 		total_finalized = $("#total_finalized_award_value").val();
-		console.log("total_finalized"+total_finalized);
+		
 		total_budget = $("#total_budget_esc").val();
-		console.log("total_budget_esc"+total_budget);
+		
 		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
 		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
 	}

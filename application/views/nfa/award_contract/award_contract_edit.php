@@ -1494,7 +1494,7 @@ $this->load->view('buyer/partials/header'); ?>
 		});
 
 		$('#group_2_2').click(function() {
-			console.log("group 2 anticip");
+			
 			basic2.style.display = "none";
 			anticipated2.style.display = "none";
 			basic_rate_month_package2.style.display = "none";
@@ -1533,7 +1533,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		 $('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+           
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1578,14 +1578,9 @@ $this->load->view('buyer/partials/header'); ?>
 		
 		var pckIndex,bidIndex,ele_bidIndex;
 		var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
-		console.log("if"+$(".custom_th").length);
-		console.log("if1"+e.target.value);
-		console.log("ifbidder"+bidCount_disp);
-		console.log("ifbidder1"+bid_count);
-       
+		       
 		if(bidCount_disp <= bid_count){
-		
-	
+			
 		for(pckIndex=1;pckIndex<=package_count;pckIndex++)
 		{
 			
@@ -1652,8 +1647,7 @@ $this->load->view('buyer/partials/header'); ?>
 				for (bidIndex = bid_count; bidIndex < bidCount_disp; bidIndex++) {
 				
 				ele_bidIndex=parseInt(bidIndex)+1;
-				console.log("#package_bidder_"+pckIndex+"_"+ele_bidIndex);
-				
+								
 				if(pckIndex==1)
 				{
 					$(".custom_th").parent().last().remove()
@@ -1682,7 +1676,7 @@ $this->load->view('buyer/partials/header'); ?>
 
 		$('.onMouseOutClass').on('mouseout', (event) => {
             let ele = document.getElementsByClassName("onMouseOutClass");
-            console.log("ele",ele);
+           
             for(let i = 0;i<ele.length;i++){
                 let val = event.target.value;
                 val1 = String(event.target.value);
@@ -1772,7 +1766,7 @@ $this->load->view('buyer/partials/header'); ?>
 
         function addRow() {
 			contrSel = document.getElementById("package_count").value;
-            console.log("contrSel",contrSel);
+           
             var newrow = document.createElement("tr");
             newrow.setAttribute("class","text-center");
             var numericColumn = createRowColumn(newrow);
@@ -1790,7 +1784,7 @@ $this->load->view('buyer/partials/header'); ?>
             textArea1.setAttribute("style", "display:flex ;");
 
 			var term_len = $('input[name="term[]"]').length;
-			console.log("term_len"+term_len);
+			
 			var term_len_index = parseInt(term_len)+1;
 
             var textAreaRow = document.createElement("textarea");

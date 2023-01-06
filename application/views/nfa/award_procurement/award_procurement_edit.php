@@ -1367,7 +1367,7 @@ function package_bidders_procurement(label_obj){
 	
 		var pckIndex,bidIndex,ele_bidIndex;
 		var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
-		console.log('edit page'+bidCount_disp+" <="+ bid_count) ;   
+		
 		if(bidCount_disp <= bid_count){
 			
 			for(pckIndex=1;pckIndex<=package_count;pckIndex++)
@@ -1437,8 +1437,7 @@ function package_bidders_procurement(label_obj){
 				for (bidIndex = bid_count; bidIndex < bidCount_disp; bidIndex++) {
 				
 				ele_bidIndex=parseInt(bidIndex)+1;
-				console.log("#package_bidder_"+pckIndex+"_"+ele_bidIndex);
-				
+								
 				if(pckIndex==1)
 				{
 					$(".custom_th").parent().last().remove()
@@ -1530,7 +1529,7 @@ function createRowColumn(row) {
 	
 function addRow() {
 	contrSel = document.getElementById("package_count").value;
-	console.log("contrSel",contrSel);
+	
 	var newrow = document.createElement("tr");
 	newrow.setAttribute("class","text-center");
 	var numericColumn = createRowColumn(newrow);
@@ -1548,7 +1547,7 @@ function addRow() {
 	textArea1.setAttribute("style", "display:flex ;");
 
 	var term_len = $('input[name="term[]"]').length;
-	console.log("term_len"+term_len);
+	
 	var term_len_index = parseInt(term_len)+1;
 
 	var textAreaRow = document.createElement("textarea");
@@ -2227,7 +2226,7 @@ function calculateSum1_v1()
 		sum_proposed+= parseFloat(finalized_award_value_package);
 		
 		if(!isNaN(sum_proposed)) {
-			console.log("sum calculatetesting"+sum_proposed);
+			
 			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
 		}
 		else
@@ -2252,11 +2251,11 @@ function calculateSum1_v1()
 	else
 		$("#total_post_basic_rate").val(0); 
 	if(!isNaN(total_expected_savings)) {
-		console.log("calculate sum percentage");
+		
 		total_finalized = $("#total_finalized_award_value").val();
-		console.log("total_finalized"+total_finalized);
+		
 		total_budget = $("#total_budget_esc").val();
-		console.log("total_budget_esc"+total_budget);
+		
 		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
 		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
 	}
@@ -2322,7 +2321,7 @@ $('input[name=ho_approval]').change(function(){
 		sum_proposed+= parseFloat(finalized_award_value_package);
 		
 		if(!isNaN(sum_proposed)) {
-			console.log("sum calculatetesting"+sum_proposed);
+			
 			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
 		}
 		else
@@ -2347,11 +2346,11 @@ $('input[name=ho_approval]').change(function(){
 	else
 		$("#total_post_basic_rate").val(0); 
 	if(!isNaN(total_expected_savings)) {
-		console.log("calculate sum percentage");
+		
 		total_finalized = $("#total_finalized_award_value").val();
-		console.log("total_finalized"+total_finalized);
+		
 		total_budget = $("#total_budget_esc").val();
-		console.log("total_budget_esc"+total_budget);
+		
 		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
 		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
 	}

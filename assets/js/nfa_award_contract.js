@@ -156,7 +156,7 @@ function packageSynopsis_total(inpField,outputField){
 //Calculate Sum for the  package
 
 function calculateSum1(){
-	console.log("testing calcu");
+	
 	var total_sum=0;
 	var total_expected_savings=0;
 	var sum=0;
@@ -190,7 +190,7 @@ function calculateSum1(){
 		sum_proposed+= parseFloat(finalized_award_value_package)+parseFloat(anticipated_rate);
 		
 		if(!isNaN(sum_proposed)) {
-			console.log("sum calculatetesting"+sum_proposed);
+			
 			$("#post_basic_rate_package"+i).val(sum_proposed.toFixed(2)+" Cr"); 
 		}
 		else
@@ -214,14 +214,14 @@ function calculateSum1(){
 	else
 		$("#total_post_basic_rate").val(0); 
 	if(!isNaN(total_expected_savings)) {
-		console.log("calculate sum percentage");
+		
 		total_finalized = $("#total_finalized_award_value").val();
-		console.log("total_finalized"+total_finalized);
+		
 		total_budget = $("#total_budget_esc").val();
-		console.log("total_budget_esc"+total_budget);
+		
 		total_expected = ((parseFloat(total_finalized)-parseFloat(total_budget))*100)/parseFloat(total_budget);
 		$("#total_expected_savings").val(total_expected.toFixed(2)+" %"); 	
-		//$("#total_expected_savings").val(total_expected_savings.toFixed(2)+"%"); 
+		
 	}
 	else
 		$("#total_expected_savings").val('0%'); 
@@ -229,7 +229,7 @@ function calculateSum1(){
 	package_value= total_sum;
 	l1_vendor1 = checkL1_vendor();			
 	
-	console.log("Livendor test"+l1_vendor1);
+	
 	// Get max level of Approvers
 		
 	var url = base_url+'nfa/Award_contract/getMaxLevelApprovers';
@@ -262,7 +262,7 @@ function package_bidders(label_obj) {
 
 	var package_count = $('#package_count').find(":selected").text();
 	var bidder_count = parseInt($("#bidder_count").val())+1;
-	console.log("bidder count contract"+bidder_count);
+	
 	if(isNaN(bidder_count)) {
 		bidder_count=1;
 	}
@@ -317,7 +317,7 @@ function  setRecommended_vendorName(){
 	for(i=1;i<=package_count;i++)
 	{
 		recom_vendor= $("#recomm_vendor_package"+i).val(); 
-		console.log("recom_vendor"+recom_vendor);
+		
 		$("#final_bidder_name"+i).val(recom_vendor); 
 		$("#final_bidder_name"+i).attr('readonly', true);
 	}
@@ -445,7 +445,7 @@ function score_color(){
 }
 	//get Bidders package total
 	function getBidders_total(){
-		console.log("bidders_total");
+		
 		var sum_bidder,sum_gpl;
 		var pck_index,bid_index,bid_text;
 		var total_amt_gpl ; 
@@ -595,13 +595,12 @@ function score_color(){
 		return minimumN;
 	}
 
-	//Function for showing the Bid position in Packages
+	 //Function for showing the Bid position in Packages
 	function showBidposition_packages(stuff_sort){
 		var bidder_value, pck_ndex_basis, bid_ndex_basis,finalized_value;
 		var package_count = parseInt($("#package_count").val())+1;	
 		var bidder_count = parseInt($("#bidder_count").val())+1;	
-		console.log("showBidposition_packages start");
-		
+				
 		stuff_unique = remove_duplicates_array(stuff);
 		const minimumN = (arr, n) => {
 		
@@ -631,9 +630,9 @@ function score_color(){
 			stuff_minimum = stuff_unique;
 		
 		}
-		console.log("stuff_minimum"+stuff_minimum);
+		
 		$.each(stuff_minimum, function( key, value ) {
-			console.log("key"+key+"value"+value);
+			
 			bidder_value = value.bid_details.package_bidder_value;
 			pck_ndex_basis = value.bid_details.pck_index;
 			bid_ndex_basis = value.bid_details.bid_index;
@@ -812,7 +811,7 @@ function showBidders_finalized(){
 			for(bid_index=1;bid_index<=bidder_count;bid_index++)
 			{
 				bidder_name = $("#final_bidder_name"+bid_index).val();
-				console.log(package_name_bid+"=="+package_val+" && "+bidder_name+"=="+recommVendor_val);
+				
 				if(package_name_bid==package_val && bidder_name==recommVendor_val )
 				{
 					$("#package_bidder_"+pck_index+"_"+bid_index).attr('readonly', true);
@@ -1009,14 +1008,13 @@ function show_bidders_procurement() {
 
 	let _diff_age_gp = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control diff_age_gp_custom_td decimalStrictClass onMouseOutClass" name="diff_budget_percentage[]" id="diff_budget_percentage" readonly></td>`;
 
-	//var package_count = $('#package_count').find(":selected").text();
-	//var bid_count = $('#bidder_count').find(":selected").text();
+	
 	var bid_count = package_count;
 	var opt_index;
 	$('#bidder_count').val(parseInt(bid_count)-1);
 
 	for( var j=0 ; j < bid_count ;  j++ ){
-		//$("#bidder_count option[value=" + j + "]").hide();
+		
 		opt_index= parseInt(j)-1;
 		$("#bidder_count option[value=" + opt_index + "]").hide();
 	}
