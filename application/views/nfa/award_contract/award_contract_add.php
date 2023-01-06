@@ -110,6 +110,53 @@
         .total-hide{
             display: none;
         }
+        [tool-tip] {
+            position: relative;
+        }
+
+        [tool-tip]:before {
+            content: '';
+            /* hides the tooltip when not hovered */
+            display: none;
+            content: '';
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid #1a1a1a;
+            position: absolute;
+            top: 30px;
+            left: 35px;
+            z-index: 8;
+            font-size: 0;
+            line-height: 0;
+            width: 0;
+            height: 0;
+        }
+
+        [tool-tip]:after {
+            display: none;
+            content: attr(tool-tip);
+            position: absolute;
+            top: 35px;
+            /* left: 0px; */
+            right: -10px;
+            padding: 5px 8px;
+            background: #1a1a1a;
+            color: #fff;
+            z-index: 9;
+            font-size: 0.8em;
+            height: 30px;
+            line-height: 18px;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px;
+            white-space: nowrap;
+            word-wrap: normal;
+        }
+
+        [tool-tip]:hover:before,
+        [tool-tip]:hover:after {
+            display: block;
+        }
 
     </style>
 
@@ -162,7 +209,7 @@
                                     <div class="col-lg-12">
                                         <div class='form-group'>
                                             <label class="font-weight-bold">Scope of Work</label>
-                                            <input type='text' class="form-control" placeholder="" name="scope_of_work" id="scope_of_work">
+                                            <input type='text' class="form-control" placeholder="" name="scope_of_work" id="scope_of_work" maxlength="200">
                                         </div>
                                     </div>
 
@@ -189,7 +236,7 @@
                                         <thead class="bg-primary">
                                             <tr class='text-center'>
                                                 <th>Description</th>
-                                                <th scope="col">
+                                                <th style="width:180px;" scope="col">
                                                     <label>Package name</label>
                                                     <input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label1" required onblur="package_bidders(this);">
                                                 </th>
@@ -207,7 +254,7 @@
                                                 <td id="total-td1" class="total-hide"><input type='text' class="form-control" name="total_budget_esc" id="total_budget_esc" value="" readonly></td>
                                             </tr>
                                             <tr class='text-center'>
-                                                <td>Negotiated Value (Excl. Tax) – Pre Final Round</td>
+                                                <td>Negotiated Value (Excl. Tax)-Pre Final Round</td>
                                                 <td>
                                                     <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_negot_value','total_negot_value');" class="form-control decimalStrictClass onMouseOutClass" name="package_negot_value[]" id="package_negot_value1" required>
                                                 </td>
@@ -259,11 +306,11 @@
                                                 <td>
                                                     <label>Last Awarded Benchmark with Date</label>
                                                     <div data-tip="Please enter project name and date of award">
-                                                        <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" required>
+                                                        <input type='text' class="form-control" name="benchmark_label" id="benchmark_label" placeholder="Please enter project name and date of award" autocomplete="off" onblur="show_bidders();" required>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
+                                                    <input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders();" class="form-control decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package1" required>
                                                 </td>
 
                                                 <td id="total-td8" class="total-hide"><input type='text' class="form-control" name="total_awarded_benchmark" id="total_awarded_benchmark" value="" readonly></td>
@@ -295,7 +342,9 @@
                                             <tr class='text-center'>
                                                 <td>Anticipated Basic Rate adjustment (If the current prices prevail throughout the Contract Period):</td>
                                                 <td>
-                                                    <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();" required>
+                                                    <div tool-tip="Please enter difference of today's base rate vs tender base rate">
+                                                        <input id="anticipated_rate1" oninput="decimalStrict(this)" name="anticipate_basic_rate_package[]" style="display:none ;" type='text' class="form-control decimalStrictClass onMouseOutClass" onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();" required>
+                                                    </div>
                                                 </td>
 
                                                 <td id="total-td11" class="total-hide"><input type='text' class="form-control" name="total_anticipated_rate" id="total_anticipated_rate" value="" readonly></td>
@@ -309,10 +358,10 @@
                                                 <td id="total-td12" class="total-hide"><input type='text' class="form-control" name="total_post_basic_rate" id="total_post_basic_rate" value="" readonly></td>
                                             </tr>
 
-                                            <tr class='text-center'>
+                                            <tr class='text-center' id="baseRate_row">
                                                 <td>Base Rate Consideration Month in Award</td>
                                                 <td>
-                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required>
+                                                    <input type='date' class="form-control" name="basic_rate_month_package[]" id="basic_rate_month_package1" max="<?php echo date("Y-m-d" , strtotime("-1 day") ) ?>" style="display:none ;">
                                                 </td>
 
                                                 <td id="total-td13" class="total-hide"></td>
@@ -405,8 +454,8 @@
                                             <tr class='text-center'>
                                                 <th>Sr No.</th>
                                                 <th style="width:60%" colspan="2">
-                                                    <label>Contract Package</label>
-                                                    <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label">
+                                                    <label>Description</label>
+                                                    <!-- <input type='text' class="form-control" name="contract_package_works_label" id="contract_package_works_label"> -->
                                                 </th>
                                                 <th>Remarks</th>
                                             </tr>
@@ -638,7 +687,10 @@
 
                                     <div class="row mt-4">
                                         <div class="col-md-3 mb-3">
-                                            <lable>PCM</lable>
+					    <?php $mSessionRole = $this->session->userdata('session_role'); ?>
+
+                                             <!-- <lable>PCM</lable> -->
+					    <lable> <?php  echo  $mSessionRole ; ?></lable>
                                             <input readonly="" value="<?php echo $this->session->userdata('session_name'); ?>" class="form-control" />
                                         </div>
                                     </div>
@@ -708,7 +760,8 @@
 
 
         $(document).ready (function () {  
-        $("#nfaForm").validate();  
+            $("#nfaForm").validate();
+            
         });  
 
         let contrSel ;
@@ -808,18 +861,18 @@
             $('#bidHead_row').find('th:gt(2)').remove();
             $('#pqFb_row').find('td:gt(2)').remove();
             $('#package_row1').find('td:gt(2)').remove();
-           // $('#package_row2').find('td:gt(2)').remove();
-            //$('#package_row3').find('td:gt(2)').remove();
+            $('#package_row2').find('td:gt(2)').remove();
+            $('#package_row3').find('td:gt(2)').remove();
             //$('#package_row2').find('td:gt(0)').remove();
             //$('#package_row3').find('td:gt(0)').remove();
-            $('#package_row2').hide();
-            $('#package_row3').hide();
+            //$('#package_row2').hide();
+            //$('#package_row3').hide();
             $('#totAmt_row').find('td:gt(2)').remove();
             $('#bidPos_row').find('td:gt(1)').remove();
             $('#diffCrs_row').find('td:gt(1)').remove();
             $('#diffPercent_row').find('td:gt(1)').remove();
             
-            let _th = `<th><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
+            let _th = `<th style="width:180px;"><label class='cust_th'>Package name</label><input type='text' class="form-control" placeholder="" name="package_label[]" id="package_label"  required onblur="package_bidders(this);"></th>`;
 
             let _budget_incl = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict();decimalStrict()" onblur="changeToCr(this);packageSynopsis_total('package_budget_esc','total_budget_esc');setGpl_budget();" class="form-control _budget_incl_td decimalStrictClass onMouseOutClass" name="package_budget_esc[]" id="package_budget_esc" required></td>`;
 
@@ -835,18 +888,18 @@
 
             let _deviation_contr = `<td><input type='text' class="form-control _deviation_contr_td" name="deviation_approved_package[]" id="deviation_approved_package" required></td>`;
 
-            let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
+            let _last_awarded = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);packageSynopsis_total('awarded_benchmark_package','total_awarded_benchmark');show_bidders();" class="form-control _last_awarded_td decimalStrictClass onMouseOutClass" name="awarded_benchmark_package[]" id="awarded_benchmark_package" required></td>`;
 
             let _is_basic_rate = `<td><input class="form-check-input _is_basic_rate_td" type="radio" id="group_" name="group" value="yes"><label class="form-check-label font-weight-bold" for="one_">Yes</label><input class="form-check-input" type="radio" id="group_" name="group"
             value="no" checked><label class="form-check-label font-weight-bold" style="margin-left: 25px;" for="two_">No</label></td>`;
 
             let _amnt_basic_rate = `<td><input type='text' class="form-control _amnt_basic_rate_td decimalStrictThreeClass onMouseOutClass" name="total_basic_rate_package[]" id="basic_rate" oninput="allowNumOnly(this);decimalStrictThree()" onblur="changeToCr(this);packageSynopsis_total('basic_rate','total_basic_rate');"  value="" style="display:none ;" ></td>`;
 
-            let _anti_basic_rate = `<td><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control _anti_basic_rate_td decimalStrictClass onMouseOutClass" required style="display:none ;" ></td>`;
+            let _anti_basic_rate = `<td><div class="_anti_basic_rate_td" tool-tip="Please enter difference of today's base rate vs tender base rate"><input id="anticipated_rate" name="anticipate_basic_rate_package[]"  type='text' oninput="decimalStrict(this)"  onblur="changeToCr(this);packageSynopsis_total('anticipated_rate','total_anticipated_rate');calculateSum1();"  class="form-control  decimalStrictClass onMouseOutClass" required style="display:none ;" ></div></td>`;
 
-            let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package" readonly></td>`;
+            let _proposed_awrd_val = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control _proposed_awrd_val_td decimalStrictClass onMouseOutClass" name="post_basic_rate_package[]" id="post_basic_rate_package"  readonly></td>`;
 
-            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" min="<?php echo date("Y-m-d" , strtotime("+1 day") ) ?>" required></td>`;
+            let _base_rate_mnth = ` <td><input type='date' class="form-control _base_rate_mnth_td" name="basic_rate_month_package[]" id="basic_rate_month_package" max="<?php echo date("Y-m-d" , strtotime("-1 day") ) ?>" style="display:none ;" ></td>`;
 
             if ($(".cust_th").length <= e.target.value) {
 
@@ -972,12 +1025,15 @@
 
             let basic2 = document.getElementById("basic_rate2");
             let anticipated2 = document.getElementById("anticipated_rate2");
+            let basic_rate_month_package2 = document.getElementById("basic_rate_month_package2");
             let basic3 = document.getElementById("basic_rate3");
             let anticipated3 = document.getElementById("anticipated_rate3");
+            let basic_rate_month_package3 = document.getElementById("basic_rate_month_package3");
             $('#group_1_1').click(function() {
 
                 basic2.style.display = "block";
                 anticipated2.style.display = "block";
+                basic_rate_month_package2.style.display = "block";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -986,6 +1042,7 @@
               
                 basic2.style.display = "none";
                 anticipated2.style.display = "none";
+                basic_rate_month_package2.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -993,6 +1050,7 @@
 
                 basic2.style.display = "block";
                 anticipated2.style.display = "block";
+                basic_rate_month_package2.style.display = "block";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -1001,6 +1059,7 @@
 
                 basic2.style.display = "none";
                 anticipated2.style.display = "none";
+                basic_rate_month_package2.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             });
@@ -1009,6 +1068,7 @@
 			
 			   basic3.style.display = "block";
 			   anticipated3.style.display = "block";
+               basic_rate_month_package3.style.display = "block";
 			   packageSynopsis_total('basic_rate','total_basic_rate');
 			   packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 				 });  
@@ -1017,6 +1077,7 @@
 					
 				basic3.style.display = "none";
 				anticipated3.style.display = "none";
+                basic_rate_month_package3.style.display = "none";
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
 			});    
@@ -1192,15 +1253,21 @@
 
         let basic1 = document.getElementById("basic_rate1");
         let anticipated1 = document.getElementById("anticipated_rate1");
+        let basic_rate_month_package1 = document.getElementById("basic_rate_month_package1");
         let basic2 = document.getElementById("basic_rate2");
         let anticipated2 = document.getElementById("anticipated_rate2");
+        let basic_rate_month_package2 = document.getElementById("basic_rate_month_package2");
         let basic3 = document.getElementById("basic_rate3");
         let anticipated3 = document.getElementById("anticipated_rate3");
+        let basic_rate_month_package3 = document.getElementById("basic_rate_month_package3");
         radio1.addEventListener('click', function handleClick() {
 
             if (radio1.checked) {
                 basic1.style.display = "block";
                 anticipated1.style.display = "block";
+                basic_rate_month_package1.style.display = "block";
+                //$('#baseRate_row').show();
+
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             }
@@ -1209,6 +1276,8 @@
             if (radio2.checked) {
                 basic1.style.display = "none";
                 anticipated1.style.display = "none";
+                basic_rate_month_package1.style.display = "none";
+                //$('#baseRate_row').hide();
 				packageSynopsis_total('basic_rate','total_basic_rate');
 				packageSynopsis_total('anticipated_rate','total_anticipated_rate');
             }
@@ -1423,19 +1492,23 @@
             return Math.round(days1);
         }
       
-        $('#receipt_date').blur(function() {
+        $('#receipt_date').change(function() {
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
             calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
 
         });
-        $('#bidder_approval_date').blur(function() {
+        $('#bidder_approval_date').change(function() {
             var receipt_date = $("#receipt_date").val();
             var bidder_approval_date = $("#bidder_approval_date").val();
             calculateDays_betDates(receipt_date, bidder_approval_date, "bidder_approval_days");
 
+	    var award_recomm_date = $("#award_recomm_date").val();
+            calculateDays_betDates(bidder_approval_date, award_recomm_date, "award_recomm_days");
+
+
         });
-        $('#award_recomm_date').blur(function() {
+        $('#award_recomm_date').change(function() {
             var bidder_approval_date = $("#bidder_approval_date").val();
             var award_recomm_date = $("#award_recomm_date").val();
             calculateDays_betDates(bidder_approval_date, award_recomm_date, "award_recomm_days");
@@ -1561,6 +1634,7 @@
                 tr12.classList.add("total-hide");
                 tr13.classList.add("total-hide");
             }
+            
         }
         
     </script>

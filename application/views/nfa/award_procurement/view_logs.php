@@ -75,7 +75,7 @@
 
                                     <p>
                                         <b>
-                                            ENFA No &nbsp; :&nbsp;&nbsp; <?php echo $mRecord['version_id'] ?>
+                                            EIOM No &nbsp; :&nbsp;&nbsp; <?php echo $mRecord['version_id'] ?>
                                         </b>
                                         <?php echo $mShort['s_subject']; ?>
                                     </p>

@@ -40,7 +40,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-md-6">
-                                <h3 class="page-title br-0">Returned NFA's - Award Recommendation for Contracts</h3>
+                                <h3 class="page-title br-0">Returned IOM's - Award Recommendation for Contracts</h3>
                             </div>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
 									<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
                                              
                                             </div>
@@ -68,10 +68,10 @@
                                             <thead>
                                                 <tr class='text-center'>
                                                     <th>Sl. No</th>
-													<th>ENFA No.</th>
+													<th>EIOM No.</th>
                                                     <th>Subject</th>
                                                     <th>Award Synopsis </th>
-													<th>NFA Status</th>
+													<th>IOM Status</th>
                                                    
                                                     <th>Actions</th>
                                                 </tr>

@@ -130,7 +130,7 @@
                                     <thead>
                                         <tr class='text-center'>
                                              <th>Sl. No</th>
-											<th>ENFA No.</th>
+											<th>EIOM No.</th>
 											<th>Subject</th>
 											<th>Award Synopsis </th>
                                             <th>IOM Status</th>

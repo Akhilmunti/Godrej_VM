@@ -47,7 +47,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3 class="page-title br-0">Cancel NFA - LD Waiver</h3>
+                                <h3 class="page-title br-0">Cancel IOM - LD Waiver</h3>
                             </div>
                             <div class="col-lg-6 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -61,8 +61,8 @@
                             <table class="table rs-table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ENFA NO</th>
-                                        <th scope="col">NFA Status</th>
+                                        <th scope="col">EIOM NO</th>
+                                        <th scope="col">IOM Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -79,7 +79,7 @@
                                 </tbody>
                             </table>
                             <div class="d-block mt-4 mb-4">
-                                <h5 class="page-title br-0 font-weight-bold">Cancel NFA with Remarks(Optional)</h5>
+                                <h5 class="page-title br-0 font-weight-bold">Cancel IOM with Remarks(Optional)</h5>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
@@ -92,7 +92,7 @@
                             <div class="row mt-4">
                                 <div class="col-lg-12 text-right">
                                     <a href="<?php echo base_url('nfa/LdWaiver/list'); ?>">
-                                        <button type="submit" class="btn btn-primary border-secondary font-weight-bold" name="cancel_remarks">Cancel NFA</button>
+                                        <button type="submit" class="btn btn-primary border-secondary font-weight-bold" name="cancel_remarks">Cancel IOM</button>
                                     </a>
                                 </div>
                             </div>

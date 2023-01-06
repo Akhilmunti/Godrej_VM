@@ -44,7 +44,7 @@ class Award_recomm_contract_model extends CI_Model {
     }
 	function addSynopsisPackage($data) {
 		$query = $this->db->insert("award_recomm_contract_synopsis_packages", $data);
-		print_r($this->db->last_query()); 
+		
         if ($this->db->affected_rows() > 0) {
             return $this->db->insert_id();
         } else {
@@ -125,6 +125,50 @@ class Award_recomm_contract_model extends CI_Model {
             return false;
         }
     }
+
+
+       function geteNfaStatus($mId) {
+		$sql = "SELECT * FROM `award_recomm_contractor_status` WHERE `salient_id` = '$mId'" ;
+		$query = $this->db->query($sql);				
+        $data = $query->result();
+
+		
+		return $data;
+	
+	}
+		
+
+	function updateNfaStatus($mId,$approved_status,$approver_id) {
+		
+		
+		$sql = "UPDATE `award_recomm_contractor_status` SET `approved_status`= '$approved_status' WHERE `salient_id` = '$mId' and `approver_id`= '$approver_id' " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }		
+        
+		
+    }
+
+	function updateNfaStatusfor($mId,$approved_status,$approver_id,$approver_level) {
+					
+
+		$sql = "UPDATE `award_recomm_contractor_status` SET `approver_id`= '$approver_id',`approved_status`= '$approved_status'  WHERE `salient_id` = '$mId' and `approver_level`= '$approver_level' and `approved_status`!= 1 " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+		return TRUE;
+        } else {
+            return FALSE;
+        }		
+        
+		
+    }
+
+
+
+	
 
 
 	public function getPackageNameCreate($type_work_id,$project_id){
@@ -271,7 +315,8 @@ class Award_recomm_contract_model extends CI_Model {
 		$this->db->group_by('AWDContractSalient.id');
 		
 		$mQuery_Res = $this->db->get();
-		
+		//print_r($this->db->last_query());    
+
 		if($mQuery_Res)	
 		{
 			if ($mQuery_Res->num_rows() > 0) {

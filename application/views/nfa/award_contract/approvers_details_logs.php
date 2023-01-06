@@ -17,11 +17,11 @@ foreach ($mRecordLogs as $key => $val) {
 	 else if($val['nfa_status']=="RT")
 		 $status = "Returned for Text correction";
 	 else if($val['nfa_status']=="RT")
-		 $status = "Returned NFA";
+		 $status = "Returned IOM";
 	 else if($val['nfa_status']=="A")
 		 $status = "Approved";
 	 else if($val['nfa_status']=="AMD")
-		 $status = "Amended NFA";
+		 $status = "Amended IOM";
 	
 	?> 
 	  <tr>

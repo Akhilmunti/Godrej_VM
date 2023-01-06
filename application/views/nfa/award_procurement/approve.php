@@ -60,7 +60,7 @@
                             <table class="table rs-table-bordered">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ENFA NO</th>
+                                        <th scope="col">EIOM NO</th>
                                         <th scope="col">IOM Status</th>
                                     </tr>
                                 </thead>

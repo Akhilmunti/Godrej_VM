@@ -37,9 +37,9 @@ class AwardProcurementEsign extends Award_procurement {
 
 // set document information
 
-        $pdf->setTitle('NFA - Award Recommendation for Procurement');
-        $pdf->setSubject('Esigned NFA');
-        $pdf->setKeywords('NFA, PDF, Award Recommendation for Procurement');
+$pdf->setTitle('IOM - Award Recommendation for Procurement');
+$pdf->setSubject('Esigned IOM');
+$pdf->setKeywords('IOM, PDF, Award Recommendation for Procurement');
 
 // set default header data
         $pdf->setHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, "Award Recommendation for Procurement", PDF_HEADER_STRING);
@@ -154,8 +154,8 @@ class AwardProcurementEsign extends Award_procurement {
                 <table class="p2" border="1">
                     <tbody>
                         <tr>
-                            <td>ENFA NO : ' . $mRecord['version_id'] . '
-							<br>Initiator : ' . $mRecord['buyer_name'] . '
+                            <td>EIOM NO : ' . $mRecord['version_id'] . '
+							<br>Initiator : '.$mRecord['buyer_name'].'
 							<br>Subject : ' . strip_tags($mRecord['subject']) . '
 							<br>Scope of Work : ' . strip_tags($mRecord['scope_of_work']) . '	
 							<br>Type of Procurement : ' . $mRecord['procurement_type'] . '		
@@ -418,17 +418,20 @@ class AwardProcurementEsign extends Award_procurement {
         $ho_approval = ($mRecord['ho_approval'] == "Y") ? "Yes" : "No";
         $html .= '<div class="max-width">
                 <table class="p2" border="1">
-                    <tbody>
-						
-                        <tr>
-                            <td>' .
-        $mRecord["uom_label"].' : '.$mRecord['uom_value']'<br>Is HO approval required ? : ' . $ho_approval;
+                    <tbody>';
+			if($mRecord['type_work_id'] == 1 ||  $mRecord['type_work_id'] == 3 || $mRecord['type_work_id'] == 4){
 
-        $html .= '
-							</td>                           
+						
+						$html .=' <tr>
+                            <td>'. $mRecord['uom_label'].': '.$mRecord['uom_value'].'</td>                           
+                        </tr>';
+						} ;
+				$html .='	<tr>
+                            <td>
+							Is HO approval required ? :'.$ho_approval .'</td>                           
                         </tr> 
                     </tbody>
-                </table>
+                </table>                
             </div>';
 
         $html .= '<div>
@@ -437,16 +440,20 @@ class AwardProcurementEsign extends Award_procurement {
 
         <div>
             <table class="p2" border="1">
-                <thead>
+               <thead>
                     <tr class="bg-primary">
-                        <th>Actitivity</th>
-                        <th>Receipt of Tender Document</th>
-                        <th>Start date of Bidder List approval</th>
-                        <th>Finish date Approval of Award Recommendation</th>
+                        <th>Actitivity</th>';
+						 if( $mRecord['protype'] == 1){
+							$html .=' <th>Receipt of Tender Document</th>
+                        <th>Start date of Bidder List approval</th>';
+						 }else{
+							$html .='<th style="width:20%">Receipt of CQS</th>
+							<th style="width:20%">Start Date</th>';
+						 }
+						 $html .=' <th>Finish date Approval of Award Recommendation</th>
                         <th>Remarks (If any)</th>
                     </tr>
-                </thead>
-                <tbody>
+                </thead>                <tbody>
                     <tr>
                         <td>Date</td>
                         <td>' . date("d-M-y", strtotime($mRecordAwdContract['receipt_date'])) . '
@@ -492,41 +499,38 @@ class AwardProcurementEsign extends Award_procurement {
                     <tr class="bg-primary">
                         <th>Sl. No.</th>
                         <th>Terms</th>';
-
-        foreach ($mRecordPackage as $key => $val) {
-
-            $html .= '<th>Description' . $mRecord['term_label'] . '</th>';
-        }
-        $html .= '</tr>
+						
+						foreach($mRecordPackage as $key=>$val)
+						{
+					
+							$html .='<td>Package  '.$val['major_term_label']."</td>";
+						}
+						$html .='</tr>
                 </thead>
-                <tbody>
-				<tr>
-                    <td></td>
-                    <td></td>';
-        foreach ($mRecordPackage as $key => $val) {
-            $html .= '<td>Package  ' . ($key + 1) . '<br>' . $val['major_term_label'] . "</td>";
-        }
-        $html .= '</tr>';
-        foreach ($mRecordMajorTerms as $key => $val) {
-            $slNo = $key + 1;
-            $term = $val->term;
-            $term_label_value = $val->term_label_value;
-
-            $html .= '<tr>
-                        <td>' . $slNo . '</td>
-                        <td>' . $term . '</td>';
-            foreach ($mRecordPackage as $key => $val) {
-                $package_id = $val['package_id'];
-                $salient_id = $val['salient_id'];
-                $majorTerms_desc = $CI->awardRecommProcurement->getMajorTerms($salient_id, $package_id, $term);
-
-                $term_label_value = $majorTerms_desc->term_label_value;
-                $html .= '<td>' . $term_label_value . '</td>';
-            }
-
-            $html .= '</tr>';
-        }
-        $html .= '</tbody>
+                <tbody>';
+				
+				foreach($mRecordMajorTerms as $key=>$val)
+				{
+					$slNo  = $key+1;
+					$term = $val->term;
+					$term_label_value = $val->term_label_value;
+					
+                    $html .='<tr>
+                        <td>'. $slNo.'</td>
+                        <td>'. $term.'</td>';
+						foreach($mRecordPackage as $key=>$val)
+						{
+							$package_id = $val['package_id'];
+							$salient_id = $val['salient_id'];	
+							$majorTerms_desc = $CI->awardRecommProcurement->getMajorTerms($salient_id,$package_id,$term);
+							
+							$term_label_value = $majorTerms_desc->term_label_value;
+							$html .='<td>'.$term_label_value.'</td>';
+						}
+                       
+						$html .='</tr>';
+				}
+                $html .='</tbody>
             </table>
         </div>
         <div>
@@ -623,7 +627,7 @@ class AwardProcurementEsign extends Award_procurement {
                     $html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">' . "Returned NFA" . '</span>
+												<span class="font-weight-bold">'."Returned IOM" .'</span>
 											</div>
 
 											<div>
@@ -640,7 +644,7 @@ class AwardProcurementEsign extends Award_procurement {
                     $html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">' . "Amended NFA" . '</span>
+												<span class="font-weight-bold">'."Amended IOM".'</span>
 											</div>
 
 											<div>

@@ -147,7 +147,7 @@
                             <div class="paddingLine">
                                 
                                 <h5>
-                                    <span class="font-weight-bold">ENFA NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
+                                    <span class="font-weight-bold">EIOM NO</span> : <span class="font-size-14"><?php echo $mRecord['version_id']; ?></span>
                                 </h5>
                                
                                 <hr class='hr-bold-line' />
@@ -182,13 +182,13 @@
                                     </thead>
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
-                                            <th style="width:34%">Description</th>
+                                            <th style="width:24%">Description</th>
 											 <?php 
 										 
 										 foreach($mRecordPackage as $key=>$val)
 											{	
 											?>
-                                            <th scope="col" ><?php echo  $val['package_name']; ?></th>
+                                            <th scope="col" style="min-width: 150px;" ><?php echo  $val['package_name']; ?></th>
                                            <?php 
 											}?> 
                                             <th scope="col" style="width:18%">Total</th>
@@ -226,7 +226,7 @@
                                             <td><?php echo $mRecord['total_negot_value'] ?>  Cr</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Finalized Proposed Award Value (Excl Tax)</td>
+                                            <td class="font-weight-bold">Finalized Proposed Award Value (Excl Tax)</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -253,7 +253,7 @@
                                             <td><?php echo $mRecord['total_expected_savings'] ?> %</td>
                                         </tr>
                                         <tr class='text-center'>
-                                            <td>Recommended Vendors based on L1 position ( Package-wise)</td>
+                                            <td class="font-weight-bold">Recommended Vendors</td>
 											<?php foreach($mRecordPackage as $key=>$val)
 											{	
 												$id_index = $key+1;
@@ -328,11 +328,15 @@
                             </div>
 
                             <div class="paddingLine mt-4">
+				<?php  if($mRecord['type_work_id'] == 1 ||  $mRecord['type_work_id'] == 3 || $mRecord['type_work_id'] == 4)
+                                {?>
                                 <h5>
                                     <span class="font-weight-bold"><?php echo $mRecord['uom_label'] ?></span> : <span class="font-size-14"><?php echo $mRecord['uom_value'] ?></span>
                                 </h5>
+				<hr class='hr-bold-line' />
+				<?php }?>
                                
-                                <hr class='hr-bold-line' />
+                                
                                 
                                 <h5>
                                     <span class="font-weight-bold">Is HO approval required ?</span> : <span class="font-size-14"><?php echo ($mRecord['ho_approval'] == "Y") ? "Yes" : "No"; ?></span>
@@ -523,8 +527,15 @@
                                     <thead class="bg-primary">
                                         <tr class='text-center'>
                                             <th style="width: 15%;">Actitivity</th>
+	
+					<?php if( $mRecord['protype']  == 1){?>
                                             <th style="width: 20%;">Receipt of Tender Document</th>
                                             <th style="width: 20%;">Start date of Bidder List approval</th>
+					<?php } else { ?>
+                                                <th style="width:20%">Receipt of CQS</th>
+                                                <th style="width:20%">Start Date</th>
+                                        <?php } ?>
+
                                             <th style="width: 20%;">Finish date Approval of Award Recommendation</th>
                                             <th style="width: 25%;">Remarks (If any)</th>
                                         </tr>
@@ -672,7 +683,7 @@
 											
 											 <tr>
                                                 <td class="font-weight-bold" style="width: 40%;">
-                                                    PCM
+                                                    <?php echo $mSessionRole ?>
                                                 </td>
                                                 <td>
 													<?php echo $mRecord['buyer_name']; ?>
@@ -704,7 +715,7 @@
                                }?>
                                     </div>        
 
-                                    <?php if ($pgType == 'E') {
+                                    <?php if ($pgType == 'E' && $mRecord['nfa_status']=="A")  {
                                     ?>
                                         <div class="row mt-4">
                                             <div class="col-lg-12 text-center">

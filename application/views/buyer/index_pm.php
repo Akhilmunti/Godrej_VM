@@ -414,18 +414,16 @@
                                                 ?>
 
                                                 <div class="col-lg-6 text-center mb-2">
-                                                    <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "3" . "/" . "Contracts"); ?>" class="btn btn-block btn-primary">
-                                                        <span>
-                                                            Contracts
-                                                        </span>
+                                                    <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "3" . "/" . "Contracts"); ?>" class="btn btn-block btn-primary position-relative">
+                                                        
+                                                        Contracts<span style="height: 22px;width:22px;border-radius:22px;top: -9px !important;" class="position-absolute badge bg-danger "><?php echo $pending_iom_count; ?></span>
+                                                       
                                                     </a>
                                                     <br>
                                                 </div>
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "1" . "/" . "Procurement"); ?>" class="btn btn-block btn-primary">
-                                                        <span>
-                                                            Procurement
-                                                        </span>
+                                                        Procurement<span style="height: 22px;width:22px;border-radius:22px;top: -9px !important;left: 106px;" class="position-absolute badge bg-danger "><?php echo $pending_proc_iom_count; ?></span>
                                                     </a>
                                                     <br>
                                                 </div>

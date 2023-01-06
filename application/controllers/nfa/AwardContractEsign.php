@@ -39,9 +39,9 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 
 // set document information
 
-$pdf->setTitle('NFA - Award Recommendation for Contracts');
-$pdf->setSubject('Esigned NFA');
-$pdf->setKeywords('NFA, PDF, Award Recommendation for Contracts');
+$pdf->setTitle('IOM - Award Recommendation for Contracts');
+$pdf->setSubject('Esigned IOM');
+$pdf->setKeywords('IOM, PDF, Award Recommendation for Contracts');
 
 //echo PDF_HEADER_LOGO;
 // set default header data
@@ -167,7 +167,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
                 <table class="p2" border="1">
                     <tbody>
                         <tr>
-                            <td>ENFA NO : ' . $mRecord['version_id'] . '
+                            <td>EIOM NO : ' . $mRecord['version_id'] . '
 							<br>Initiator : '.$mRecord['buyer_name'].'
 							<br>Subject : ' . strip_tags($mRecord['subject']) . '
 							<br>Scope of Work : ' . strip_tags($mRecord['scope_of_work']) . '					
@@ -652,8 +652,8 @@ $pdf->writeHTML($text, true, 0, true, 0);
 						
 						foreach($mRecordPackage as $key=>$val)
 						{
-					
-							$html .='<th>Package '.$val['package_name']."<br>".$val['major_term_label'].'</th>';
+												
+							$html .='<th>Package '.$val['package_name'].'</th>';
 						}
 						$html .='</tr>
                 </thead>
@@ -783,7 +783,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 											$html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">'."Returned NFA" .'</span>
+												<span class="font-weight-bold">'."Returned IOM" .'</span>
 											</div>
 
 											<div>
@@ -802,7 +802,7 @@ $pdf->writeHTML($text, true, 0, true, 0);
 											$html .= '<hr class="hr-bold-line" />
 
 											<div>
-												<span class="font-weight-bold">'."Amended NFA".'</span>
+												<span class="font-weight-bold">'."Amended IOM".'</span>
 											</div>
 
 											<div>

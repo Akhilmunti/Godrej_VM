@@ -92,7 +92,7 @@
                                                                         </a>
                                                                     </div>
                                                                     <div class="col-md-12">
-                                                                        <a href="<?php echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/{$record['package_selected_id']}") ?>">
+                                                                        <a href="<?php  echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/{$record['package_selected_id']}/$protype") ?>">
                                                                             <div class="box primary-gradient">
                                                                                 <div class="box-body p-10 text-center text-white">                                        
                                                                                     <h5>
@@ -215,7 +215,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <a href='<?php echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/$type") ?>'>
+                            <a href='<?php  echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/$type/$protype") ?>'>
                                     <div class="box primary-gradient">
                                         <div class="box-body p-10 text-center text-white">                                        
                                             <h5>

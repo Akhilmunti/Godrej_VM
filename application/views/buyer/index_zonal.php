@@ -410,12 +410,9 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-lg-6 text-center mb-2">
-                                                    <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
-                                                        <span class="span-sm">
-                                                            Award IOM
-                                                            <span class="badge badge-danger ml-2">
-                                                                <?php echo "23"; ?>
-                                                            </span>
+                                                    <a href="<?php echo base_url('nfa/ListNfa/award_iom_list/'); ?>" class="btn btn-block btn-primary">
+                                                        <span>
+                                                            Award IOM<br><span style="height: 22px;width:26px;border-radius:5px;" class="badge bg-danger "><?php echo $pending_sum_count; ?></span>
                                                         </span>
                                                     </a>
                                                 </div>
@@ -509,7 +506,7 @@
                                                     <div class="col-lg-6 text-center mb-2">
                                                         <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "3" . "/" . "Contracts"); ?>" class="btn btn-block btn-primary">
                                                             <span>
-                                                                Contracts
+                                                                Contracts<span style="height: 22px;width:22px;border-radius:22px;top: -9px !important;" class="position-absolute badge bg-danger "><?php echo $pending_iom_count; ?></span>
                                                             </span>
                                                         </a>
                                                         <br>
@@ -517,7 +514,7 @@
                                                     <div class="col-lg-6 text-center mb-2">
                                                         <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "1" . "/" . "Procurement"); ?>" class="btn btn-block btn-primary">
                                                             <span>
-                                                                Procurement
+                                                                Procurement<span style="height: 22px;width:22px;border-radius:22px;top: -9px !important;left: 106px;" class="position-absolute badge bg-danger "><?php echo $pending_proc_iom_count; ?></span>
                                                             </span>
                                                         </a>
                                                         <br>

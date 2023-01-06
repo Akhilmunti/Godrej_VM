@@ -82,7 +82,7 @@ foreach ($mRecordLevels as $key => $val) {
 																	<span class="font-weight-bold"><?php 
 																	
 																	
-																		echo "Returned NFA" ; ?></span>
+																		echo "Returned IOM" ; ?></span>
 																</div>
 
 																<div>
@@ -104,7 +104,7 @@ foreach ($mRecordLevels as $key => $val) {
 																	<span class="font-weight-bold"><?php 
 																	
 																	
-																		echo "Amended NFA" ; ?></span>
+																		echo "Amended IOM" ; ?></span>
 																</div>
 
 																<div>

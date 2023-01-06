@@ -48,7 +48,7 @@
                     <div class="content-header">
                         <div class="row">
                             <div class="col-lg-6">
-                                <h3>NFA Logs</h3>
+                                <h3>IOM Logs</h3>
                             </div>
                             <!-- <div class="col-lg-6 text-right">
                                 <button type="button" onclick="history.back()" class="btn btn-secondary rounded">Go Back</button>
@@ -70,7 +70,7 @@
                                             <thead>
                                                 <tr class='text-center'>
                                                     <th>Sl. No</th>
-                                                    <th>ENFA No.</th>
+                                                    <th>EIOM No.</th>
                                                     <th>Subject</th>
                                                     <th>Contractor</th>
                                                     <th>Package</th>

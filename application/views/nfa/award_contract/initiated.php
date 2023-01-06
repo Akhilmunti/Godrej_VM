@@ -64,7 +64,7 @@
 									<div class="row">
                                         <div class="col-lg-6">
                                             <div class='form-group'>
-                                                <label>NFA Type</label>
+                                                <label>IOM Type</label>
 												<?php echo $nfa_select;?>
                                              
                                             </div>
@@ -76,10 +76,10 @@
                                             <thead>
                                                 <tr class='text-center'>
                                                     <th>Sl. No</th>
-													<th>ENFA No.</th>
+													<th>EIOM No.</th>
                                                     <th>Subject</th>
                                                     <th>Award Synopsis</th>
-                                                    <th>NFA Status</th>
+                                                    <th>IOM Status</th>
                                                    
                                                     <th style="width:25% !important;">Actions</th>
                                                 </tr>

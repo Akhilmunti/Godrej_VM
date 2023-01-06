@@ -44,7 +44,7 @@ class Award_procurement_model extends CI_Model {
     }
 	function addSynopsisPackage($data) {
 		$query = $this->db->insert("award_recomm_procurement_synopsis_packages", $data);
-		print_r($this->db->last_query()); 
+		//print_r($this->db->last_query()); 
         if ($this->db->affected_rows() > 0) {
             return $this->db->insert_id();
         } else {
@@ -124,6 +124,42 @@ class Award_procurement_model extends CI_Model {
             return false;
         }
     }
+	 function geteNfaStatus($mId) {
+		$sql = "SELECT * FROM `award_recomm_procurement_status` WHERE `salient_id` = '$mId'" ;
+		$query = $this->db->query($sql);				
+        $data = $query->result();
+
+		
+		return $data;
+	
+	}
+	
+	function updateNfaStatus($mId,$approved_status,$approver_id) {
+		
+		
+		$sql = "UPDATE `award_recomm_procurement_status` SET `approved_status`= '$approved_status' WHERE `salient_id` = '$mId' and `approver_id`= '$approver_id' " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+           		 return TRUE;
+        	} else {
+           		 return FALSE;
+        	}		
+        
+	}
+
+	function updateNfaStatusfor($mId,$approved_status,$approver_id,$approver_level) {
+					
+
+		$sql = "UPDATE `award_recomm_procurement_status` SET `approver_id`= '$approver_id',`approved_status`= '$approved_status'  WHERE `salient_id` = '$mId' and `approver_level`= '$approver_level' and `approved_status`!= 1 " ;
+		$query = $this->db->query($sql);
+		if ($query) {
+			return TRUE;
+        	} else {
+            		return FALSE;
+       		 }		
+        
+	}
+
     
 
 
@@ -405,11 +441,13 @@ class Award_procurement_model extends CI_Model {
 		
         $this->db->where('condition3', $l1_vendor1);
 		
-        $this->db->order_by('id', 'asc');
+        //$this->db->order_by('id', 'asc');
+		$this->db->order_by('id', 'desc');
+		//$this->db->order_by('condition4', 'asc nulls last');IS NULL, name ASC
        
         $data = array();
         $mQuery_Res = $this->db->get();
-		
+		//print_r($this->db->last_query()); 
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;

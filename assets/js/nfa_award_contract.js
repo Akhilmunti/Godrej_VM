@@ -262,6 +262,10 @@ function package_bidders(label_obj) {
 
 	var package_count = $('#package_count').find(":selected").text();
 	var bidder_count = parseInt($("#bidder_count").val())+1;
+	console.log("bidder count contract"+bidder_count);
+	if(isNaN(bidder_count)) {
+		bidder_count=1;
+	}
 	$('#package_row2').show();
 	$('#package_row3').show();
 	package_name = label_obj.value;
@@ -303,7 +307,7 @@ function package_bidders(label_obj) {
 
 		});
 
-			
+		
 		//showBidders_finalized();
 }
 
@@ -318,7 +322,7 @@ function  setRecommended_vendorName(){
 		$("#final_bidder_name"+i).attr('readonly', true);
 	}
 	showBidders_finalized();
-
+	//show_bidders();
 }
 
 //Function for setting recommended vendor
@@ -591,7 +595,7 @@ function score_color(){
 		return minimumN;
 	}
 
-	 //Function for showing the Bid position in Packages
+	//Function for showing the Bid position in Packages
 	function showBidposition_packages(stuff_sort){
 		var bidder_value, pck_ndex_basis, bid_ndex_basis,finalized_value;
 		var package_count = parseInt($("#package_count").val())+1;	
@@ -627,9 +631,9 @@ function score_color(){
 			stuff_minimum = stuff_unique;
 		
 		}
-		
+		console.log("stuff_minimum"+stuff_minimum);
 		$.each(stuff_minimum, function( key, value ) {
-			
+			console.log("key"+key+"value"+value);
 			bidder_value = value.bid_details.package_bidder_value;
 			pck_ndex_basis = value.bid_details.pck_index;
 			bid_ndex_basis = value.bid_details.bid_index;
@@ -847,3 +851,263 @@ function deleteRow_majorTerms() {
 	$("#t1").find("tr:gt(2)").remove();
 }
 
+//Package change - automatic bidder count set for contract
+function show_bidders() {
+	var package_count = $('#package_count').find(":selected").text();
+	var opt_index_pck;
+	
+	for( var j=0 ; j < package_count ;  j++ ){
+		
+		opt_index_pck= parseInt(j)-1;
+		$("#package_count option[value=" + opt_index_pck + "]").hide();
+	}
+	let _th = `<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
+
+	let _pqfb = `<td><select id="score_type" style="width: 120px !important;" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onchange="score_color();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color();"></td>`;
+
+	let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()"  onblur="changeToCr(this);getBidders_total();calculateSum1();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" id="package_bidder_1_1" required></td>`;
+
+	
+
+	let _total_amt_label = `<td><input type='text' class="form-control total_amt_label_custom_td" name="total_amt_bidder[]" id="total_amt_bidder" readonly></td>`;
+
+	let _bid_position_label = `<td><input type='text' class="form-control bid_position_label_custom_td" name="bid_position[]" id="bid_position"  value="" readonly></td>`;
+
+	let _bid_position_gp = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control bid_position_gp_custom_td decimalStrictClass onMouseOutClass" name="diff_budget_crs[]" id="diff_budget_crs" readonly></td>`;
+
+	let _diff_age_gp = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control diff_age_gp_custom_td decimalStrictClass onMouseOutClass" name="diff_budget_percentage[]" id="diff_budget_percentage" readonly></td>`;
+
+	//var package_count = $('#package_count').find(":selected").text();
+	
+	var bid_count = package_count;
+	var opt_index;
+	$("#bidder_count option").show();
+	$('#bidder_count').val(parseInt(bid_count)-1);
+
+	for( var j=0 ; j < bid_count ;  j++ ){
+		opt_index= parseInt(j)-1;
+		$("#bidder_count option[value=" + opt_index + "]").hide();
+		
+	}
+
+	var pckIndex, bidIndex, ele_bidIndex;
+	var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
+	
+	if(bidCount_disp <= bid_count){
+		
+		for (pckIndex = 1; pckIndex <= package_count; pckIndex++) {
+
+			for (bidIndex = bidCount_disp; bidIndex < bid_count; bidIndex++) {
+				ele_bidIndex = bidIndex + 1;
+			  
+				let th = $(_th);
+				th.find("input").attr("name", th.find("input").attr("name"))
+				th.find("input").attr("id", th.find("input").attr("id") + (bidIndex + 1))
+			   
+				let pq_fb_score = $(_pqfb);
+				pq_fb_score.find("select").attr("name", pq_fb_score.find("select").attr("name"))
+				pq_fb_score.find("select").attr("id", pq_fb_score.find("select").attr("id") + ele_bidIndex)
+				pq_fb_score.find("input").attr("name", pq_fb_score.find("input").attr("name"))
+				pq_fb_score.find("input").attr("id", pq_fb_score.find("input").attr("id") + ele_bidIndex)
+
+				let package_bidder = $(_package_bidder);
+				package_bidder.find("input").attr("name", "package_bidder[" + pckIndex + "][" + ele_bidIndex + "]")
+				package_bidder.find("input").attr("id", "package_bidder_" + pckIndex + "_" + ele_bidIndex)
+			   
+				let total_amt_label = $(_total_amt_label);
+				total_amt_label.find("input").attr("name", total_amt_label.find("input").attr("name"))
+				total_amt_label.find("input").attr("id", total_amt_label.find("input").attr("id") + ele_bidIndex)
+
+				let bid_position_label = $(_bid_position_label);
+				bid_position_label.find("input").attr("name", bid_position_label.find("input").attr("name"))
+				bid_position_label.find("input").attr("id", bid_position_label.find("input").attr("id") + ele_bidIndex)
+
+				let bid_position_gp = $(_bid_position_gp);
+				bid_position_gp.find("input").attr("name", bid_position_gp.find("input").attr("name"))
+				bid_position_gp.find("input").attr("id", bid_position_gp.find("input").attr("id") + ele_bidIndex)
+
+				let diff_age_gp = $(_diff_age_gp);
+				diff_age_gp.find("input").attr("name", diff_age_gp.find("input").attr("name"))
+				diff_age_gp.find("input").attr("id", diff_age_gp.find("input").attr("id") + ele_bidIndex)
+
+				if (pckIndex == 1) {
+					$("#mainTable").find("thead").find("tr").append(th)
+					$($("#mainTable").find("tbody").find("tr")[0]).append(pq_fb_score)
+				}
+				$($("#mainTable").find("tbody").find("tr")[pckIndex]).append(package_bidder)
+				
+				if (pckIndex == 1) {
+					$($("#mainTable").find("tbody").find("tr")[4]).append(total_amt_label)
+					$($("#mainTable").find("tbody").find("tr")[5]).append(bid_position_label)
+					$($("#mainTable").find("tbody").find("tr")[6]).append(bid_position_gp)
+					$($("#mainTable").find("tbody").find("tr")[7]).append(diff_age_gp)
+				}
+				
+
+			}
+		}
+
+
+	} 
+	else {
+		let length = $(".custom_th").length;
+		for (pckIndex = 1; pckIndex <= package_count; pckIndex++) {
+		   
+			for (bidIndex = bid_count; bidIndex < bidCount_disp; bidIndex++) {
+			   
+			  
+				ele_bidIndex=parseInt(bidIndex)+1;
+				
+				if (pckIndex == 1) {
+					$(".custom_th").parent().last().remove()
+					$(".pq_fb_score_custom_td").parent().last().remove()
+					$(".total_amt_label_custom_td").parent().last().remove()
+					$(".bid_position_label_custom_td").parent().last().remove()
+					$(".bid_position_gp_custom_td").parent().last().remove()
+					$(".diff_age_gp_custom_td").parent().last().remove()
+				}
+			  
+				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).closest("td").remove();
+				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).remove()
+			   
+			}
+		}
+
+	}
+	
+	setRecommended_vendorName();
+	setGpl_budget();
+	showBidders_finalized();
+
+	
+}
+//For procurement
+function show_bidders_procurement() {
+	
+	var package_count = $('#package_count').find(":selected").text();
+	var opt_index_pck;
+	
+	for( var j=0 ; j < package_count ;  j++ ){
+		//$("#bidder_count option[value=" + j + "]").hide();
+		opt_index_pck= parseInt(j)-1;
+		$("#package_count option[value=" + opt_index_pck + "]").hide();
+	}
+
+
+	let _th = `<th style="width: 120px !important;"><input type='text' class="form-control custom_th" name="final_bidder_name[]" placeholder="Enter Bidder Name" id="final_bidder_name" required></th>`;
+
+	let _pqfb = `<td><select id="score_type" style="width: 120px !important;" name="score_type[]" required="" class="form-control pq_fb_score_custom_td" onchange="score_color1();"><option value="">Select</option><option value="PQ">PQ</option><option value="FB">FB</option></select><input type='number' class="form-control mt-3" style="width: 120px !important;" name="score[]" id="score" style="width: 120px !important;"  min="0" max="100" step="0.01" oninput="(validity.valid)||(value='');" onblur="score_color1();"></td>`;
+
+	let _package_bidder = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this);getBidders_total();" class="form-control package_common_tower_label_custom_td decimalStrictClass onMouseOutClass" name="package_bidder[1][1]" required id="package_bidder_1_1" required></td>`;
+
+
+	let _total_amt_label = `<td><input type='text' class="form-control total_amt_label_custom_td" name="total_amt_bidder[]" id="total_amt_bidder" readonly></td>`;
+
+	let _bid_position_label = `<td><input type='text' class="form-control bid_position_label_custom_td" name="bid_position[]" id="bid_position"  value="" readonly></td>`;
+
+	let _bid_position_gp = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control bid_position_gp_custom_td decimalStrictClass onMouseOutClass" name="diff_budget_crs[]" id="diff_budget_crs" readonly></td>`;
+
+	let _diff_age_gp = `<td><input type='text' oninput="allowNumOnly(this);decimalStrict()" onblur="changeToCr(this)" class="form-control diff_age_gp_custom_td decimalStrictClass onMouseOutClass" name="diff_budget_percentage[]" id="diff_budget_percentage" readonly></td>`;
+
+	//var package_count = $('#package_count').find(":selected").text();
+	//var bid_count = $('#bidder_count').find(":selected").text();
+	var bid_count = package_count;
+	var opt_index;
+	$('#bidder_count').val(parseInt(bid_count)-1);
+
+	for( var j=0 ; j < bid_count ;  j++ ){
+		//$("#bidder_count option[value=" + j + "]").hide();
+		opt_index= parseInt(j)-1;
+		$("#bidder_count option[value=" + opt_index + "]").hide();
+	}
+
+   
+	var pckIndex, bidIndex, ele_bidIndex;
+	var bidCount_disp = $('input[name="final_bidder_name[]"]').length;
+		
+	if(bidCount_disp <= bid_count){
+		
+		for (pckIndex = 1; pckIndex <= package_count; pckIndex++) {
+
+			for (bidIndex = bidCount_disp; bidIndex < bid_count; bidIndex++) {
+				ele_bidIndex = bidIndex + 1;
+			   
+				let th = $(_th);
+				th.find("input").attr("name", th.find("input").attr("name"))
+				th.find("input").attr("id", th.find("input").attr("id") + (bidIndex + 1))
+			  
+				let pq_fb_score = $(_pqfb);
+				pq_fb_score.find("select").attr("name", pq_fb_score.find("select").attr("name"))
+				pq_fb_score.find("select").attr("id", pq_fb_score.find("select").attr("id") + ele_bidIndex)
+				pq_fb_score.find("input").attr("name", pq_fb_score.find("input").attr("name"))
+				pq_fb_score.find("input").attr("id", pq_fb_score.find("input").attr("id") + ele_bidIndex)
+
+				let package_bidder = $(_package_bidder);
+				package_bidder.find("input").attr("name", "package_bidder[" + pckIndex + "][" + ele_bidIndex + "]")
+				package_bidder.find("input").attr("id", "package_bidder_" + pckIndex + "_" + ele_bidIndex)
+				package_bidder.find("input").attr("required", "required")
+			 
+
+				let total_amt_label = $(_total_amt_label);
+				total_amt_label.find("input").attr("name", total_amt_label.find("input").attr("name"))
+				total_amt_label.find("input").attr("id", total_amt_label.find("input").attr("id") + ele_bidIndex)
+
+				let bid_position_label = $(_bid_position_label);
+				bid_position_label.find("input").attr("name", bid_position_label.find("input").attr("name"))
+				bid_position_label.find("input").attr("id", bid_position_label.find("input").attr("id") + ele_bidIndex)
+
+				let bid_position_gp = $(_bid_position_gp);
+				bid_position_gp.find("input").attr("name", bid_position_gp.find("input").attr("name"))
+				bid_position_gp.find("input").attr("id", bid_position_gp.find("input").attr("id") + ele_bidIndex)
+
+				let diff_age_gp = $(_diff_age_gp);
+				diff_age_gp.find("input").attr("name", diff_age_gp.find("input").attr("name"))
+				diff_age_gp.find("input").attr("id", diff_age_gp.find("input").attr("id") + ele_bidIndex)
+
+				if (pckIndex == 1) {
+					$("#mainTable").find("thead").find("tr").append(th)
+					$($("#mainTable").find("tbody").find("tr")[0]).append(pq_fb_score)
+				}
+				$($("#mainTable").find("tbody").find("tr")[pckIndex]).append(package_bidder)
+			   
+				if (pckIndex == 1) {
+					$($("#mainTable").find("tbody").find("tr")[4]).append(total_amt_label)
+					$($("#mainTable").find("tbody").find("tr")[5]).append(bid_position_label)
+					$($("#mainTable").find("tbody").find("tr")[6]).append(bid_position_gp)
+					$($("#mainTable").find("tbody").find("tr")[7]).append(diff_age_gp)
+				}
+			  
+			}
+		}
+
+
+	} else {
+		let length = $(".custom_th").length;
+		for (pckIndex = 1; pckIndex <= package_count; pckIndex++) {
+		   
+			for (bidIndex = bid_count; bidIndex < bidCount_disp; bidIndex++) {
+			   
+			  
+				ele_bidIndex=parseInt(bidIndex)+1;
+				
+				if (pckIndex == 1) {
+					$(".custom_th").parent().last().remove()
+					$(".pq_fb_score_custom_td").parent().last().remove()
+					$(".total_amt_label_custom_td").parent().last().remove()
+					$(".bid_position_label_custom_td").parent().last().remove()
+					$(".bid_position_gp_custom_td").parent().last().remove()
+					$(".diff_age_gp_custom_td").parent().last().remove()
+				}
+			  
+				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).closest("td").remove();
+				$("#package_bidder_"+pckIndex+"_"+ele_bidIndex).remove()
+			   
+			}
+		}
+
+	}
+	
+	setRecommended_vendorName();
+	setGpl_budget();
+	
+}
