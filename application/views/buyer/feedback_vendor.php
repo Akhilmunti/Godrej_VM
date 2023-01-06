@@ -127,7 +127,7 @@
                                             <br/> 
                                             <div class="table-responsive">
                                                 <table class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
-                                                    <thead>
+                                                    <thead class="bg-primary">
                                                         <tr>
                                                             <th>S.N.</th>
                                                             <th>CRITERIA</th>

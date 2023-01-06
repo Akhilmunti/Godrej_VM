@@ -86,6 +86,7 @@
                                                             }
                                                         }
                                                         $mAccepted = json_decode($mRecord['eoi_accepted_by']);
+
                                                         foreach ($mAccepted as $key => $mAcc) {
                                                             $mVendor = $this->vendor->getParentByKey($mAcc);
                                                             $mApprovedVendors[] = $mVendor['user_name'];
@@ -106,57 +107,66 @@
                                                             <td>
                                                                 <?php if ($mRecord['eoi_status'] == 0) { ?>
                                                                     <span class="btn btn-xs btn-dark">
-                                                                        EOI Sent
+                                                                        EOI Sent : <?php echo $mRecord['eoi_date_added']; ?>
                                                                     </span>
-                                                                    <?php if (!empty($mSelVendors)) { ?>
-                                                                        <?php foreach ($mSelVendors as $key => $value) { ?>
+                                                                    <?php if (!empty($mSelectedVendors)) { ?>
+                                                                        <?php
+                                                                        foreach ($mSelectedVendors as $key => $value) {
+                                                                            $mVendor = $this->vendor->getParentByKey($value);
+                                                                            ?>
                                                                             <?php if (in_array($value, $mAccepted)) { ?>
                                                                                 <span class="btn btn-xs btn-success">
-                                                                                    Accepted By : <?php echo $value; ?>
+                                                                                    Accepted By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } elseif (in_array($value, $mRejected)) { ?>
                                                                                 <span class="btn btn-xs btn-danger">
-                                                                                    Rejected By : <?php echo $value; ?>
+                                                                                    Rejected By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } else { ?>
                                                                                 <span class="btn btn-xs btn-warning">
-                                                                                    Pending By : <?php echo $value; ?>
+                                                                                    Pending By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } else if ($mRecord['eoi_status'] == 1) { ?>
-                                                                    <?php if (!empty($mSelVendors)) { ?>
-                                                                        <?php foreach ($mSelVendors as $key => $value) { ?>
+                                                                    <?php if (!empty($mSelectedVendors)) { ?>
+                                                                        <?php
+                                                                        foreach ($mSelectedVendors as $key => $value) {
+                                                                            $mVendor = $this->vendor->getParentByKey($value);
+                                                                            ?>
                                                                             <?php if (in_array($value, $mAccepted)) { ?>
                                                                                 <span class="btn btn-xs btn-success">
-                                                                                    Accepted By : <?php echo $value; ?>
+                                                                                    Accepted By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } elseif (in_array($value, $mRejected)) { ?>
                                                                                 <span class="btn btn-xs btn-danger">
-                                                                                    Rejected By : <?php echo $value; ?>
+                                                                                    Rejected By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } else { ?>
                                                                                 <span class="btn btn-xs btn-warning">
-                                                                                    Pending By : <?php echo $value; ?>
+                                                                                    Pending By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 <?php } else if ($mRecord['eoi_status'] == 10) { ?>
-                                                                    <?php if (!empty($mSelVendors)) { ?>
-                                                                        <?php foreach ($mSelVendors as $key => $value) { ?>
+                                                                    <?php if (!empty($mSelectedVendors)) { ?>
+                                                                        <?php
+                                                                        foreach ($mSelectedVendors as $key => $value) {
+                                                                            $mVendor = $this->vendor->getParentByKey($value);
+                                                                            ?>
                                                                             <?php if (in_array($value, $mAccepted)) { ?>
                                                                                 <span class="btn btn-xs btn-success">
-                                                                                    Accepted By : <?php echo $value; ?>
+                                                                                    Accepted By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } elseif (in_array($value, $mRejected)) { ?>
                                                                                 <span class="btn btn-xs btn-danger">
-                                                                                    Rejected By : <?php echo $value; ?>
+                                                                                    Rejected By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } else { ?>
                                                                                 <span class="btn btn-xs btn-warning">
-                                                                                    Pending By : <?php echo $value; ?>
+                                                                                    Pending By : <?php echo $mVendor['email']; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                         <?php } ?>
@@ -166,7 +176,7 @@
                                                                         Bid Capacity sent by vendor
                                                                     </span>
                                                                     <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                        <span class="btn btn-xs btn-dark">
+                                                                        <span class="btn btn-xs btn-success">
                                                                             Accepted By : <?php echo $value; ?>
                                                                         </span>
                                                                     <?php } ?>

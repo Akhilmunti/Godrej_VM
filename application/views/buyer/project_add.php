@@ -80,7 +80,7 @@
                                                 <div class="col-md-4 mb-3">
                                                     <label>PM</label>
                                                     <select class="form-control form-control-sm" name="pm[]" id="pm" required="" multiple="">
-                                                        <option disabled="" selected="">Select Project Manager</option>
+                                                        <option value="" disabled="" selected="">Select Project Manager</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4 mb-3">

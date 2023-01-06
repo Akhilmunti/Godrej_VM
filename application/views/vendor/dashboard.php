@@ -32,26 +32,26 @@
                                     <h3 class="page-title br-0">Dashboard</h3>
                                 </div>
                                 <div class="right-title d-md-block d-none">
-<!--                                    <div class="d-flex justify-content-end">
-                                        <div class="d-md-flex mr-20 ml-10 d-none">
-                                            <div class="chart-text mr-10">
-                                                <h6 class="mb-0"><small>THIS MONTH</small></h6>
-                                                <h4 class="mt-0 text-primary">- Contracts Awarded</h4>
-                                            </div>
-                                                                                        <div class="spark-chart">
-                                                                                            <div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
-                                                                                        </div>
-                                        </div>
-                                        <div class="d-md-flex ml-10 d-none">
-                                            <div class="chart-text mr-10">
-                                                <h6 class="mb-0"><small>LAST YEAR</small></h6>
-                                                <h4 class="mt-0 text-danger">- Contracts Awarded</h4>
-                                            </div>
-                                                                                        <div class="spark-chart">
-                                                                                            <div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
-                                                                                        </div>
-                                        </div>
-                                    </div>-->
+                                    <!--                                    <div class="d-flex justify-content-end">
+                                                                            <div class="d-md-flex mr-20 ml-10 d-none">
+                                                                                <div class="chart-text mr-10">
+                                                                                    <h6 class="mb-0"><small>THIS MONTH</small></h6>
+                                                                                    <h4 class="mt-0 text-primary">- Contracts Awarded</h4>
+                                                                                </div>
+                                                                                                                            <div class="spark-chart">
+                                                                                                                                <div id="thismonth"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+                                                                                                                            </div>
+                                                                            </div>
+                                                                            <div class="d-md-flex ml-10 d-none">
+                                                                                <div class="chart-text mr-10">
+                                                                                    <h6 class="mb-0"><small>LAST YEAR</small></h6>
+                                                                                    <h4 class="mt-0 text-danger">- Contracts Awarded</h4>
+                                                                                </div>
+                                                                                                                            <div class="spark-chart">
+                                                                                                                                <div id="lastyear"><canvas width="60" height="35" style="display: inline-block; width: 60px; height: 35px; vertical-align: top;"></canvas></div>
+                                                                                                                            </div>
+                                                                            </div>
+                                                                        </div>-->
                                 </div>
                             </div>
                         </div>
@@ -145,22 +145,23 @@
                                                         </h1>
                                                     </div>
                                                     <div>
-                                                        <p class="mb-0"><small><i class="fa fa-calendar"></i>  
-                                                                Financial Year (<?php echo date("Y", strtotime("-2 year")); ?>-<?php echo date("Y", strtotime("-1 year")); ?>)</small>
+                                                        <p class="mb-0">
+                                                            <small><i class="fa fa-calendar"></i>  
+                                                                Financial Year (<?php echo date("Y", strtotime("-1 year")); ?>-<?php echo date("Y"); ?>)</small>
                                                         </p>
                                                     </div>									  
                                                 </div>
                                             </div>
                                             <div class="col-lg-9 col-12">
                                                 <div class="text-center">
-                                                    <canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+                                                    <canvas id="myChart" style="width:100%;max-width:800px"></canvas>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="col-md-12">
                                 <div class="box">
                                     <div class="box-header bg-primary">
@@ -300,7 +301,7 @@
                 data: {
                     labels: xValues,
                     datasets: [{
-                            backgroundColor: barColors,
+                            backgroundColor: '#b91d47',
                             data: yValues
                         }]
                 },

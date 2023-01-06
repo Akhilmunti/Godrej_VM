@@ -113,8 +113,8 @@
                                                 <p class="mb-0">Contracts</p>
                                                 <h4 class="text-danger font-weight-200">
                                                     <?php
-                                                    if ($iomdata['contracts']['c']) {
-                                                        echo $iomdata['contracts']['c'];
+                                                    if ($iomdata['contracts']['b']) {
+                                                        echo $iomdata['contracts']['b'];
                                                     } else {
                                                         "-";
                                                     }
@@ -126,15 +126,25 @@
                                                 <i class="ti-info font-size-40"></i>
                                             </div>
                                         </div>
-                                        <p class="font-weight-600 mb-2">
-                                            <?php
-                                            if ($iomdata['contracts']['c'] > 0) {
-                                                echo "Escalation";
-                                            } else {
-                                                echo "Saving";
-                                            }
+
+                                        <?php
+                                        $mAvgCon = (($iomdata['contracts']['b'] - $iomdata['contracts']['a']) / $iomdata['contracts']['a']) * 100;
+                                        if (is_nan($mAvgCon)) {
+                                            $mAvgCon = "";
+                                        } else {
+                                            $mAvgCon = $mAvgCon;
+                                        }
+                                        if ($iomdata['contracts']['c'] > 0) {
                                             ?>
-                                        </p>
+                                            <p class="font-weight-600 mb-2 text-danger">
+                                                <?php echo "Escalation" . " : " . $iomdata['contracts']['c'] . " ~ (" . round($mAvgCon) . " %)"; ?>
+                                            </p>
+                                        <?php } else { ?>
+                                            <p class="font-weight-600 mb-2 text-primary">
+                                                <?php echo "Saving" . " : " . $iomdata['contracts']['c'] . " ~ (" . round($mAvgCon) . " %)"; ?>
+                                            </p>
+                                        <?php } ?>
+
                                     </div>
                                 </div>
                                 <!--                                </a>-->
@@ -148,8 +158,8 @@
                                                 <p class="mb-0">Procurement</p>
                                                 <h4 class="text-danger font-weight-200">
                                                     <?php
-                                                    if ($iomdata['procurement']['c']) {
-                                                        echo $iomdata['procurement']['c'];
+                                                    if ($iomdata['procurement']['b']) {
+                                                        echo $iomdata['procurement']['b'];
                                                     } else {
                                                         "-";
                                                     }
@@ -161,15 +171,23 @@
                                                 <i class="ti-info font-size-40"></i>
                                             </div>
                                         </div>
-                                        <p class="font-weight-600 mb-2">
-                                            <?php
-                                            if ($iomdata['procurement']['c'] > 0) {
-                                                echo "Escalation";
-                                            } else {
-                                                echo "Saving";
-                                            }
+                                        <?php
+                                        $mAvgPro = (($iomdata['procurement']['b'] - $iomdata['procurement']['a']) / $iomdata['procurement']['a']) * 100;
+                                        if (is_nan($mAvgPro)) {
+                                            $mAvgPro = "";
+                                        } else {
+                                            $mAvgPro = $mAvgPro;
+                                        }
+                                        if ($iomdata['procurement']['c'] > 0) {
                                             ?>
-                                        </p>
+                                            <p class="font-weight-600 mb-2 text-danger">
+                                                <?php echo "Escalation" . " : " . $iomdata['procurement']['c'] . " ~ (" . round($mAvgPro) . " %)"; ?>
+                                            </p>
+                                        <?php } else { ?>
+                                            <p class="font-weight-600 mb-2 text-primary">
+                                                <?php echo "Saving" . " : " . $iomdata['procurement']['c'] . " ~ (" . round($mAvgPro) . " %)"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <!--                                </a>-->
@@ -196,26 +214,36 @@
                                                 <i class="ti-info font-size-40"></i>
                                             </div>
                                         </div>
-                                        <p class="font-weight-600 mb-2">
-                                            <?php
-                                            if ($iomdata['total'] > 0) {
-                                                echo "Escalation";
-                                            } else {
-                                                echo "Saving";
-                                            }
+                                        <?php
+                                        $mAvgAward = $iomdata['contracts']['b'] + $iomdata['procurement']['b'];
+                                        $mAvgBudget = $iomdata['contracts']['a'] + $iomdata['procurement']['a'];
+                                        $mAvgTotal = (($mAvgAward - $mAvgBudget) / $mAvgBudget) * 100;
+                                        if (is_nan($mAvgTotal)) {
+                                            $mAvgTotal = "";
+                                        } else {
+                                            $mAvgTotal = $mAvgTotal;
+                                        }
+                                        if ($iomdata['total_avg'] > 0) {
                                             ?>
-                                        </p>
+                                            <p class="font-weight-600 mb-2 text-danger">
+                                                <?php echo "Escalation" . " : " . $iomdata['total_avg'] . " ~ (" . round($mAvgTotal) . " %)"; ?>
+                                            </p>
+                                        <?php } else { ?>
+                                            <p class="font-weight-600 mb-2 text-primary">
+                                                <?php echo "Saving" . " : " . $iomdata['total_avg'] . " ~ (" . round($mAvgTotal) . " %)"; ?>
+                                            </p>
+                                        <?php } ?>
                                     </div>
                                 </div>
                                 <!--                                </a>-->
                             </div>
 
-                            <div class="col-xl-4">
+                            <div class="col-xl-4 col-md-12">
                                 <div class="box">
                                     <div class="box-header with-border primary-gradient text-white">
                                         <h5 class="box-title text-bold">
                                             <b>
-                                                Total number of Awards (22-23)
+                                                Total number of Awards (FY 22-23)
                                             </b>
                                         </h5>
                                     </div>
@@ -236,10 +264,10 @@
                                                         </th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="text-center">
                                                     <tr>
                                                         <td>
-                                                            FY(22-23)
+                                                            Total IOM Count
                                                         </td>
                                                         <td>
                                                             <?php echo $iomdata['total_contracts']; ?>
@@ -248,7 +276,7 @@
                                                             <?php echo $iomdata['total_procurements']; ?>
                                                         </td>
                                                     </tr>
-<!--                                                    <tr>
+                                                    <tr>
                                                         <td>
                                                             Average TAT
                                                         </td>
@@ -258,7 +286,7 @@
                                                         <td>
                                                             -
                                                         </td>
-                                                    </tr>-->
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -267,39 +295,69 @@
                                 </div>
                             </div>
 
-                            <div class="col-xl-4">
-                                <div class="box">
-                                    <form method="POST" action="<?php echo base_url('buyer/vendor/actionFilterGplData/' . $zone); ?>">
-                                        <div class="box-header with-border primary-gradient text-white">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <h5 class="box-title text-bold">
-                                                        <b>
-                                                            GPL Vendor Data
-                                                        </b>
-                                                    </h5>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <button class="btn btn-xs btn-dark btn-block" type="submit">Submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body">
-                                            <select id="nature_of_business_process" name="nature_of_business" required  class="form-control">
-                                                <option value="" disabled="" selected="">Select Type of agency</option>
-                                                <option value="All">All</option>
-                                                <?php foreach ($tovs as $vendor) { ?>
-                                                    <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->name; ?></option> 
-                                                <?php } ?>
-                                            </select> 
-                                            <br>
-                                            <select id="type_of_work" name="type_of_work" required="" class="form-control">
-                                                <option value="" disabled="" selected="">Select Package name</option>
-                                            </select>
+                            <style>
+                                .span-sm{
+                                    font-size: 12px
+                                }
+                            </style>
 
+                            <div class="col-xl-4 col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border primary-gradient text-white">
+                                        <h5 class="box-title text-bold">
+                                            <b>
+                                                Vendor Database
+                                            </b>
+                                        </h5>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body py-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="<?php echo base_url('buyer/vendor/actionFilterGplData/All/All/All/All/All'); ?>">
+                                                                Total Empaneled Agencies till date - 
+                                                                <?php
+                                                                if (!empty($getVendors)) {
+                                                                    echo count($getVendors);
+                                                                } else {
+                                                                    echo "0";
+                                                                }
+                                                                ?>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Empaneled Agencies FY(22-23) - <?php
+                                                            if (!empty($getVendorsThisYear)) {
+                                                                echo count($getVendorsThisYear);
+                                                                $mCountV = count($getVendorsThisYear);
+                                                            } else {
+                                                                echo "0";
+                                                                $mCountV = 0;
+                                                            }
+                                                            ?> 
+                                                            <span class="fa fa-arrow-up text-warning">
+                                                                <?php
+                                                                $mAvgVendors = (count($getVendorsThisYear) / count($getVendors)) * 100;
+                                                                if (is_nan($mAvgVendors)) {
+                                                                    $mAvgVendors = "";
+                                                                } else {
+                                                                    $mAvgVendors = $mAvgVendors;
+                                                                }
+                                                                ?>
+                                                                <?php echo $mAvgVendors; ?> % 
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                            <br>
                                         </div>
-                                    </form>
+                                    </div>
                                     <!-- /.box-body -->
                                 </div>
                             </div>
@@ -333,50 +391,59 @@
                                                 $mSessionRole = $this->session->userdata('session_role');
                                                 ?>
 
+
+
                                                 <div class="col-lg-6 text-center mb-2">
-                                                    <a href="#" class="btn btn-block btn-primary">
-                                                        <span>
-                                                            Bidder List
+                                                    <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-block btn-primary">
+                                                        <span class="span-sm">
+                                                            Bidder List 
+                                                            <span class="badge badge-danger ml-2">
+                                                                <?php
+                                                                if ($short_count) {
+                                                                    echo $short_count;
+                                                                } else {
+                                                                    echo "0";
+                                                                }
+                                                                ?>
+                                                            </span>
                                                         </span>
                                                     </a>
                                                 </div>
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
-                                                        <span>
+                                                        <span class="span-sm">
                                                             Award IOM
+                                                            <span class="badge badge-danger ml-2">
+                                                                <?php echo "23"; ?>
+                                                            </span>
                                                         </span>
                                                     </a>
                                                 </div>
-                                                <div class="col-lg-6 text-center mb-2">
-                                                    <a href="#" class="btn btn-block btn-primary">
-                                                        <span>
-                                                            Amendments IOM
-                                                        </span>
-                                                    </a>
-                                                </div>
+                                                <!--                                                <div class="col-lg-6 text-center mb-2">
+                                                                                                    <a href="#" class="btn btn-block btn-primary">
+                                                                                                        <span>
+                                                                                                            Amendments IOM
+                                                                                                        </span>
+                                                                                                    </a>
+                                                                                                </div>-->
 
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('buyer/vendor/viewAllVendorLogs/' . $zone); ?>" class="btn btn-block btn-primary">
-                                                        <span>
-                                                            <?php echo "Vendor Logs " . $zone; ?>
+                                                        <span class="span-sm">
+                                                            <?php echo "Vendor Logs"; ?>
                                                         </span>
                                                     </a>
                                                 </div>
 
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('buyer/vendor/selectProject/' . $zone); ?>" class="btn btn-block btn-primary">
-                                                        <span>
-                                                            <?php echo $zone; ?>
+                                                        <span class="span-sm">
+                                                            Projects
                                                         </span>
                                                     </a>
-                                                    <br>
                                                 </div>
 
-                                                <div class="col-lg-6 text-center mb-2">
-                                                    <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
-                                                        Shortlisting
-                                                    </a>
-                                                </div>
+
 
                                             </div>
                                         </div>
@@ -458,14 +525,29 @@
                                                     <div class="col-lg-6 text-center mb-2">
                                                         <a href="<?php echo base_url('buyer/vendor/vendorLogs/' . $mProjectId . "/" . $zone); ?>" class="btn btn-block btn-primary">
                                                             <span>
-                                                                View Vendor Logs
+                                                                Vendor Logs
                                                             </span>
                                                         </a>
                                                         <br>
                                                     </div>
                                                     <div class="col-lg-6 text-center mb-2">
-                                                        <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
-                                                            Shortlisting 
+                                                        <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-block btn-primary">
+                                                            <span>
+                                                                Bidder List 
+                                                                <span class="badge badge-danger ml-2">
+                                                                    <?php echo $short_count; ?>
+                                                                </span>
+                                                            </span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-lg-6 text-center mb-2">
+                                                        <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
+                                                            <span>
+                                                                Award IOM
+                                                                <span class="badge badge-danger ml-2">
+                                                                    <?php echo "23"; ?>
+                                                                </span>
+                                                            </span>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -493,7 +575,7 @@
                                     <div class="box-header with-border primary-gradient text-white">
                                         <h5 class="box-title text-bold">
                                             <b>
-                                                Recent Procurement Data
+                                                Recent Procurement Rate - INR
                                             </b>
                                         </h5>
                                     </div>
@@ -526,37 +608,37 @@
                                                             <?php if ($mSessionZone == "NCR") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_steel_price']['NCR']['uom_value']) {
-                                                                    echo $iomdata['latest_steel_price']['NCR']['uom_value'];
+                                                                    echo round(($iomdata['latest_steel_price']['NCR']['total_finalized_award_value'] * 10000000) / $iomdata['latest_steel_price']['NCR']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "South") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_steel_price']['South']['uom_value']) {
-                                                                    echo $iomdata['latest_steel_price']['South']['uom_value'];
+                                                                    echo round(($iomdata['latest_steel_price']['South']['total_finalized_award_value'] * 10000000) / $iomdata['latest_steel_price']['South']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "Mumbai") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_steel_price']['Mumbai']['uom_value']) {
-                                                                    echo $iomdata['latest_steel_price']['Mumbai']['uom_value'];
+                                                                    echo round(($iomdata['latest_steel_price']['Mumbai']['total_finalized_award_value'] * 10000000) / $iomdata['latest_steel_price']['Mumbai']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "Pune") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_steel_price']['Pune']['uom_value']) {
-                                                                    echo $iomdata['latest_steel_price']['Pune']['uom_value'];
+                                                                    echo round(($iomdata['latest_steel_price']['Pune']['total_finalized_award_value'] * 10000000) / $iomdata['latest_steel_price']['Pune']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
@@ -575,37 +657,37 @@
                                                             <?php if ($mSessionZone == "NCR") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_cement_price']['NCR']['uom_value']) {
-                                                                    echo $iomdata['latest_cement_price']['NCR']['uom_value'];
+                                                                    echo round(($iomdata['latest_cement_price']['NCR']['total_finalized_award_value'] * 10000000) / $iomdata['latest_cement_price']['NCR']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "South") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_cement_price']['South']['uom_value']) {
-                                                                    echo $iomdata['latest_cement_price']['South']['uom_value'];
+                                                                    echo round(($iomdata['latest_cement_price']['South']['total_finalized_award_value'] * 10000000) / $iomdata['latest_cement_price']['South']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "Mumbai") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_cement_price']['Mumbai']['uom_value']) {
-                                                                    echo $iomdata['latest_cement_price']['Mumbai']['uom_value'];
+                                                                    echo round(($iomdata['latest_cement_price']['Mumbai']['total_finalized_award_value'] * 10000000) / $iomdata['latest_cement_price']['Mumbai']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "Pune") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_cement_price']['Pune']['uom_value']) {
-                                                                    echo $iomdata['latest_cement_price']['Pune']['uom_value'];
+                                                                    echo round(($iomdata['latest_cement_price']['Pune']['total_finalized_award_value'] * 10000000) / $iomdata['latest_cement_price']['Pune']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
@@ -624,37 +706,37 @@
                                                             <?php if ($mSessionZone == "NCR") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_aluminium_price']['NCR']['uom_value']) {
-                                                                    echo $iomdata['latest_aluminium_price']['NCR']['uom_value'];
+                                                                    echo round(($iomdata['latest_aluminium_price']['NCR']['total_finalized_award_value'] * 10000000) / $iomdata['latest_aluminium_price']['NCR']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "South") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_aluminium_price']['South']['uom_value']) {
-                                                                    echo $iomdata['latest_aluminium_price']['South']['uom_value'];
+                                                                    echo round(($iomdata['latest_aluminium_price']['South']['total_finalized_award_value'] * 10000000) / $iomdata['latest_aluminium_price']['South']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "Mumbai") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_aluminium_price']['Mumbai']['uom_value']) {
-                                                                    echo $iomdata['latest_aluminium_price']['Mumbai']['uom_value'];
+                                                                    echo round(($iomdata['latest_aluminium_price']['Mumbai']['total_finalized_award_value'] * 10000000) / $iomdata['latest_aluminium_price']['Mumbai']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }
                                                                 ?>
                                                             <?php } ?>
-                                                            
+
                                                             <?php if ($mSessionZone == "Pune") { ?>
                                                                 <?php
                                                                 if ($iomdata['latest_aluminium_price']['Pune']['uom_value']) {
-                                                                    echo $iomdata['latest_aluminium_price']['Pune']['uom_value'];
+                                                                    echo round(($iomdata['latest_aluminium_price']['Pune']['total_finalized_award_value'] * 10000000) / $iomdata['latest_aluminium_price']['Pune']['uom_value']);
                                                                 } else {
                                                                     echo "-";
                                                                 }

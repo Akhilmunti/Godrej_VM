@@ -153,6 +153,7 @@ class Buyer_model extends CI_Model {
     }
 
     public function getAllParentForPr() {
+        $mSessionKey = $this->session->userdata('session_id');
         $mSessionZone = $this->session->userdata('session_zone');
         $this->db->select('*');
         $this->db->from($this->table_parent);
@@ -160,6 +161,7 @@ class Buyer_model extends CI_Model {
         //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
         //$this->db->where('buyer_status', 1);
         $this->db->where('buyer_role', "Project Manager");
+        $this->db->where('buyer_id !=', $mSessionKey);
         $this->db->where('buyer_zone', $mSessionZone);
         $this->db->order_by('buyer_id', 'DESC');
         $data = array();
@@ -172,6 +174,28 @@ class Buyer_model extends CI_Model {
         }
     }
     
+    public function getAllPetZone() {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        //$this->db->join('categories', 'categories.category_key = article.category_key');
+        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
+        //$this->db->where('buyer_status', 1);
+        $this->db->where('buyer_role', "Project Execution Team");
+        $this->db->where('buyer_id !=', $mSessionKey);
+        $this->db->where('buyer_zone', $mSessionZone);
+        $this->db->order_by('buyer_id', 'DESC');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
     public function getAllParentForAssign() {
         $mSessionZone = $this->session->userdata('session_zone');
         $this->db->select('*');
@@ -193,7 +217,7 @@ class Buyer_model extends CI_Model {
             return false;
         }
     }
-    
+
     public function getAllParentForTransfer() {
         $mSessionZone = $this->session->userdata('session_zone');
         $this->db->select('*');
@@ -215,7 +239,7 @@ class Buyer_model extends CI_Model {
             return false;
         }
     }
-    
+
     public function getAllParentForTransferByRole($mRole) {
         $mSessionZone = $this->session->userdata('session_zone');
         $this->db->select('*');
@@ -339,6 +363,9 @@ class Buyer_model extends CI_Model {
     public function getAllTowsForVendorLogs() {
         $this->db->select('*');
         $this->db->from("typeofwork");
+        $this->db->or_where('natureofbusiness_id', 1);
+        $this->db->or_where('natureofbusiness_id', 2);
+        $this->db->or_where('natureofbusiness_id', 3);
         $this->db->order_by("name");
         $data = array();
         $mQuery_Res = $this->db->get();

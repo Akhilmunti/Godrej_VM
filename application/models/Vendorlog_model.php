@@ -49,7 +49,7 @@ class Vendorlog_model extends CI_Model {
         //$this->db->join('registration', 'registration.id = vendor_logs.vl_vendor');
         $this->db->where('vl_project', $param1);
         $this->db->where('vl_zone', $param2);
-        $this->db->where('vl_buyer_id', $mSessionKey);
+        //$this->db->where('vl_buyer_id', $mSessionKey);
         $data = array();
         $mQuery_Res = $this->db->get();
         if ($mQuery_Res->num_rows() > 0) {
@@ -78,18 +78,22 @@ class Vendorlog_model extends CI_Model {
         }
     }
 
-    public function getAllParentByFilter($mZone = null, $mProject = null, $mStatus = null, $mFrom = null, $mTo = null) {
+    public function getAllParentByFilter($mZone = null, $mProject = null, $mStatus = null, $mFrom = null, $mTo = null, $mCriticality = null) {
         $this->db->select('*');
         $this->db->from($this->table_parent);
-        if ($mZone != "All") {
+        if ($mZone == "All") {
+            //$this->db->where('vl_project', $mProject);
+        } elseif ($mZone) {
             $this->db->where('vl_zone', $mZone);
         }
-        if ($mProject != "All") {
+        if ($mProject == "All") {
+            //$this->db->where('vl_project', $mProject);
+        } elseif ($mProject) {
             $this->db->where('vl_project', $mProject);
         }
-        if ($mStatus == 0 && $mStatus != "All") {
-            $this->db->where('vl_status_toggle', 0);
-        } elseif ($mStatus == 1 && $mStatus != "All") {
+        if ($mStatus == 2) {
+            $this->db->where('vl_status_toggle', 2);
+        } elseif ($mStatus == 1){
             $this->db->where('vl_status_toggle', 1);
         }
         if ($mFrom) {
@@ -98,15 +102,20 @@ class Vendorlog_model extends CI_Model {
         if ($mTo) {
             $this->db->where('DATE(vl_date_added) <=', date('Y-m-d', strtotime($mTo)));
         }
+        if ($mCriticality == "All") {
+            //$this->db->like('vl_criticality', $mCriticality);
+        } elseif ($mCriticality) {
+            $this->db->where('vl_criticality', $mCriticality);
+        }
         $this->db->join('projects', 'projects.project_id = vendor_logs.vl_project');
         $this->db->join('typeofwork', 'typeofwork.id = vendor_logs.vl_package');
         $this->db->order_by('vl_id', 'DESC');
         $data = array();
         $mQuery_Res = $this->db->get();
-        
+
         //echo $this->db->last_query();
         //exit;
-        
+
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->result_array();
             return $data;

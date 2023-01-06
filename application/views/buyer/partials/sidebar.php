@@ -12,45 +12,16 @@
             $mSessionEmail = $this->session->userdata('session_email');
             $mSessionId = $this->session->userdata('session_id');
             ?>
-            <?php if ($mSessionRole == "COO" || $mSessionRole == "Managing Director" || $mSessionRole == "Head of Contracts & Procurement" || $mSessionRole == "HO - C&P" || $mSessionRole == "HO Operations") { ?>
-                <li class="treeview <?php
-                if ($home == "process" || $home == "home") {
-                    echo "active";
-                }
-                ?>">
-                    <a href="#">
-                        <i class="mdi mdi-home"></i>
-                        <span>Dashboard</span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="<?php
-                        if ($home == "home") {
-                            echo "active";
-                        }
-                        ?>">
-                            <a href="<?php echo base_url('buyer/vendor/dashboard'); ?>">Dashboard</a>
-                        </li>
-                        <li class="<?php
-                        if ($home == "process") {
-                            echo "active";
-                        }
-                        ?>">
-                            <a href="<?php echo base_url('buyer/vendor/process'); ?>">Zonal Data</a>
-                        </li>
-                    </ul>
-                </li>  
-            <?php } else { ?>
-                <li class="<?php
-                if ($home == "home") {
-                    echo "active";
-                }
-                ?>">
-                    <a href="<?php echo base_url('buyer/vendor/dashboard'); ?>">
-                        <i class="ti-home"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
-            <?php } ?> 
+            <li class="<?php
+            if ($home == "home") {
+                echo "active";
+            }
+            ?>">
+                <a href="<?php echo base_url('buyer/vendor/dashboard'); ?>">
+                    <i class="ti-home"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
 
             <li class="treeview <?php
             if ($home == "vendor") {
@@ -98,7 +69,7 @@
                             <a href="<?php echo base_url('buyer/vendor/transferred'); ?>">Transferred</a>
                         </li>
                     <?php } ?>
-                    <?php if ($mSessionRole == "Regional C&P Head" || $mSessionRole == "Regional C&P Team") { ?>
+                    <?php if ($mSessionRole == "Regional C&P Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "Operations Head" || $mSessionRole == "Construction Head" || $mSessionRole == "Construction Head" || $mSessionRole == "COO" || $mSessionRole == "Head of Contracts & Procurement" || $mSessionRole == "HO - C&P" || $mSessionRole == "HO Operations") { ?>
                         <li class="<?php
                         if ($home == "feedback") {
                             echo "active";
@@ -140,7 +111,7 @@
                 </li>  
             <?php } ?>
 
-            <?php if ($mSessionRole == "Project Manager" || $mSessionRole == "Project Execution Team") { ?>
+            <?php if ($mSessionRole == "Project Execution Team") { ?>
 
                 <li class="<?php
                 if ($home == "site_reports") {
@@ -152,6 +123,10 @@
                         <span>Site Visit Report</span>
                     </a>
                 </li>
+
+            <?php } ?>
+
+            <?php if ($mSessionRole == "Project Manager") { ?>
 
                 <li class="<?php
                 if ($home == "feedback") {

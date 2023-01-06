@@ -56,8 +56,8 @@
                                 <div class="box box-default">
                                     <div class="box-body pb-0">
                                         <div class="table-responsive">
-                                            <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                                <thead>
+                                            <table id="example" class="table table-bordered" style="width:100%">
+                                                <thead class="bg-primary">
                                                     <tr>
                                                         <th>SL No</th>
                                                         <th>Contractor/Vendor</th>
@@ -70,7 +70,7 @@
                                                             Last updated date
                                                         </th>
                                                         <th>
-                                                            Comments
+                                                            Updated Status
                                                         </th>
                                                         <th>
                                                             Action
@@ -83,8 +83,16 @@
                                                     $mCount = 0;
                                                     foreach ($records as $key => $record) {
                                                         $mCount++;
+
+                                                        if ($record['vl_criticality'] == "Low") {
+                                                            $mBg = "#ffffff";
+                                                        } elseif ($record['vl_criticality'] == "Medium") {
+                                                            $mBg = "#FEFFBF";
+                                                        } elseif ($record['vl_criticality'] == "High") {
+                                                            $mBg = "#FFB3B3";
+                                                        }
                                                         ?>
-                                                        <tr>
+                                                        <tr style="background-color: <?php echo $mBg; ?>">
                                                             <td>
                                                                 <?php echo $mCount; ?>
                                                             </td>
@@ -107,28 +115,18 @@
                                                                     <span class="btn btn-xs btn-warning">
                                                                         Open
                                                                     </span>
-                                                                <?php } else { ?>
+                                                                <?php } elseif ($record['vl_status_toggle'] == "2") { ?>
                                                                     <span class="btn btn-xs btn-success">
                                                                         Closed
                                                                     </span>
                                                                 <?php } ?>
                                                             </td>
                                                             <td>
-                                                                <div class="dropdown">
-                                                                    <button class="btn btn-xs btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-<?php echo $record['vl_id']; ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                        <?php if ($record['vl_pain'] == "Company") { ?>
-                                                                            Company
-                                                                        <?php } else if ($record['vl_pain'] == "Contractor") { ?>
-                                                                            Contractor
-                                                                        <?php } else { ?>
-                                                                            Select
-                                                                        <?php } ?>
-                                                                    </button>
-                                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton-<?php echo $record['vl_id']; ?>">
-                                                                        <a class="dropdown-item" href="<?php echo base_url('buyer/vendor/actionChangeLogPainStatus/' . $record['vl_id'] . "/1"); ?>">Company</a>
-                                                                        <a class="dropdown-item" href="<?php echo base_url('buyer/vendor/actionChangeLogPainStatus/' . $record['vl_id'] . "/2"); ?>">Contractor</a>
-                                                                    </div>
-                                                                </div>
+                                                                <?php if ($record['vl_pain'] == "Company") { ?>
+                                                                    Company
+                                                                <?php } else if ($record['vl_pain'] == "Vendor") { ?>
+                                                                    Vendor
+                                                                <?php } ?>
                                                             </td>
                                                             <td>
                                                                 <?php
@@ -188,20 +186,59 @@
                             </div>
                             <div class="modal-body">
                                 <div class="row">
-                                    <div class="col-md-12 text-center">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input <?php
+                                    <div class="col-md-12">
+                                        <!--                                        <div class="checkbox">
+                                                                                    <label>
+                                                                                        <input <?php
+                                        if ($record['vl_status_toggle'] == "1") {
+                                            echo "checked";
+                                        }
+                                        ?> value="1" name="vl_status_toggle" type="checkbox" data-toggle="toggle">
+                                                                                        Open / Closed
+                                                                                    </label>
+                                                                                </div>-->
+                                        <div class="form-group">
+                                            <label for="wlastName2"> Current Status : <span class="danger">*</span> </label>
+                                            <select required="" name="vl_status_toggle" id="vl_status_toggle" class="form-control">
+                                                <option selected="" value="" disabled="">Select</option>
+                                                <option <?php
                                                 if ($record['vl_status_toggle'] == "1") {
-                                                    echo "checked";
+                                                    echo "selected";
                                                 }
-                                                ?> value="1" name="vl_status_toggle" type="checkbox" data-toggle="toggle">
-                                                Open / Closed
-                                            </label>
+                                                ?> value="1">Open</option>
+                                                <option <?php
+                                                if ($record['vl_status_toggle'] == "2") {
+                                                    echo "selected";
+                                                }
+                                                ?> value="2">Closed</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-md-12">
-                                        <label>Comments</label>
+                                        <div class="form-group">
+                                            <label for="wlastName2"> Criticality : <span class="danger">*</span> </label>
+                                            <select required="" name="vl_criticality" id="vl_criticality" class="form-control">
+                                                <option selected="" value="" disabled="">Select</option>
+                                                <option <?php
+                                                if ($record['vl_criticality'] == "Low") {
+                                                    echo "selected";
+                                                }
+                                                ?> >Low</option>
+                                                <option <?php
+                                                if ($record['vl_criticality'] == "Medium") {
+                                                    echo "selected";
+                                                }
+                                                ?> >Medium</option>
+                                                <option <?php
+                                                if ($record['vl_criticality'] == "High") {
+                                                    echo "selected";
+                                                }
+                                                ?> >High</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label>Updated Status</label>
                                         <textarea rows="6" required="" name="vl_status" class="form-control"><?php echo $record['vl_status']; ?></textarea>
                                     </div>
 

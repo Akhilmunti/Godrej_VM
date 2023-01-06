@@ -98,13 +98,13 @@
                                                                         <div class="box primary-gradient">
                                                                             <div class="box-body p-2 text-center text-white">                                        
                                                                                 <h5>
-                                                                                    Shortlisting
+                                                                                    Bidder List
                                                                                 </h5>
                                                                             </div>
                                                                         </div>
                                                                     </a>
                                                                 </div>
-                                                                <div class="col-md-12">
+                                                                <!--<div class="col-md-12">
                                                                     <a href="<?php echo base_url('buyer/vendor/bidManagement/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $record['package_selected_id']); ?>">
                                                                         <div class="box primary-gradient">
                                                                             <div class="box-body p-2 text-center text-white">                                        
@@ -136,7 +136,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </a>
-                                                                </div>
+                                                                </div>-->
                                                                 <div class="col-md-12">
                                                                     <a href='<?php  echo base_url("nfa/Award_contract/award_recomm_contract_list/{$project['project_id']}/$zone/{$record['package_selected_id']}") ?>'>
                                                                         <div class="box primary-gradient">
@@ -148,7 +148,7 @@
                                                                         </div>
                                                                     </a>
                                                                 </div>
-                                                                <div class="col-md-12">
+<!--                                                                <div class="col-md-12">
                                                                     <a href="#">
                                                                         <div class="box primary-gradient">
                                                                             <div class="box-body p-2 text-center text-white">                                        
@@ -180,7 +180,7 @@
                                                                             </div>
                                                                         </div>
                                                                     </a>
-                                                                </div>
+                                                                </div>-->
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer modal-footer-uniform">
@@ -321,6 +321,7 @@
                     $('#others').attr('required', 'required');
                 } else {
                     $('#others').css('display', 'none');
+                    $('#others').attr('required', false);
                 }
             });
 

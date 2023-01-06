@@ -101,11 +101,12 @@
         <script type="text/javascript">
 
             $('#works').on('change', function () {
-                if (this.value === "14" || this.value === "21" || this.value === "33" || this.value === "40") {
+                if (this.value === "73") {
                     $('#others').css('display', 'block');
                     $('#others').attr('required', 'required');
                 } else {
                     $('#others').css('display', 'none');
+                    $('#others').attr('required', false);
                 }
             });
 

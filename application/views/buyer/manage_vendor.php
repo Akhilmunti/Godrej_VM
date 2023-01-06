@@ -420,6 +420,8 @@
                                                                                                 </a>
                                                                                             <?php } else { ?>
                                                                                                 <span class="badge badge-dark">
+                                                                                                    Sent To : <?php echo $mPrRecord['buyer_name']; ?>
+                                                                                                    <br>
                                                                                                     Pending : <?php echo $value; ?>
                                                                                                 </span>
                                                                                             <?php } ?>
@@ -430,6 +432,8 @@
                                                                                                 </a>
                                                                                             <?php } else { ?>
                                                                                                 <span class="badge badge-dark">
+                                                                                                    Sent To : <?php echo $mPrRecord['buyer_name']; ?>
+                                                                                                    <br>
                                                                                                     Pending : <?php echo $value; ?>
                                                                                                 </span>
                                                                                             <?php } ?>
@@ -440,6 +444,8 @@
                                                                                                 </a>
                                                                                             <?php } else { ?>
                                                                                                 <span class="badge badge-dark">
+                                                                                                    Sent To : <?php echo $mPrRecord['buyer_name']; ?>
+                                                                                                    <br>
                                                                                                     Pending : <?php echo $value; ?>
                                                                                                 </span>
                                                                                             <?php } ?>
@@ -482,11 +488,11 @@
                                                                                             <?php if (!empty($mSiteReportCheck)) { ?>
                                                                                                 <?php if (!empty($mPqScore)) { ?>
                                                                                                     <a href="<?php echo base_url('buyer/vendor/editPqScore/' . $mPqScore['pqv_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'success';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                    if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                        echo 'success';
+                                                                                                    } else {
+                                                                                                        echo 'danger';
+                                                                                                    }
                                                                                                     ?> mb-2">
                                                                                                         View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqv_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                     </a>
@@ -499,11 +505,11 @@
                                                                                             <?php } else { ?>
                                                                                                 <?php if (!empty($mPqScore)) { ?>
                                                                                                     <a href="<?php echo base_url('buyer/vendor/editPqScore/' . $mPqScore['pqv_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                    if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                        echo 'primary';
+                                                                                                    } else {
+                                                                                                        echo 'danger';
+                                                                                                    }
                                                                                                     ?> mb-2">
                                                                                                         View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqv_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                     </a>
@@ -516,11 +522,11 @@
                                                                                         <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
                                                                                             <?php if (!empty($mPqScore)) { ?>
                                                                                                 <a href="<?php echo base_url('buyer/vendor/editConsultantSiteVisitReport/' . $mSiteReport['csvr_id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                    echo 'primary';
+                                                                                                } else {
+                                                                                                    echo 'danger';
+                                                                                                }
                                                                                                 ?> mb-2">
                                                                                                     View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                 </a>
@@ -533,11 +539,11 @@
                                                                                             <?php if (!empty($mSiteReportCheck)) { ?>
                                                                                                 <?php if (!empty($mPqScore)) { ?>
                                                                                                     <a href="<?php echo base_url('buyer/vendor/editPqcScore/' . $mPqScore['pqc_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqc_total'] >= 50) {
-                                                                echo 'success';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                    if ($mPqScore['pqc_total'] >= 50) {
+                                                                                                        echo 'success';
+                                                                                                    } else {
+                                                                                                        echo 'danger';
+                                                                                                    }
                                                                                                     ?> mb-2">
                                                                                                         View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                     </a>
@@ -550,11 +556,11 @@
                                                                                             <?php } else { ?>
                                                                                                 <?php if (!empty($mPqScore)) { ?>
                                                                                                     <a href="<?php echo base_url('buyer/vendor/editPqcScore/' . $mPqScore['pqc_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqc_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                    if ($mPqScore['pqc_total'] >= 50) {
+                                                                                                        echo 'primary';
+                                                                                                    } else {
+                                                                                                        echo 'danger';
+                                                                                                    }
                                                                                                     ?> mb-2">
                                                                                                         View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                     </a>
@@ -594,11 +600,11 @@
                                                                                         <?php if (!empty($mSiteReportCheck)) { ?>
                                                                                             <?php if (!empty($mPqScore)) { ?>
                                                                                                 <a href="<?php echo base_url('buyer/vendor/editPqScore/' . $mPqScore['pqv_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'success';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                    echo 'success';
+                                                                                                } else {
+                                                                                                    echo 'danger';
+                                                                                                }
                                                                                                 ?> mb-2">
                                                                                                     View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqv_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                 </a>
@@ -611,11 +617,11 @@
                                                                                         <?php } else { ?>
                                                                                             <?php if (!empty($mPqScore)) { ?>
                                                                                                 <a href="<?php echo base_url('buyer/vendor/editPqScore/' . $mPqScore['pqv_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                                if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                    echo 'primary';
+                                                                                                } else {
+                                                                                                    echo 'danger';
+                                                                                                }
                                                                                                 ?> mb-2">
                                                                                                     View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqv_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                                 </a>
@@ -629,11 +635,11 @@
                                                                                     <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
                                                                                         <?php if (!empty($mPqScore)) { ?>
                                                                                             <a href="<?php echo base_url('buyer/vendor/editConsultantSiteVisitReport/' . $mSiteReport['csvr_id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                            if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                echo 'primary';
+                                                                                            } else {
+                                                                                                echo 'danger';
+                                                                                            }
                                                                                             ?> mb-2">
                                                                                                 View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                             </a>
@@ -645,11 +651,11 @@
                                                                                     <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
                                                                                         <?php if (!empty($mPqScore)) { ?>
                                                                                             <a href="<?php echo base_url('buyer/vendor/editPqcScore/' . $mPqScore['pqc_id'] . "/" . $mRecord['id']); ?>" class="badge badge-<?php
-                                                            if ($mPqScore['pqc_total'] >= 25) {
-                                                                echo 'success';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                            if ($mPqScore['pqc_total'] >= 25) {
+                                                                                                echo 'success';
+                                                                                            } else {
+                                                                                                echo 'danger';
+                                                                                            }
                                                                                             ?> mb-2">
                                                                                                 View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                             </a>
@@ -692,11 +698,11 @@
                                                                                     <?php if (!empty($mSiteReportCheck)) { ?>
                                                                                         <?php if (!empty($mPqScore)) { ?>
                                                                                             <a href="#" class="badge pre-loaded-pq badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'success';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                            if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                echo 'success';
+                                                                                            } else {
+                                                                                                echo 'danger';
+                                                                                            }
                                                                                             ?> mb-2">
                                                                                                 View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqv_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                             </a>
@@ -709,11 +715,11 @@
                                                                                     <?php } else { ?>
                                                                                         <?php if (!empty($mPqScore)) { ?>
                                                                                             <a href="#" class="badge pre-loaded-pq badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                            if ($mPqScore['pqv_total'] >= 50) {
+                                                                                                echo 'primary';
+                                                                                            } else {
+                                                                                                echo 'danger';
+                                                                                            }
                                                                                             ?> mb-2">
                                                                                                 View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqv_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                             </a>
@@ -727,11 +733,11 @@
                                                                                 <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
                                                                                     <?php if (!empty($mPqScore)) { ?>
                                                                                         <a href="#" class="badge pre-loaded-pq badge-<?php
-                                                            if ($mPqScore['pqv_total'] >= 50) {
-                                                                echo 'primary';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                        if ($mPqScore['pqv_total'] >= 50) {
+                                                                                            echo 'primary';
+                                                                                        } else {
+                                                                                            echo 'danger';
+                                                                                        }
                                                                                         ?> mb-2">
                                                                                             View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                         </a>
@@ -743,11 +749,11 @@
                                                                                 <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
                                                                                     <?php if (!empty($mPqScore)) { ?>
                                                                                         <a href="#" class="badge pre-loaded-pq badge-<?php
-                                                            if ($mPqScore['pqc_total'] >= 25) {
-                                                                echo 'success';
-                                                            } else {
-                                                                echo 'danger';
-                                                            }
+                                                                                        if ($mPqScore['pqc_total'] >= 25) {
+                                                                                            echo 'success';
+                                                                                        } else {
+                                                                                            echo 'danger';
+                                                                                        }
                                                                                         ?> mb-2">
                                                                                             View : <?php echo $value; ?> </br> Score : <?php echo $mPqScore['pqc_total']; ?> </br> Date : <?php echo $mPqScoreAdded; ?>
                                                                                         </a>

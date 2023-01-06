@@ -110,11 +110,11 @@ class Home extends CI_Controller {
             foreach ($data['eois'] as $key => $eoi) {
                 $mBuyerEoi = $this->buyer_model->getParentByKey($eoi['ev_buyer_id']);
                 if ($eoi['ev_status'] == 0) {
-                    $mActionBtn = base_url('vendor/home/actionChangeEoiStatus/' . $eoi['ev_eoi_id'] . "/" . $eoi['ev_id'] . "/" . "1");
+                    $mActionBtn = base_url('vendor/home/viewEoi/' . $eoi['eoi_id'] . "/" . $eoi['ev_id']);
                     $mActionsArray[] = array(
-                        'action' => "Shortlisting pending for: " . $eoi['ev_scope'],
+                        'action' => "EOI pending for: " . $eoi['ev_scope'],
                         'type' => "EOI",
-                        'button' => "<a href='" . $mActionBtn . "' class='btn btn-xs btn-warning'>Accept</a>",
+                        'button' => "<a href='" . $mActionBtn . "' class='btn btn-xs btn-warning'>View</a>",
                     );
                 }
             }
@@ -123,7 +123,7 @@ class Home extends CI_Controller {
             foreach ($data['eois'] as $key => $eoi) {
                 $mBuyerEoi = $this->buyer_model->getParentByKey($eoi['ev_buyer_id']);
                 $mDataArray[] = array(
-                    'log' => "Shortlisting : " . $eoi['ev_scope'],
+                    'log' => "EOI : " . $eoi['ev_scope'],
                     'name' => $mBuyerEoi['buyer_name'],
                     'email' => $mBuyerEoi['buyer_email'],
                     'mobile' => $mBuyerEoi['buyer_mobile'],
@@ -474,10 +474,10 @@ class Home extends CI_Controller {
                 foreach ($mNewOg as $key => $value) {
                     $mTotalN += $value[6];
                 }
-                $mCalN = $mTotalN / 12;
-                $mCalB = $mEoiData['eoi_schedule'];
+                $mCalN = $mTotalN;
+                $mCalB = $mEoiData['eoi_schedule'] / 12;
                 //Bid Score
-                $mBidCapacityScore = ($mCalA * $mCalN * 2) - $mCalB;
+                $mBidCapacityScore = ($mCalA * $mCalB * 2) - $mCalN;
 
                 $bcdata = array(
                     'bc_eoi_id' => $mEoiId,

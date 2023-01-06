@@ -91,6 +91,27 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="wlastName2"> Reason Attributable To : <span class="danger">*</span> </label>
+                                                        <select required="" name="vl_pain" id="vl_pain" class="form-control">
+                                                            <option selected="" value="" disabled="">Select</option>
+                                                            <option>Company</option>
+                                                            <option>Vendor</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="wlastName2"> Criticality : <span class="danger">*</span> </label>
+                                                        <select required="" name="vl_criticality" id="vl_criticality" class="form-control">
+                                                            <option selected="" value="" disabled="">Select</option>
+                                                            <option>Low</option>
+                                                            <option>Medium</option>
+                                                            <option>High</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
                                                     <label for="wlastName2"> Issue reported date: <span class="danger">*</span> </label>
                                                     <input readonly="" value="<?php echo date('Y-m-d'); ?>" name="vl_date" required="" type="date" class="form-control"/>
                                                 </div>

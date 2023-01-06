@@ -24,7 +24,7 @@ class Iom_model extends CI_Model {
         if ($mProject) {
             $this->db->where('project_id', $mProject);
         }
-        $this->db->where('status', "A");
+        $this->db->where('nfa_status', "A");
         $data = array();
         $mQuery_Res = $this->db->get();
         if ($mQuery_Res->num_rows() > 0) {
@@ -44,7 +44,7 @@ class Iom_model extends CI_Model {
         if ($mProject) {
             $this->db->where('project_id', $mProject);
         }
-        $this->db->where('status', "A");
+        $this->db->where('nfa_status', "A");
         $data = array();
         $mQuery_Res = $this->db->get();
         if ($mQuery_Res->num_rows() > 0) {
@@ -65,7 +65,7 @@ class Iom_model extends CI_Model {
         if ($mProject) {
             $this->db->where('project_id', $mProject);
         }
-        $this->db->where('status', "A");
+        $this->db->where('nfa_status', "A");
         $this->db->like('last_updated', $mPresentYear);
         $data = array();
         $mQuery_Res = $this->db->get();
@@ -87,7 +87,7 @@ class Iom_model extends CI_Model {
         if ($mProject) {
             $this->db->where('project_id', $mProject);
         }
-        $this->db->where('status !=', "A");
+        $this->db->where('nfa_status !=', "A");
         $this->db->like('last_updated', $mPresentYear);
         $data = array();
         $mQuery_Res = $this->db->get();
@@ -109,7 +109,7 @@ class Iom_model extends CI_Model {
         if ($mProject) {
             $this->db->where('project_id', $mProject);
         }
-        $this->db->where('status', "A");
+        $this->db->where('nfa_status', "A");
         $this->db->like('last_updated', $mPresentYear);
         $data = array();
         $mQuery_Res = $this->db->get();
@@ -131,7 +131,7 @@ class Iom_model extends CI_Model {
         if ($mProject) {
             $this->db->where('project_id', $mProject);
         }
-        $this->db->where('status !=', "A");
+        $this->db->where('nfa_status !=', "A");
         $this->db->like('last_updated', $mPresentYear);
         $data = array();
         $mQuery_Res = $this->db->get();
@@ -153,9 +153,9 @@ class Iom_model extends CI_Model {
             $this->db->where('project_id', $mProject);
         }
         if ($mProType) {
-            $this->db->where('procurement_type', $mProType);
+            $this->db->where('type_work_id', $mProType);
         }
-        $this->db->where('status', "A");
+        $this->db->where('nfa_status', "A");
         $this->db->order_by('last_updated', 'DESC');
         $data = array();
         $mQuery_Res = $this->db->get();

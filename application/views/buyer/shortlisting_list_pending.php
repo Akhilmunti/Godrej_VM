@@ -30,11 +30,16 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <h3 class="page-title br-0">
-                                        Pending Shortlisting 
+                                        Bidder List Approval
                                     </h3>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    
+                                    <a class="btn btn-primary" href="<?php echo base_url('buyer/pending/shortlisting'); ?>">
+                                        Pending Approvals
+                                    </a>
+                                    <a class="btn btn-primary" href="<?php echo base_url('buyer/vendor/dashboard'); ?>">
+                                        Back to Dashboard
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -45,19 +50,139 @@
                                 <div class="box box-default">
                                     <div class="box-body pb-0">
                                         <?php $this->load->view('buyer/partials/alerts'); ?>
+                                        <form action="<?php echo base_url('buyer/pending/filter'); ?>" method="POST">
+                                            <div class="row mb-3">
+                                                <div class="col-md-2">
+                                                    <select required="" class="form-control" name="award_type" id="award_type">
+                                                        <option selected="" value="" disabled="">Type</option>
+                                                        <option <?php
+                                                        if ($award_type == "All") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="All">All</option>
+                                                        <option <?php
+                                                        if ($award_type == "Contract") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Contract">Contract</option>
+                                                        <option <?php
+                                                        if ($award_type == "Procurement") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Procurement">Procurement</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <select class="form-control" name="status" id="status">
+                                                        <option selected="" value="" disabled="">Status</option>
+                                                        <option <?php
+                                                        if ($status == "All") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="All">All</option>
+                                                        <option <?php
+                                                        if ($status == "Pending") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Pending">Pending</option>
+                                                        <option <?php
+                                                        if ($status == "Approved") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Approved">Approved</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+
+                                                    <?php
+                                                    $mSessionRole = $this->session->userdata('session_role');
+                                                    if ($mSessionRole == "COO" || $mSessionRole == "Managing Director" || $mSessionRole == "Head of Contracts & Procurement" || $mSessionRole == "HO - C&P" || $mSessionRole == "HO Operations") {
+                                                        $mEnableZone = "";
+                                                    } else {
+                                                        $mEnableZone = "readonly";
+                                                    }
+                                                    ?>
+
+                                                    <select <?php echo $mEnableZone; ?> class="form-control" name="zone" id="zone">
+                                                        <option selected="" value="" disabled="">Zone</option>
+                                                        <option <?php
+                                                        if ($zone == "NCR") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="NCR">NCR</option>
+                                                        <option <?php
+                                                        if ($zone == "Mumbai") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Mumbai">Mumbai</option>
+                                                        <option <?php
+                                                        if ($zone == "Kolkata") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Kolkata">Kolkata</option>
+                                                        <option <?php
+                                                        if ($zone == "HO") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="HO">HO</option>
+                                                        <option <?php
+                                                        if ($zone == "Pune") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="Pune">Pune</option>
+                                                        <option <?php
+                                                        if ($zone == "South") {
+                                                            echo 'selected';
+                                                        }
+                                                        ?> value="South">South</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <select name="projects" id="projects" class="form-control">
+                                                        <option disabled="" selected="">Select Project</option>
+                                                        <option <?php
+                                                        if ($project == "All") {
+                                                            echo "selected";
+                                                        }
+                                                        ?> value="All">All</option>
+                                                            <?php foreach ($projects as $key => $pro) { ?>
+                                                            <option <?php
+                                                            if ($project['project_id'] == $pro['project_id']) {
+                                                                echo "selected";
+                                                            }
+                                                            ?> value="<?php echo $pro['project_id']; ?>">
+                                                                    <?php echo $pro['project_name']; ?>
+                                                            </option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <button type="submit" class="btn btn-sm btn-primary btn-block mt-1">
+                                                        Filter
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <hr>
+
                                         <div class="table-responsive">
                                             <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                                <thead>
+                                                <thead class="bg-primary">
                                                     <tr>
                                                         <th>SL No</th>
-                                                        <th>Zone</th>
-                                                        <th>Type of work</th>
+                                                        <th>Bidder List Type</th>
+                                                        <?php
+                                                        $mSessionRole = $this->session->userdata('session_role');
+                                                        if ($mSessionRole == "COO" || $mSessionRole == "Managing Director" || $mSessionRole == "Head of Contracts & Procurement" || $mSessionRole == "HO - C&P" || $mSessionRole == "HO Operations") {
+                                                            ?>
+                                                            <th>Zone</th>
+                                                        <?php } ?>
                                                         <th>Project</th>
+                                                        <th>Package</th>
                                                         <th>Scope of work</th>
-<!--                                                        <th>Estimated Value of Work (In Crores)</th>-->
-<!--                                                        <th>Timeline</th>-->
-                                                        <th>EOI Status</th>
-                                                        <th>Bid capacity</th>
+<!--                                                        <th>EOI Status</th>
+                                                        <th>Bid capacity</th>-->
                                                         <th>Status</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -67,9 +192,6 @@
                                                     <?php
                                                     $mCount = 0;
                                                     foreach ($mRecords as $key => $mRecord) {
-                                                        
-                                                        //print_r($mRecord);
-                                                        
                                                         $mCount++;
                                                         $mApprovedVendors = array();
                                                         $mAppBuyers = array();
@@ -81,9 +203,16 @@
                                                             $mVendor = $this->vendor->getParentByKey($mAcc);
                                                             $mApprovedVendors[] = $mVendor['user_name'];
                                                         }
-                                                        $mCheckShorlisting = $this->short->getParentByEoiKey($mRecord['eoi_id']);
+
+                                                        if ($mRecord['eoi_for'] == "Contracts") {
+                                                            $mCheckShorlisting = $this->short->getParentByEoiKey($mRecord['eoi_id']);
+                                                        } else {
+                                                            $mCheckShorlisting = $this->shortpro->getParentByEoiKey($mRecord['eoi_id']);
+                                                        }
+
                                                         $mApprovers = json_decode($mCheckShorlisting['s_approvers']);
                                                         $mApprovedBy = json_decode($mCheckShorlisting['s_approved_by']);
+
                                                         foreach ($mApprovers as $key => $mApprover) {
                                                             if (in_array($mApprover, $mApprovedBy)) {
                                                                 $mBuyer = $this->buyer->getParentByKey($mApprover);
@@ -102,19 +231,10 @@
                                                         $mReturnedBy = $this->buyer->getParentByKey($mCheckShorlisting['s_returned_by']);
                                                         $mReApprovedBy = $this->buyer->getParentByKey($mCheckShorlisting['s_returned_to']);
 
-                                                        $mCheckBidCapacity = $this->bc->getParentByEoiId($mRecord['eoi_id']);
-
-                                                        $mSentBtnTitle = "";
-                                                        $mCountApprovers = count($mApprovers);
-                                                        $mCountApp = 0;
-                                                        foreach ($mApprovers as $key => $value) {
-                                                            $mCountApp++;
-                                                            $mBuyer = $this->buyer->getParentByKey($value);
-                                                            if ($mCountApprovers == $mCountApp) {
-                                                                $mSentBtnTitle = $mSentBtnTitle . $mCountApp . " : " . $mBuyer['buyer_name'];
-                                                            } else {
-                                                                $mSentBtnTitle = $mSentBtnTitle . $mCountApp . " : " . $mBuyer['buyer_name'] . ", ";
-                                                            }
+                                                        if (in_array($mSessionKey, $mApprovedBy)) {
+                                                            $mBtnAction = "View";
+                                                        } else {
+                                                            $mBtnAction = "Approve";
                                                         }
                                                         ?>
 
@@ -125,107 +245,87 @@
                                                                     <?php echo $mCount; ?>
                                                                 </td>
                                                                 <td>
-                                                                    <?php echo $mRecord['eoi_zone']; ?>
+                                                                    <?php echo $mRecord['eoi_for']; ?>
                                                                 </td>
-                                                                <td>
-                                                                    <?php echo $mRecord['name']; ?>
-                                                                </td>
-                                                                <td>
+                                                                <?php
+                                                                $mSessionRole = $this->session->userdata('session_role');
+                                                                if ($mSessionRole == "COO" || $mSessionRole == "Managing Director" || $mSessionRole == "Head of Contracts & Procurement" || $mSessionRole == "HO - C&P" || $mSessionRole == "HO Operations") {
+                                                                    ?>
+                                                                    <td>
+                                                                        <?php echo $mRecord['eoi_zone']; ?>
+                                                                    </td>
+                                                                <?php } ?>
+
+                                                                <td style="overflow-wrap: break-word !important;max-width: 80px !important">
                                                                     <?php echo $mRecord['project_name']; ?>
                                                                 </td>
-                                                                <td>
-                                                                    <?php echo $mRecord['eoi_scope']; ?>
+                                                                <td style="overflow-wrap: break-word !important;max-width: 150px !important">
+                                                                    <?php echo $mRecord['name']; ?>
                                                                 </td>
-<!--                                                                <td>
-                                                                    <?php echo $mRecord['eoi_budget']; ?>
-                                                                </td>-->
-<!--                                                                <td>
-                                                                    <?php
-                                                                    echo date('d-F-Y', strtotime($mRecord['eoi_start_date'])) . " to ";
-                                                                    ?>
-                                                                    <?php
-                                                                    echo date('d-F-Y', strtotime("+" . $mRecord['eoi_schedule'] . " months", strtotime($mRecord['eoi_start_date'])));
-                                                                    ;
-                                                                    ?>
-                                                                </td>-->
-                                                                <td>
-                                                                    <?php if (!empty($mApprovedVendors)) { ?>
-                                                                        <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark">
-                                                                                Accepted By : <?php echo $value; ?>
-                                                                            </span>
-                                                                        <?php } ?>
+                                                                <td style="overflow-wrap: break-word !important;max-width: 200px !important">
+                                                                    <?php if ($mRecord['eoi_for'] == "Contracts") { ?>
+                                                                        <?php echo $mCheckShorlisting['s_sow']; ?>
+                                                                    <?php } else { ?>
+                                                                        <?php echo $mCheckShorlisting['s_sow']; ?>
                                                                     <?php } ?>
                                                                 </td>
-                                                                <td>
-                                                                    <?php if (!empty($mApprovedVendors)) { ?>
-                                                                        <?php
-                                                                        foreach ($mAccepted as $key => $value) {
-                                                                            $mBidData = $this->bc->getParentByVendorIdAndEoiId($value, $mRecord['eoi_id']);
-                                                                            ?>
-                                                                            <a href="<?php echo base_url('buyer/vendor/viewBidCapacity/' . $value . "/" . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-dark">
-                                                                                Sent By : <?php echo $mApprovedVendors[$key]; ?> | Bid Capacity : <?php echo $mBidData['bc_score']; ?>
-                                                                            </a>
-                                                                        <?php } ?>
-                                                                    <?php } ?>
-                                                                </td>
-                                                                <td>
+                                                                <td style="overflow-wrap: break-word !important;max-width: 100px !important">
                                                                     <?php if (!empty($mCheckShorlisting)) { ?>
                                                                         <?php if (empty($mApprovedBy)) { ?>
-                                                                            <button title="<?php echo $mSentBtnTitle; ?>" class="btn btn-xs btn-success">
+                                                                            <button title="<?php echo $mSentBtnTitle; ?>" class="btn btn-xs btn-success mb-1">
                                                                                 Sent
                                                                             </button>
                                                                         <?php } else { ?>
                                                                             <?php foreach ($mAppBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-dark">
+                                                                                <span class="btn btn-xs btn-dark mb-1">
                                                                                     Approved By : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php foreach ($mRejBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-dark">
+                                                                                <span class="btn btn-xs btn-dark mb-1">
                                                                                     Rejected By : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if (!empty($mReturnedBy) && $mCheckShorlisting['s_returned_comment_to'] == "") { ?>
-                                                                                <span class="btn btn-xs btn-danger">
+                                                                                <span class="btn btn-xs btn-danger mb-1">
                                                                                     Returned By : <?php echo $mReturnedBy['buyer_name']; ?>
                                                                                     |
                                                                                     Comment : <?php echo $mCheckShorlisting['s_returned_comment_from']; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($mCheckShorlisting['s_returned_comment_to'] != "") { ?>
-                                                                                <span class="btn btn-xs btn-success">
+                                                                                <span class="btn btn-xs btn-success mb-1">
                                                                                     Re-Approved By : <?php echo $mReApprovedBy['buyer_name']; ?>
                                                                                     |
                                                                                     Comment : <?php echo $mCheckShorlisting['s_returned_comment_to']; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php foreach ($mPendingBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-warning">
+                                                                                <span class="btn btn-xs btn-warning mb-1">
                                                                                     Pending From : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php if ($mRecord['eoi_status'] == 9) { ?>
-                                                                                <span class="btn btn-xs btn-success">
+                                                                                <span class="btn btn-xs btn-success mb-1">
                                                                                     Approved
                                                                                 </span>
                                                                             <?php } ?>
                                                                         <?php } ?>
                                                                     <?php } else { ?>
                                                                         <?php if ($mRecord['eoi_status'] == 2) { ?>
-                                                                            <span class="btn btn-xs btn-warning">
+                                                                            <span class="btn btn-xs btn-warning mb-1">
                                                                                 Pending
                                                                             </span>
                                                                         <?php } ?>
                                                                     <?php } ?>
                                                                 </td>
                                                                 <td>
-                                                                    <?php if (!empty($mRejBuyers)) { ?>
-                                                                        <a href="<?php echo base_url('buyer/vendor/refloatApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
-                                                                            Refloat approval
-                                                                        </a>
-                                                                    <?php } ?>
-                                                                    <?php if (!empty($mCheckBidCapacity)) { ?>
+                                                                    <?php if ($mRecord['eoi_for'] == "Contracts") { ?>
+                                                                        <?php if (!empty($mRejBuyers)) { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/refloatApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Refloat approval
+                                                                            </a>
+                                                                        <?php } ?>
                                                                         <?php if ($mSessionKey == $mRecord['eoi_buyer_id']) { ?>
                                                                             <?php if (empty($mCheckShorlisting)) { ?>
                                                                                 <a href="<?php echo base_url('buyer/vendor/shortlistApproval/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
@@ -234,7 +334,24 @@
                                                                             <?php } ?>
                                                                         <?php } else { ?>
                                                                             <a href="<?php echo base_url('buyer/vendor/approveShortlisting/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
-                                                                                View
+                                                                                <?php echo $mBtnAction; ?>
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    <?php } else { ?>
+                                                                        <?php if (!empty($mRejBuyers)) { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/refloatApprovalProcurement/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Refloat approval
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                        <?php if ($mSessionKey == $mRecord['eoi_buyer_id']) { ?>
+                                                                            <?php if (empty($mCheckShorlisting)) { ?>
+                                                                                <a href="<?php echo base_url('buyer/vendor/shortlistApprovalProcurement/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                    Send for approval
+                                                                                </a>
+                                                                            <?php } ?>
+                                                                        <?php } else { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/approveShortlistingProcurement/' . $mRecord['eoi_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                <?php echo $mBtnAction; ?>
                                                                             </a>
                                                                         <?php } ?>
                                                                     <?php } ?>
@@ -294,6 +411,18 @@
                     console.log('Thing was not saved to the database.');
                 }
             }
+        </script>
+
+        <script>
+            $('#zone').change(function () {
+                $.post("<?php echo base_url('home/getProjectsByZoneForVendorLogs'); ?>",
+                        {
+                            id: this.value,
+                        },
+                        function (data, status) {
+                            $('#projects').html(data);
+                        });
+            });
         </script>
 
     </body>

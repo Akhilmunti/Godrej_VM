@@ -32,7 +32,7 @@ class Eoipro_model extends CI_Model {
         $query = $this->db->get($this->table_parent);
         return $query->row();
     }
-    
+
     public function checkVendor($param, $param2, $param3, $param4, $param5, $param6) {
         $this->db->where('eoi_project', $param);
         $this->db->where('eoi_zone', $param2);
@@ -77,7 +77,7 @@ class Eoipro_model extends CI_Model {
             $mCurated = array();
             foreach ($data as $key => $value) {
                 $mSelectedVendors = json_decode($value['eoi_vendors_selected']);
-                if(in_array($mSessionKey, $mSelectedVendors)){
+                if (in_array($mSessionKey, $mSelectedVendors)) {
                     $mCurated[] = $value;
                 }
             }
@@ -109,7 +109,7 @@ class Eoipro_model extends CI_Model {
             return false;
         }
     }
-    
+
     public function getAllParentForShortlisting($param, $param2, $param3, $param4, $param5) {
         $this->db->select('*');
         $this->db->from($this->table_parent);
@@ -145,6 +145,65 @@ class Eoipro_model extends CI_Model {
         $mQuery_Res = $this->db->get();
         if ($mQuery_Res->num_rows() > 0) {
             $data = $mQuery_Res->row_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllParentForShortlistingPending() {
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        $this->db->or_where('eoi_status', 1);
+        $this->db->or_where('eoi_status', 2);
+        $this->db->or_where('eoi_status', 11);
+        $this->db->join('projects', 'projects.project_id = eoi_list_procurement.eoi_project');
+        $this->db->join('typeofwork', 'typeofwork.id = eoi_list_procurement.eoi_tow');
+        //$this->db->join('categories', 'categories.category_key = article.category_key');
+        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
+        //$this->db->where('buyer_status', 1);
+        $this->db->order_by('eoi_id', 'DESC');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAllParentForShortlistingPendingFilter($mStatus, $mZone, $mProject) {
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        if ($mStatus == "All") {
+            $this->db->or_where('eoi_status', 1);
+            $this->db->or_where('eoi_status', 2);
+            $this->db->or_where('eoi_status', 11);
+            $this->db->where('eoi_status', 9);
+        } elseif ($mStatus == "Pending") {
+            $this->db->or_where('eoi_status', 1);
+            $this->db->or_where('eoi_status', 2);
+            $this->db->or_where('eoi_status', 11);
+        } elseif ($mStatus == "Approved") {
+            $this->db->where('eoi_status', 9);
+        }
+        if ($mZone) {
+            $this->db->or_where('eoi_zone', $mZone);
+        }
+        if ($mProject) {
+            $this->db->or_where('eoi_project', $mProject);
+        }
+        $this->db->join('projects', 'projects.project_id = eoi_list_procurement.eoi_project');
+        $this->db->join('typeofwork', 'typeofwork.id = eoi_list_procurement.eoi_tow');
+        //$this->db->join('categories', 'categories.category_key = article.category_key');
+        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
+        //$this->db->where('buyer_status', 1);
+        $this->db->order_by('eoi_id', 'DESC');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
             return $data;
         } else {
             return false;

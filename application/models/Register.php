@@ -294,6 +294,64 @@ class Register extends CI_Model {
             return false;
         }
     }
+    
+    public function getAllActiveVendorsByZone($mZone) {
+        $this->db->select('*');
+        $this->db->from('registration');
+        $this->db->where('active', 2);
+        $this->db->where('delisted', 0);
+        $this->db->where('location', $mZone);
+        $this->db->group_by('pan');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getAllActiveVendorsThisYear() {
+        $mPresentYear = "01-04-" . date("y");
+        $mNextYear = "31-03-" . date('y', strtotime('+1 year'));
+        $this->db->select('*');
+        $this->db->from('registration');
+        $this->db->where('active', 2);
+        $this->db->where('delisted', 0);
+        $this->db->where('created_at >=', $mPresentYear);
+        $this->db->where('created_at <=', $mNextYear);
+        $this->db->group_by('pan');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getAllActiveVendorsThisYearByZone($mZone) {
+        $mPresentYear = "01-04-" . date("y");
+        $mNextYear = "31-03-" . date('y', strtotime('+1 year'));
+        $this->db->select('*');
+        $this->db->from('registration');
+        $this->db->where('active', 2);
+        $this->db->where('delisted', 0);
+        $this->db->where('location', $mZone);
+        $this->db->where('created_at >=', $mPresentYear);
+        $this->db->where('created_at <=', $mNextYear);
+        $this->db->group_by('pan');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
 
     public function getVendorManagement() {
         $sql = "SELECT r.id,r.turn_over_of_last_3years,r.`created_at` as submissionDate,r.`company_name`,n.name as natureName,t.name as typeOfWork FROM registration as r

@@ -29,7 +29,9 @@
                         <div class="content-header">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h3 class="page-title br-0">Short Listing Approval Form</h3>
+                                    <h3 class="page-title br-0">
+                                        Bidder List Approvals Contracts
+                                    </h3>
                                 </div>
                             </div>
                         </div>
@@ -46,6 +48,24 @@
                                                     <div class="form-group">
                                                         <label for="wopo_usertype"> Subject : <span class="danger">*</span> </label>
                                                         <textarea required="" name="s_subject" class="form-control" rows="4"><?php echo $eoi['eoi_subject'] ?></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="wopo_usertype"> Project Configuration : <span class="danger">*</span> </label>
+                                                        <input required="" name="s_bwoe" type="text" class="form-control" required="" value="<?php echo $record['wopo_startdate']; ?>" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="wopo_usertype"> Total BUA : <span class="danger">*</span> </label>
+                                                        <input required="" name="s_bwoe" type="number" class="form-control" required="" value="<?php echo $record['wopo_startdate']; ?>" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="wopo_usertype"> Contract Duration : <span class="danger">*</span> </label>
+                                                        <input required="" name="s_bwoe" type="number" class="form-control" required="" value="<?php echo $record['wopo_startdate']; ?>" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -68,55 +88,31 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label for="wopo_usertype"> Contract Award strategy (Order to be split into): <span class="danger">*</span> </label>
-                                                        <input min="1" required="" name="s_bwoe" type="number" class="form-control" required="" value="<?php echo $record['wopo_startdate']; ?>" />
+                                                        <label for="wopo_usertype"> Contract Award strategy  : <span class="danger">*</span> </label>
+                                                        <textarea required="" name="s_cas" class="form-control" rows="4"><?php echo $eoi['eoi_award'] ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <?php $mEoiSelBris = json_decode($eoi['eoi_bri']); ?>
                                                         <label for="wlastName2"> Basic Rate Items: <span class="danger">*</span> </label>
-                                                        <select multiple="" name="s_brm" required="" class="form-control">
-                                                            <?php if (!empty($bris)) { ?>
-                                                                <?php foreach ($bris as $key => $bri) { ?>
-                                                                    <option <?php
-                                                                    if (in_array($bri['bi_name'], $mEoiSelBris)) {
-                                                                        echo 'selected';
-                                                                    }
-                                                                    ?> value="<?php echo $bri['bi_name']; ?>"><?php echo $bri['bi_name']; ?></option>
-                                                                    <?php } ?>                                                                
-                                                                <?php } ?>
-                                                            <option value="No Applicable">Not Applicable</option>
-                                                        </select>
+                                                        <input required="" name="s_brm" type="text" class="form-control" required="" value="<?php echo $record['s_brm']; ?>" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <?php $mEoiSelfiis = json_decode($eoi['eoi_fii']); ?>
                                                         <label for="wlastName2"> Free Issue Items: <span class="danger">*</span> </label>
-                                                        <select multiple="" name="s_fim" required="" class="form-control">
-                                                            <?php if (!empty($fiis)) { ?>
-                                                                <?php foreach ($fiis as $key => $fii) { ?>
-                                                                    <option <?php
-                                                                    if (in_array($fii['ii_name'], $mEoiSelfiis)) {
-                                                                        echo 'selected';
-                                                                    }
-                                                                    ?> value="<?php echo $fii['ii_name']; ?>"><?php echo $fii['ii_name']; ?></option>
-                                                                <?php } ?>                                                                
-                                                            <?php } ?>
-                                                            <option value="Not Applicable">Not Applicable</option>
-                                                        </select>
+                                                        <input required="" name="s_fim" type="text" class="form-control" required="" value="<?php echo $record['s_fim']; ?>" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-12">
-                                                    <table class="table table-bordered">
+                                                    <table id="s_milestone_table3" class="table table-bordered">
                                                         <thead class="bg-primary">
                                                             <tr>
                                                                 <th>
                                                                     Action
                                                                 </th>
                                                                 <th>
-                                                                    Name of Company
+                                                                    Name of Contractor
                                                                 </th>
                                                                 <th>
                                                                     Last Year Turnover (In Crores)
@@ -128,346 +124,97 @@
                                                                     PQ/Feedback Score
                                                                 </th>
                                                                 <th>
+                                                                    Score
+                                                                </th>
+                                                                <th>
                                                                     Bidder’s Category
                                                                 </th>
                                                                 <th>
                                                                     On-going / Completed Project Remarks
                                                                 </th>
+
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php
-                                                            $mVendors = json_decode($eoi['eoi_accepted_by']);
-                                                            $mCount = 0;
-                                                            $mDanger = "";
-                                                            foreach ($mVendors as $key => $mVendor) {
-                                                                $mCount++;
-                                                                $mRecord = $this->vendor->getParentByKey($mVendor);
-                                                                //print_r($mRecord);
-                                                                $mStageOneAdded = strtotime($mRecord['created_at']);
-                                                                $mStageOneAdded = date("d-m-Y H:i:s", $mStageOneAdded);
-                                                                if ($mRecord['pr']) {
-                                                                    $mPrRecord = $this->buyer->getParentByKey($mRecord['pr']);
-                                                                } else {
-                                                                    $mPrRecord = "";
-                                                                }
-
-                                                                if ($mRecord['nature_of_business_id'] == 3) {
-                                                                    $mStageTwo = $this->cst->getParentByVendorKey($mVendor);
-                                                                    $mPqScore = $this->pqc->getParentByVendorKey($mVendor);
-                                                                    $mStageTwoAdded = strtotime($mStageTwo['stc_date_added']);
-                                                                    $mStageTwoAdded = date("d-m-Y H:i:s", $mStageTwoAdded);
-                                                                }
-
-                                                                $mAllDescs = array();
-                                                                if (!empty($mStageTwo)) {
-                                                                    $mGetSelectedTowsIds = json_decode($mStageTwo['stc_tow']);
-                                                                    foreach ($mGetSelectedTowsIds as $key => $mGetSelectedTowsId) {
-                                                                        $mGetTowDesc = $this->buyer->getTypeOfWork($mGetSelectedTowsId);
-                                                                        $mAllDescs[] = $mGetTowDesc['name'];
-                                                                    }
-                                                                    $mRecord = array_merge($mRecord, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode($mGetSelectedTowsIds)));
-                                                                } else {
-                                                                    $mGetTowDesc = $this->buyer->getTypeOfWork($mVendor['type_of_work_id']);
-                                                                    $mAllDescs[] = $mGetTowDesc['name'];
-                                                                    $mRecord = array_merge($mRecord, array("consolidated_tows" => json_encode($mAllDescs), "consolidated_tows_ids" => json_encode(array($mVendor['type_of_work_id']))));
-                                                                }
-
-                                                                $mCheckBidCapacity = $this->bc->getParentByVendorIdAndEoiId($mVendor, $eoi['eoi_id']);
-                                                                $mBidCapacity = $mCheckBidCapacity['bc_to_4'] + $mCheckBidCapacity['bc_to_3'] + $mCheckBidCapacity['bc_to_2'] + $mCheckBidCapacity['bc_to_1'] / 4;
-
-                                                                //print_r($mRecord);
-
-                                                                $mFeedback = $this->feedback->getParentByVendorKey($mRecord['id']);
-                                                                if (!empty($mFeedback)) {
-                                                                    $mFormRecord = $this->feedbackforms->getAllParentByTypeAndFeedbackId($mFeedback['feedback_id']);
-                                                                    if (!empty($mFormRecord)) {
-                                                                        $mTotalScore = 0;
-                                                                        foreach ($mFormRecord as $key => $value) {
-                                                                            $mTotalScore += $value['ff_final_score'];
-                                                                        }
-                                                                        $mFeedbackScore = $mTotalScore / count($mFormRecord);
-                                                                    } else {
-                                                                        $mFeedbackScore = "-";
-                                                                    }
-                                                                } else {
-                                                                    $mFeedbackScore = "-";
-                                                                }
-                                                                ?>
-                                                                <tr>
-                                                                    <td>
-                                                                        <input checked="" value="<?php echo $mRecord['id']; ?>" class="form-check-input" type="checkbox" id="checkbox_<?php echo $mRecord['id'] ?>" name="s_vendors_selected[]"> 
-                                                                        <label class="form-check-label" for="checkbox_<?php echo $mRecord['id'] ?>"></label>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php echo $mRecord['company_name']; ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if ($mCheckBidCapacity['bc_to_1']) {
-                                                                            echo $mCheckBidCapacity['bc_to_1'];
-                                                                        } elseif ($mCheckBidCapacity['bc_to_2']) {
-                                                                            echo $mCheckBidCapacity['bc_to_2'];
-                                                                        } elseif ($mCheckBidCapacity['bc_to_3']) {
-                                                                            echo $mCheckBidCapacity['bc_to_3'];
-                                                                        } elseif ($mCheckBidCapacity['bc_to_4']) {
-                                                                            echo $mCheckBidCapacity['bc_to_4'];
-                                                                        }
-                                                                        ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php echo round($mCheckBidCapacity['bc_score'], 2); ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php if ($mFeedbackScore != "-") { ?>
-                                                                            <?php echo $mFeedbackScore; ?>
-                                                                        <?php } else { ?>
-                                                                            <?php if ($mRecord['is_small'] == 0) { ?>
-
-                                                                                <?php if ($mRecord['active'] == 2) { ?>
-                                                                                    <?php
-                                                                                    if ($mRecord['nature_of_business_id'] == 1) {
-                                                                                        $mPqScore = $this->pqv->getParentByVendorKey($mRecord['id']);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 3) {
-                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 2) {
-                                                                                        $mPqScore = array();
-                                                                                    }
-                                                                                    ?>
-                                                                                    <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
-
-                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
-                                                                                            <?php if (!empty($mPqScore)) { ?>
-                                                                                                <?php echo $mPqScore['pqv_total']; ?>
-                                                                                            <?php } ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
-                                                                                        <?php if (!empty($mPqScore)) { ?>
-                                                                                            <?php echo $mPqScore['pqc_total']; ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
-                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
-                                                                                            <?php if (!empty($mPqScore)) { ?>
-                                                                                                <?php echo $mPqScore['pqc_total']; ?>
-                                                                                            <?php } ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } ?>
-                                                                                <?php } ?>
-                                                                            <?php } else { ?>
-                                                                                <?php if ($mRecord['active'] == 2) { ?>
-                                                                                    <?php
-                                                                                    if ($mRecord['nature_of_business_id'] == 1) {
-                                                                                        $mPqScore = $this->pqv->getParentByVendorKey($mRecord['id']);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqv_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svr->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 3) {
-                                                                                        $mPqScore = $this->pqc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
-                                                                                        $mPqScoreAdded = strtotime($mPqScore['pqc_date_added']);
-                                                                                        $mPqScoreAdded = date("d-m-Y H:i:s", $mPqScoreAdded);
-                                                                                        $mSiteReportCheck = $this->svrc->getParentByVendorAndTowKey($mRecord['id'], $mRecord['type_of_work_id']);
-                                                                                    } else if ($mRecord['nature_of_business_id'] == 2) {
-                                                                                        $mPqScore = array();
-                                                                                    }
-                                                                                    ?>
-                                                                                    <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
-
-                                                                                        <?php if (!empty($mSiteReportCheck)) { ?>
-                                                                                            <?php if (!empty($mPqScore)) { ?>
-                                                                                                <?php echo $mPqScore['pqv_total']; ?>
-                                                                                            <?php } ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
-                                                                                        <?php if (!empty($mPqScore)) { ?>
-                                                                                            <?php echo $mPqScore['pqc_total']; ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
-                                                                                        <?php if (!empty($mPqScore)) { ?>
-                                                                                            <?php echo $mPqScore['pqc_total']; ?>
-                                                                                        <?php } ?>
-                                                                                    <?php } ?>
-                                                                                <?php } ?>
-                                                                            <?php } ?>
-                                                                        <?php } ?>
-
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php if ($mRecord['nature_of_business_id'] == 1) { ?>
-                                                                            <?php if (empty($mStageTwo)) { ?>
-
-                                                                                <?php
-                                                                                //echo $mRecord['turn_over_of_last_3years'] * 0.5;
-                                                                                if ($mRecord['turn_over_of_last_3years'] * 0.5 < 10) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 10 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 50) {
-                                                                                    echo"Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 50 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 100) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 100 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 150) {
-                                                                                    echo "Large";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 150) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } else { ?>
-
-                                                                                <?php
-                                                                                $mStageTwoTurn = json_decode($mStageTwo['stv_turnover']);
-                                                                                $mStageTwoTurn = array_sum($mStageTwoTurn) / 4;
-                                                                                $mStageTwoTurn = $mStageTwoTurn * 0.5;
-                                                                                if ($mStageTwoTurn * 10000000 < 50000000) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 50000000 && $mStageTwoTurn * 10000000 <= 250000000) {
-                                                                                    echo"Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 250000000 && $mStageTwoTurn * 10000000 <= 500000000) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 500000000 && $mStageTwoTurn * 10000000 <= 1000000000) {
-                                                                                    echo "Large";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 1000000000) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } ?>
-                                                                        <?php } else if ($mRecord['nature_of_business_id'] == 2) { ?>
-                                                                            <?php if (empty($mStageTwo)) { ?>
-
-                                                                                <?php
-                                                                                //echo $mRecord['turn_over_of_last_3years'] * 0.5;
-                                                                                if ($mRecord['turn_over_of_last_3years'] * 0.5 < 10) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 10 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 50) {
-                                                                                    echo"Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 50 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 100) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 100 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 150) {
-                                                                                    echo "Large";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 150) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } else { ?>
-
-                                                                                <?php
-                                                                                $mStageTwoTurn = json_decode($mStageTwo['stc_turnover']);
-                                                                                $mStageTwoTurn = array_sum($mStageTwoTurn) / 4;
-                                                                                $mStageTwoTurn = $mStageTwoTurn * 0.5;
-                                                                                if ($mStageTwoTurn * 10000000 < 10000000) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 10000000 && $mStageTwoTurn * 10000000 <= 500000000) {
-                                                                                    echo"Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 500000000 && $mStageTwoTurn * 10000000 <= 1000000000) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 1000000000 && $mStageTwoTurn * 10000000 <= 1500000000) {
-                                                                                    echo "Large";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 1500000000) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } ?>
-                                                                        <?php } else if ($mRecord['nature_of_business_id'] == 3) { ?>
-                                                                            <?php if (empty($mStageTwo)) { ?>
-
-                                                                                <?php
-                                                                                //echo $mRecord['turn_over_of_last_3years'] * 0.5;
-                                                                                if ($mRecord['turn_over_of_last_3years'] * 0.5 < 5) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 5 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 25) {
-                                                                                    echo"Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 25 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 50) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 50 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 100) {
-                                                                                    echo "Large";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 100) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } else { ?>
-
-                                                                                <?php
-                                                                                $mStageTwoTurn = json_decode($mStageTwo['stc_turnover']);
-                                                                                $mStageTwoTurn = ($mStageTwoTurn[0] + $mStageTwoTurn[1] + $mStageTwoTurn[2]) / 3;
-                                                                                $mStageTwoTurn = $mStageTwoTurn * 0.5;
-                                                                                if ($mStageTwoTurn * 10000000 < 50000000) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 50000000 && $mStageTwoTurn * 10000000 <= 250000000) {
-                                                                                    echo"Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 250000000 && $mStageTwoTurn * 10000000 <= 500000000) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 500000000 && $mStageTwoTurn * 10000000 <= 1000000000) {
-                                                                                    echo "Large";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 1000000000) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } ?>
-                                                                        <?php } else { ?>
-                                                                            <?php if (empty($mStageTwo)) { ?>
-
-                                                                                <?php
-                                                                                //echo $mRecord['turn_over_of_last_3years'] * 0.5;
-                                                                                if ($mRecord['turn_over_of_last_3years'] * 0.5 < 10) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 10 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 50) {
-                                                                                    echo"Small";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 50 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 100) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 100 && $mRecord['turn_over_of_last_3years'] * 0.5 <= 150) {
-                                                                                    echo "Large";
-                                                                                } else if ($mRecord['turn_over_of_last_3years'] * 0.5 > 150) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } else { ?>
-
-                                                                                <?php
-                                                                                $mStageTwoTurn = json_decode($mStageTwo['stc_turnover']);
-                                                                                $mStageTwoTurn = ($mStageTwoTurn[0] + $mStageTwoTurn[1] + $mStageTwoTurn[2]) / 3;
-                                                                                $mStageTwoTurn = $mStageTwoTurn * 0.5;
-                                                                                if ($mStageTwoTurn * 10000000 < 10000000) {
-                                                                                    echo "Very Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 10000000 && $mStageTwoTurn * 10000000 <= 500000000) {
-                                                                                    echo"Small";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 500000000 && $mStageTwoTurn * 10000000 <= 1000000000) {
-                                                                                    echo "Medium";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 1000000000 && $mStageTwoTurn * 10000000 <= 1500000000) {
-                                                                                    echo "Large";
-                                                                                } else if ($mStageTwoTurn * 10000000 > 1500000000) {
-                                                                                    echo "Very Large";
-                                                                                }
-                                                                                ?>
-
-                                                                            <?php } ?>
-                                                                        <?php } ?>
-                                                                    </td>
-                                                                    <td>
-                                                                        <?php
-                                                                        $mWorks = json_decode($mCheckBidCapacity['bc_ongoing_works']);
-                                                                        $mWorksCOunt = count($mWorks);
-                                                                        foreach ($mWorks as $key => $value) {
-                                                                            ?>
-                                                                            <span class="btn btn-primary btn-xs mb-1 btn-block">
-                                                                                <?php echo $value[2] . " "; ?>
-                                                                            </span>
-                                                                        <?php } ?>
-                                                                    </td>
-                                                                </tr>
-                                                            <?php } ?>		
-
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control"> 
+                                                                        <option disabled="" value="" selected="">Select</option>
+                                                                        <option>PQ</option>
+                                                                        <option>Feedback</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td class="bg-success">
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control"> 
+                                                                        <option disabled="" value="" selected="">Select</option>
+                                                                        <option>Very Small</option>
+                                                                        <option>Small</option>
+                                                                        <option>Medium</option>
+                                                                        <option>Large</option>
+                                                                        <option>Very Large</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control"> 
+                                                                        <option disabled="" value="" selected="">Select</option>
+                                                                        <option>PQ</option>
+                                                                        <option>Feedback</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td class="bg-warning">
+                                                                    <input class="form-control" type="number" />
+                                                                </td>
+                                                                <td>
+                                                                    <select class="form-control"> 
+                                                                        <option disabled="" value="" selected="">Select</option>
+                                                                        <option>Very Small</option>
+                                                                        <option>Small</option>
+                                                                        <option>Medium</option>
+                                                                        <option>Large</option>
+                                                                        <option>Very Large</option>
+                                                                    </select>
+                                                                </td>
+                                                                <td>
+                                                                    <input class="form-control" type="text" />
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
                                                     </table>
+
+                                                    <div class="well clearfix text-right">
+                                                        <a href="#" class="btn btn-primary" id="addrowdcw3">
+                                                            <span class="fa fa-plus"></span>
+                                                            Add Row
+                                                        </a>
+                                                    </div>
 
                                                     <div id="key-dates">
                                                         <h4 class="mt-2">
@@ -893,6 +640,31 @@
                 } else {
                     $('#reason_delay').css('display', 'block');
                 }
+            });
+
+
+            var counterdcw3 = 2;
+            $("#addrowdcw3").on("click", function () {
+                var rowCount = $('#s_milestone_table3 tr').length;
+                //alert(rowCount);
+                var newRow = $("<tr>");
+                var cols = "";
+                cols += '<td><input type="button" class="ibtnDelDcw2 btn btn-sm btn-danger"  value="Delete"></td>';
+                cols += '<td><input required type="text" class="form-control" name="s_activity[' + counterdcw3 + '][]"/></td>';
+                cols += '<td><input required type="number" class="form-control"  name="s_activity[' + counterdcw3 + '][]"/></td>';
+                cols += '<td><input required type="number" class="form-control"  name="s_activity[' + counterdcw3 + '][]"/></td>';
+                cols += '<td><select class="form-control"><option disabled="" value="" selected="">Select</option><option>PQ</option><option>Feedback</option></select></td>';
+                cols += '<td><input required type="number" class="form-control"  name="s_activity[' + counterdcw3 + '][]"/></td>';
+                cols += '<td><select class="form-control"><option disabled="" value="" selected="">Select</option><option>Very Small</option><option>Small</option><option>Medium</option><option>Large</option><option>Very Large</option></select></td>';
+                cols += '<td><input required type="text" class="form-control" name="s_activity[' + counterdcw3 + '][]"/></td>';
+                newRow.append(cols);
+                $("#s_milestone_table3").append(newRow);
+                counterdcw2++;
+            });
+            $("#s_milestone_table3").on("click", ".ibtnDelDcw2", function (event) {
+                var rowCount = $('#s_milestone_table3 tr').length;
+                $(this).closest("tr").remove();
+                counterdcw2 -= 1
             });
 
         </script>

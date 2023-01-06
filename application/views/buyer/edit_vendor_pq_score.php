@@ -44,14 +44,14 @@
                                             <div class="table-responsive">
                                                 <table class="table table-bordered table-hover display nowrap margin-top-10 w-p100">
                                                     <thead>
-                                                        <tr>
+                                                        <tr class="bg-primary">
                                                             <th colspan="7" style="text-align:center" >
                                                                 ASSESMENT SHEET FOR PRE-QUALIFCATION OF VENDORS
                                                             </th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
+                                                        <tr class="bg-primary">
                                                             <td> S.N. </td>
                                                             <td>CRITERIA</td>
                                                             <td>WEIGHATGE</td>

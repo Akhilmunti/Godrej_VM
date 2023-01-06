@@ -54,6 +54,21 @@ class Feedbackform_model extends CI_Model {
             return false;
         }
     }
+    
+    public function getAllParentByPurchase($param) {
+        $this->db->select('*');
+        $this->db->from($this->table_parent);
+        $this->db->where('ff_purchase', $param);
+        $this->db->order_by('ff_id', 'DESC');
+        $data = array();
+        $mQuery_Res = $this->db->get();
+        if ($mQuery_Res->num_rows() > 0) {
+            $data = $mQuery_Res->result_array();
+            return $data;
+        } else {
+            return false;
+        }
+    }
 
     public function getParentByTypeAndFeedbackId($mId) {
         $this->db->select('*');

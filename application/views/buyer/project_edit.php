@@ -56,7 +56,6 @@
                                                 <div class="col-md-6 mb-2">
                                                     <label>PM</label>
                                                     <select class="form-control form-control-sm" name="pm[]" id="pm" required="" multiple="">
-                                                        <option disabled="" selected="">Select Project Manager</option>
                                                         <?php
                                                         $mPmSelected = json_decode($record['project_pm']);
                                                         foreach ($pm as $key => $value) {
@@ -72,7 +71,6 @@
                                                 <div class="col-md-6 mb-2">
                                                     <label>PCM</label>
                                                     <select class="form-control form-control-sm" name="pcm[]" id="pcm" required="" multiple="">
-                                                        <option disabled="" selected="">Select PCM</option>
                                                         <?php
                                                         $mPcmSelected = json_decode($record['project_pcm']);
                                                         foreach ($pcm as $key => $value) {
@@ -87,7 +85,7 @@
                                                 </div>
                                                 <div class="col-md-6 mb-2">
                                                     <label>PD</label>
-                                                    <select class="form-control form-control-sm" name="pd[]" id="pd" required="" multiple="">
+                                                    <select class="form-control form-control-sm" name="pd[]" id="pd" multiple="">
                                                         <option disabled="" selected="">Select Project Director</option>
                                                         <?php
                                                         $mPdSelected = json_decode($record['project_pd']);

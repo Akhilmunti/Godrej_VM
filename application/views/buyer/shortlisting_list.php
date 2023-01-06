@@ -30,11 +30,21 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <h3 class="page-title br-0">
-                                        Shortlisting 
+                                        Bidder List Approval
                                     </h3>
                                 </div>
                                 <div class="col-md-6 text-right">
                                     <span class="mr-3"><?php echo $project['project_name']; ?> / Contracts / <?php echo $tow['name']; ?></span>
+
+                                    <?php
+                                    $mSessionRole = $this->session->userdata('session_role');
+                                    if ($mSessionRole == "PCM" || $mSessionRole == "Regional C&P Head" ||
+                                            $mSessionRole == "Regional C&P Team" || $mSessionRole == "HO - C&P" || $mSessionRole == "Head of contracts & procurement") {
+                                        ?>
+                                        <a href="<?php echo base_url('buyer/vendor/shortlistApprovalManual'); ?>" class="btn btn-primary mt-2">
+                                            Add Manual Bidder List
+                                        </a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -63,6 +73,7 @@
 
                                                     <?php
                                                     $mCount = 0;
+                                                    $mSessionKey = $this->session->userdata('session_id');
                                                     foreach ($mRecords as $key => $mRecord) {
                                                         $mCount++;
                                                         $mApprovedVendors = array();
@@ -132,7 +143,7 @@
                                                                 <td>
                                                                     <?php if (!empty($mApprovedVendors)) { ?>
                                                                         <?php foreach ($mApprovedVendors as $key => $value) { ?>
-                                                                            <span class="btn btn-xs btn-dark mb-1">
+                                                                            <span class="btn btn-xs btn-success mb-1">
                                                                                 Accepted By : <?php echo $value; ?>
                                                                             </span>
                                                                         <?php } ?>
@@ -154,16 +165,16 @@
                                                                     <?php if (!empty($mCheckShorlisting)) { ?>
                                                                         <?php if (empty($mApprovedBy)) { ?>
                                                                             <button title="<?php echo $mSentBtnTitle; ?>" class="btn btn-xs btn-success mb-1">
-                                                                                Sent
+                                                                                <?php echo "Sent to : " . $mSentBtnTitle; ?>
                                                                             </button>
                                                                         <?php } else { ?>
                                                                             <?php foreach ($mAppBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-dark mb-1">
+                                                                                <span class="btn btn-xs btn-success mb-1">
                                                                                     Approved By : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
                                                                             <?php foreach ($mRejBuyers as $key => $value) { ?>
-                                                                                <span class="btn btn-xs btn-dark mb-1">
+                                                                                <span class="btn btn-xs btn-danger mb-1">
                                                                                     Rejected By : <?php echo $value; ?>
                                                                                 </span>
                                                                             <?php } ?>
@@ -178,11 +189,6 @@
                                                                             <?php foreach ($mPendingBuyers as $key => $value) { ?>
                                                                                 <span class="btn btn-xs btn-warning mb-1">
                                                                                     Pending From : <?php echo $value; ?>
-                                                                                </span>
-                                                                            <?php } ?>
-                                                                            <?php if ($mRecord['eoi_status'] == 9) { ?>
-                                                                                <span class="btn btn-xs btn-success mb-1">
-                                                                                    Approved
                                                                                 </span>
                                                                             <?php } ?>
                                                                         <?php } ?>

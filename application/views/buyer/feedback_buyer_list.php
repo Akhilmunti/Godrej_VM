@@ -28,12 +28,16 @@
                         <!-- Content Header (Page header) -->	  
                         <div class="content-header">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <h3 class="page-title br-0">Feedback Management</h3>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <!--                                    <a href="#" data-toggle="modal" data-target="#modal-upload" class="btn btn-primary">Upload SAP Dump</a>-->
-                                    <!--                                    <a href="<?php echo base_url('buyer/vendor/addFeedback'); ?>" class="btn btn-primary">Add Feedback</a>-->
+                                <div class="col-md-12">
+                                    <h3 class="page-title br-0">
+                                        Feedback Management : 
+                                    </h3>
+                                    <h5 class="text-primary">
+                                        <b>
+                                            Status :  <?php echo $total_feedbackforms; ?> / <?php echo $total_feedbacks; ?> ~ 
+                                            (<?php echo round(($total_feedbackforms / $total_feedbacks) * 100); ?> %)
+                                        </b>
+                                    </h5>
                                 </div>
                             </div>
                             <!-- Modal -->
@@ -84,38 +88,88 @@
                                             </div>
                                         <?php } ?>
 
-                                        <form action="<?php echo base_url('buyer/vendor/filterFeedbackByType'); ?>" method="POST">
-                                            <div class="row">
-                                                <div class="col-md-8 ml-auto mb-2">
-                                                </div>
-                                                <div class="col-md-3 ml-auto mb-2">
-                                                    <select  name="filter" class="form-control form-control-sm">
-                                                        <option selected="" disabled="" value="">Filter By</option>
-                                                        <option value="1">SAP Dump</option>
-                                                        <option value="2">Pre Vendor</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1 ml-auto mb-2">
-                                                    <button type="submit" class="btn btn-primary btn-xs">Filter</button>
-                                                </div>
+<!--                                        <form action="<?php echo base_url('buyer/vendor/filterFeedbackByType'); ?>" method="POST">-->
+                                        <div class="row">
+                                            <div class="col-md-5 ml-auto mb-2">
                                             </div>
-                                        </form>
+                                            <div class="col-md-3 ml-auto mb-2">
+                                                <select required="" id="zone" name="zone" class="form-control form-control-sm">
+                                                    <option selected="" disabled="" value="">Select Zone</option>
+                                                    <option <?php
+                                                    if ($zone == "All") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="All">All</option>
+                                                    <option <?php
+                                                    if ($zone == "NCR") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="NCR">NCR</option>
+                                                    <option <?php
+                                                    if ($zone == "Mumbai") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="Mumbai">Mumbai</option>
+                                                    <option <?php
+                                                    if ($zone == "Kolkata") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="Kolkata">Kolkata</option>
+                                                    <option <?php
+                                                    if ($zone == "HO") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="HO">HO</option>
+                                                    <option <?php
+                                                    if ($zone == "Pune") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="Pune">Pune</option>
+                                                    <option <?php
+                                                    if ($zone == "South") {
+                                                        echo 'selected';
+                                                    }
+                                                    ?> value="South">South</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-3 ml-auto mb-2">
+<!--                                                    <select  name="filter" class="form-control form-control-sm">
+                                                    <option selected="" disabled="" value="">Filter By</option>
+                                                    <option value="1">SAP Dump</option>
+                                                    <option value="2">Pre Vendor</option>
+                                                </select>-->
+
+                                                <select  name="filter" class="form-control form-control-sm">
+                                                    <option selected="" disabled="" value="">Filter By Quarter</option>
+                                                    <option value="1"><?php echo "April to June : " . date('Y'); ?></option>
+                                                    <option value="2"><?php echo "July to September : " . date('Y'); ?></option>
+                                                    <option value="3"><?php echo "October to December : " . date('Y'); ?></option>
+                                                    <option value="4"><?php echo "January to March : " . date('Y'); ?></option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-md-1 ml-auto mb-2">
+                                                <button type="submit" class="btn btn-primary btn-xs">Filter</button>
+                                            </div>
+                                        </div>
+                                        <!--                                        </form>-->
 
 
                                         <div class="table-responsive">
+                                            <?php $mSessionZone = $this->session->userdata('session_zone'); ?>
+
                                             <table id="example" class="table table-striped table-bordered" style="width:100%">
-                                                <thead>
+                                                <thead class="bg-primary">
                                                     <tr>
                                                         <th>SL No</th>
-                                                        <th>Assign</th>
-<!--                                                        <th>Zone</th>-->
-                                                        <th>Purchase Organization(Project Name)</th>
-                                                        <th>Vendor Details/Name</th>
-                                                        <th>WO Number</th>
-                                                        <th>Average FB Score</th>
-                                                        <th>Latest FB Score</th>
-<!--                                                        <th>Download WO/PO</th>-->
-                                                        <th>Latest FB Date</th>
+                                                        <?php if ($mSessionZone == "HO") { ?>
+                                                            <th>Zone</th>
+                                                        <?php } ?>
+                                                        <th>Project Name</th>
+                                                        <th>PM Assigned</th>
+                                                        <th>Total Feedback Forms Assigned</th>
+                                                        <th>Total Feedback Forms Completed</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -123,211 +177,63 @@
                                                     $mCount = 0;
                                                     $mLatestFbScore = "";
                                                     $mAvgFbScore = "";
+                                                    $mTotalFeedbacks = 0;
                                                     foreach ($records as $key => $record) {
                                                         $mCount++;
-
-                                                        $mPurchaseOrg = $this->purchase_model->getParentByCode($record['feedback_purchase']);
-
-                                                        $mPrRecord = $this->buyer->getParentByKey($record['feedback_pm']);
-                                                        $mFfRecords = $this->feedbackforms->getAllParentByVendor($record['feedback_vendor_details']);
-                                                        $mFormRecord = $this->feedbackforms->getParentByTypeAndFeedbackId($record['feedback_id']);
-
-                                                        $mAllFormRecord = $this->feedbackforms->getAllParentByTypeAndFeedbackId($record['feedback_id']);
-
-                                                        if (!empty($mFormRecord)) {
-                                                            $mFormRecordDate = strtotime($mFormRecord['ff_date_added']);
-                                                            $mFormRecordDate = date("d-m-Y H:i:s", $mFormRecordDate);
-                                                        } else {
-                                                            $mFormRecordDate = "";
-                                                        }
-                                                        if ($record['feedback_user_type'] == "1") {
-                                                            if (!empty($mFormRecord)) {
-                                                                $mLatestFbScore = $mFormRecord['ff_final_score'];
-                                                            } else {
-                                                                $mLatestFbScore = "";
-                                                            }
-                                                        } else if ($record['feedback_user_type'] == "3") {
-                                                            if (!empty($mFormRecord)) {
-                                                                $mLatestFbScore = $mFormRecord['ff_final_score'];
-                                                            } else {
-                                                                $mLatestFbScore = "";
-                                                            }
-                                                        } else if ($record['feedback_user_type'] == "4") {
-                                                            if (!empty($mFormRecord)) {
-                                                                $mLatestFbScore = $mFormRecord['ff_final_score'];
-                                                            } else {
-                                                                $mLatestFbScore = "";
-                                                            }
-                                                        } else {
-                                                            if (!empty($mFormRecord)) {
-                                                                $mLatestFbScore = $mFormRecord['ff_final_score'];
-                                                            } else {
-                                                                $mLatestFbScore = "";
-                                                            }
-                                                        }
-
-                                                        if ($mLatestFbScore) {
-                                                            $mAvgFbScore = $mLatestFbScore / count($mAllFormRecord);
-                                                            $mLatestFeedbackDate = strtotime($mFormRecord['ff_date_updated']);
-                                                            $mLatestFeedbackDate = date("d-m-Y", $mLatestFeedbackDate);
-                                                        } else {
-                                                            $mLatestFeedbackDate = "";
-                                                            $mAvgFbScore = "";
-                                                        }
-
-                                                        //buyer
-                                                        $mFormRecord = $this->feedbackforms->getAllParentByTypeAndFeedbackId($record['feedback_id']);
-                                                        if (!empty($mFormRecord)) {
-                                                            $mTotalScore = 0;
-                                                            foreach ($mFormRecord as $key => $value) {
-                                                                $mTotalScore += $value['ff_final_score'];
-                                                            }
-                                                            $mFeedbackScore = $mTotalScore / count($mFormRecord);
-                                                        } else {
-                                                            $mFeedbackScore = "-";
-                                                        }
-
-                                                        $mProjectName = $this->projects->getParentByPurchaseOrg($record['feedback_purchase']);
+                                                        $mFeedbacks = $this->feedback->getAllParentByPurchase($record['project_purchase']);
+                                                        $mFeedbackForms = $this->feedbackforms->getAllParentByPurchase($record['project_purchase']);
+                                                        $mPmsAssigned = json_decode($record['project_pm']);
                                                         ?>
-                                                        <tr>
+                                                        <tr class="text-center">
                                                             <td>
                                                                 <?php echo $mCount; ?>
                                                             </td>
+                                                            <?php if ($mSessionZone == "HO") { ?>
+                                                                <td>
+                                                                    <?php echo $record['project_zone']; ?>
+                                                                </td>
+                                                            <?php } ?>
                                                             <td>
-                                                                <?php if ($record['feedback_pm']) { ?>
-                                                                    <a class="btn btn-xs btn-dark" href="#">
-                                                                        <?php echo $mPrRecord['buyer_name']; ?>
-                                                                    </a>
-                                                                <?php } else { ?>
-                                                                    <select style="width: 150px" onchange="selectPm(this, '<?php echo $record['feedback_id'] ?>');" class="form-control form-control-sm mt-2" name="pr">
-                                                                        <option selected="" value="">Select Project Manager</option>
-                                                                        <?php foreach ($mPrs as $key => $mPr) { ?>
-                                                                            <option value="<?php echo $mPr['buyer_id'] ?>"><?php echo $mPr['buyer_name'] ?></option>
-                                                                        <?php } ?>
-                                                                    </select>
-                                                                <?php } ?>
+                                                                <?php echo $record['project_name']; ?>
                                                             </td>
-    <!--                                                            <td>
-                                                            <?php echo $record['feedback_zone']; ?>
-                                                            </td>-->
                                                             <td>
                                                                 <?php
-                                                                if ($mProjectName['project_name']) {
-                                                                    echo $mProjectName['project_name'];
+                                                                foreach ($mPmsAssigned as $key => $value) {
+                                                                    $mBuyer = $this->buyer->getParentByKey($value);
+                                                                    ?>
+                                                                    <span class="btn btn-sm btn-primary btn-block">
+                                                                        <?php echo $mBuyer['buyer_name']; ?>
+                                                                    </span>
+                                                                <?php } ?>
+                                                            </td>
+                                                            <td>
+                                                                <?php
+                                                                if (!empty($mFeedbacks)) {
+                                                                    echo count($mFeedbacks);
                                                                 } else {
-                                                                    echo $mPurchaseOrg['porg_company_name'];
+                                                                    echo "0";
                                                                 }
                                                                 ?>
                                                             </td>
                                                             <td>
-                                                                <?php if ($mFeedbackScore == "-") { ?>
-                                                                    <a href="#" class="btn btn-success btn-sm">
-                                                                        <?php echo $record['feedback_vendor_details']; ?>
-                                                                    </a>
-                                                                <?php } else { ?>
-                                                                    <a href="<?php echo base_url('buyer/vendor/viewVendorFeedbackScores/' . $record['feedback_id']); ?>" class="btn btn-success btn-sm">
-                                                                        <?php echo $record['feedback_vendor_details']; ?>
-                                                                    </a>
-        <!--                                                                    <div class="modal fade vendor_details_<?php echo $record['feedback_id']; ?>" data-backdrop="false" id="vendor_details_<?php echo $record['feedback_id']; ?>" tabindex="-1">
-                                                                        <div class="modal-dialog modal-lg">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title text-bold">
-                                                                    <?php echo $record['feedback_vendor_details']; ?>
-                                                                                    </h5>
-                                                                                </div>
-                                                                                <div class="modal-body">
-                                                                                    <div class="panel-body border border-info">
-                                                                                        <div class="row">
-                                                                                            <div class="col-md-12">
-
-                                                                                                <table class="table">
-                                                                                                    <thead>
-                                                                                                        <tr>
-                                                                                                            <th>
-                                                                                                                #
-                                                                                                            </th>
-                                                                                                            <th>
-                                                                                                                Q1
-                                                                                                            </th>
-                                                                                                        </tr>
-                                                                                                    </thead>
-                                                                                                    <tbody>
-                                                                    <?php
-                                                                    $mTotalScore = 0;
-                                                                    foreach ($mFormRecord as $key => $mFfRecord) {
-                                                                        $mTotalScore += $mFfRecord['ff_final_score'];
-                                                                        ?>
-                                                                                                                                                    <tr>
-                                                                                                                                                        <td>
-                                                                        <?php echo $mFfRecord['ff_project']; ?>
-                                                                                                                                                        </td>
-
-                                                                                                                                                        <td>
-                                                                        <?php echo $mFfRecord['ff_final_score']; ?>
-                                                                                                                                                        </td>
-                                                                                                                                                    </tr>
-                                                                    <?php } ?>
-                                                                                                    </tbody>
-                                                                                                    <tfoot>
-                                                                                                        <tr>
-                                                                                                            <td colspan="1">
-                                                                                                                Total Score
-                                                                                                            </td>
-                                                                                                            <td colspan="1">
-                                                                                                                <b>
-                                                                    <?php echo $mTotalScore; ?>
-                                                                                                                </b>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td colspan="1">
-                                                                                                                Total Inputs
-                                                                                                            </td>
-                                                                                                            <td colspan="1">
-                                                                                                                <b>
-                                                                    <?php echo count($mFormRecord); ?>
-                                                                                                                </b>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                        <tr>
-                                                                                                            <td colspan="1">
-                                                                                                                Average Score
-                                                                                                            </td>
-                                                                                                            <td colspan="1">
-                                                                                                                <b>
-                                                                    <?php
-                                                                    echo $mFeedbackScore;
-                                                                    ?>
-                                                                                                                </b>
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                    </tfoot>
-                                                                                                </table>
-
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="modal-footer modal-footer-uniform">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>-->
-                                                                <?php } ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $record['feedback_wo']; ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $mAvgFbScore; ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $mLatestFbScore; ?>
-                                                            </td>
-                                                            <td>
-                                                                <?php echo $mLatestFeedbackDate; ?>
+                                                                <?php
+                                                                if (!empty($mFeedbackForms)) {
+                                                                    echo count($mFeedbackForms);
+                                                                } else {
+                                                                    echo "0";
+                                                                }
+                                                                ?>
+                                                                ~
+                                                                <?php
+                                                                if (!empty($mFeedbackForms) && !empty($mFeedbacks)) {
+                                                                    $mPercent = (count($mFeedbackForms) / count($mFeedbacks)) * 100;
+                                                                } else {
+                                                                    $mPercent = "0";
+                                                                }
+                                                                ?>
+                                                                <b>
+                                                                    (<?php echo round($mPercent) . " %"; ?>)
+                                                                </b>
                                                             </td>
                                                         </tr>
                                                     <?php } ?>

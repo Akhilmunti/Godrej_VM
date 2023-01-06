@@ -305,9 +305,11 @@
                                                                     Completion Date
                                                                 </th>
                                                                 <th>
-                                                                    Expected Cummlative Billed amount in Cr by <?php
+                                                                    Expected Balance Cumulative Billed amount in Cr by 
+                                                                    <?php
                                                                     echo date("F Y", strtotime("+" . $mRecord['eoi_schedule'] . "months", strtotime($mRecord['eoi_start_date'])));
-                                                                    ?> (Expected completion date)
+                                                                    ?>
+                                                                    (Expected completion date)
                                                                 </th>
                                                                 <th>
                                                                     Supporting Document 
@@ -329,16 +331,16 @@
                                                                     <input required="" value="" type="text" name="bc_ongoing_works[1][]"  class="form-control site-value-4"/>
                                                                 </td>
                                                                 <td>
-                                                                    <input required="" value="" type="number" name="bc_ongoing_works[1][]"  class="form-control site-value-5"/>
+                                                                    <input required="" value="" type="number" name="bc_ongoing_works[1][]" id="bc_ongoing_works_to_1" onchange="getOrderValue('1')" class="form-control site-value-5"/>
                                                                 </td>
                                                                 <td>
-                                                                    <input min="<?php echo $vendor_doi; ?>" required="" value="" type="date" name="bc_ongoing_works[1][]" onchange="getOrderValue('1')" id="bc_ongoing_works_ov_1" class="form-control site-value-6"/>
+                                                                    <input min="<?php echo $vendor_doi; ?>" required="" value="" type="date" name="bc_ongoing_works[1][]" id="bc_ongoing_works_ov_1" class="form-control site-value-6"/>
                                                                 </td>
                                                                 <td>
-                                                                    <input min="<?php echo $vendor_doi; ?>" required="" value="" type="date" name="bc_ongoing_works[1][]" onchange="getDcwStartDate('1')" id="bc_ongoing_works_sd_1" class="form-control site-value-8"/>
+                                                                    <input min="<?php echo $vendor_doi; ?>" required="" value="" type="date" name="bc_ongoing_works[1][]" id="bc_ongoing_works_sd_1" class="form-control site-value-8"/>
                                                                 </td>
                                                                 <td>
-                                                                    <input required="" value="" type="number" name="bc_ongoing_works[1][]" onchange="getDcwStartDate('1')" id="bc_ongoing_works_ed_1" class="form-control site-value-9"/>
+                                                                    <input required="" value="" type="number" name="bc_ongoing_works[1][]" id="bc_ongoing_works_ed_1" class="form-control site-value-9"/>
                                                                 </td>
                                                                 <td>
                                                                     <input required="" value="" type="file" name="bc_ongoing_works[1][]"  class="form-control site-value-10"/>
@@ -468,10 +470,10 @@
                 cols += '<td><input required type="text" class="form-control site-value" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
                 cols += '<td><input required type="text" class="form-control site-value-2" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
                 cols += '<td><input required type="text" class="form-control site-value-3" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
-                cols += '<td><input required type="number" class="form-control site-value-7" onchange="getBilledValue(' + counterdcw + ')" id="bc_ongoing_works_bv_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
-                cols += '<td><input required type="date" class="form-control site-value-6" onchange="getOrderValue(' + counterdcw + ')" id="bc_ongoing_works_ov_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
-                cols += '<td><input required type="date" class="form-control site-value-8" onchange="getDcwStartDate(' + counterdcw + ')" id="bc_ongoing_works_sd_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
-                cols += '<td><input required type="number" class="form-control site-value-9" onchange="getDcwEndDate(' + counterdcw + ')" id="bc_ongoing_works_ed_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
+                cols += '<td><input required type="number" class="form-control site-value-7" onchange="getOrderValue(' + counterdcw + ')" id="bc_ongoing_works_to_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
+                cols += '<td><input required type="date" class="form-control site-value-6" id="bc_ongoing_works_ov_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
+                cols += '<td><input required type="date" class="form-control site-value-8" id="bc_ongoing_works_sd_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
+                cols += '<td><input required type="number" class="form-control site-value-9" id="bc_ongoing_works_ed_' + counterdcw + '" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
                 cols += '<td><input required type="file" class="form-control site-value-10" name="bc_ongoing_works[' + counterdcw + '][]"/></td>';
                 newRow.append(cols);
                 $("#stc_bc_table").append(newRow);
@@ -511,6 +513,13 @@
                     $("#bc_pat_4").attr('max', value);
                 }
             });
+
+            function getOrderValue(mRowId) {
+                var order = $('#bc_ongoing_works_to_' + mRowId).val();
+                $('#bc_ongoing_works_ed_' + mRowId).attr({
+                    "max": order,
+                });
+            }
 
         </script>
 

@@ -43,7 +43,7 @@
                         <div class="content-header">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-block">
-                                    <h3 class="page-title br-0">Project Details | <?php echo $record['package_zone']; ?></h3>
+                                    <h3 class="page-title br-0">Project Details | <?php echo $record['project_zone']; ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -55,23 +55,23 @@
                                         <div class="row">
                                             <div class="col-md-6 mb-2">
                                                 <label>Project Name</label>
-                                                <input value="<?php echo $record['package_name']; ?>" readonly="" type="text" class="form-control form-control-sm" />
+                                                <input value="<?php echo $record['project_name']; ?>" readonly="" type="text" class="form-control form-control-sm" />
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <label>Purchase Organisation</label>
-                                                <input value="<?php echo $record['package_purchase']; ?>" readonly="" type="text" class="form-control form-control-sm" />
+                                                <input value="<?php echo $record['project_purchase']; ?>" readonly="" type="text" class="form-control form-control-sm" />
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <label>Total BUA - In million square foot</label>
-                                                <input value="<?php echo $record['package_bua']; ?>" readonly="" type="number" class="form-control form-control-sm" />
+                                                <input value="<?php echo $record['project_bua']; ?>" readonly="" type="number" class="form-control form-control-sm" />
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <label>No of towers</label>
-                                                <input value="<?php echo $record['package_towers']; ?>" readonly="" type="number" class="form-control form-control-sm" />
+                                                <input value="<?php echo $record['project_towers']; ?>" readonly="" type="number" class="form-control form-control-sm" />
                                             </div>
                                             <div class="col-md-6 mb-2">
                                                 <label>Building Configurations</label>
-                                                <input value="<?php echo $record['package_building']; ?>" readonly="" type="text" class="form-control form-control-sm" />
+                                                <input value="<?php echo $record['project_building']; ?>" readonly="" type="text" class="form-control form-control-sm" />
                                             </div>
                                         </div>
                                     </div>

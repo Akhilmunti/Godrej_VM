@@ -44,7 +44,7 @@
                             <div class="row">
                                 <div class="col-md-10">
                                     <h3 class="page-title br-0">
-                                        Add New Shortlisting 
+                                        Add Bidder List with empanelled vendors
                                     </h3>
                                     <br>
                                     <span class="mr-3"><?php echo $project['project_name']; ?> / Procurement / <?php echo $tow['name']; ?> / Free Issue / Direct Purchase</span>
@@ -89,8 +89,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <label for="wlastName2"> 
-                                                                Award Strategy 
-                                                                Also deviation in approved strategy (if any) : 
+                                                                Award Strategy : 
                                                                 <span class="danger">*</span>
                                                             </label>
                                                             <input name="eoi_award" required="" type="text" class="form-control"/>

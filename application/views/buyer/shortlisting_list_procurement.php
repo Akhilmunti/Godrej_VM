@@ -28,17 +28,26 @@
                         <!-- Content Header (Page header) -->	  
                         <div class="content-header">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-8">
                                     <h3 class="page-title br-0">
-                                        Shortlisting 
+                                        Bidder List Approval
                                     </h3>
                                     <br>
                                     <span class="mr-3"><?php echo $project['project_name']; ?> / Procurement / <?php echo $tow['name']; ?> / Free Issue / Direct Purchase</span>
                                 </div>
-                                <div class="col-md-2 text-right">
-                                    <a href="<?php echo base_url('buyer/vendor/actionAddShortlisting/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $tow['id'] . "/" . "1"); ?>" class="btn btn-primary btn-block">
-                                        Add New
-                                    </a>
+                                <div class="col-md-4 text-right">
+
+                                    <?php
+                                    $mSessionRole = $this->session->userdata('session_role');
+                                    if ($mSessionRole == "PCM" || $mSessionRole == "Regional C&P Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "HO - C&P" || $mSessionRole == "Head of contracts & procurement") {
+                                        ?>
+                                        <a href="<?php echo base_url('buyer/vendor/actionAddShortlisting/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $tow['id'] . "/" . "1"); ?>" class="btn btn-primary btn-block">
+                                            Add Bidder List with empanelled vendors
+                                        </a>
+                                        <a href="<?php echo base_url('buyer/vendor/shortlistApprovalManualProcurement'); ?>" class="btn btn-primary btn-block">
+                                            Add Manual Bidder List
+                                        </a>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +75,7 @@
                                                     <?php
                                                     $mCount = 0;
                                                     foreach ($mRecords as $key => $mRecord) {
-                                                         $mCount++;
+                                                        $mCount++;
                                                         $mApprovedVendors = array();
                                                         $mAppBuyers = array();
                                                         $mRejBuyers = array();

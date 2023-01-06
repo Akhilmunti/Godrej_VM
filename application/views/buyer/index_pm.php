@@ -98,64 +98,189 @@
 
                         <div class="row" style="margin-top: -30px">
                             <div class="col-xl-4 col-md-6 col-12">
-                                <a href="#" class="rfq-process">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Awarded Works</p>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-info font-size-40"></i>
-                                                </div>
+                                <!--                                <a href="#">-->
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="mb-0">Contracts</p>
+                                                <h4 class="text-danger font-weight-200">
+                                                    <?php
+                                                    if ($iomdata['contracts']['b']) {
+                                                        echo $iomdata['contracts']['b'];
+                                                    } else {
+                                                        "-";
+                                                    }
+                                                    ?> 
+                                                    crs
+                                                </h4>
                                             </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Contracts : <?php echo $iomdata['total_contracts']; ?> | Procurement :  <?php echo $iomdata['total_procurements']; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <a href="#" class="rfq-process">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">On Going Tenders</p>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-info font-size-40"></i>
-                                                </div>
+                                            <div>
+                                                <i class="ti-info font-size-40"></i>
                                             </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Contracts : <?php echo $iomdata['total_contracts_ongoing']; ?> | Procurement : <?php echo $iomdata['total_procurements_ongoing']; ?>
-                                            </p>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <a href="#">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Vendor Connect</p>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-info font-size-40"></i>
-                                                </div>
-                                            </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Onboard Agencies Details - <?php echo count($vendors); ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
 
-
+                                    </div>
+                                </div>
+                                <!--                                </a>-->
+                            </div>
+                            <div class="col-xl-4 col-md-6 col-12">
+                                <!--                                <a href="#" class="rfq-process">-->
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="mb-0">Procurement</p>
+                                                <h4 class="text-danger font-weight-200">
+                                                    <?php
+                                                    if ($iomdata['procurement']['b']) {
+                                                        echo $iomdata['procurement']['b'];
+                                                    } else {
+                                                        "-";
+                                                    }
+                                                    ?> 
+                                                    crs
+                                                </h4>
+                                            </div>
+                                            <div>
+                                                <i class="ti-info font-size-40"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--                                </a>-->
+                            </div>
+                            <div class="col-xl-4 col-md-6 col-12">
+                                <!--                                <a href="#" class="rfq-process">-->
+                                <div class="box">
+                                    <div class="box-body">
+                                        <div class="d-flex justify-content-between">
+                                            <div>
+                                                <p class="mb-0">Total C&P</p>
+                                                <h4 class="text-danger font-weight-200">
+                                                    <?php
+                                                    if ($iomdata['total']) {
+                                                        echo $iomdata['total'];
+                                                    } else {
+                                                        "-";
+                                                    }
+                                                    ?> 
+                                                    crs
+                                                </h4>
+                                            </div>
+                                            <div>
+                                                <i class="ti-info font-size-40"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--                                </a>-->
+                            </div>
+                            
+                            <div class="col-xl-6 col-md-6">
+                                <a href="<?php echo base_url('buyer/vendor/getSiteReports') ?>">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <p class="mb-0">Site Visit Report</p>
+                                                </div>
+                                                <div>
+                                                    <i class="ti-list-ol font-size-40"></i>
+                                                </div>
+                                            </div>
+                                            <p class="font-weight-600 mb-2">
+                                                Assigned - 46
+                                                |
+                                                Pending - <?php echo $pendingsvr; ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xl-6 col-md-6">
+                                <a href="<?php echo base_url('buyer/vendor/getFeedback') ?>">
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <p class="mb-0">Feedback</p>
+                                                </div>
+                                                <div>
+                                                    <i class="ti-list-ol font-size-40"></i>
+                                                </div>
+                                            </div>
+                                            <p class="font-weight-600 mb-2">
+                                                Assigned - 46
+                                                |
+                                                Pending - <?php
+                                                if (empty($feedbacks)) {
+                                                    echo "0";
+                                                } else {
+                                                    echo count($feedbacks);
+                                                }
+                                                ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-xl-4 col-md-12">
+                                <div class="box">
+                                    <div class="box-header with-border primary-gradient text-white">
+                                        <h5 class="box-title text-bold">
+                                            <b>
+                                                Total number of Awards (FY 22-23)
+                                            </b>
+                                        </h5>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body py-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Tender Type
+                                                        </th>
+                                                        <th>
+                                                            Contracts
+                                                        </th>
+                                                        <th>
+                                                            Procurement
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-center">
+                                                    <tr>
+                                                        <td>
+                                                            Total IOM Count
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $iomdata['total_contracts']; ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php echo $iomdata['total_procurements']; ?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Average TAT
+                                                        </td>
+                                                        <td>
+                                                            -
+                                                        </td>
+                                                        <td>
+                                                            -
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                </div>
+                            </div>
 
                             <style>
                                 .primary-gradient{
@@ -171,106 +296,68 @@
                                     padding: 1rem 1rem;
                                 }
                             </style>
-
-                            <div class="col-xl-4 col-md-6">
-                                <a href="<?php echo base_url('buyer/vendor') ?>">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">PQ</p>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-list-ol font-size-40"></i>
-                                                </div>
-                                            </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Pending - <?php echo $pendingpq; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <a href="<?php echo base_url('buyer/vendor/getSiteReports') ?>">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Site Visit Report</p>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-list-ol font-size-40"></i>
-                                                </div>
-                                            </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Pending - <?php echo $pendingsvr; ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <a href="<?php echo base_url('buyer/vendor/getFeedback') ?>">
-                                    <div class="box">
-                                        <div class="box-body">
-                                            <div class="d-flex justify-content-between">
-                                                <div>
-                                                    <p class="mb-0">Feedback</p>
-                                                </div>
-                                                <div>
-                                                    <i class="ti-list-ol font-size-40"></i>
-                                                </div>
-                                            </div>
-                                            <p class="font-weight-600 mb-2">
-                                                Pending - <?php
-                                                if (empty($feedbacks)) {
-                                                    echo "0";
-                                                } else {
-                                                    echo count($feedbacks);
-                                                }
-                                                ?>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-xl-4">
+                            <div class="col-xl-4 col-md-12">
                                 <div class="box">
-                                    <form method="POST" action="<?php echo base_url('buyer/vendor/actionFilterGplData/' . $zone); ?>">
-                                        <div class="box-header with-border primary-gradient text-white">
-                                            <div class="row">
-                                                <div class="col-md-9">
-                                                    <h5 class="box-title text-bold">
-                                                        <b>
-                                                            GPL Vendor Data
-                                                        </b>
-                                                    </h5>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <button class="btn btn-xs btn-dark btn-block" type="submit">Submit</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body">
-                                            <select id="nature_of_business_process" name="nature_of_business" required  class="form-control">
-                                                <option value="" disabled="" selected="">Select Type of agency</option>
-                                                <option value="All">All</option>
-                                                <?php foreach ($tovs as $vendor) { ?>
-                                                    <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->name; ?></option> 
-                                                <?php } ?>
-                                            </select>
+                                    <div class="box-header with-border primary-gradient text-white">
+                                        <h5 class="box-title text-bold">
+                                            <b>
+                                                Vendor Database
+                                            </b>
+                                        </h5>
+                                    </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body py-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <td>
+                                                            <a href="<?php echo base_url('buyer/vendor/actionFilterGplData/All/All/All/All/All'); ?>">
+                                                                Total Empaneled Agencies till date - 
+                                                                <?php
+                                                                if (!empty($getVendors)) {
+                                                                    echo count($getVendors);
+                                                                } else {
+                                                                    echo "0";
+                                                                }
+                                                                ?>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            Empaneled Agencies FY(22-23) - <?php
+                                                            if (!empty($getVendorsThisYear)) {
+                                                                echo count($getVendorsThisYear);
+                                                                $mCountV = count($getVendorsThisYear);
+                                                            } else {
+                                                                echo "0";
+                                                                $mCountV = 0;
+                                                            }
+                                                            ?> 
+                                                            <span class="fa fa-arrow-up text-warning">
+                                                                <?php
+                                                                $mAvgVendors = (count($getVendorsThisYear) / count($getVendors)) * 100;
+                                                                if (is_nan($mAvgVendors)) {
+                                                                    $mAvgVendors = "";
+                                                                } else {
+                                                                    $mAvgVendors = $mAvgVendors;
+                                                                }
+                                                                ?>
+                                                                <?php echo $mAvgVendors; ?> % 
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </thead>
+                                            </table>
                                             <br>
-                                            <select id="type_of_work" name="type_of_work" required="" class="form-control">
-                                                <option value="" disabled="" selected="">Select Package name</option>
-                                            </select>
-
                                         </div>
-                                    </form>
+                                    </div>
                                     <!-- /.box-body -->
                                 </div>
                             </div>
+                            
+                            
                             <div class="col-xl-4">
                                 <div class="box">
                                     <div class="box-header with-border primary-gradient text-white">
@@ -342,11 +429,11 @@
                                                     </a>
                                                     <br>
                                                 </div>
-                                                <?php if ($mSessionRole == "PCM") { ?>
+                                                <?php if ($mSessionRole == "PCM" || $mSessionRole == "Project Manager") { ?>
                                                     <div class="col-lg-6 text-center mb-2">
                                                         <a href="<?php echo base_url('buyer/vendor/vendorLogs/' . $mProjectId . "/" . $zone); ?>" class="btn btn-block btn-primary">
                                                             <span>
-                                                                View Vendor Logs
+                                                                Vendor Logs
                                                             </span>
                                                         </a>
                                                         <br>
@@ -355,16 +442,32 @@
                                                     <div class="col-lg-6 text-center mb-2">
                                                         <a href="<?php echo base_url('buyer/vendor/viewAllVendorLogs'); ?>" class="btn btn-block btn-primary">
                                                             <span>
-                                                                View Vendor Logs
+                                                                Vendor Logs
                                                             </span>
                                                         </a>
                                                         <br>
                                                     </div>
                                                 <?php } ?>
 
-                                                <div class="col-md-6">
-                                                    <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-primary btn-block">
-                                                        Shortlisting
+                                                <div class="col-lg-6 text-center mb-2">
+                                                    <a href="<?php echo base_url('buyer/pending/shortlisting'); ?>" class="btn btn-block btn-primary">
+                                                        <span>
+                                                            Bidder List 
+                                                            <span class="badge badge-danger ml-2">
+                                                                <?php echo $short_count; ?>
+                                                            </span>
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                                <div class="col-lg-6 text-center mb-2">
+                                                    <a href="<?php echo base_url('nfa/Award_contract/award_recomm_contract_list/'); ?>" class="btn btn-block btn-primary">
+                                                        <span>
+                                                            Award IOM
+                                                            <span class="badge badge-danger ml-2">
+                                                                <?php echo "23"; ?>
+                                                            </span>
+                                                        </span>
                                                     </a>
                                                 </div>
 
@@ -409,11 +512,11 @@
                             $mSessionEmail = $this->session->userdata('session_email');
                             if ($mSessionEmail == "sharmeen.ahmed@godrejproperties.com" || $mSessionEmail == "rajashree.sonawane@godrejproperties.com" || $mSessionEmail == "neeraj.kalra@godrejproperties.com") {
                                 ?>
-                                                                                <div class="col-md-6 p-3">
-                                                                                    <a href="<?php echo base_url('buyer/pending/vendor'); ?>" class="btn btn-primary btn-block">
-                                                                                        Vendor Management
-                                                                                    </a>
-                                                                                </div>
+                                                                                    <div class="col-md-6 p-3">
+                                                                                        <a href="<?php echo base_url('buyer/pending/vendor'); ?>" class="btn btn-primary btn-block">
+                                                                                            Vendor Management
+                                                                                        </a>
+                                                                                    </div>
                             <?php } ?>
                                                                     </div>
                             

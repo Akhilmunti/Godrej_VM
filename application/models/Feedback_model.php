@@ -80,9 +80,8 @@ class Feedback_model extends CI_Model {
     public function getAllParentByPurchase($mPurchase) {
         $this->db->select('*');
         $this->db->from($this->table_parent);
-        //$this->db->join('categories', 'categories.category_key = article.category_key');
-        //$this->db->join('subcategories', 'subcategories.subcategory_key = article.subcategory_key');
         $this->db->where('feedback_purchase', $mPurchase);
+        $this->db->join('projects', 'projects.project_purchase = feedback.feedback_purchase');
         //$this->db->limit(500);  
         $this->db->order_by('feedback_id', 'DESC');
         $data = array();

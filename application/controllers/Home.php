@@ -34,7 +34,7 @@ class Home extends CI_Controller {
         $id = $this->input->post('id');
         if ($id) {
             $getTypeOfWork = $this->buyer->getAllParentByZoneAndRole($id, "Project Manager");
-            $result = '<option disabled="" selected="" value="" disabled="">Select PM</option>';
+            //$result = '<option disabled="" selected="" value="" disabled="">Select PM</option>';
             foreach ($getTypeOfWork as $key => $getType) {
                 $result = $result . "<option value='" . $getType['buyer_id'] . "'>" . $getType['buyer_name'] . "</option>" . PHP_EOL;
             }
@@ -64,7 +64,7 @@ class Home extends CI_Controller {
         if ($id) {
             $getTypeOfWork1 = $this->buyer->getAllParentByZoneAndRole($id, "Regional C&P Team");
             $getTypeOfWork2 = $this->buyer->getAllParentByZoneAndRole($id, "PCM");
-            $result = '<option disabled="" selected="" value="" disabled="">Select PCM/Regional C&P Team</option>';
+            //$result = '<option disabled="" selected="" value="" disabled="">Select PCM/Regional C&P Team</option>';
             foreach ($getTypeOfWork1 as $key => $getType) {
                 $result = $result . "<option value='" . $getType['buyer_id'] . "'>" . $getType['buyer_role'] . " : " . $getType['buyer_name'] . "</option>" . PHP_EOL;
             }

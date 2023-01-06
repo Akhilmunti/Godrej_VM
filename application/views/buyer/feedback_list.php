@@ -51,7 +51,7 @@
                                                         <th>Purchase Organization(Project Name)</th>
                                                         <th>Vendor Details/Name</th>
                                                         <th>WO Number</th>
-                                                        <th>PO City</th>
+<!--                                                        <th>PO City</th>-->
                                                         <th>Average FB Score</th>
                                                         <th>Latest FB Score</th>
 <!--                                                        <th>Download WO/PO</th>-->
@@ -61,12 +61,16 @@
                                                 <tbody>
                                                     <?php
                                                     $mFeedbackScore = "";
+                                                    $mCount = 0;
+                                                    $mSessionKey = $this->session->userdata('session_id');
                                                     foreach ($records as $key => $record) {
+                                                        $mCount++;
                                                         $mPurchaseOrg = $this->purchase_model->getParentByCode($record['feedback_purchase']);
 
                                                         $mSessionKey = $this->session->userdata('session_id');
                                                         $mPrRecord = $this->buyer->getParentByKey($record['feedback_pm']);
                                                         $mTransRecord = $this->buyer->getParentByKey($record['feedback_transfer']);
+                                                        $mTransFromRecord = $this->buyer->getParentByKey($record['feedback_transfer_from']);
                                                         $mFormRecord = $this->feedbackforms->getParentByTypeAndFeedbackId($record['feedback_id']);
 
                                                         $mLatestFbScore = "";
@@ -113,21 +117,74 @@
                                                         } else {
                                                             $mFeedbackScore = "-";
                                                         }
-                                                        
-                                                        $mProjectName = $this->projects->getParentByPurchaseOrg($record['feedback_purchase']);
-                                                        
-                                                        //print_r($mProjectName);
-                                                        
+
+                                                        $mVendor = $this->register->getVendorByPan($record['feedback_pan']);
                                                         ?>
                                                         <tr>
                                                             <td>
-                                                                <?php echo $key + 1; ?>
+                                                                <?php echo $mCount; ?>
                                                             </td>
                                                             <td>
-                                                                <?php if ($record['feedback_transfer'] != "" && $record['feedback_pm'] == $mSessionKey) { ?>
-                                                                    <a href="#" class="btn btn-primary btn-xs">
-                                                                        <?php echo $mTransRecord['buyer_name']; ?>
+                                                                <?php if ($record['feedback_transfer'] != "" && $record['feedback_transfer'] != $mSessionKey) { ?>
+                                                                    <a href="#" class="btn btn-primary btn-xs btn-block">
+                                                                        Transferred
                                                                     </a>
+                                                                <?php } elseif ($record['feedback_transfer'] == "") { ?>
+                                                                    <?php if ($record['feedback_pan'] == "AADCD6828K" || $record['feedback_pan'] == "AABFU7718C" || $record['feedback_pan'] == "AAGFD8936N" || $record['feedback_pan'] == "AAECE0657L" || $record['feedback_pan'] == "AADFW2984N" || $record['feedback_pan'] == "AAACT2724P" || $record['feedback_pan'] == "AAOFK9727G" || $record['feedback_pan'] == "AACCM6619G" || $record['feedback_pan'] == "AAACB3253B") { ?>
+                                                                        <!--Alluminium-->
+                                                                        <?php if (!empty($mFormRecord)) { ?>
+                                                                            <a style="width: 200px" href="<?php echo base_url('buyer/vendor/viewFeedbackAluminium/' . $mFormRecord['ff_id']); ?>" class="btn btn-xs btn-dark btn-block">
+                                                                                View </br> Score : <?php echo $mFormRecord['ff_final_score']; ?> </br> Date : <?php echo $mFormRecordDate; ?>
+                                                                            </a>
+                                                                        <?php } else { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/feedbackAluminium/' . $record['feedback_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Add Feedback
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    <?php } else if (strpos($record['feedback_user_type'], 'Contractor') !== false || $record['feedback_user_type'] == "3") { ?>
+                                                                        <!--Contractor-->
+                                                                        <?php if (!empty($mFormRecord)) { ?>
+                                                                            <a style="width: 200px" href="<?php echo base_url('buyer/vendor/viewFeedbackContractor/' . $mFormRecord['ff_id']); ?>" class="btn btn-xs btn-dark btn-block">
+                                                                                View </br> Score : <?php echo $mFormRecord['ff_final_score']; ?> </br> Date : <?php echo $mFormRecordDate; ?>
+                                                                            </a>
+                                                                        <?php } else { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/feedbackContractor/' . $record['feedback_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Add Feedback
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    <?php } else if (strpos($record['feedback_user_type'], 'Consultant') !== false || $record['feedback_user_type'] == "2") { ?>
+                                                                        <!--Consultant-->
+                                                                        <?php if (!empty($mFormRecord)) { ?>
+                                                                            <a style="width: 200px" href="<?php echo base_url('buyer/vendor/viewFeedbackConsultant/' . $mFormRecord['ff_id']); ?>" class="btn btn-xs btn-dark btn-block">
+                                                                                View </br> Score : <?php echo $mFormRecord['ff_final_score']; ?> </br> Date : <?php echo $mFormRecordDate; ?>
+                                                                            </a>
+                                                                        <?php } else { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/feedbackConsultant/' . $record['feedback_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Add Feedback
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    <?php } else if (strpos($record['feedback_user_type'], 'Vendor') !== false || $record['feedback_user_type'] == "1") { ?>
+                                                                        <!--Vendor-->
+                                                                        <?php if (!empty($mFormRecord)) { ?>
+                                                                            <a style="width: 200px" href="<?php echo base_url('buyer/vendor/viewFeedbackVendor/' . $mFormRecord['ff_id']); ?>" class="btn btn-xs btn-dark btn-block">
+                                                                                View </br> Score : <?php echo $mFormRecord['ff_final_score']; ?> </br> Date : <?php echo $mFormRecordDate; ?>
+                                                                            </a>
+                                                                        <?php } else { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/feedbackVendor/' . $record['feedback_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Add Feedback
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    <?php } else { ?>
+                                                                        <?php if (!empty($mFormRecord)) { ?>
+                                                                            <a style="width: 200px" href="<?php echo base_url('buyer/vendor/viewFeedbackContractor/' . $mFormRecord['ff_id']); ?>" class="btn btn-xs btn-dark btn-block">
+                                                                                View </br> Score : <?php echo $mFormRecord['ff_final_score']; ?> </br> Date : <?php echo $mFormRecordDate; ?>
+                                                                            </a>
+                                                                        <?php } else { ?>
+                                                                            <a href="<?php echo base_url('buyer/vendor/feedbackContractor/' . $record['feedback_id']); ?>" class="btn btn-xs btn-primary btn-block">
+                                                                                Add Feedback
+                                                                            </a>
+                                                                        <?php } ?>
+                                                                    <?php } ?>
                                                                 <?php } else { ?>
                                                                     <?php if ($record['feedback_pan'] == "AADCD6828K" || $record['feedback_pan'] == "AABFU7718C" || $record['feedback_pan'] == "AAGFD8936N" || $record['feedback_pan'] == "AAECE0657L" || $record['feedback_pan'] == "AADFW2984N" || $record['feedback_pan'] == "AAACT2724P" || $record['feedback_pan'] == "AAOFK9727G" || $record['feedback_pan'] == "AACCM6619G" || $record['feedback_pan'] == "AAACB3253B") { ?>
                                                                         <!--Alluminium-->
@@ -174,7 +231,6 @@
                                                                             </a>
                                                                         <?php } ?>
                                                                     <?php } else { ?>
-                                                                        <!--Vendor-->
                                                                         <?php if (!empty($mFormRecord)) { ?>
                                                                             <a style="width: 200px" href="<?php echo base_url('buyer/vendor/viewFeedbackContractor/' . $mFormRecord['ff_id']); ?>" class="btn btn-xs btn-dark btn-block">
                                                                                 View </br> Score : <?php echo $mFormRecord['ff_final_score']; ?> </br> Date : <?php echo $mFormRecordDate; ?>
@@ -188,16 +244,16 @@
                                                                 <?php } ?>
                                                             </td>
                                                             <td>
-                                                                <?php if ($record['feedback_transfer'] == "" && $record['feedback_pm'] == $mSessionKey) { ?>
+                                                                <?php if ($record['feedback_transfer'] == "") { ?>
                                                                     <select style="width: 150px" onchange="getSelectedPr(this, '<?php echo $record['feedback_id'] ?>');" id="select_pr_<?php echo $mRecord['buyer_id']; ?>" class="form-control form-control-sm mt-2" name="pr">
                                                                         <option selected="" value="">Select Project Manager</option>
                                                                         <?php foreach ($mPrs as $key => $mPr) { ?>
-                                                                            <option value="<?php echo $mPr['buyer_id'] ?>"><?php echo $mPr['buyer_name'] ?></option>
+                                                                            <option value="<?php echo $mPr['buyer_id'] ?>"><?php echo $mPr['buyer_name'] . " : " . $mPr['buyer_role']; ?></option>
                                                                         <?php } ?>
                                                                     </select>
                                                                 <?php } else { ?>
                                                                     <a href="#" class="btn btn-dark btn-xs">
-                                                                        <?php echo "Transferred from " . $mPrRecord['buyer_name']; ?>
+                                                                        <?php echo "Transferred to " . $mTransRecord['buyer_name']; ?>
                                                                     </a>
                                                                 <?php } ?>
                                                             </td>
@@ -205,31 +261,27 @@
                                                             <?php echo $record['feedback_zone']; ?>
                                                             </td>-->
                                                             <td>
-                                                                <?php 
-                                                                if ($mProjectName['project_name']) {
-                                                                    echo $mProjectName['project_name'];
+                                                                <?php
+                                                                if ($record['project_name']) {
+                                                                    echo $record['project_name'];
                                                                 } else {
                                                                     echo $mPurchaseOrg['porg_company_name'];
                                                                 }
                                                                 ?>
                                                             </td>
                                                             <td>
-                                                                <?php if ($mFeedbackScore == "-") { ?>
-                                                                    <a href="#" class="btn btn-success btn-sm">
-                                                                        <?php echo $record['feedback_vendor_details']; ?>
-                                                                    </a>
+                                                                <?php if (!empty($mVendor)) { ?>
+                                                                    <?php echo $mVendor['company_name']; ?>
                                                                 <?php } else { ?>
-                                                                    <a href="#" class="btn btn-success btn-sm">
-                                                                        <?php echo $record['feedback_vendor_details']; ?>
-                                                                    </a>
+                                                                    <?php echo $record['feedback_vendor_details']; ?>
                                                                 <?php } ?>
                                                             </td>
                                                             <td>
                                                                 <?php echo $record['feedback_wo']; ?>
                                                             </td>
-                                                            <td>
-                                                                <?php echo $record['feedback_wo_details']; ?>
-                                                            </td>
+    <!--                                                            <td>
+                                                            <?php echo $record['feedback_wo_details']; ?>
+                                                            </td>-->
                                                             <td>
                                                                 <?php echo $mAvgFbScore; ?>
                                                             </td>
@@ -238,7 +290,7 @@
                                                             </td>
     <!--                                                            <td>
                                                             <?php if ($record['feedback_upload']) { ?>
-                                                                                                                            <a class="btn btn-xs btn-primary" download="" href="<?php echo base_url('uploads/' . $record['feedback_upload']); ?>">Download</a>
+                                                                                                                                <a class="btn btn-xs btn-primary" download="" href="<?php echo base_url('uploads/' . $record['feedback_upload']); ?>">Download</a>
                                                             <?php } ?>
                                                             </td>-->
                                                             <td>

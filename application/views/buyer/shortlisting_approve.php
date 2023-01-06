@@ -178,7 +178,7 @@
 
                                                     <table class="table table-bordered table-light">
 
-                                                        <thead class="text-center text-white" style="background-color: #0096FF">
+                                                        <thead class="text-white" style="background-color: #0096FF">
                                                             <tr>
                                                                 <th>
                                                                     S. No.
@@ -244,7 +244,7 @@
                                                                 }
 
                                                                 $mCheckBidCapacity = $this->bc->getParentByVendorIdAndEoiId($mVendor, $mEoi['eoi_id']);
-                                                                $mBidCapacity = $mCheckBidCapacity['bc_to_4'] + $mCheckBidCapacity['bc_to_3'] + $mCheckBidCapacity['bc_to_2'] + $mCheckBidCapacity['bc_to_1'] / 4;
+                                                                $mTurnOver = $mCheckBidCapacity['bc_to_4'] + $mCheckBidCapacity['bc_to_3'] + $mCheckBidCapacity['bc_to_2'] + $mCheckBidCapacity['bc_to_1'] / 4;
 
                                                                 //print_r($mRecord);
                                                                 ?>
@@ -412,7 +412,7 @@
                                                                     </td>
                                                                     
                                                                     <td>
-                                                                        <?php echo $mCheckBidCapacity['bc_to_4']; ?>
+                                                                        <?php echo $mTurnOver; ?>
                                                                     </td>
                                                                     <td>
 
@@ -501,7 +501,7 @@
 
                                                                     </td>
                                                                     <td>
-                                                                        <?php echo $mBidCapacity; ?>
+                                                                        <?php echo round($mCheckBidCapacity['bc_score'], 2); ?>
                                                                     </td>
                                                                     <td>
                                                                         <?php
@@ -509,7 +509,9 @@
                                                                         $mWorksCOunt = count($mWorks);
                                                                         foreach ($mWorks as $key => $value) {
                                                                             ?>
-                                                                            <?php echo $value[2] . " "; ?>
+                                                                            <span class="btn btn-primary btn-xs mb-1 btn-block">
+                                                                                <?php echo $value[2] . " "; ?>
+                                                                            </span>
                                                                         <?php } ?>
                                                                     </td>
                                                                 </tr>

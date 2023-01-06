@@ -102,6 +102,149 @@ class Pending extends CI_Controller {
                     }
                 }
             }
+
+            $mRecordsPro = $this->eoi_pro->getAllParentForShortlistingPending();
+            foreach ($mRecordsPro as $key => $mRecord) {
+                $mShort = $this->shortpro->getParentByEoiKey($mRecord['eoi_id']);
+                $mApprovers = json_decode($mShort['s_approvers']);
+                $mApprovedBy = json_decode($mShort['s_approved_by']);
+                $mSessionKey = $this->session->userdata('session_id');
+                $mCountLeft = 0;
+                if (!empty($mApprovedBy)) {
+                    $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                    $mCountLeft = count($mApprovers) - $mCountLeft;
+                }
+
+                if (empty($mApprovedBy)) {
+                    if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                        $mCurated[] = $mRecord;
+                    }
+                } else {
+                    if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                        $mCurated[] = $mRecord;
+                    }
+                }
+            }
+
+            $data['mRecords'] = $mCurated;
+            $data['award_type'] = "All";
+            $data['status'] = "Pending";
+            $data['zone'] = $mSessionZone;
+            $data['projects'] = $this->projects->getAllParentByZone($mSessionZone);
+            $this->load->view('buyer/shortlisting_list_pending', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function filter() {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        if ($mSessionKey) {
+            $data['home'] = "short";
+            $mCurated = array();
+            $mType = $this->input->post('award_type');
+            $mStatus = $this->input->post('status');
+            $mZone = $this->input->post('zone');
+            $mProject = $this->input->post('project');
+                            
+            if ($mType == "All") {
+                $mRecords = $this->eoi->getAllParentForShortlistingPendingFilter($mStatus, $mZone, $mProject);
+                foreach ($mRecords as $key => $mRecord) {
+                    $mShort = $this->short->getParentByEoiKey($mRecord['eoi_id']);
+                    $mApprovers = json_decode($mShort['s_approvers']);
+                    $mApprovedBy = json_decode($mShort['s_approved_by']);
+                    $mSessionKey = $this->session->userdata('session_id');
+                    $mCountLeft = 0;
+                    if (!empty($mApprovedBy)) {
+                        $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                        $mCountLeft = count($mApprovers) - $mCountLeft;
+                    }
+
+                    if (empty($mApprovedBy)) {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    } else {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    }
+                }
+                $mRecordsPro = $this->eoi_pro->getAllParentForShortlistingPendingFilter($mStatus, $mZone, $mProject);
+                foreach ($mRecordsPro as $key => $mRecord) {
+                    $mShort = $this->shortpro->getParentByEoiKey($mRecord['eoi_id']);
+                    $mApprovers = json_decode($mShort['s_approvers']);
+                    $mApprovedBy = json_decode($mShort['s_approved_by']);
+                    $mSessionKey = $this->session->userdata('session_id');
+                    $mCountLeft = 0;
+                    if (!empty($mApprovedBy)) {
+                        $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                        $mCountLeft = count($mApprovers) - $mCountLeft;
+                    }
+
+                    if (empty($mApprovedBy)) {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    } else {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    }
+                }
+            } elseif ($mType == "Contract") {
+                $mRecords = $this->eoi->getAllParentForShortlistingPendingFilter($mStatus, $mZone, $mProject);
+                foreach ($mRecords as $key => $mRecord) {
+                    $mShort = $this->short->getParentByEoiKey($mRecord['eoi_id']);
+                    $mApprovers = json_decode($mShort['s_approvers']);
+                    $mApprovedBy = json_decode($mShort['s_approved_by']);
+                    $mSessionKey = $this->session->userdata('session_id');
+                    $mCountLeft = 0;
+                    if (!empty($mApprovedBy)) {
+                        $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                        $mCountLeft = count($mApprovers) - $mCountLeft;
+                    }
+
+                    if (empty($mApprovedBy)) {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    } else {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    }
+                }
+            } elseif ($mType == "Procurement") {
+                $mRecordsPro = $this->eoi_pro->getAllParentForShortlistingPendingFilter($mStatus, $mZone, $mProject);
+                foreach ($mRecordsPro as $key => $mRecord) {
+                    $mShort = $this->shortpro->getParentByEoiKey($mRecord['eoi_id']);
+                    $mApprovers = json_decode($mShort['s_approvers']);
+                    $mApprovedBy = json_decode($mShort['s_approved_by']);
+                    $mSessionKey = $this->session->userdata('session_id');
+                    $mCountLeft = 0;
+                    if (!empty($mApprovedBy)) {
+                        $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                        $mCountLeft = count($mApprovers) - $mCountLeft;
+                    }
+
+                    if (empty($mApprovedBy)) {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    } else {
+                        if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                            $mCurated[] = $mRecord;
+                        }
+                    }
+                }
+            }
+            
+            $data['award_type'] = $mType;
+            $data['status'] = $mStatus;
+            $data['zone'] = $mZone;
+            $data['project'] = $mProject;
             $data['mRecords'] = $mCurated;
             $this->load->view('buyer/shortlisting_list_pending', $data);
         } else {

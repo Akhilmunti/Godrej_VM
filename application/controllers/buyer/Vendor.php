@@ -373,6 +373,7 @@ class Vendor extends CI_Controller {
         $mSessionKey = $this->session->userdata('session_id');
         $mSessionZone = $this->session->userdata('session_zone');
         $mSessionRole = $this->session->userdata('session_role');
+                
         if ($mSessionKey) {
             $data['home'] = "home";
             $data['tovs'] = $this->register->getVendor();
@@ -480,12 +481,15 @@ class Vendor extends CI_Controller {
             $data['pendingsvr'] = $mPendingSvrCount;
             $data['projects'] = $this->projects->getAllParentByZone($mSessionZone);
             $data['zone'] = $mSessionZone;
+            $data['short_count'] = $this->shortlistingPendingCount();
+            
 //$data['actions'] = $this->eoi->getAllParentForShortlisting($project, $zone);
             if ($mSessionRole == "COO" || $mSessionRole == "Managing Director" || $mSessionRole == "Head of Contracts & Procurement" || $mSessionRole == "HO - C&P" || $mSessionRole == "HO Operations") {
                 $data['getVendors'] = $this->register->getAllActiveVendors();
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYear();
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, "");
                 $this->load->view('buyer/index', $data);
-            } else if ($mSessionRole == "Project Manager" || $mSessionRole == "Project Execution Team") {
+            } else if ($mSessionRole == "Project Manager") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
                 $mFeedbackArray = array();
                 $mFeedbacks = $this->feedback->getParentByPmId($mSessionKey);
@@ -496,25 +500,45 @@ class Vendor extends CI_Controller {
                     }
                 }
                 $data['feedbacks'] = $mFeedbackArray;
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
                 $this->load->view('buyer/index_pm', $data);
+            } else if ($mSessionRole == "Project Execution Team") {
+                $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
+                $mFeedbackArray = array();
+                $mFeedbacks = $this->feedback->getParentByPmId($mSessionKey);
+                foreach ($mFeedbacks as $key => $record) {
+                    $mFormRecord = $this->feedbackforms->getParentByTypeAndFeedbackId($record['feedback_id']);
+                    if (empty($mFormRecord)) {
+                        $mFeedbackArray[] = $record;
+                    }
+                }
+                $data['feedbacks'] = $mFeedbackArray;
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
+                $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
+                $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
+                $this->load->view('buyer/index_pet', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
                 $this->load->view('buyer/index_pcm', $data);
             } else if ($mSessionRole == "Project Director") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
                 $this->load->view('buyer/index_pcm', $data);
             } else if ($mSessionRole == "Zonal CEO" || $mSessionRole == "Regional Head" || $mSessionRole == "Operations Head" || $mSessionRole == "Construction Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "Regional C&P Head") {
                 $data['projects'] = $this->projects->getAllParentByZone($mSessionZone);
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['project'] = "All";
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, "");
@@ -653,6 +677,7 @@ class Vendor extends CI_Controller {
                 } else {
                     $data['getVendors'] = $mVendors;
                 }
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYear();
                 $this->load->view('buyer/index', $data);
             } else if ($mSessionRole == "Project Manager" || $mSessionRole == "Project Execution Team") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
@@ -665,25 +690,29 @@ class Vendor extends CI_Controller {
                     }
                 }
                 $data['feedbacks'] = $mFeedbackArray;
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $mProject);
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $mProject);
                 $this->load->view('buyer/index_pcm', $data);
             } else if ($mSessionRole == "Project Director") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $mProject);
                 $this->load->view('buyer/index_pcm', $data);
             } else if ($mSessionRole == "Zonal CEO" || $mSessionRole == "Regional Head" || $mSessionRole == "Operations Head" || $mSessionRole == "Construction Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "Regional C&P Head") {
                 $data['projects'] = $this->projects->getAllParentByZone($mSessionZone);
-                $data['getVendor'] = $this->register->getVendor();
+                $data['getVendors'] = $this->register->getAllActiveVendorsByZone($mSessionZone);
+                $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $mProject);
                 $this->load->view('buyer/index_zonal', $data);
@@ -693,6 +722,153 @@ class Vendor extends CI_Controller {
             }
         } else {
             $this->load->view('index', $data);
+        }
+    }
+
+    public function actionTotal() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function actionContracts() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_contracts', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function actionProcurement() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_procurement', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function actionByType() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_type', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function actionByTypeProcurement() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_type_procurement', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function actionProjectWise() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_project', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+    
+    public function actionIomCount() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_iom', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+    
+    public function actionTatCount() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_total_tat', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+    
+    public function actionSteel() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "home";
+            $this->load->view('buyer/dashboard_steel', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function shortlistingPendingCount() {
+        $mSessionKey = $this->session->userdata('session_id');
+        if ($mSessionKey) {
+            $data['home'] = "short";
+            $mRecords = $this->eoi->getAllParentForShortlistingPending();
+            $mCurated = array();
+            foreach ($mRecords as $key => $mRecord) {
+                $mShort = $this->short->getParentByEoiKey($mRecord['eoi_id']);
+                $mApprovers = json_decode($mShort['s_approvers']);
+                $mApprovedBy = json_decode($mShort['s_approved_by']);
+                $mSessionKey = $this->session->userdata('session_id');
+                $mCountLeft = 0;
+                if (!empty($mApprovedBy)) {
+                    $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                    $mCountLeft = count($mApprovers) - $mCountLeft;
+                }
+                
+                if (empty($mApprovedBy)) {
+                    if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                        $mCurated[] = $mRecord;
+                    }
+                } else {
+                    if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                        $mCurated[] = $mRecord;
+                    }
+                }
+            }
+
+            $mRecordsPro = $this->eoi_pro->getAllParentForShortlistingPending();
+            foreach ($mRecordsPro as $key => $mRecord) {
+                $mShort = $this->shortpro->getParentByEoiKey($mRecord['eoi_id']);
+                $mApprovers = json_decode($mShort['s_approvers']);
+                $mApprovedBy = json_decode($mShort['s_approved_by']);
+                $mSessionKey = $this->session->userdata('session_id');
+                $mCountLeft = 0;
+                if (!empty($mApprovedBy)) {
+                    $mCountLeft = count($mApprovers) - count($mApprovedBy);
+                    $mCountLeft = count($mApprovers) - $mCountLeft;
+                }
+
+                if (empty($mApprovedBy)) {
+                    if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                        $mCurated[] = $mRecord;
+                    }
+                } else {
+                    if (($mSessionKey == $mApprovers[$mCountLeft]) && $mRecord['eoi_status'] != "11") {
+                        $mCurated[] = $mRecord;
+                    }
+                }
+            }
+
+            return count($mCurated);
+        } else {
+            return "";
         }
     }
 
@@ -713,11 +889,7 @@ class Vendor extends CI_Controller {
                 }
                 $mEscOrSavContracts = $mTotalFinalisedContracts - $mTotalBudgetContracts;
 
-                if ($mEscOrSavContracts > 0) {
-                    $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
-                } else {
-                    $mConAvg = ($mTotalBudgetContracts / $mEscOrSavContracts);
-                }
+                $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
 
                 $mContractArray = array(
                     'a' => round($mTotalBudgetContracts, 2),
@@ -730,27 +902,24 @@ class Vendor extends CI_Controller {
                 $mRecordsPro = $this->iom->getAllParentPro("", "");
                 $mTotalBudgetProcurement = 0;
                 $mTotalFinalisedProcurement = 0;
+
                 foreach ($mRecordsPro as $key => $value) {
                     $mTotalBudgetProcurement += $value['total_budget_esc'];
                     $mTotalFinalisedProcurement += $value['total_finalized_award_value'];
                 }
                 $mEscOrSavProcurement = $mTotalFinalisedProcurement - $mTotalBudgetProcurement;
 
-                if ($mEscOrSavProcurement > 0) {
-                    $mProAvg = ($mEscOrSavProcurement / $mTotalBudgetProcurement) * 100;
-                } else {
-                    $mProAvg = ($mEscOrSavProcurement / $mTotalBudgetProcurement) * 100;
-                }
+                $mProAvg = ($mEscOrSavProcurement / $mTotalBudgetProcurement) * 100;
 
                 //count
                 $mCountContracts = $this->iom->getAllParentConCount("", "");
-                if (!empty($mCountContracts)){
+                if (!empty($mCountContracts)) {
                     $mCountContracts = count($this->iom->getAllParentConCount("", ""));
                 } else {
                     $mCountContracts = "-";
                 }
                 $mCountProcurements = $this->iom->getAllParentProCount("", "");
-                if (!empty($mCountProcurements)){
+                if (!empty($mCountProcurements)) {
                     $mCountProcurements = count($this->iom->getAllParentProCount("", ""));
                 } else {
                     $mCountProcurements = "-";
@@ -766,10 +935,10 @@ class Vendor extends CI_Controller {
                 );
 
                 //Zonal level price - Procurement
-                $mCementNcr = $this->iom->getAllParentProLastPrice("Cement", "NCR", "");
-                $mCementSouth = $this->iom->getAllParentProLastPrice("Cement", "South", "");
-                $mCementMumbai = $this->iom->getAllParentProLastPrice("Cement", "Mumbai", "");
-                $mCementPune = $this->iom->getAllParentProLastPrice("Cement", "Pune", "");
+                $mCementNcr = $this->iom->getAllParentProLastPrice("4", "NCR", "");
+                $mCementSouth = $this->iom->getAllParentProLastPrice("4", "South", "");
+                $mCementMumbai = $this->iom->getAllParentProLastPrice("4", "Mumbai", "");
+                $mCementPune = $this->iom->getAllParentProLastPrice("4", "Pune", "");
 
                 $mLatestCementPrice = array(
                     'NCR' => $mCementNcr,
@@ -778,10 +947,10 @@ class Vendor extends CI_Controller {
                     'Pune' => $mCementPune,
                 );
 
-                $mSteelNcr = $this->iom->getAllParentProLastPrice("Steel", "NCR", "");
-                $mSteelSouth = $this->iom->getAllParentProLastPrice("Steel", "South", "");
-                $mSteelMumbai = $this->iom->getAllParentProLastPrice("Steel", "Mumbai", "");
-                $mSteelPune = $this->iom->getAllParentProLastPrice("Steel", "Pune", "");
+                $mSteelNcr = $this->iom->getAllParentProLastPrice("3", "NCR", "");
+                $mSteelSouth = $this->iom->getAllParentProLastPrice("3", "South", "");
+                $mSteelMumbai = $this->iom->getAllParentProLastPrice("3", "Mumbai", "");
+                $mSteelPune = $this->iom->getAllParentProLastPrice("3", "Pune", "");
 
                 $mLatestSteelPrice = array(
                     'NCR' => $mSteelNcr,
@@ -790,10 +959,10 @@ class Vendor extends CI_Controller {
                     'Pune' => $mSteelPune,
                 );
 
-                $mAluminiumNcr = $this->iom->getAllParentProLastPrice("Aluminium", "NCR", "");
-                $mAluminiumSouth = $this->iom->getAllParentProLastPrice("Aluminium", "South", "");
-                $mAluminiumMumbai = $this->iom->getAllParentProLastPrice("Aluminium", "Mumbai", "");
-                $mAluminiumPune = $this->iom->getAllParentProLastPrice("Aluminium", "Pune", "");
+                $mAluminiumNcr = $this->iom->getAllParentProLastPrice("1", "NCR", "");
+                $mAluminiumSouth = $this->iom->getAllParentProLastPrice("1", "South", "");
+                $mAluminiumMumbai = $this->iom->getAllParentProLastPrice("1", "Mumbai", "");
+                $mAluminiumPune = $this->iom->getAllParentProLastPrice("1", "Pune", "");
 
                 $mLatestAluminiumPrice = array(
                     'NCR' => $mAluminiumNcr,
@@ -805,14 +974,15 @@ class Vendor extends CI_Controller {
                 $mResponseArray = array(
                     'contracts' => $mContractArray,
                     'procurement' => $mProcurementArray,
-                    'total' => ($mContractArray['c'] + $mProcurementArray['c']),
+                    'total' => ($mContractArray['b'] + $mProcurementArray['b']),
+                    'total_avg' => ($mContractArray['c'] + $mProcurementArray['c']),
                     'total_contracts' => $mCountContracts,
                     'total_procurements' => $mCountProcurements,
                     'latest_cement_price' => $mLatestCementPrice,
                     'latest_steel_price' => $mLatestSteelPrice,
                     'latest_aluminium_price' => $mLatestAluminiumPrice,
                 );
-                
+
                 //echo "<pre>";
                 //print_r($mResponseArray['latest_cement_price']['NCR']['uom_value']);
                 //exit;
@@ -829,11 +999,7 @@ class Vendor extends CI_Controller {
                 }
                 $mEscOrSavContracts = $mTotalFinalisedContracts - $mTotalBudgetContracts;
 
-                if ($mEscOrSavContracts > 0) {
-                    $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
-                } else {
-                    $mConAvg = ($mTotalBudgetContracts / $mEscOrSavContracts);
-                }
+                $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
 
                 $mContractArray = array(
                     'a' => round($mTotalBudgetContracts, 2),
@@ -860,27 +1026,27 @@ class Vendor extends CI_Controller {
 
                 //count
                 $mCountContracts = $this->iom->getAllParentConCount($mZone, $mProject);
-                if (!empty($mCountContracts)){
+                if (!empty($mCountContracts)) {
                     $mCountContracts = count($this->iom->getAllParentConCount($mZone, $mProject));
                 } else {
                     $mCountContracts = "-";
                 }
                 $mCountProcurements = $this->iom->getAllParentProCount($mZone, $mProject);
-                if (!empty($mCountProcurements)){
+                if (!empty($mCountProcurements)) {
                     $mCountProcurements = count($this->iom->getAllParentProCount($mZone, $mProject));
                 } else {
                     $mCountProcurements = "-";
                 }
-                
+
                 //count Ongoing
                 $mCountContractsOngoing = $this->iom->getAllParentConCountOngoing($mZone, $mProject);
-                if (!empty($mCountContractsOngoing)){
+                if (!empty($mCountContractsOngoing)) {
                     $mCountContractsOngoing = count($this->iom->getAllParentConCountOngoing($mZone, $mProject));
                 } else {
                     $mCountContractsOngoing = "-";
                 }
                 $mCountProcurementsOngoing = $this->iom->getAllParentProCountOngoing($mZone, $mProject);
-                if (!empty($mCountProcurementsOngoing)){
+                if (!empty($mCountProcurementsOngoing)) {
                     $mCountProcurementsOngoing = count($this->iom->getAllParentProCountOngoing($mZone, $mProject));
                 } else {
                     $mCountProcurementsOngoing = "-";
@@ -896,10 +1062,10 @@ class Vendor extends CI_Controller {
                 );
 
                 //Zonal level price - Procurement
-                $mCementNcr = $this->iom->getAllParentProLastPrice("Cement", "NCR", $mProject);
-                $mCementSouth = $this->iom->getAllParentProLastPrice("Cement", "South", $mProject);
-                $mCementMumbai = $this->iom->getAllParentProLastPrice("Cement", "Mumbai", $mProject);
-                $mCementPune = $this->iom->getAllParentProLastPrice("Cement", "Pune", $mProject);
+                $mCementNcr = $this->iom->getAllParentProLastPrice("4", "NCR", $mProject);
+                $mCementSouth = $this->iom->getAllParentProLastPrice("4", "South", $mProject);
+                $mCementMumbai = $this->iom->getAllParentProLastPrice("4", "Mumbai", $mProject);
+                $mCementPune = $this->iom->getAllParentProLastPrice("4", "Pune", $mProject);
 
                 $mLatestCementPrice = array(
                     'NCR' => $mCementNcr,
@@ -908,10 +1074,10 @@ class Vendor extends CI_Controller {
                     'Pune' => $mCementPune,
                 );
 
-                $mSteelNcr = $this->iom->getAllParentProLastPrice("Steel", "NCR", $mProject);
-                $mSteelSouth = $this->iom->getAllParentProLastPrice("Steel", "South", $mProject);
-                $mSteelMumbai = $this->iom->getAllParentProLastPrice("Steel", "Mumbai", $mProject);
-                $mSteelPune = $this->iom->getAllParentProLastPrice("Steel", "Pune", $mProject);
+                $mSteelNcr = $this->iom->getAllParentProLastPrice("3", "NCR", $mProject);
+                $mSteelSouth = $this->iom->getAllParentProLastPrice("3", "South", $mProject);
+                $mSteelMumbai = $this->iom->getAllParentProLastPrice("3", "Mumbai", $mProject);
+                $mSteelPune = $this->iom->getAllParentProLastPrice("3", "Pune", $mProject);
 
                 $mLatestSteelPrice = array(
                     'NCR' => $mSteelNcr,
@@ -920,10 +1086,10 @@ class Vendor extends CI_Controller {
                     'Pune' => $mSteelPune,
                 );
 
-                $mAluminiumNcr = $this->iom->getAllParentProLastPrice("Aluminium", "NCR", $mProject);
-                $mAluminiumSouth = $this->iom->getAllParentProLastPrice("Aluminium", "South", $mProject);
-                $mAluminiumMumbai = $this->iom->getAllParentProLastPrice("Aluminium", "Mumbai", $mProject);
-                $mAluminiumPune = $this->iom->getAllParentProLastPrice("Aluminium", "Pune", $mProject);
+                $mAluminiumNcr = $this->iom->getAllParentProLastPrice("1", "NCR", $mProject);
+                $mAluminiumSouth = $this->iom->getAllParentProLastPrice("1", "South", $mProject);
+                $mAluminiumMumbai = $this->iom->getAllParentProLastPrice("1", "Mumbai", $mProject);
+                $mAluminiumPune = $this->iom->getAllParentProLastPrice("1", "Pune", $mProject);
 
                 $mLatestAluminiumPrice = array(
                     'NCR' => $mAluminiumNcr,
@@ -944,7 +1110,7 @@ class Vendor extends CI_Controller {
                     'latest_steel_price' => $mLatestSteelPrice,
                     'latest_aluminium_price' => $mLatestAluminiumPrice,
                 );
-                
+
                 //echo "<pre>";
                 //print_r($mResponseArray['latest_cement_price']['NCR']['uom_value']);
                 //exit;
@@ -961,11 +1127,7 @@ class Vendor extends CI_Controller {
                 }
                 $mEscOrSavContracts = $mTotalFinalisedContracts - $mTotalBudgetContracts;
 
-                if ($mEscOrSavContracts > 0) {
-                    $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
-                } else {
-                    $mConAvg = ($mTotalBudgetContracts / $mEscOrSavContracts);
-                }
+                $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
 
                 $mContractArray = array(
                     'a' => round($mTotalBudgetContracts, 2),
@@ -992,27 +1154,27 @@ class Vendor extends CI_Controller {
 
                 //count
                 $mCountContracts = $this->iom->getAllParentConCount($mZone, $mProject);
-                if (!empty($mCountContracts)){
+                if (!empty($mCountContracts)) {
                     $mCountContracts = count($this->iom->getAllParentConCount($mZone, $mProject));
                 } else {
                     $mCountContracts = "-";
                 }
                 $mCountProcurements = $this->iom->getAllParentProCount($mZone, $mProject);
-                if (!empty($mCountProcurements)){
+                if (!empty($mCountProcurements)) {
                     $mCountProcurements = count($this->iom->getAllParentProCount($mZone, $mProject));
                 } else {
                     $mCountProcurements = "-";
                 }
-                
+
                 //count Ongoing
                 $mCountContractsOngoing = $this->iom->getAllParentConCountOngoing($mZone, $mProject);
-                if (!empty($mCountContractsOngoing)){
+                if (!empty($mCountContractsOngoing)) {
                     $mCountContractsOngoing = count($this->iom->getAllParentConCountOngoing($mZone, $mProject));
                 } else {
                     $mCountContractsOngoing = "-";
                 }
                 $mCountProcurementsOngoing = $this->iom->getAllParentProCountOngoing($mZone, $mProject);
-                if (!empty($mCountProcurementsOngoing)){
+                if (!empty($mCountProcurementsOngoing)) {
                     $mCountProcurementsOngoing = count($this->iom->getAllParentProCountOngoing($mZone, $mProject));
                 } else {
                     $mCountProcurementsOngoing = "-";
@@ -1028,10 +1190,10 @@ class Vendor extends CI_Controller {
                 );
 
                 //Zonal level price - Procurement
-                $mCementNcr = $this->iom->getAllParentProLastPrice("Cement", "NCR", $mProject);
-                $mCementSouth = $this->iom->getAllParentProLastPrice("Cement", "South", $mProject);
-                $mCementMumbai = $this->iom->getAllParentProLastPrice("Cement", "Mumbai", $mProject);
-                $mCementPune = $this->iom->getAllParentProLastPrice("Cement", "Pune", $mProject);
+                $mCementNcr = $this->iom->getAllParentProLastPrice("4", "NCR", $mProject);
+                $mCementSouth = $this->iom->getAllParentProLastPrice("4", "South", $mProject);
+                $mCementMumbai = $this->iom->getAllParentProLastPrice("4", "Mumbai", $mProject);
+                $mCementPune = $this->iom->getAllParentProLastPrice("4", "Pune", $mProject);
 
                 $mLatestCementPrice = array(
                     'NCR' => $mCementNcr,
@@ -1040,10 +1202,10 @@ class Vendor extends CI_Controller {
                     'Pune' => $mCementPune,
                 );
 
-                $mSteelNcr = $this->iom->getAllParentProLastPrice("Steel", "NCR", $mProject);
-                $mSteelSouth = $this->iom->getAllParentProLastPrice("Steel", "South", $mProject);
-                $mSteelMumbai = $this->iom->getAllParentProLastPrice("Steel", "Mumbai", $mProject);
-                $mSteelPune = $this->iom->getAllParentProLastPrice("Steel", "Pune", $mProject);
+                $mSteelNcr = $this->iom->getAllParentProLastPrice("3", "NCR", $mProject);
+                $mSteelSouth = $this->iom->getAllParentProLastPrice("3", "South", $mProject);
+                $mSteelMumbai = $this->iom->getAllParentProLastPrice("3", "Mumbai", $mProject);
+                $mSteelPune = $this->iom->getAllParentProLastPrice("3", "Pune", $mProject);
 
                 $mLatestSteelPrice = array(
                     'NCR' => $mSteelNcr,
@@ -1052,10 +1214,10 @@ class Vendor extends CI_Controller {
                     'Pune' => $mSteelPune,
                 );
 
-                $mAluminiumNcr = $this->iom->getAllParentProLastPrice("Aluminium", "NCR", $mProject);
-                $mAluminiumSouth = $this->iom->getAllParentProLastPrice("Aluminium", "South", $mProject);
-                $mAluminiumMumbai = $this->iom->getAllParentProLastPrice("Aluminium", "Mumbai", $mProject);
-                $mAluminiumPune = $this->iom->getAllParentProLastPrice("Aluminium", "Pune", $mProject);
+                $mAluminiumNcr = $this->iom->getAllParentProLastPrice("1", "NCR", $mProject);
+                $mAluminiumSouth = $this->iom->getAllParentProLastPrice("1", "South", $mProject);
+                $mAluminiumMumbai = $this->iom->getAllParentProLastPrice("1", "Mumbai", $mProject);
+                $mAluminiumPune = $this->iom->getAllParentProLastPrice("1", "Pune", $mProject);
 
                 $mLatestAluminiumPrice = array(
                     'NCR' => $mAluminiumNcr,
@@ -1076,7 +1238,7 @@ class Vendor extends CI_Controller {
                     'latest_steel_price' => $mLatestSteelPrice,
                     'latest_aluminium_price' => $mLatestAluminiumPrice,
                 );
-                
+
                 //echo "<pre>";
                 //print_r($mResponseArray['latest_cement_price']['NCR']['uom_value']);
                 //exit;
@@ -1095,11 +1257,7 @@ class Vendor extends CI_Controller {
                 }
                 $mEscOrSavContracts = $mTotalFinalisedContracts - $mTotalBudgetContracts;
 
-                if ($mEscOrSavContracts > 0) {
-                    $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
-                } else {
-                    $mConAvg = ($mTotalBudgetContracts / $mEscOrSavContracts);
-                }
+                $mConAvg = ($mEscOrSavContracts / $mTotalBudgetContracts);
 
                 $mContractArray = array(
                     'a' => $mTotalBudgetContracts,
@@ -1204,11 +1362,11 @@ class Vendor extends CI_Controller {
             $mCountTow = 0;
             $mCuratedVendors = array();
             foreach ($mRecords as $key => $mRecord) {
-                
+
 //                echo "<pre>";
 //                print_r($mRecord);
 //                exit;
-                
+
                 $mCount++;
                 $mStageOneAdded = strtotime($mRecord['created_at']);
                 $mStageOneAdded = date("d-m-Y H:i:s", $mStageOneAdded);
@@ -1977,7 +2135,7 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
                 if ($mUpdate == true) {
                     if (count($mBuyersAccepted) == count($mBuyersApprovers)) {
                         $eoidata = array(
-                            'eoi_status' => 9,
+                            'eoi_status' => 11,
                             'eoi_date_updated' => date("Y-m-d H:i:s"),
                         );
                         $this->eoi->updateParentByKey($mEoiId, $eoidata);
@@ -2277,6 +2435,8 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
             $data['project'] = $this->projects->getParentByKey($mProjectId);
             if ($mZone) {
                 $data['records'] = $this->vendorlog->getAllParentByZone($mZone);
+                $data['projects'] = $this->projects->getAllParentByZone($mZone);
+                //print_r($data['projects']);exit;
                 $this->load->view('buyer/vendor_logs_others', $data);
             } else {
                 $data['records'] = $this->vendorlog->getAllParent();
@@ -2297,13 +2457,49 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
             $mStatus = $this->input->post('status');
             $mFrom = $this->input->post('from');
             $mTo = $this->input->post('to');
-            $data['records'] = $this->vendorlog->getAllParentByFilter($mZone, $mProject, $mStatus, $mFrom, $mTo);
+            $mCriticality = $this->input->post('criticality');
+            $data['records'] = $this->vendorlog->getAllParentByFilter($mZone, $mProject, $mStatus, $mFrom, $mTo, $mCriticality);
             $data['zone'] = $mZone;
             $data['project'] = $mProject;
             $data['status'] = $mStatus;
             $data['from'] = $mFrom;
             $data['to'] = $mTo;
+            $data['criticality'] = $mCriticality;
             $data['projects'] = $this->projects->getAllParentByZone($mZone);
+            if ($mZone) {
+                //$data['records'] = $this->vendorlog->getAllParentByZone($mZone);
+                $data['projects'] = $this->projects->getAllParentByZone($mZone);
+                //print_r($data['projects']);exit;
+                $this->load->view('buyer/vendor_logs_others', $data);
+            } else {
+                $data['records'] = $this->vendorlog->getAllParent();
+                $this->load->view('buyer/vendor_logs_others_all', $data);
+            }
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function viewAllVendorLogsFilterAll() {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        if ($mSessionKey) {
+            $data['home'] = "process";
+            $mZone = $this->input->post('zone');
+            $mProject = $this->input->post('project');
+            $mStatus = $this->input->post('status');
+            $mFrom = $this->input->post('from');
+            $mTo = $this->input->post('to');
+            $mCriticality = $this->input->post('criticality');
+            $data['records'] = $this->vendorlog->getAllParentByFilter($mZone, $mProject, $mStatus, $mFrom, $mTo, $mCriticality);
+            $data['zone'] = $mZone;
+            $data['project'] = $mProject;
+            $data['status'] = $mStatus;
+            $data['from'] = $mFrom;
+            $data['to'] = $mTo;
+            $data['criticality'] = $mCriticality;
+            $data['projects'] = $this->projects->getAllParentByZone($mZone);
+            //$data['records'] = $this->vendorlog->getAllParent();
             $this->load->view('buyer/vendor_logs_others_all', $data);
         } else {
             $this->load->view('index', $data);
@@ -2337,6 +2533,8 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
                 'vl_vendor' => $this->input->post('vl_vendor'),
                 'vl_date' => $this->input->post('vl_date'),
                 'vl_issue' => $this->input->post('vl_issue'),
+                'vl_pain' => $this->input->post('vl_pain'),
+                'vl_criticality' => $this->input->post('vl_criticality'),
                 'vl_date_added' => date("Y-m-d H:i:s"),
                 'vl_date_updated' => date("Y-m-d H:i:s"),
             );
@@ -2360,6 +2558,7 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
             $data = array(
                 'vl_status' => $this->input->post('vl_status'),
                 'vl_status_toggle' => $this->input->post('vl_status_toggle'),
+                'vl_criticality' => $this->input->post('vl_criticality'),
                 'vl_date_updated' => date("Y-m-d H:i:s"),
             );
             $mUpdate = $this->vendorlog->updateParentByKey($mId, $data);
@@ -2369,6 +2568,53 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
                 $this->session->set_flashdata('error', 'Something went wrong, Please try again later.');
             }
             redirect('buyer/vendor/vendorLogs/' . $mLog['vl_project'] . "/" . $mLog['vl_zone']);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function changeLogStatusForZone($mId, $mZone) {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        if ($mSessionKey && $mId) {
+            $mLog = $this->vendorlog->getParentByKey($mId);
+            $data = array(
+                'vl_status' => $this->input->post('vl_status'),
+                'vl_status_toggle' => $this->input->post('vl_status_toggle'),
+                'vl_criticality' => $this->input->post('vl_criticality'),
+                'vl_date_updated' => date("Y-m-d H:i:s"),
+            );
+            $mUpdate = $this->vendorlog->updateParentByKey($mId, $data);
+            if ($mUpdate == true) {
+                $this->session->set_flashdata('success', 'Status updated successfully.');
+            } else {
+                $this->session->set_flashdata('error', 'Something went wrong, Please try again later.');
+            }
+            $data['zone'] = $mZone;
+            redirect('buyer/vendor/viewAllVendorLogs/' . $mZone);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function changeLogStatusForZoneAll($mId) {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        if ($mSessionKey && $mId) {
+            $mLog = $this->vendorlog->getParentByKey($mId);
+            $data = array(
+                'vl_status' => $this->input->post('vl_status'),
+                'vl_status_toggle' => $this->input->post('vl_status_toggle'),
+                'vl_criticality' => $this->input->post('vl_criticality'),
+                'vl_date_updated' => date("Y-m-d H:i:s"),
+            );
+            $mUpdate = $this->vendorlog->updateParentByKey($mId, $data);
+            if ($mUpdate == true) {
+                $this->session->set_flashdata('success', 'Status updated successfully.');
+            } else {
+                $this->session->set_flashdata('error', 'Something went wrong, Please try again later.');
+            }
+            redirect('buyer/vendor/viewAllVendorLogs');
         } else {
             $this->load->view('index', $data);
         }
@@ -2583,6 +2829,7 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
         if ($mSessionKey) {
             $data['home'] = "process";
             $data['record'] = $this->projects->getParentByKey($mKey);
+            //print_r($data['record']);exit;
             $this->load->view('buyer/project_details', $data);
         } else {
             $this->load->view('index', $data);
@@ -2772,20 +3019,32 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
         if ($mSessionKey) {
             $data['home'] = "feedback";
             $data['mPrs'] = $this->buyer->getAllParentForPr();
-            if ($mSessionZone == "NCR") {
-                $mSessionZone = "North";
+            if ($mSessionZone == "HO") {
+                $mProjects = $this->projects->getAllParent();
+            } else {
+                $mProjects = $this->projects->getAllParentByZone($mSessionZone);
             }
-            $mPurchaseOrgs = $this->purchase_model->getAllParentByZone($mSessionZone);
-            $mCumulatedFeedbacks = array();
-            foreach ($mPurchaseOrgs as $key => $mPurchase) {
-                $mGetFeedbacks = $this->feedback->getAllParentByPurchase($mPurchase['porg_code']);
-                if (!empty($mGetFeedbacks)) {
-                    foreach ($mGetFeedbacks as $key => $value) {
-                        $mCumulatedFeedbacks[] = $value;
-                    }
+
+            $mTotalFeedbacks = 0;
+            $mTotalFeedbackForms = 0;
+            foreach ($mProjects as $key => $record) {
+                $mFeedbacks = $this->feedback->getAllParentByPurchase($record['project_purchase']);
+                if (!empty($mFeedbacks)) {
+                    $mTotalFeedbacks += count($mFeedbacks);
+                } else {
+                    $mTotalFeedbacks += 0;
+                }
+                $mFeedbackForms = $this->feedbackforms->getAllParentByPurchase($record['project_purchase']);
+                if (!empty($mFeedbackForms)) {
+                    $mTotalFeedbackForms += count($mFeedbackForms);
+                } else {
+                    $mTotalFeedbackForms += 0;
                 }
             }
-            $data['records'] = $mCumulatedFeedbacks;
+
+            $data['total_feedbacks'] = $mTotalFeedbacks;
+            $data['total_feedbackforms'] = $mTotalFeedbackForms;
+            $data['records'] = $mProjects;
             $this->load->view('buyer/feedback_buyer_list', $data);
         } else {
             $this->load->view('index', $data);
@@ -2960,9 +3219,11 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
 
     public function transferFeedbackToPm() {
         $mFeedbackId = $this->input->post('feedback_id');
+        $mSessionKey = $this->session->userdata('session_id');
         $mPrId = $this->input->post('pm');
         if ($mFeedbackId && $mPrId) {
             $userdata = array(
+                'feedback_transfer_from' => $mSessionKey,
                 'feedback_transfer' => $mPrId,
                 'feedback_transfer_date_added' => date('Y-m-d H:i:s'),
                 'feedback_date_updated' => date('Y-m-d H:i:s'),
@@ -3052,10 +3313,11 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
         $mSessionKey = $this->session->userdata('session_id');
         $mSessionZone = $this->session->userdata('session_zone');
         if ($mSessionKey) {
-
+            $mFeedback = $this->feedback->getParentByKey($mFeedbackId);
             $mData = array(
                 'feedback_id' => $mFeedbackId,
                 'pm_id' => $mSessionKey,
+                'ff_purchase' => $mFeedback['feedback_purchase'],
                 'ff_type' => $mVendorType,
                 'ff_vendor' => $this->input->post('ff_vendor'),
                 'ff_date' => $this->input->post('ff_date'),
@@ -3111,8 +3373,28 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
         $mSessionZone = $this->session->userdata('session_zone');
         if ($mSessionKey) {
             $data['home'] = "feedback";
-            $data['mPrs'] = $this->buyer->getAllParentForPr();
-            $data['records'] = $this->feedback->getParentByPmId($mSessionKey);
+            $mPms = $this->buyer->getAllParentForPr();
+            $mPets = $this->buyer->getAllPetZone();
+            $mCuratedPrs = array();
+            foreach ($mPms as $key => $value) {
+                $mCuratedPrs[] = $value;
+            }
+            foreach ($mPets as $key => $value) {
+                $mCuratedPrs[] = $value;
+            }
+            $data['mPrs'] = $mCuratedPrs;
+            $mProjects = $this->projects->getAllParentByZone($mSessionZone);
+            $mCurated = array();
+            foreach ($mProjects as $key => $mProject) {
+                $mSelectedPms = json_decode($mProject['project_pm']);
+                $mFeedbacks = $this->feedback->getAllParentByPurchase($mProject['project_purchase']);
+                foreach ($mFeedbacks as $key => $mFeedback) {
+                    if (in_array($mSessionKey, $mSelectedPms) || $mFeedback['feedback_transfer'] == $mSessionKey) {
+                        $mCurated[] = $mFeedback;
+                    }
+                }
+            }
+            $data['records'] = $mCurated;
             $this->load->view('buyer/feedback_list', $data);
         } else {
             $this->load->view('index', $data);
@@ -3347,6 +3629,30 @@ Request your approval for Bidder list of $mTowName for $mProjectName, $mSessionZ
                 }
             }
         } else if ($mTow == "61" || $mTow == "62" || $mTow == "63") {
+            $mGetTowsByFilter = $this->vendor->getTowsByFilter($mTow, "Finishing -", $mType);
+            foreach ($mGetTowsByFilter as $key => $mGetTow) {
+                foreach ($mVendors as $key => $mVendor) {
+                    if ($mVendor['type_of_work_id'] == $mGetTow['id']) {
+                        $mConsolidated[] = $mVendor;
+                    }
+                }
+            }
+            $mGetTowsByFilter = $this->vendor->getTowsByFilter($mTow, "MEP -", $mType);
+            foreach ($mGetTowsByFilter as $key => $mGetTow) {
+                foreach ($mVendors as $key => $mVendor) {
+                    if ($mVendor['type_of_work_id'] == $mGetTow['id']) {
+                        $mConsolidated[] = $mVendor;
+                    }
+                }
+            }
+            $mGetTowsByFilter = $this->vendor->getTowsByFilter($mTow, "Civil -", $mType);
+            foreach ($mGetTowsByFilter as $key => $mGetTow) {
+                foreach ($mVendors as $key => $mVendor) {
+                    if ($mVendor['type_of_work_id'] == $mGetTow['id']) {
+                        $mConsolidated[] = $mVendor;
+                    }
+                }
+            }
             $mGetTowsByFilter = $this->vendor->getVendorsByTow("61", $mType);
             foreach ($mGetTowsByFilter as $key => $mGetTow) {
                 foreach ($mVendors as $key => $mVendor) {
@@ -4154,6 +4460,60 @@ Godrej Properties Limited invite you to express your interest for participating 
             $data['bris'] = $this->bri->getAllParentByTowKey($data['eoi']['eoi_tow']);
             $data['fiis'] = $this->fii->getAllParentByTowKey($data['eoi']['eoi_tow']);
             $this->load->view('buyer/shortlisting_approval', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function shortlistApprovalManual() {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        if ($mSessionKey) {
+            $data['home'] = "short";
+            $data['mPrs'] = $this->buyer->getAllParentForPr();
+            $data['locations'] = $this->register->getLocation();
+            $mNature = 1;
+            $data['getTows'] = $this->register->get_type_of_work($mNature);
+            $data['records'] = $this->buyer->getAllParent();
+            $data['RCH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Regional C&P Head");
+            $data['PM'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Project Manager");
+            $data['PD'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Project Director");
+            $data['CH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Construction Head");
+            $data['OH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Operations Head");
+            $data['RH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Regional Head");
+            $data['ZH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Zonal CEO");
+            $data['COO'] = $this->buyer->getAllParentByZoneAndRole("HO", "COO");
+            $data['HO'] = $this->buyer->getAllParentByZoneAndRole("HO", "Head of Contracts & Procurement");
+            $data['bris'] = $this->bri->getAllParentByTowKey($data['eoi']['eoi_tow']);
+            $data['fiis'] = $this->fii->getAllParentByTowKey($data['eoi']['eoi_tow']);
+            $this->load->view('buyer/shortlisting_approval_manual', $data);
+        } else {
+            $this->load->view('index', $data);
+        }
+    }
+
+    public function shortlistApprovalManualProcurement() {
+        $mSessionKey = $this->session->userdata('session_id');
+        $mSessionZone = $this->session->userdata('session_zone');
+        if ($mSessionKey) {
+            $data['home'] = "short";
+            $data['mPrs'] = $this->buyer->getAllParentForPr();
+            $data['locations'] = $this->register->getLocation();
+            $mNature = 1;
+            $data['getTows'] = $this->register->get_type_of_work($mNature);
+            $data['records'] = $this->buyer->getAllParent();
+            $data['RCH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Regional C&P Head");
+            $data['PM'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Project Manager");
+            $data['PD'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Project Director");
+            $data['CH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Construction Head");
+            $data['OH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Operations Head");
+            $data['RH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Regional Head");
+            $data['ZH'] = $this->buyer->getAllParentByZoneAndRole($data['eoi']['eoi_zone'], "Zonal CEO");
+            $data['COO'] = $this->buyer->getAllParentByZoneAndRole("HO", "COO");
+            $data['HO'] = $this->buyer->getAllParentByZoneAndRole("HO", "Head of Contracts & Procurement");
+            $data['bris'] = $this->bri->getAllParentByTowKey($data['eoi']['eoi_tow']);
+            $data['fiis'] = $this->fii->getAllParentByTowKey($data['eoi']['eoi_tow']);
+            $this->load->view('buyer/shortlisting_approval_manual_procurement', $data);
         } else {
             $this->load->view('index', $data);
         }
@@ -6865,8 +7225,8 @@ Request you to complete Site visit report assigned to you for $mVendorName, unde
 //        $config['smtp_port'] = 25;
 //        $config['smtp_timeout'] = '60';
 //        $config['smtp_crypto'] = 'tsl';
-//        $config['smtp_user'] = EMAIL;
-//        $config['smtp_pass'] = EMAIL_PASSWORD;
+        $config['smtp_user'] = EMAIL;
+        $config['smtp_pass'] = EMAIL_PASSWORD;
         $config['charset'] = 'utf-8';
         $config['newline'] = "\r\n";
         $config['mailtype'] = 'html';

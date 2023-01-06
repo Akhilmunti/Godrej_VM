@@ -59,15 +59,6 @@
                                         ?>
                                         <div class="col-md-4">
                                             <?php if ($protype == "1") { ?>
-                <!--                                                <a href="<?php echo base_url('buyer/vendor/shortlistingProcurement/' . $project['project_id'] . "/" . $zone . "/" . $type . "/" . $for . "/" . $record['package_selected_id'] . "/" . "1"); ?>">
-                                                                <div class="box primary-gradient">
-                                                                    <div class="box-body p-30 text-center text-white">                                        
-                                                                        <h5 style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                <?php echo $record['name']; ?>
-                                                                        </h5>
-                                                                    </div>
-                                                                </div>
-                                                            </a>-->
                                                 <a href="#" data-toggle="modal" data-target="#modal-right-<?php echo $record['package_selected_id']; ?>">
                                                     <div class="box primary-gradient">
                                                         <div class="box-body p-30 text-center text-white">                                        
@@ -94,14 +85,14 @@
                                                                             <div class="box primary-gradient">
                                                                                 <div class="box-body p-10 text-center text-white">                                        
                                                                                     <h5>
-                                                                                        Shortlisting
+                                                                                        Bidder List
                                                                                     </h5>
                                                                                 </div>
                                                                             </div>
                                                                         </a>
                                                                     </div>
                                                                     <div class="col-md-12">
-                                                                        <a href="<?php  echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/{$record['package_selected_id']}") ?>">
+                                                                        <a href="<?php echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/{$record['package_selected_id']}") ?>">
                                                                             <div class="box primary-gradient">
                                                                                 <div class="box-body p-10 text-center text-white">                                        
                                                                                     <h5>
@@ -133,17 +124,24 @@
                                             <?php } ?>
                                         </div>
                                     <?php } ?>
-                                    <div class="col-md-4">
-                                        <a href="#" data-toggle="modal" data-target="#modal-right">
-                                            <div class="box box-info">
-                                                <div class="box-body p-30 text-center text-white">                                        
-                                                    <h5>
-                                                        Add New <span class="ti ti-plus"></span>
-                                                    </h5>
+                                    <?php
+                                    $mSessionRole = $this->session->userdata('session_role');
+                                    if ($mSessionRole == "PCM" || $mSessionRole == "Regional C&P Head" ||
+                                            $mSessionRole == "Regional C&P Team" || $mSessionRole == "HO - C&P" || $mSessionRole == "Head of contracts & procurement") {
+                                        ?>
+                                        <div class="col-md-4">
+                                            <a href="#" data-toggle="modal" data-target="#modal-right">
+                                                <div class="box box-info">
+                                                    <div class="box-body p-30 text-center text-white">                                        
+                                                        <h5>
+                                                            Add New <span class="ti ti-plus"></span>
+                                                        </h5>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
+                                            </a>
+                                        </div>
+                                    <?php } ?>
+
                                 </div>
 
                                 <!-- /.box -->
@@ -217,7 +215,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                            <a href='<?php  echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/$type") ?>'>
+                                <a href='<?php echo base_url("nfa/Award_procurement/award_recomm_procurement_list/{$project['project_id']}/$zone/$type") ?>'>
                                     <div class="box primary-gradient">
                                         <div class="box-body p-10 text-center text-white">                                        
                                             <h5>
@@ -242,11 +240,12 @@
         <script type="text/javascript">
 
             $('#works').on('change', function () {
-                if (this.value === "14" || this.value === "21" || this.value === "33" || this.value === "40") {
+                if (this.value === "73") {
                     $('#others').css('display', 'block');
                     $('#others').attr('required', 'required');
                 } else {
                     $('#others').css('display', 'none');
+                    $('#others').attr('required', false);
                 }
             });
 
