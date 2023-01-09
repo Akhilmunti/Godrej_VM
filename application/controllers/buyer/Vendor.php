@@ -567,6 +567,22 @@ class Vendor extends CI_Controller {
                 $data['getVendorsThisYear'] = $this->register->getAllActiveVendorsThisYearByZone($mSessionZone);
                 $data['actions'] = $this->eoi->getAllParentByZone($mSessionZone);
                 $data['iomdata'] = $this->getIomDashboardData($mSessionZone, $data['projects'][0]['project_id']);
+                $awdType = "Contract";               
+                $projects = $data['projects'];
+                $mProjectId = $projects[0]['project_id'];                
+                $pending_iom_arr = $this->awardRecommContract->getContractData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                if(is_array($pending_iom_arr))
+                    $data['pending_iom_count']= sizeof($pending_iom_arr);
+                else
+                    $data['pending_iom_count']=0;               
+                $awdType = "Procurement";
+                $pending_proc_iom_arr = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
+                if(is_array($pending_proc_iom_arr))
+                    $pending_proc_iom_count = sizeof($pending_proc_iom_arr);
+                else
+                    $pending_proc_iom_count = 0;
+                $data['pending_proc_iom_count']= $pending_proc_iom_count;
+                $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
                 $this->load->view('buyer/index_pcm', $data);
             } else if ($mSessionRole == "Zonal CEO" || $mSessionRole == "Regional Head" || $mSessionRole == "Operations Head" || $mSessionRole == "Construction Head" || $mSessionRole == "Regional C&P Team" || $mSessionRole == "Regional C&P Head") {
                 $data['projects'] = $this->projects->getAllParentByZone($mSessionZone);

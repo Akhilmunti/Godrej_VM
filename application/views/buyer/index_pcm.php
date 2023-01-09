@@ -427,7 +427,7 @@
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "3" . "/" . "Contracts"); ?>" class="btn btn-block btn-primary">
                                                         <span>
-                                                            Contracts
+                                                            Contracts <?php  if ($mSessionRole == "Project Director") { ?><span style="height: 22px;width:27px;border-radius:5px" class="badge bg-danger "><?php echo $pending_iom_count; ?></span> <?php } ?>
                                                         </span>
                                                     </a>
                                                     <br>
@@ -435,7 +435,7 @@
                                                 <div class="col-lg-6 text-center mb-2">
                                                     <a href="<?php echo base_url('buyer/vendor/selectWork/' . $mProjectId . "/" . $zone . "/" . "1" . "/" . "Procurement"); ?>" class="btn btn-block btn-primary">
                                                         <span>
-                                                            Procurement
+                                                            Procurement <?php  if ($mSessionRole == "Project Director") { ?><span style="height: 22px;width:27px;border-radius:5px" class="badge bg-danger "><?php echo $pending_proc_iom_count; ?></span><?php } ?>
                                                         </span>
                                                     </a>
                                                     <br>
@@ -471,11 +471,12 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-lg-12 text-center mb-2">
-                                                    <a href="#" class="btn btn-block btn-primary">
+                                                    <a href="<?php echo base_url('nfa/ListNfa/award_iom_list/'); ?>" class="btn btn-block btn-primary">
                                                         <span>
                                                             Award IOM 
                                                             <span class="badge badge-danger ml-2">
-                                                                <?php echo "23"; ?>
+                                                                <?php echo $pending_sum_count; ?>
+                                                                <?php //echo "23"; ?>
                                                             </span>
                                                         </span>
                                                     </a>
