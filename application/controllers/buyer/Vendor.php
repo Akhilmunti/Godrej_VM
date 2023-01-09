@@ -536,6 +536,7 @@ class Vendor extends CI_Controller {
                 else
                     $pending_proc_iom_count = 0;
                 $data['pending_proc_iom_count']= $pending_proc_iom_count;
+                $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "Project Execution Team") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);

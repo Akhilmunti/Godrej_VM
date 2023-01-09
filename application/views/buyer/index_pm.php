@@ -461,7 +461,7 @@
                                                         <span>
                                                             Award IOM
                                                             <span class="badge badge-danger ml-2">
-                                                                <?php echo "23"; ?>
+                                                                <?php //echo "23"; ?> <?php echo $pending_proc_iom_count; ?>
                                                             </span>
                                                         </span>
                                                     </a>
