@@ -231,55 +231,49 @@ class ListNfa extends CI_Controller {
             
 			$project_id = $this->input->post('project_id');			
 			$zone = $this->input->post('zone');
-            		$hd_type_work_id = $this->input->post('hd_type_work_id'); 
-
-
-            
-
+            $hd_type_work_id = $this->input->post('hd_type_work_id'); 
 			$hd_project_id = $this->input->post('hd_project_id');
 
-            		   if($project_id=='')
-                		$project_id= $hd_project_id;
+			if($project_id=='')
+				$project_id= $hd_project_id;
 			
                       			
 			$hd_zone = $this->input->post('hd_zone');
 
-            		if($zone=='')
-               		 $zone= $hd_zone;
+			if($zone=='')
+				$zone= $hd_zone;
+			
+			if($mSessionRole !="PCM"){
+				if( $nfaStatus == '')
+				{ $nfaStatus ='Pending' ;}
+				else{
+				$nfaStatus = $this->input->post('nfaStatus');			
 
-                        if($mSessionRole !="PCM"){
-                            if( $nfaStatus == '')
-                           { $nfaStatus ='Pending' ;}
-                           else{
-                            $nfaStatus = $this->input->post('nfaStatus');			
-
-                           }
-                        }
-                        if($mSessionRole =="PCM"){
-                            $nfaStatus ='All' ;
-                        }
+				}
+			}
+			if($mSessionRole =="PCM"){
+				$nfaStatus ='All' ;
+			}
 
            	$awdType = "All";
-                $data['hd_awdType'] = "All";
+            $data['hd_awdType'] = "All";
         	$data['project_id'] = $project_id;
-		$data['nfaStatus'] = $nfaStatus;
-          	$data['zone'] = $zone;
-            	$data['hd_awdType'] = $hd_awdType;
-           	$data['hd_project_id'] = $hd_project_id;
-		$data['hd_zone'] = $hd_zone;
-           	$data['hd_type_work_id'] = $hd_type_work_id;
-		$data['projects'] = $this->projects->getAllParent();
+			$data['nfaStatus'] = $nfaStatus;
+			$data['zone'] = $zone;
+			$data['hd_awdType'] = $hd_awdType;
+			$data['hd_project_id'] = $hd_project_id;
+			$data['hd_zone'] = $hd_zone;
+			$data['hd_type_work_id'] = $hd_type_work_id;
+			$data['projects'] = $this->projects->getAllParent();
 
             
-                $data1['Contract'] = $this->awardRecommContract->getContractData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
-                $data2['Procurement'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
-                
-                $data['records']=array_merge($data1,$data2);
-                // print_r($data);die;
-               
-				
-				$this->load->view('nfa/award_iom_listing', $data);
-			}
+			$data1['Contract'] = $this->awardRecommContract->getContractData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+			$data2['Procurement'] = $this->awardRecommProcurement->getProcurementData($awdType,$project_id,$hd_type_work_id,$nfaStatus,$zone);
+			
+			$data['records']=array_merge($data1,$data2);
+			
+			$this->load->view('nfa/award_iom_listing', $data);
+		}
 
     }
 	

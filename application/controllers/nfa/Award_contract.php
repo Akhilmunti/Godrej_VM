@@ -1035,7 +1035,7 @@ class Award_contract extends ListNfa
     public function award_recomm_contract_list($project_id='',$zone='',$type_work_id='')
     {
         $mSessionKey = $this->session->userdata('session_id');
-	$mSessionRole = $this->session->userdata('session_role');
+		$mSessionRole = $this->session->userdata('session_role');
 
 		$this->session->set_userdata('previous_url', current_url());
 		$pr_id = $this->uri->segment(4);
@@ -1047,6 +1047,7 @@ class Award_contract extends ListNfa
 			$data['hd_zone'] = $zone;
 			$data['hd_type_work_id'] = $type_work_id;
 			$data['hd_type_work_id'] = $type_work_id;
+			
 			if($mSessionRole=="PCM"){
 				$nfaStatus = '';
 			}else{
@@ -1056,9 +1057,9 @@ class Award_contract extends ListNfa
 			$data['projects'] = $this->projects->getAllParent();
            
 			$awdType = "Contract";
+			$data['nfaStatus'] = $nfaStatus;
 			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,$nfaStatus,$zone);
-			
-			
+					
             $this->load->view('nfa/award_contract/award_contract_listing', $data);
         } else {
             $this->load->view('index', $data);
