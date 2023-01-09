@@ -772,6 +772,7 @@ class Vendor extends CI_Controller {
                 $awdType = "Procurement";
                 $data['pending_proc_iom'] = $this->awardRecommProcurement->getProcurementData($awdType,$mProjectId,'','Pending',$mSessionZone);
                 $data['pending_proc_iom_count']= sizeof($data['pending_proc_iom']);
+                $data['pending_sum_count']=  $pending_iom_count+$pending_proc_iom_count;
                 $this->load->view('buyer/index_pm', $data);
             } else if ($mSessionRole == "PCM") {
                 $data['projects'] = $this->projects->getAllParentByZoneAndUser($mSessionZone);
