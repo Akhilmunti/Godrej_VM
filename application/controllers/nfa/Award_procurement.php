@@ -1865,9 +1865,7 @@ class Award_procurement extends ListNfa
 				$role = $valLevel->role;
 				$approver_id = $valLevel->approver_id;
 				
-				// $getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
-
-				if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
+				if($role=="HO - C&P" || $role=="Head of Contracts & Procurement" || $role=="COO" || $role=="Managing Director") 
 					$getUsers = $this->getRoleUsers_approval($role);
 				else
 					$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);

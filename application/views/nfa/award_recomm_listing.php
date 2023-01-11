@@ -2,13 +2,15 @@
 header("Cache-Control: no cache");
 session_cache_limiter("private_no_expire");
 $mSessionRole = $this->session->userdata('session_role');
-
+ 
 ?>
 <div class="row text-right mt-20">
-    <?php if($hd_awdType =="Contract"){?>
+
+    
+    <?php if($hd_awdType =="Contract" ){?>
 
         <div class="col-lg-12">
-        <?php if($mSessionRole=="PCM" )
+        <?php if($mSessionRole=="PCM")
         { ?>
             <a href="<?php echo base_url('nfa/Award_contract/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id" ); ?>">
             <button type="button" class="btn btn-primary border-secondary rounded mr-10" style="width:25%;">Create IOM</button>
@@ -17,7 +19,7 @@ $mSessionRole = $this->session->userdata('session_role');
         }
         ?>
 
-	<?php if( $mSessionRole=="Regional C&P Team" || $mSessionRole=="Regional C&P Head" || $mSessionRole=="HO - C&P" )
+        <?php if( $mSessionRole=="Regional C&P Team" || $mSessionRole=="Regional C&P Head" || $mSessionRole=="HO - C&P" || $mSessionRole=="Head of Contracts & Procurement")
         {  
              ?>
             <a href="<?php echo base_url('nfa/Award_contract/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id" ); ?>">
@@ -26,7 +28,6 @@ $mSessionRole = $this->session->userdata('session_role');
         <?php 
         }
         ?>
-
         <a href="<?php echo base_url('nfa/Award_contract/reports')?>">
         <button type="button" class="btn btn-primary border-secondary rounded" style="width:25%;">IOM Reports</button>
         </a>
@@ -40,13 +41,13 @@ $mSessionRole = $this->session->userdata('session_role');
         <?php if($mSessionRole=="PCM" )
         { ?>
             <a href="<?php echo base_url('nfa/Award_procurement/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id/$hd_protype" ); ?>">
-            <button type="button" class="btn btn-primary border-secondary rounded mr-10" style="width:25%;">Create IOM</button>
+            <button type="button" class="btn btn-primary border-secondary rounded mr-10" style="width:25%;"  >Create IOM</button>
             </a>
         <?php 
         }
         ?>
 
-	<?php if( $mSessionRole=="Regional C&P Team" || $mSessionRole=="Regional C&P Head" || $mSessionRole=="HO - C&P" )
+        <?php if( $mSessionRole=="Regional C&P Team" || $mSessionRole=="Regional C&P Head" || $mSessionRole=="HO - C&P" || $mSessionRole=="Head of Contracts & Procurement")
         { ?>
             <a href="<?php echo base_url('nfa/Award_procurement/actionAdd/' . $hd_project_id . "/$hd_zone/$hd_type_work_id/$hd_protype" ); ?>">
             <button type="button" class="btn btn-primary border-secondary rounded mr-10" style="width:25%;"  <?php if($hd_project_id == ''){  ?> hidden<?php }   ?> >Create IOM</button>
@@ -76,7 +77,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
             <div class='form-group'>
                 <label>Type</label>
                 <select id="awdType" name="awdType"  class="form-control">
-                    <option value="All" <?php echo ($awdType=="All") ? "selected": ""?>>All</option>                
+                    <option value="All" <?php echo ($awdType=="All") ? "selected": ""?>>All</option>                   
                     <option value="Contract" <?php echo ($awdType=="Contract") ? "selected": ""?>>Contract</option>
                     <option value="Procurement" <?php echo ($awdType=="Procurement") ? "selected": ""?>>Procurement</option>
                 
@@ -90,7 +91,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
     <div class="col-lg-3">
         <div class='form-group'>
             <label>Zone</label>
-            <select id="zone" name="zone" class="form-control">
+            <select id="zone" name="zone" class="form-control" >
                 <option value="">All</option>
                 <option value="NCR" <?php echo ($zone=="NCR") ? "selected": ""?>>NCR</option>
                 <option value="Mumbai" <?php echo ($zone=="Mumbai") ? "selected": ""?>>Mumbai</option>
@@ -110,25 +111,26 @@ if ($hd_project_id == null && $hd_type_work_id == null){
         <div class="col-lg-3">
             <div class='form-group'>
                 <label>Project Name</label>
-                 <select id="project_id" name="project_id" class="form-control">
+                <select id="project_id" name="project_id" class="form-control">
                     <option value="">All</option>
                     <?php foreach ($projects as $key => $pro) {?>
                         <!--  show project list according to zone -->                       
-                        <option
-				<?php
-                    			if ($project_id == $pro['project_id'] ) {
-                        		echo "selected";
-                   			 }
-                    		?>
-
-				 value="<?php echo $pro['project_id']; ?>"><?php echo $pro['project_name']; ?>
-			</option>                
+                        <option <?php
+                    if ($project_id == $pro['project_id'] ) {
+                        echo "selected";
+                    }
+                    ?>
+                        
+                        value="<?php echo $pro['project_id']; ?>"><?php echo $pro['project_name']; ?></option>                
                  <?php } ?>
                 </select>
             </div>
         </div>
         <?php 
-        }?>        
+        }?>
+
+
+        
        
 <?php }
 ?>
@@ -137,11 +139,12 @@ if ($hd_project_id == null && $hd_type_work_id == null){
                 <div class='form-group'>
                     <label>Status</label>
                     <select id="nfaStatus" name="nfaStatus" class="form-control">
-
-			<option value="" >All</option>
-                        <option value="Pending" <?php echo ($nfaStatus=="Pending") ? "selected": ""?> >Pending</option>                   
- 			<option value="Approved" <?php echo ($nfaStatus=="Approved") ? "selected": ""?>>Approved</option>
-
+                        
+			            <option value="" >All</option>
+                        <option  value="Pending" <?php echo ($nfaStatus=="Pending") ? "selected": ""?> >Pending</option>                     
+                        <option value="Approved" <?php echo ($nfaStatus=="Approved") ? "selected": ""?>>Approved</option>
+                        
+                        
                         <?php if($mSessionRole=="PCM")
                         { ?>
                         <option value="Draft" <?php echo ($nfaStatus=="Draft") ? "selected": ""?>>Draft</option>
@@ -155,12 +158,13 @@ if ($hd_project_id == null && $hd_type_work_id == null){
     
     
 </div>
+
 <div class="row ">
     <div class="col-lg-12 text-right">
-    <input type="hidden" name="hd_awdType" id="hd_awdType" value="<?php echo ($awdType) ? $awdType : $hd_awdType; ?>">
+        <input type="hidden" name="hd_awdType" id="hd_awdType" value="<?php echo ($awdType) ? $awdType : $hd_awdType; ?>">
         <input type="hidden" name="hd_project_id" id="hd_project_id" value="<?php echo $hd_project_id ?>">
         <input type="hidden" name="hd_zone" id="hd_zone" value="<?php echo $hd_zone ?>">
-	<input type="hidden" name="hd_protype" id="hd_protype" value="<?php echo $hd_protype ?>">
+	    <input type="hidden" name="hd_protype" id="hd_protype" value="<?php echo $hd_protype ?>">
         <input type="hidden" name="hd_type_work_id" id="hd_type_work_id" value="<?php echo $hd_type_work_id ?>">
         <button type="submit" name="filter" class="btn btn-primary border-secondary rounded font-weight-bold">Filter</button>
     </div>
@@ -187,7 +191,7 @@ if ($hd_project_id == null && $hd_type_work_id == null){
                     $("#project_id").find("option").remove();
                     $("#project_id").append($('<option></option>').val("").html('All'));
 
-                     $.each(arrayFromPHP, function( index, value ) {
+                  $.each(arrayFromPHP, function( index, value ) {
                         if(zone1  == value['project_zone'] ){        
                                 $("#project_id").append(
                                                 $('<option></option>').val(value['project_id']).html(value['project_name'])

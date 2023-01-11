@@ -759,10 +759,10 @@
         });
 
 
-        $(document).ready (function () {  
-            $("#nfaForm").validate();
+        // $(document).ready (function () {  
+        //     $("#nfaForm").validate();
             
-        });  
+        // });  
 
         let contrSel ;
 
@@ -1645,7 +1645,7 @@
     <script type="text/javascript" src="<?php echo base_url('assets/'); ?>js/nfa_scripts.js"></script>
    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script> -->
 </body>
 
 </html>

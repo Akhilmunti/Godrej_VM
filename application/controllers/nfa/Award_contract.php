@@ -1059,7 +1059,8 @@ class Award_contract extends ListNfa
 			$awdType = "Contract";
 			$data['nfaStatus'] = $nfaStatus;
 			$data['records'] = $this->awardRecommContract->getContractData($awdType,$project_id,$type_work_id,$nfaStatus,$zone);
-					
+			
+			
             $this->load->view('nfa/award_contract/award_contract_listing', $data);
         } else {
             $this->load->view('index', $data);
@@ -1984,13 +1985,12 @@ class Award_contract extends ListNfa
 				$role = $valLevel->role;
 				$approver_id = $valLevel->approver_id;
 
-				if($role=="HO - C&P" || $role=="COO" || $role=="Managing Director") 
+				if($role=="HO - C&P" || $role=="Head of Contracts & Procurement" || $role=="COO" || $role=="Managing Director") 
 					$getUsers = $this->getRoleUsers_approval($role);
 				else
 					$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
 				
-				//$getUsers = $this->getRoleUsers_approval($role,$mSessionZone);
-				
+								
 				$result_approvers .='<div id="pm" class="col-md-3 mb-3">
 				<lable>'.$role.'</lable>
 				<select name="approver_id[]"   class="form-control" required >
